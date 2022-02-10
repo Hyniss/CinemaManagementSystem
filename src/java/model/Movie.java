@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -118,6 +119,11 @@ public class Movie {
 
     public void setPremiere(Date premiere) {
         this.premiere = premiere;
+    }
+
+    public String getFormatedDate() {
+        String formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(premiere);
+        return formattedDate;
     }
 
     @Override

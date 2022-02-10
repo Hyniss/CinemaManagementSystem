@@ -83,8 +83,8 @@ body{
 }
 
 .title {
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 canvas{
     max-width: 100%;
@@ -95,6 +95,7 @@ canvas{
     color: #000;
     font-size: 30px;
     font-weight: 600;
+    font-family: Verdana, Arial, sans-serif;
     text-transform: uppercase;
     display: inline-block;
     position: relative;
@@ -151,23 +152,23 @@ canvas{
 }
 /*-------------------- TOP BTN --------------------*/
 #myTBTN {
-  width:57px;
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: #eb3b5a; /* Set a background color */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 15px; /* Some padding */
-  border-radius: 10px; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
+    width:57px;
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #eb3b5a; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
 }
 
 #myTBTN:hover {
-  background-color: #a5b1c2; /* Add a dark-grey background on hover */
+    background-color: #a5b1c2; /* Add a dark-grey background on hover */
 }
 

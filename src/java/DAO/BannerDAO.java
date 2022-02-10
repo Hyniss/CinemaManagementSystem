@@ -40,7 +40,6 @@ public class BannerDAO {
             }
         } catch (SQLException e) {
             Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
-
         } finally {
             DBContext.close(con, ps, rs);
         }

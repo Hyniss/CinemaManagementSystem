@@ -9,16 +9,18 @@
 <%@ page trimDirectiveWhitespaces="true" %> 
 <!DOCTYPE html>
 
-<div class="row m-0 p-0" style="background-color:lightgrey;">
-    <span id="promo" class="d-lg-block d-none">
+<div class="row m-0 p-0" style="background-color: #2E3293">
+    <span id="promo" class="d-lg-block d-none" style="color: #00FFFFFF">
         <marquee behavior="scroll" direction="left">Bùng nổ với năm Nhâm Dần 2022 !!!</marquee>
     </span>
 </div>
 
 <nav class="navbar main-navbar navbar-expand-lg navbar-light bg-light pt-0" id="navbar1">
-    <div class="container-fluid bg-light">
+    <div class="container-fluid" style="background-image: linear-gradient(#2E3192, #1BFFFF);" >
         <!-- LOGO -->
-        <a class="navbar-brand col-lg-2 offset-lg-2 logo" href="${pageContext.request.contextPath}/home"><img src="${pageContext.request.contextPath}/assets/img/logo.png"> </a>
+        <a class="navbar-brand col-lg-2 offset-lg-2 logo" href="${pageContext.request.contextPath}/home">
+            <img src="${pageContext.request.contextPath}/assets/img/logo.png">
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,7 +32,7 @@
                 <input type="hidden" name="page" value="1"/>
                 <input name="query" class="form-control me-2" type="search" placeholder="Search movie you want ..." aria-label="Search">
 
-                <button class="btn btn-danger" type="submit"><i class="fas fa-search" style="font-size: 100%;"></i></button>
+                <button class="btn btn-danger" type="submit"><i class="fas fa-search" style="font-size: 100%; "></i></button>
             </form>
             <ul class="navbar-nav me-auto ms-auto">                
 
@@ -105,9 +107,7 @@
                 <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/movie">Movie</a>
             </li>
             <li class="nav-item dropdown me-4">
-                <a class="nav-link dropdown-toggle d-inline-block" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Category
-                </a>
+                <a class="nav-link dropdown-toggle d-inline-block" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                     <li><h6 class="dropdown-header">Phim đang chiếu</h6></li>
@@ -116,18 +116,10 @@
                 </ul>
             </li>
             <li class="nav-item me-4">
-                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/PostControl">Post</a>
+                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/PostControl">Showtimes</a>
             </li>
-            <li class="nav-item dropdown me-4">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Blog
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/BlogList">All blog</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Spotlight</a></li>
-                    <li><a class="dropdown-item" href="#">Spotlight</a></li>
-                </ul>
+            <li class="nav-item me-4">
+                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/blog">Promotions</a>
             </li>
             <li class="nav-item me-4">
                 <a class="nav-link" href="#footer">Contacts Us</a>
