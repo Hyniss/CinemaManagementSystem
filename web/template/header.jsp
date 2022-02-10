@@ -136,7 +136,5 @@
     </div>
 </nav>
 <%-- NAV --%>
-
-
 <%-- Top Btn --%>
 <button onclick="topFunction()" id="myTBTN" title="Go to top"><i class="fas fa-arrow-up"></i></button>

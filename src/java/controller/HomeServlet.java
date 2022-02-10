@@ -43,7 +43,7 @@ public class HomeServlet extends HttpServlet {
         MovieDAO dao = new MovieDAO();
 
         //GET TOP 6 MOVIE FROM DB
-        ArrayList<Movie> listMovie = dao.getTop6Movie();
+        ArrayList<Movie> listMovie = dao.getAllMovie();
         request.setAttribute("listMovie", listMovie);
         BannerDAO bdao = new BannerDAO();
         ArrayList<Banner> banners = bdao.getAllBanner();
