@@ -56,7 +56,7 @@ public class MovieListController extends HttpServlet {
         MovieDAO mdao = new MovieDAO();
         Movie m = mdao.getMovieById(mid);
         request.setAttribute("movie", m);
-        request.getRequestDispatcher("movie_detail.jsp").forward(request, response);
+        request.getRequestDispatcher("MovieDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
