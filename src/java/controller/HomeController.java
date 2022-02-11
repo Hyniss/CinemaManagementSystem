@@ -5,8 +5,9 @@
  */
 package controller;
 
-import DAO.BannerDAO;
-import DAO.MovieDAO;
+
+import dao.BannerDAO;
+import dao.MovieDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;

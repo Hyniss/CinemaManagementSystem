@@ -45,17 +45,17 @@ public class PromotionDAO {
         return promotion;
     }
     
-    public ArrayList<Promotion> getAllPromotion(){
-        ArrayList<Promotion> list = new ArrayList<>();
-        try{
-            query = "SELECT * FROM dbo.Promotion";
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
-            
-            while (rs.next()){
-                list.add(new Promotion(0, query, query, query, date))
-            }
-        }
-    }
+//    public ArrayList<Promotion> getAllPromotion(){
+//        ArrayList<Promotion> list = new ArrayList<>();
+//        try{
+//            query = "SELECT * FROM dbo.Promotion";
+//            con = DBContext.getConnection();
+//            ps = con.prepareStatement(query);
+//            rs = ps.executeQuery();
+//            
+//            while (rs.next()){
+//                list.add(new Promotion(0, query, query, query, date))
+//            }
+//        }
+//    }
 }

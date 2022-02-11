@@ -5,8 +5,8 @@
  */
 package controller;
 
-import da.BannerDAO;
-import da.MovieDAO;
+
+import dao.MovieDAO;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
