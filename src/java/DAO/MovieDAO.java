@@ -75,6 +75,33 @@ public class MovieDAO {
         }
         return list;
     }
+    
+    public Movie getMovieById(int mId) {
+        try {
+            query = "SELECT * FROM dbo.Movie where movieId=?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, mId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Movie m = new Movie(rs.getInt("movieId"),
+                        rs.getString("movieName"),
+                        rs.getString("image"),
+                        rs.getString("categoryMovie"),
+                        rs.getString("describe"),
+                        rs.getString("trailer"),
+                        rs.getString("author"),
+                        rs.getString("actor"),
+                        rs.getString("duration"),
+                        rs.getDate("premiere")
+                );
+                return m;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();
@@ -82,5 +109,8 @@ public class MovieDAO {
         for (Movie o : list) {
             System.out.println(o);
         }
+        
+        Movie m = dao.getMovieById(7);
+        System.out.println(m);
     }
 }

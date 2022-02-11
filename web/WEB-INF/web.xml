@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>MovieListServlet</servlet-name>
-        <servlet-class>controller.MovieListServlet</servlet-class>
+        <servlet-class>controller.MovieListController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>

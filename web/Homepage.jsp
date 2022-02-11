@@ -86,7 +86,7 @@
                     <c:forEach var="o" items="${listMovie}">
                         <div class="col-md-3 mt-4" >
                             <div class="card card-custom h-100 shadow-sm"> 
-                                <a href="detail?pid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-cartbox-img" width="300px" height="444px"  object-fit= "cover"alt="..."></a>
+                                <a href="movie?mid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-cartbox-img" width="300px" height="444px"  object-fit= "cover"alt="..."></a>
                                 <a class="aa-add-card-btn" style="position: absolute" href="${o.getTrailer()}"><button>Play</button></a>
                                 <div class="card-body">
                                     <div class="clearfix mb-3 text-center"> 
@@ -98,8 +98,8 @@
                                         <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
                                     </div>
                                     <div class="text-center my-4 hover"> 
-                                        <a href="detail?pid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
-                                        <a href="detail?pid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
+                                        <a href="movie?mid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
+                                        <a href="detail?mid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
                                     </div>
                                     <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                                 </div>
