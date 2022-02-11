@@ -171,4 +171,323 @@ canvas{
 #myTBTN:hover {
     background-color: #a5b1c2; /* Add a dark-grey background on hover */
 }
+/*online booking layout*/
+.main-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px !important;    
+}
+.main{
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 80%;
+}
+@media only screen and (min-width: 1270px) {
+    .main {
+        width: 67.4%;
+    }
+}
+.col-main {
+    float: left;
+    width: 100%;
+}
+.co11-layout .col-main {
+    float: none;
+    margin: 0 auto;
+    padding:  0;
+}
+.col-main .booking-progress {
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    border: 2px solid #000;  
+}
+/*online booking title*/
+.col-main .page-title {
+    margin-top: 0px;
+    text-align: center;
+    padding: 10px;
+    background: #231d1c;
+    width: 100%;
+}
+.col-main .page-title h1{
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 32px;
+}
+/*top content: room info,date info*/
+.top-content  {
+    width: 100%;
+    padding: 14px 0px;
+    border-bottom:  2px solid #000;
+    background: #fff1ce;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.top-content .products-list{
+    width: 100%;
+    margin: 0px;
+}
+.top-content .products-list >li {
+    margin: 0;
+    width: 100%;
+}
+.products-list li{
+    list-style: none;
+    float: left;
+}
+.products-list > li {
+    padding-bottom: 20px;
+    margin-bottom:  20px;
+    border-bottom:  1px solid #ededed;
+}
+.products-list >li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.top-content .products-list .product-shop {
+    float: left;
+    padding: 0px;
+    width: 100%;
+}
+.products-list .product-shop{
+    float: right;
+    width: 66.66667%;
+    padding-left: 20px;
+}
+@media only screen and (min-width : 771px) {
+    .product-shop > div {
+        float: left;
+        width: 100%;
+    }
+}
+.products-list .product-shop .product-primary {
+    font-weight: bold;
+}
+.product-primary p{
+    margin: 0;
+}
+/*main content: label, seat map */
+.progress {
+    position: relative;
+    height: 550px;
+}
+.progress > li{
+    width: 100%;
+}
+
+.main-content .h2{
+    text-align: center;
+    width: 100%;
+    background: #bcbdc0;
+    font-size: 22px;
+    line-height: 32px;
+    border-top: 2px solid #d4d3c9; 
+    border-bottom: 2px solid #d4d3c9; 
+}
+.screen {
+    width: 100%;
+    min-height: 60px;
+    margin: 20px auto 50px;
+    text-align: center;
+    background: url(../img/bg-screen.png) no-repeat top center transparent;
+    background-size: 100% auto;
+}
+.text-screen {
+    display: none;
+}
+/*seat layout*/
+.seat-map {
+    margin: 0 auto;
+}
+.seat-map td input {
+    position: absolute !important;
+    left: -9999px !important;
+}
+/*seats are not checked*/
+.seat-map td .seat__label{
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 18px;
+    color: #eb3b5a;
+}
+
+.seat-map td input:checked ~ label,
+.seat-map:not(:checked) td .seat__label:hover,
+.seat-map:not(:checked) td .seat__label:hover ~ .seat__label{
+    color: #000;
+}
+
+.submit-btn {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+}
+.submit-btn input{
+    margin: 0 auto;
+}
+/*seat info*/
+.ticketbox-notice {
+    margin-top: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+.iconlist{
+    display: inline-block;
+    min-width: 25%;
+    vertical-align: top;
+}
+.icon {
+    text-align: left;
+    margin: 5px 0;
+    font-weight: bold;
+}
+.icon i{
+    font-size: 15px;
+    margin: 0 5px 5px 0;
+}
+.iconlist .available i{
+    color: #eb3b5a;
+}
+.iconlist .unavaiable i{
+    color: #a5b1c2;
+}
+/*bottom content: movie ticket info*/
+.bottom-content{
+    background-color: #000;
+    width: 100%;
+    margin-top: 3px; 
+    text-align: center;
+}
+
+.format-bg-top{
+    width: 100%;
+    background: url(../img/bg-top-seatmap.png)repeat-x top left transparent;
+    height: 8px;
+    overflow: hidden;
+}
+/*button prveious, next*/
+.btn-pre-left, .btn-next-right{
+    float: none;
+    width: 106px;
+    display: inline-block;
+    height: 106px;
+    vertical-align: top;
+    background: url(../img/bg-cgv-button-process.png) no-repeat; 
+}
+
+.btn-pre-left{
+    margin-top: 14px;
+    background-position: -152px 0;
+}
+.btn-next-right{
+    margin-top: 14px;
+    background-position: -152px -441px;
+}
+/*movie ticket info*/
+.minicart{
+    font-size: 0;
+    color: #cccccc;
+    width: 70%;
+    text-align: left;
+    display: inline-block;
+    margin: 0 3px;
+}
+.minicart ul {
+    width: 100%;
+}
+.minicart .item{
+    display: inline-block;
+    width: 32%;
+    margin-left: 1%;
+    font-size: 12px;
+}
+.minicart .product-details{
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 10px;
+}
+.minicart ul .item.first .product-details{
+    margin: 0px;
+}
+.minicart img{
+    width: 74px;
+    height: 108px;
+    display: inline-block;
+}
+.info-wrapper{
+    color: #cccccc;
+    font-size: 15px;
+    line-height: 18px;
+}
+.info-wrapper td {
+    padding: 0 5px;
+    white-space: normal;
+    vertical-align: top;
+}
+.block-box .price{
+    font-weight: bold;
+}
+@media only screen and (max-width: 970px) {
+    .minicart{
+        height: 237px;
+    }
+    .btn-pre-left, .btn-next-right {
+        position: absolute;
+        bottom: 12px;
+    }
+    .btn-pre-left{
+        left: 12%;
+    }
+    .btn-next-right{
+        right: 12%;
+    }
+    .minicart{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 690px) {
+    .minicart{
+        height: 477px;
+    }
+    .btn-pre-left, .btn-next-right {
+        position: absolute;
+        bottom: 12px;
+    }
+    .btn-pre-left{
+        left: 12%;
+    }
+    .btn-next-right{
+        right: 12%;
+    }
+    .minicart{
+        width: 100%;
+    }
+    .minicart .item:first-child{
+        width: 32%;
+        margin-left: 1%;
+        font-size: 12px;
+    }
+    .minicart .item:nth-child(2){
+        position: absolute;
+        bottom: 239px;
+        left: 16%;
+        width: 60%;
+    }
+    .minicart .item:nth-child(3){
+        position: absolute;
+        bottom: 145px;
+        left: 16%;
+        width: 60%;
+    }
+}
+.format-bg-bottom{
+    width:100%;
+    background: url(../img/bg-bottom-seatmap.png) repeat-x bottom left transparent;
+    height: 8px;
+    overflow: hidden;
+}
 
