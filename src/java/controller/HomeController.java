@@ -20,7 +20,7 @@ import model.Movie;
  *
  * @author Bảo Châu Bống
  */
-public class HomeServlet extends HttpServlet {
+public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
