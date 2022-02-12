@@ -263,9 +263,6 @@ canvas{
         width: 100%;
     }
 }
-.products-list .product-shop .product-primary {
-    font-weight: bold;
-}
 .product-primary p{
     margin: 0;
 }
@@ -274,6 +271,103 @@ canvas{
     position: relative;
     height: 550px;
 }
+
+/*food*/
+.food {
+    position: relative;
+    min-height: 860px;
+}
+.main-content .products-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.main-content .products-list li.item{
+    width: 42%;
+}
+.products-list .product-shop .product-primary {
+    font-weight: bold;
+}
+.products-list .item .combo-image{
+    width: 33%;
+    float: left;
+} 
+.price-box{
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+.price-box .label{
+    font-size: 17px;
+    font-weight: bold;
+}
+.price-box .price{
+    font-size: 17px;
+    font-weight: bold;
+}
+@media only screen and (max-width : 1000px) {
+    .food {
+        position: relative;
+        min-height: 900px;
+    }
+}
+@media only screen and (max-width : 860px) {
+    .food {
+        position: relative;
+        min-height: 960px;
+    }
+}
+@media only screen and (max-width : 790px) {
+    .food {
+        position: relative;
+        min-height: 1500px;
+    }
+    .main-content .products-list {
+        flex-direction: column;
+    }
+    .main-content .products-list li.item{
+        width: 100%;
+    }
+    .products-list .item .combo-image{
+        width: 33%;
+        float: left;
+    } 
+}
+@media only screen and (max-width : 540px) {
+    .food {
+        position: relative;
+        min-height: 1870px;
+    }
+    .main-content .products-list {
+        flex-direction: column;
+    }
+    .main-content .products-list li.item{
+        width: 100%;
+    }
+    .products-list .item .combo-image{
+        width: 33%;
+        float: left;
+    } 
+}
+.product-choose{
+    display: flex;
+    flex-direction: row;
+}
+.product-choose a{
+    padding: 0 10px 0 10px;
+}
+.product-choose input{
+    width: 50px !important;
+    height: 24px;
+    text-align: center;
+    font-size: 14px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*end food*/
 .progress > li{
     width: 100%;
 }
