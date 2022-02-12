@@ -6,7 +6,15 @@
     </servlet>
     <servlet>
         <servlet-name>MovieListController</servlet-name>
-        <servlet-class>controller.MovieListController</servlet-class>
+        <servlet-class>controller.MovieViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountViewController</servlet-name>
+        <servlet-class>controller.AccountViewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccountEditController</servlet-name>
+        <servlet-class>controller.AccountEditController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>MovieListController</servlet-name>
         <url-pattern>/movie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountViewController</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountEditController</servlet-name>
+        <url-pattern>/accountedit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
