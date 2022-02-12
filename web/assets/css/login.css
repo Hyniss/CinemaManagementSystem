@@ -1,0 +1,124 @@
+/* reset css */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg,#71b7e6,#9b59b6);
+   
+
+}
+
+#container{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+
+#form-login{
+    max-width: 450px;
+    background-color: rgba(0,0,0,0.8);
+    flex-grow: 1;
+    padding: 30px 30px 40px;
+    box-shadow: 0px 0px 17px 2px rgba(255,255,255,0.8);
+    margin-bottom:50px ;
+}
+
+.form-heading {
+    font-size: 25px;
+    color: #f5f5f5;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    border-bottom: 1px solid #f5f5f5;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.form-input {
+    background-color: transparent;
+    border: 10px;
+    outline: 0;
+    color: #fff;
+    flex-grow: 1;
+} 
+
+.form-input::placeholder {
+    color: #fff;
+}
+
+.form-submit{
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    width: 100%;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    padding: 8px;
+    transition: 0.25s ease-in-out;
+    margin-top: 30px;
+}
+
+.form-submit:hover{
+    border:1px solid #54a0ff;
+    cursor: pointer;
+}
+
+.form-question{
+    color: #eeecec;
+    font-weight: 400;
+    text-align: center;
+}
+
+.form-question a{
+    color: rgb(206, 33, 33);
+    text-decoration: none;
+}
+
+.form-icon{
+    color: #fff;
+    padding:0 5px 5px 2px;
+    
+}
+
+#eye{
+    cursor: pointer;
+}
+
+.form-save{
+    color:#fff;
+}
+
+.form-save input{
+    margin-right: 3px;
+}
+
+.form-save a{
+    color: #54a0ff;
+    text-decoration: none;
+    float: right;
+}
+
+.home{
+    padding: 5px;
+    background-color: rgb(91 48 119 / 68%);
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 15px #000;
+    position: fixed;
+    margin: 15px;
+    font-weight: 500;
+}
+
+.home a{
+    color: #fff;
+    text-decoration: none;
+}

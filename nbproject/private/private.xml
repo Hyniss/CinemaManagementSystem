@@ -3,9 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP/Desktop/SWP391/CinemaManagementSystem/src/java/dao/MovieDAO.java</file>
-            <file>file:/C:/Users/HP/Desktop/SWP391/CinemaManagementSystem/src/java/dao/DBContext.java</file>
-            <file>file:/C:/Users/HP/Desktop/SWP391/CinemaManagementSystem/src/java/controller/EditAccountController.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/template/header.jsp</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/SignUpController.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/dao/AccountDAO.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/Login.jsp</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/LogOutController.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/LoginController.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/Register.jsp</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/HomeController.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/EditAccountController.java</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/ChangePassword.jsp</file>
+            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/ChangePasswordController.java</file>
         </group>
     </open-files>
 </project-private>

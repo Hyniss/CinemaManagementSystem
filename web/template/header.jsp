@@ -63,32 +63,39 @@
                         <i class="fas fa-user-circle"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <c:if test ="${sessionScope.user !=  null}">
+                        <c:if test ="${sessionScope.acc !=  null}">
                             <!-- Default -->
-                            <li><span class="dropdown-item-text">Hello ${user.getUserName()}</span></li>
+                            <li><span class="dropdown-item-text">Hello ${acc.getUsername()}</span></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ProfileControl">View profile</a></li>  
                             <!-- Admin -->
-                            <c:if test="${sessionScope.user.roleID ==  1}">
+                            <c:if test="${sessionScope.acc.roleId ==  1}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AccountManagerControl">Manage Staff</a></li>
                                 </c:if>
                             <!-- Staff -->
-                            <c:if test="${sessionScope.user.roleID ==  2}">
+                            <c:if test="${sessionScope.acc.roleId  ==  2}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Dashboard">DashBoard</a></li>
                                 </c:if>
                             <!-- Marketing -->
-                            <c:if test="${sessionScope.user.roleID ==  4}">
+                            <c:if test="${sessionScope.acc.roleId  ==  4}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mkt/banner">Manage Banner</a></li>
                                 </c:if>
-
+                                
+                            <!-- Change password -->
+                            
+                            <li><a class="dropdown-item" href="ChangePassword.jsp">Change password</a></li>
+                            
                             <!-- Default Logout -->
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="logout">Logout</a></li>
+                            
                             </c:if>
+                            
                         <!-- Neu khong co user -->
-                        <c:if test ="${sessionScope.user ==  null}">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login/Register</a></li>
+                        <c:if test ="${sessionScope.acc ==  null}">
+                            <li><a class="dropdown-item" href="Login.jsp">Login</a></li>
+                            <li><a class="dropdown-item" href="Register.jsp">Regiter</a></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AboutCinema.jsp">About Cinema</a></li>
-                            </c:if>
+                        </c:if>
                     </ul>
                 </li>
             </ul>

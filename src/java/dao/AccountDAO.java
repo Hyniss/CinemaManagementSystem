@@ -106,4 +106,98 @@ public class AccountDAO {
         Account a = dao.getAccountByUsername("tranvietdanhthai");
         System.out.println(a);
     }
+    
+    //hàm đăng nhập
+     public Account login(String user, String pass) {
+
+        query = "select * from account where username = ? and password = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            ps.setString(2, pass);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Account(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    //check xem tài khoản có tồn tại ko
+    public Account checkAccountExist(String user) {
+
+        query = "select * from account where username = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    //hàm kiểm tra xem mật khẩu của tài khoản này có đúng ko nếu đúng thì mới cho đổi mật khẩu
+    public Account checkPassword(String user,String pass) {
+
+        query = "select * from account where username = ? and password=?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            ps.setString(2, pass);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    //hàm đăng ký
+    public void signup(String user,String pass,String fullname,String dob,String email,String phone){
+        query= "insert into account values(?,?,null,?,?,?,?,3)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            ps.setString(2, pass);
+            ps.setString(3, fullname);
+            ps.setString(4, dob);
+            ps.setString(5, email);
+            ps.setString(6, phone);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+          
+    }
+    
+    //hàm change mật khẩu
+    public void changePassword(String newpass,String oldpass,String user){
+        query="update account set password=? where username=? and password=? ";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, newpass);
+            ps.setString(2, user);
+            ps.setString(3, oldpass);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 }
