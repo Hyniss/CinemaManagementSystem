@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
         <!-- bootstrap & fontawesome -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+       
         <link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
 
         <!-- page specific plugin styles -->
@@ -30,31 +30,42 @@
         <link rel="stylesheet" href="assets/css/datepicker.min.css" />
 
         <!-- ace styles -->
-        <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+       
 
-        <!--[if lte IE 9]>
-                <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
-        <![endif]-->
-
-        <!--[if lte IE 9]>
-          <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-        <![endif]-->
-
-        <!-- inline styles related to this page -->
-
-        <!-- ace settings handler -->
-        <script src="assets/js/ace-extra.min.js"></script>
-
-        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-        <!--[if lte IE 8]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
+       
+      
+      <!-- icon -->
+        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+        <!-- link Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet"
+            />
+        <!--BOOTSTRAP5-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+            />
+        <!--FONTAWESOME-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+            />
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+       
     </head>
 
     <body class="no-skin">         
-
+<%@include file="template/header.jsp" %>
         <div class="main-container" id="main-container">
             
             

@@ -63,6 +63,8 @@
                                 </form>
                             </div>
                         </div>
+                        <br>
+                        
                         <div class="cart-content mt-3">
                             <div class="format-bg-top"></div> 
                             <div class="minicart">
@@ -114,6 +116,11 @@
                                                         <td class="label">Phòng</td>
                                                         <td style="font-weight: bold;font-size:16px;">Room 2<td>
                                                     </tr>
+                                                
+                                                    <tr>
+                                                        <td class="label">Ghế</td>
+                                                        <td style="font-weight: bold;font-size:16px;">D6<td>
+                                                    </tr>
                                                 </tbody>
                                             </table> 
                                         </div>
@@ -133,101 +140,56 @@
                                                         <td class="price">: 1</td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="format-bg-bottom"></div>           
-                        </div>
-
-                        <div class="cart-content mt-3">
-                            <div class="format-bg-top"></div> 
-                            <div class="minicart">
-                                <ul>
-                                    <li class="item first">
-                                        <div class="product-details">
-                                            <table class ="info-wrapper">
-                                                <colgroup>
-                                                    <col width="40%">
-                                                    <col>
-                                                </colgroup>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <img src="https://salt.tikicdn.com/cache/525x525/ts/product/45/94/d2/f157266d5964ee9dd2c0b9ddc44ddb4a.jpg" class="rounded">
-                                                        </td>
-                                                        <td>
-                                                            <table>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td class="label text-uppercase"> Nước ngọt </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>  
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <div class="product-details">
-                                            <table class ="info-wrapper">
-                                                <colgroup>
-                                                    <col width="30%">
-                                                    <col>
-                                                </colgroup>
-                                            </table> 
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <div class="product-details">
-                                            <table class ="info-wrapper">
-                                                <thead>
+                                                 <thead>
                                                     <tr class="block-box" style="height: 24px">
-                                                        <td class="label">Giá</td>
+                                                        <td class="label">Combo</td>
                                                         <td class="price">: 55,000 vnđ</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
-                                                        <td class="label"> Số lượng </td>
+                                                        <td class="label">Số lượng</td>
                                                         <td class="price">: 1</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            
                                         </div>
                                     </li>
                                 </ul>
+                                
                             </div>
                             <div class="format-bg-bottom"></div>           
                         </div>
+
+                     <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
+                            <span>Back<i class="fa fa-long-arrow-right ml-1"></i></span>
+                        </button>
                     </div>
                 </div>
 
                 <div class="col-md-4" style="background:#fff1ce">
                     <div class="payment-info">
-                        <div class="d-flex justify-content-between align-items-center"></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
-                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://developers.momo.vn/v3/vi/assets/images/square-8c08a00f550e40a2efafea4a005b1232.png" /></span> </label>
-                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZPbSE5ssowAn0vChY-R7E6xfjG3TeNe5k9xcGaA9G5DnNX_v5YpC9ozQ0-sr4WBIkME&usqp=CAU" /></span> </label>
-                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanuAdlL4DpFARUlwfObpts-eSlnfhXdETpaWcnevAOcOmkrG8-7kZ9N2c1kERrxLx_uc&usqp=CAU" /></span> </label>
-                        <div><label class="credit-card-label">Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name"></div>
-                        <div><label class="credit-card-label">Card number</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
-                        <div class="row">
-                            <div class="col-md-6"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
-                            <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
-                        </div>
+                       
+                        <div class="d-flex justify-content-between align-items-center"><span>Card details</span></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> Thanh toán với VISA </label>
+                        
+                        <br>
+                        <br>
+                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://developers.momo.vn/v3/vi/assets/images/square-8c08a00f550e40a2efafea4a005b1232.png" /></span>  Thanh toán với MOMO </label> 
+                        <br>
+                        <br>
+                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZPbSE5ssowAn0vChY-R7E6xfjG3TeNe5k9xcGaA9G5DnNX_v5YpC9ozQ0-sr4WBIkME&usqp=CAU" /></span> Thanh toán với ViettelPay</label>
+                        <br>
+                                <br>
+                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanuAdlL4DpFARUlwfObpts-eSlnfhXdETpaWcnevAOcOmkrG8-7kZ9N2c1kERrxLx_uc&usqp=CAU" /></span> Thanh toán với thẻ ngân hàng </label>
                         <hr class="line">
                         <div class="d-flex justify-content-between information">
                             <span>Subtotal</span><span>$3000.00</span>
                         </div>
-                        <div class="d-flex justify-content-between information">
-                            <span>Sale</span><span>$20.00</span>
-                        </div>
+                        
                         <div class="d-flex justify-content-between information">
                             <span>Total(Incl. taxes)</span><span>$2980.00</span>
-                        </div>
+                            </div>
                         <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
                             <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
                         </button>
