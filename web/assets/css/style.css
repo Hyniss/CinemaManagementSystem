@@ -333,7 +333,7 @@ canvas{
         float: left;
     } 
 }
-@media only screen and (max-width : 540px) {
+@media only screen and (max-width : 690px) {
     .food {
         position: relative;
         min-height: 1870px;
@@ -526,7 +526,7 @@ input::-webkit-inner-spin-button {
     font-weight: bold;
 }
 @media only screen and (max-width: 970px) {
-    .minicart{
+    .bottom-content .minicart{
         height: 237px;
     }
     .btn-pre-left, .btn-next-right {
@@ -539,12 +539,12 @@ input::-webkit-inner-spin-button {
     .btn-next-right{
         right: 12%;
     }
-    .minicart{
+    .bottom-content .minicart{
         width: 100%;
     }
 }
 @media only screen and (max-width: 690px) {
-    .minicart{
+    .bottom-content .minicart{
         height: 477px;
     }
     .btn-pre-left, .btn-next-right {
@@ -557,21 +557,21 @@ input::-webkit-inner-spin-button {
     .btn-next-right{
         right: 12%;
     }
-    .minicart{
+    .bottom-content .minicart{
         width: 100%;
     }
-    .minicart .item:first-child{
+    .bottom-content .minicart .item:first-child{
         width: 32%;
         margin-left: 1%;
         font-size: 12px;
     }
-    .minicart .item:nth-child(2){
+     .bottom-content .minicart .item:nth-child(2){
         position: absolute;
         bottom: 239px;
         left: 16%;
         width: 60%;
     }
-    .minicart .item:nth-child(3){
+    .bottom-content .minicart .item:nth-child(3){
         position: absolute;
         bottom: 145px;
         left: 16%;
@@ -584,4 +584,28 @@ input::-webkit-inner-spin-button {
     height: 8px;
     overflow: hidden;
 }
+
+.cart-content{
+    background-color: #000;
+    width: 100%;
+    margin-top: 3px; 
+    text-align: center;
+}
+/*movie ticket info*/
+.cart-content .minicart{
+    font-size: 0;
+    color: #cccccc;
+    width: 100%;
+    text-align: left;
+    display: inline-block;
+    margin: 0 3px;
+}
+
+.format-bg-bottom{
+    width:100%;
+    background: url(../img/bg-bottom-seatmap.png) repeat-x bottom left transparent;
+    height: 8px;
+    overflow: hidden;
+}
+
 

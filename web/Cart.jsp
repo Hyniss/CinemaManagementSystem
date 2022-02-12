@@ -8,14 +8,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cart Page</title>
-        <link rel="stylesheet" href="assets/css/cart.css" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" />
-             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1" />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1" />
         <!-- icon -->
         <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
         <!-- link Fonts -->
@@ -43,71 +38,214 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
-        <!-- Sakura -->
-        <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
+        <title>Amazing Cinema</title>
     </head>
     <body>
-         <%@include file="template/header.jsp" %>
-<div class="container mt-5 p-3 rounded cart">
-    <div class="row no-gutters">
-        <div class="col-md-8">
-            <div class="product-details mr-2">
-                <div class="d-flex flex-row align-items-center"><i class="fa fa-long-arrow-left"></i><span class="ml-2">Continue Shopping</span></div>
-                <hr>
-                <h6 class="mb-0">Shopping cart</h6>
-                <div class="d-flex justify-content-between"><span>You have 4 items in your cart</span>
-                    <div class="d-flex flex-row align-items-center"><span class="text-black-50">Sort by:</span>
-                        <div class="price ml-2"><span class="mr-1">price</span><i class="fa fa-angle-down"></i></div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                    <div class="d-flex flex-row"><img class="rounded" src="https://image.thanhnien.vn/w660/Uploaded/2022/aovunuk/2021_04_15/ff9_optimisedcharactergroupposters_ov_4x5_bwme.jpg" width="40">
-                        <div class="ml-2"><span class="font-weight-bold d-block">Fast and furious 9</span><span class="spec">Ghế: B1</span></div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center"><span class="d-block">1</span><span class="d-block ml-5 font-weight-bold">$900</span><i class="fa fa-trash-o ml-3 text-black-50"></i></div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                    <div class="d-flex flex-row"><img class="rounded" src="https://baotinhhoa.com/wp-content/uploads/2019/09/spider-man-2-nguoi-nhen-xa-nha-2.jpg" width="40">
-                        <div class="ml-2"><span class="font-weight-bold d-block">Spider Man:Far From Home</span><span class="spec">Ghế: B2</span></div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center"><span class="d-block">1</span><span class="d-block ml-5 font-weight-bold">$900</span><i class="fa fa-trash-o ml-3 text-black-50"></i></div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                    <div class="d-flex flex-row"><img class="rounded" src="https://png.pngtree.com/element_our/20190602/ourlarge/pngtree-a-bucket-of-crispy-popcorn-illustration-image_1407624.jpg" width="40">
-                        <div class="ml-2"><span class="font-weight-bold d-block">Bỏng Ngô</span><span class="spec">Đồ ăn</span></div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center"><span class="d-block">1</span><span class="d-block ml-5 font-weight-bold">$800</span><i class="fa fa-trash-o ml-3 text-black-50"></i></div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
-                    <div class="d-flex flex-row"><img class="rounded" src="https://salt.tikicdn.com/cache/525x525/ts/product/45/94/d2/f157266d5964ee9dd2c0b9ddc44ddb4a.jpg" width="40">
-                        <div class="ml-2"><span class="font-weight-bold d-block">Coca</span><span class="spec">Nước uống</span></div>
-                    </div>
-                    <div class="d-flex flex-row align-items-center"><span class="d-block">1</span><span class="d-block ml-5 font-weight-bold">$999</span><i class="fa fa-trash-o ml-3 text-black-50"></i></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="payment-info">
-                <div class="d-flex justify-content-between align-items-center"><span>Card details</span></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
-                <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://developers.momo.vn/v3/vi/assets/images/square-8c08a00f550e40a2efafea4a005b1232.png" /></span> </label>
-                <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZPbSE5ssowAn0vChY-R7E6xfjG3TeNe5k9xcGaA9G5DnNX_v5YpC9ozQ0-sr4WBIkME&usqp=CAU" /></span> </label>
-                <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanuAdlL4DpFARUlwfObpts-eSlnfhXdETpaWcnevAOcOmkrG8-7kZ9N2c1kERrxLx_uc&usqp=CAU" /></span> </label>
-                <div><label class="credit-card-label">Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name"></div>
-                <div><label class="credit-card-label">Card number</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
-                <div class="row">
-                    <div class="col-md-6"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
-                    <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
-                </div>
-                <hr class="line">
-                <div class="d-flex justify-content-between information"><span>Subtotal</span><span>$3000.00</span></div>
-                <div class="d-flex justify-content-between information"><span>Sale</span><span>$20.00</span></div>
-                <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>$2980.00</span></div><button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button"><span>$2980.00</span><span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span></button>
-            </div>
-        </div>
-    </div>
-</div>
+        <%@include file="template/header.jsp" %>
+        <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
+            <div class="row no-gutters">
+                <div class="col-md-8">
+                    <div class="product-details mr-2">
+                        <div class="booking-progress">
+                            <div class="page-title">
+                                <h1>Booking online</h1>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-0">Shopping cart</h6>
+                        <div class="d-flex justify-content-between"><span>You have 4 items in your cart</span>
+                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
+                                <form action="" method="">
+                                    <select name="" onchange="this.form.submit()" style="background-color: #e9ecef; border: none ">
+                                        <option value="">Sort by price</option>
+                                        <option value="">Sort by name</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="cart-content mt-3">
+                            <div class="format-bg-top"></div> 
+                            <div class="minicart">
+                                <ul>
+                                    <li class="item first">
+                                        <div class="product-details">
+                                            <table class ="info-wrapper">
+                                                <colgroup>
+                                                    <col width="40%">
+                                                    <col>
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="https://www.cgv.vn/media/catalog/product/cache/1/thumbnail/dc33889b0f8b5da88052ef70de32f1cb/b/n/bnn-new-year-poster-2022_1__2.jpg" class="rounded">
+                                                        </td>
+                                                        <td>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="label"> BẪY NGỌT NGÀO </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>  
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="product-details">
+                                            <table class ="info-wrapper">
+                                                <colgroup>
+                                                    <col width="30%">
+                                                    <col>
+                                                </colgroup>
+                                                <tbody>
+                                                    <!--check xem là phim hay đồ ăn, nếu là phim thì hiện cái này, còn đồ ăn thì phần này không hiện-->
+                                                    <tr style="height: 43px">
+                                                        <td class="label">Rạp chiếu</td>
+                                                        <td style="font-weight: bold;font-size:16px;">CGV Aeon mall Hà Đông<td>
+                                                    </tr>
+                                                    <tr style="height: 43px">
+                                                        <td class="label">Suất chiếu</td>
+                                                        <td style="font-weight: bold;font-size:16px;">10h05, 11/02/2022<td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="label">Phòng</td>
+                                                        <td style="font-weight: bold;font-size:16px;">Room 2<td>
+                                                    </tr>
+                                                </tbody>
+                                            </table> 
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="product-details">
+                                            <table class ="info-wrapper">
+                                                <thead>
+                                                    <tr class="block-box" style="height: 24px">
+                                                        <td class="label">Giá</td>
+                                                        <td class="price">: 55,000 vnđ</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="block-box" style="height: 23px">
+                                                        <td class="label">Số lượng</td>
+                                                        <td class="price">: 1</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="format-bg-bottom"></div>           
+                        </div>
 
- <%@include file="template/footer.jsp" %>
+                        <div class="cart-content mt-3">
+                            <div class="format-bg-top"></div> 
+                            <div class="minicart">
+                                <ul>
+                                    <li class="item first">
+                                        <div class="product-details">
+                                            <table class ="info-wrapper">
+                                                <colgroup>
+                                                    <col width="40%">
+                                                    <col>
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="https://salt.tikicdn.com/cache/525x525/ts/product/45/94/d2/f157266d5964ee9dd2c0b9ddc44ddb4a.jpg" class="rounded">
+                                                        </td>
+                                                        <td>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="label text-uppercase"> Nước ngọt </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>  
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="product-details">
+                                            <table class ="info-wrapper">
+                                                <colgroup>
+                                                    <col width="30%">
+                                                    <col>
+                                                </colgroup>
+                                            </table> 
+                                        </div>
+                                    </li>
+                                    <li class="item">
+                                        <div class="product-details">
+                                            <table class ="info-wrapper">
+                                                <thead>
+                                                    <tr class="block-box" style="height: 24px">
+                                                        <td class="label">Giá</td>
+                                                        <td class="price">: 55,000 vnđ</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="block-box" style="height: 23px">
+                                                        <td class="label"> Số lượng </td>
+                                                        <td class="price">: 1</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="format-bg-bottom"></div>           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" style="background:#fff1ce">
+                    <div class="payment-info">
+                        <div class="d-flex justify-content-between align-items-center"></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
+                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://developers.momo.vn/v3/vi/assets/images/square-8c08a00f550e40a2efafea4a005b1232.png" /></span> </label>
+                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZPbSE5ssowAn0vChY-R7E6xfjG3TeNe5k9xcGaA9G5DnNX_v5YpC9ozQ0-sr4WBIkME&usqp=CAU" /></span> </label>
+                        <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanuAdlL4DpFARUlwfObpts-eSlnfhXdETpaWcnevAOcOmkrG8-7kZ9N2c1kERrxLx_uc&usqp=CAU" /></span> </label>
+                        <div><label class="credit-card-label">Name on card</label><input type="text" class="form-control credit-inputs" placeholder="Name"></div>
+                        <div><label class="credit-card-label">Card number</label><input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
+                        <div class="row">
+                            <div class="col-md-6"><label class="credit-card-label">Date</label><input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
+                            <div class="col-md-6"><label class="credit-card-label">CVV</label><input type="text" class="form-control credit-inputs" placeholder="342"></div>
+                        </div>
+                        <hr class="line">
+                        <div class="d-flex justify-content-between information">
+                            <span>Subtotal</span><span>$3000.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between information">
+                            <span>Sale</span><span>$20.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between information">
+                            <span>Total(Incl. taxes)</span><span>$2980.00</span>
+                        </div>
+                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
+                            <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <%@include file="template/footer.jsp" %>
+        <!-- BOOTSTRAP5-->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <!-- SCRIPT -->
+        <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+        <!-- SAKURA -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
     </body>
-   
 </html>
