@@ -8,6 +8,7 @@ package controller;
 import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import model.Account;
  *
  * @author HP
  */
-public class AccountViewController extends HttpServlet {
+public class EditAccountController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,11 +33,29 @@ public class AccountViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Get moive and get request dispatcher to movie_detail.jsp
-        String username = request.getParameter("username");
         AccountDAO accountdao = new AccountDAO();
-        Account a = accountdao.getAccountByUsername(username);
-        request.setAttribute("account", a);
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String avatar = request.getParameter("avatar");
+        String fullname = request.getParameter("fullname");
+        Date dob = Date.valueOf(request.getParameter("dob"));
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        int roleid = Integer.parseInt(request.getParameter("roleid"));
+
+        Account account = new Account();
+        account.setUsername(username);
+        account.setPassword(password);
+        account.setAvatar(avatar);
+        account.setFullName(fullname);
+        account.setDob(dob);
+        account.setEmail(email);
+        account.setPhone(phone);
+        account.setRoleId(roleid);
+
+        accountdao.editAccount(account);
+        request.setAttribute("account", account);
         request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
     }
 

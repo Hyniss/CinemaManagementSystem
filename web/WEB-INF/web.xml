@@ -6,11 +6,11 @@
     </servlet>
     <servlet>
         <servlet-name>MovieListController</servlet-name>
-        <servlet-class>controller.MovieViewController</servlet-class>
+        <servlet-class>controller.ViewMovieController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccountViewController</servlet-name>
-        <servlet-class>controller.AccountViewController</servlet-class>
+        <servlet-class>controller.ViewAccountController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccountEditController</servlet-name>

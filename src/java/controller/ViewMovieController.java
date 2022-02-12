@@ -5,21 +5,24 @@
  */
 package controller;
 
-import dao.AccountDAO;
+
+import dao.MovieDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.List;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import model.Banner;
+import model.Movie;
+import util.StringDecode;
 
 /**
  *
- * @author HP
+ * @author Bảo Châu Bống
  */
-public class AccountEditController extends HttpServlet {
+public class ViewMovieController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,30 +36,27 @@ public class AccountEditController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        AccountDAO accountdao = new AccountDAO();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String avatar = request.getParameter("avatar");
-        String fullname = request.getParameter("fullname");
-        Date dob = Date.valueOf(request.getParameter("dob"));
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        int roleid = Integer.parseInt(request.getParameter("roleid"));
-
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-        account.setAvatar(avatar);
-        account.setFullName(fullname);
-        account.setDob(dob);
-        account.setEmail(email);
-        account.setPhone(phone);
-        account.setRoleId(roleid);
-
-        accountdao.editAccount(account);
-        request.setAttribute("account", account);
-        request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
+//        // Query Parameter
+//        int page = Integer.parseInt(request.getParameter("page"));
+//        String query = StringDecode.decode(request.getParameter("query"));
+//        request.setAttribute("page", page);
+//        request.setAttribute("query", query.replace(' ', '+'));
+//
+//        // Random Banner
+//        BannerDAO bdao = new BannerDAO();
+//        List<Banner> banners = bdao.getAllBanner();
+//        Random rand = new Random();
+//        int size = banners.size();
+//        if (size > 0) {
+//            request.setAttribute("banner", banners.get(rand.nextInt(banners.size())));
+//        }
+        
+        //Get moive and get request dispatcher to movie_detail.jsp
+        int mid = Integer.parseInt(request.getParameter("mid"));
+        MovieDAO mdao = new MovieDAO();
+        Movie m = mdao.getMovieById(mid);
+        request.setAttribute("movie", m);
+        request.getRequestDispatcher("MovieDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
