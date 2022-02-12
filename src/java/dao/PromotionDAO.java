@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Promotion;
@@ -44,18 +45,104 @@ public class PromotionDAO {
         }
         return promotion;
     }
-    
-//    public ArrayList<Promotion> getAllPromotion(){
-//        ArrayList<Promotion> list = new ArrayList<>();
-//        try{
-//            query = "SELECT * FROM dbo.Promotion";
-//            con = DBContext.getConnection();
-//            ps = con.prepareStatement(query);
-//            rs = ps.executeQuery();
-//            
-//            while (rs.next()){
-//                list.add(new Promotion(0, query, query, query, date))
-//            }
-//        }
-//    }
+
+    public ArrayList<Promotion> getAllPromotion() {
+        ArrayList<Promotion> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM dbo.Promotion";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Promotion(rs.getInt("ID"), rs.getString("Title"), rs.getString("Content"), rs.getString("imageLink"), rs.getDate("date")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+        return list;
+    }
+
+    public void addPromotion(Promotion promotion) {
+        try {
+            query = "INSERT INTO dbo.Promotion VALUES (?, ?, ?, ?)";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, promotion.getTitle());
+            ps.setString(2, promotion.getContent());
+            ps.setString(3, promotion.getImageLink());
+            ps.setString(4, promotion.getFormatedDate());
+        } catch (SQLException e) {
+            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+    }
+
+    public void editPromotion(Promotion promotion) {
+        try {
+            query = "UPDATE dbo.Promotion SET Title = ?, Content = ?, imageLink = ?, date = ? WHERE ID = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, promotion.getTitle());
+            ps.setString(2, promotion.getContent());
+            ps.setString(3, promotion.getImageLink());
+            ps.setString(4, promotion.getFormatedDate());
+            ps.setInt(5, promotion.getId());
+            ps.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+    }
+
+    public void deletePromotion(int id) {
+        try {
+            query = "DELETE FROM dbo.Promotion WHERE ID = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+    }
+
+    public Promotion get(int id) {
+        try {
+            query = "SELECT * FROM dbo.Promotion WHERE ID = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Promotion promotion = new Promotion();
+                promotion.setId(rs.getInt("ID"));
+                promotion.setTitle(rs.getString("Title"));
+                promotion.setContent(rs.getString("Content"));
+                promotion.setImageLink(rs.getString("imageLink"));
+                promotion.setDate(rs.getDate("date"));
+                return promotion;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        PromotionDAO dao = new PromotionDAO();
+        List<Promotion> list = dao.getAllPromotion();
+        for (Promotion o : list) {
+            System.out.println(o);
+        }
+    }
 }

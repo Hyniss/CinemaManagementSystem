@@ -103,6 +103,64 @@ public class MovieDAO {
         return null;
     }
 
+public ArrayList<Movie> getMoviePremere() {
+        ArrayList<Movie> list = new ArrayList<>();
+        try {
+            query = "select * from Movie\n"
+                    + "where (day(premiere) <= day(GETDATE())) "
+                    + "and (MONTH(premiere) <= month(GETDATE())) "
+                    + "and (YEAR(premiere) <= YEAR(GETDATE()))";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Movie(rs.getInt("movieId"),
+                        rs.getString("movieName"),
+                        rs.getString("image"),
+                        rs.getString("categoryMovie"),
+                        rs.getString("describe"),
+                        rs.getString("trailer"),
+                        rs.getString("author"),
+                        rs.getString("actor"),
+                        rs.getString("duration"),
+                        rs.getDate("premiere")
+                ));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+    public ArrayList<Movie> getMovieComing() {
+        ArrayList<Movie> list = new ArrayList<>();
+        try {
+            query = "select * from Movie\n"
+                    + "where (day(premiere) >= day(GETDATE())) "
+                    + "and (MONTH(premiere) >= month(GETDATE())) "
+                    + "and (YEAR(premiere) >= YEAR(GETDATE()))";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Movie(rs.getInt("movieId"),
+                        rs.getString("movieName"),
+                        rs.getString("image"),
+                        rs.getString("categoryMovie"),
+                        rs.getString("describe"),
+                        rs.getString("trailer"),
+                        rs.getString("author"),
+                        rs.getString("actor"),
+                        rs.getString("duration"),
+                        rs.getDate("premiere")
+                ));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();
         List<Movie> list = dao.getTop6Movie();

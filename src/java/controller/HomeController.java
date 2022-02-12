@@ -5,9 +5,9 @@
  */
 package controller;
 
-
 import dao.BannerDAO;
 import dao.MovieDAO;
+import dao.PromotionDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Banner;
 import model.Movie;
+import model.Promotion;
 
 /**
  *
@@ -23,15 +24,10 @@ import model.Movie;
  */
 public class HomeController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    MovieDAO movieDao = new MovieDAO();
+    BannerDAO bannerDao = new BannerDAO();
+    PromotionDAO promotionDao = new PromotionDAO();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -41,21 +37,27 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MovieDAO dao = new MovieDAO();
 
-        //GET TOP 6 MOVIE FROM DB
-        ArrayList<Movie> listMovie = dao.getAllMovie();
+        // SHOW THE LIST OF MOVIE
+        ArrayList<Movie> listMovie = movieDao.getAllMovie();
         request.setAttribute("listMovie", listMovie);
-        BannerDAO bdao = new BannerDAO();
-        ArrayList<Banner> banners = bdao.getAllBanner();
+
+        // SHOW THE LIST OF BANNER
+        ArrayList<Banner> banners = bannerDao.getAllBanner();
         request.setAttribute("banners", banners);
+
+        // SHOW THE LIST OF PROMOTION
+        ArrayList<Promotion> promotions = promotionDao.getAllPromotion();
+        request.setAttribute("promotions", promotions);
+
+        // SHOW THE LIST OF MOVIE NOW PLAYING
+        ArrayList<Movie> moviePremere = movieDao.getMoviePremere();
+        request.setAttribute("moviePremere", moviePremere);
+
+        // SHOW THE LIST OF MOVIE COMING SOON
+        ArrayList<Movie> movieComing = movieDao.getMovieComing();
+        request.setAttribute("movieComing", movieComing);
+
         request.getRequestDispatcher("Homepage.jsp").forward(request, response);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
 }

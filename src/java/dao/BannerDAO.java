@@ -71,8 +71,8 @@ public class BannerDAO {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, banner.getImg());
-            ps.setNString(2, banner.getTitle());
-            ps.setNString(3, banner.getDesc());
+            ps.setString(2, banner.getTitle());
+            ps.setString(3, banner.getDesc());
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
@@ -83,12 +83,12 @@ public class BannerDAO {
 
     public void editBanner(Banner banner) {
         try {
-            query = "UPDATE dbo.Banner SET Img = ?,Title = ? , [desc] = ? WHERE ID = ?";
+            query = "UPDATE dbo.Banner SET Img = ?, Title = ? , [desc] = ? WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, banner.getImg());
-            ps.setInt(2, banner.getId());
-            ps.setNString(3, banner.getDesc());
+            ps.setString(2, banner.getTitle());
+            ps.setString(3, banner.getDesc());
             ps.setInt(4, banner.getId());
             ps.executeQuery();
         } catch (SQLException e) {
@@ -110,6 +110,30 @@ public class BannerDAO {
         } finally {
             DBContext.close(con, ps, rs);
         }
+    }
+
+    public Banner get(int id) {
+        try {
+            query = "SELECT * FROM dbo.Banner WHERE ID = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Banner banner = new Banner();
+                banner.setId(rs.getInt("ID"));
+                banner.setTitle(rs.getString("title"));
+                banner.setImg(rs.getString("img"));
+                banner.setDesc(rs.getString("desc"));
+                return banner;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+        return null;
     }
 
     public static void main(String[] args) {

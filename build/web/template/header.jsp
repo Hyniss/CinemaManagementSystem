@@ -77,56 +77,57 @@
                                 </c:if>
                             <!-- Marketing -->
                             <c:if test="${sessionScope.acc.roleId  ==  4}">
-                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mkt/banner">Manage Banner</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminbannerlist">Manage Banner</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminpromotionlist">Manage Promotion</a></li>
                                 </c:if>
-                                
+
                             <!-- Change password -->
-                            
+
                             <li><a class="dropdown-item" href="ChangePassword.jsp">Change password</a></li>
-                            
+
                             <!-- Default Logout -->
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout">Logout</a></li>
-                            
-                            </c:if>
-                            
+
+                        </c:if>
+
                         <!-- Neu khong co user -->
                         <c:if test ="${sessionScope.acc ==  null}">
                             <li><a class="dropdown-item" href="Login.jsp">Login</a></li>
                             <li><a class="dropdown-item" href="Register.jsp">Regiter</a></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AboutCinema.jsp">About Cinema</a></li>
-                        </c:if>
+                            </c:if>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+</nav>
 
 <!-- SECONDARY NAVBAR -->
 <nav id="navbar2" class="navbar navbar-expand-lg navbar-light bg-light d-none d-lg-block p-1">
     <div class="container-fluid">
-        <ul class="navbar-nav offset-2 me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav offset-2 me-auto mb-2 mb-lg-0" style="margin-left: 30%; margin-right: 30%">
             <li class="nav-item me-4">
                 <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/home">Home</a>
-            </li>
-            <li class="nav-item me-4">
-                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/movie">Movie</a>
             </li>
             <li class="nav-item dropdown me-4">
                 <a class="nav-link dropdown-toggle d-inline-block" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                    <li><h6 class="dropdown-header">Phim đang chiếu</h6></li>
-                    <li><h6 class="dropdown-header">Phim sắp chiếu</h6></li>
-
+                    <li>
+                        <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/premere"><h6 class="dropdown-header">Now Playing</h6></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/coming"><h6 class="dropdown-header">Coming Soon</h6></a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item me-4">
-                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/PostControl">Showtimes</a>
+                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/PostControl">Ticket</a>
             </li>
             <li class="nav-item me-4">
-                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/blog">Promotions</a>
+                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/promotion">Promotions</a>
             </li>
             <li class="nav-item me-4">
                 <a class="nav-link" href="#footer">Contacts Us</a>

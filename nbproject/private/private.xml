@@ -3,18 +3,35 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/template/header.jsp</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/SignUpController.java</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/dao/AccountDAO.java</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/Login.jsp</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/LogOutController.java</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/LoginController.java</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/Register.jsp</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/HomeController.java</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/EditAccountController.java</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/web/ChangePassword.jsp</file>
-            <file>file:/C:/Users/NITRO/Desktop/CinemaManagementSystem/src/java/controller/ChangePasswordController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/ViewMovieController.java</file>
+            <file>file:/D:/SWP391/alo/web/AdminPromotionList.jsp</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/ViewAccountController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/SignUpController.java</file>
+            <file>file:/D:/SWP391/alo/web/AdminEditPromotion.jsp</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/PromotionDetail.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminPromotionListController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/dao/MovieDAO.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/LogOutController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminDeleteBannerController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/EditAccountController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminEditPromotionController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/ChangePasswordController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/PromotionController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/model/Promotion.java</file>
+            <file>file:/D:/SWP391/alo/web/AdminBannerList.jsp</file>
+            <file>file:/D:/SWP391/alo/web/template/header.jsp</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/LoginController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminEditBannerController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/dao/BannerDAO.java</file>
+            <file>file:/D:/SWP391/alo/web/WEB-INF/web.xml</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminBannerListConntroller.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/PremereController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminDeletePromotionController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/dao/PromotionDAO.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/MovieListController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/ComingSoonController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/AdminAddBannerController.java</file>
+            <file>file:/D:/SWP391/alo/src/java/controller/HomeController.java</file>
         </group>
     </open-files>
 </project-private>

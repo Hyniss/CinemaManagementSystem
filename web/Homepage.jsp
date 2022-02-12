@@ -4,6 +4,7 @@
     Author     : Bảo Châu Bống
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -40,6 +41,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+
         <!-- Sakura -->
         <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
         <title>Amazing Cinema</title>
@@ -57,16 +59,16 @@
                     </div>
                     <c:forEach items="${banners}" var="banner" varStatus="i">
                         <div class="carousel-item text-center ${i.index==0?'active':''}" >
-                            <img src="${pageContext.request.contextPath}/assets/img/${banner.getImg()}" width="80%" height="auto" alt="..." />
+                            <img src="${pageContext.request.contextPath}/assets/img/banner/${banner.getImg()}" width="80%" height="auto" alt="..." />
                         </div>  
                     </c:forEach>
 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                    <button class="carousel-control-prev" style="margin-left: 2%" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                    <button class="carousel-control-next" style="margin-right: 2%" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
@@ -75,59 +77,86 @@
             </div>
         </section>
 
+        <!-- MOVIE -->
         <section class="product">
-            <div class="container">
-                <div class="row">
-                    <div class="title text-center">
-                        <img src="${pageContext.request.contextPath}/assets/img/moviecollection.png" width="625px" height="159px">                    
-                    </div>
-                </div>
-                <div class="row" style="width: 100% ">
-                    <c:forEach var="o" items="${listMovie}">
-                        <div class="col-md-3 mt-4" >
-                            <div class="card card-custom h-100 shadow-sm"> 
-                                <a href="movie?mid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-cartbox-img" width="300px" height="444px"  object-fit= "cover"alt="..."></a>
-                                <a class="aa-add-card-btn" style="position: absolute" href="${o.getTrailer()}"><button>Play</button></a>
-                                <div class="card-body">
-                                    <div class="clearfix mb-3 text-center"> 
-                                        <h2 class="currency price-hp" style="color: #ff3333">${o.getMovieName()}</h2> 
-                                    </div>
-                                    <div class="clearfix mb-3"> 
-                                        <h4 class="currency price-hp" style="color: #000">Thể loại: ${o.getCategoryMovie()}</h4> 
-                                        <h4 class="currency price-hp" style="color: #000">Thời lượng: ${o.getDuration()} phút</h4> 
-                                        <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
-                                    </div>
-                                    <div class="text-center my-4 hover"> 
-                                        <a href="movie?mid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
-                                        <a href="detail?mid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
-                                    </div>
-                                    <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+            <div class="row">
+                <div class="title text-center">
+                    <img src="${pageContext.request.contextPath}/assets/img/moviecollection.png" width="625px" height="159px">                    
                 </div>
             </div>
-        </div>
-    </div>
-</section>
 
-<%@include file="template/footer.jsp" %>
-<!-- BOOTSTRAP5-->
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"
-></script>
-<!-- SCRIPT -->
-<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-<!-- SAKURA -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
-<script>
-    $(window).load(function () {
-        $('body').sakura();
-    });
-</script>
-</body>
+            <div class="row" style="width: 96%; margin-left: 2%; margin-right: 2%">
+                <c:forEach var="o" items="${moviePremere}">
+                    <div class="col-md-3 mt-4" >
+                        <div class="card card-custom h-100 shadow-sm" style="position: relative"> 
+                            <a href="detail?pid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-product-img shadow border-radius-lg card-header" position="absolute" top="0" left="0" display="block" width="100%" height="500px" margin-bottom ="20px" object-fit= "cover" alt="..."></a>
+                            <div class="card-body">
+                                <div class="clearfix mb-3 text-center"> 
+                                    <h2 class="currency price-hp" style="color: #ff3333">${o.getMovieName()}</h2> 
+                                </div>
+                                <div class="clearfix mb-3"> 
+                                    <h4 class="currency price-hp" style="color: #000">Thể loại: ${o.getCategoryMovie()}</h4> 
+                                    <h4 class="currency price-hp" style="color: #000">Thời lượng: ${o.getDuration()} phút</h4> 
+                                    <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
+                                </div>
+                                <div class="text-center my-4 hover"> 
+                                    <a href="detail?pid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
+                                    <a href="detail?pid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
+                                </div>
+                                <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div> 
+        </section>
+
+        <!-- PROMOTION -->
+        <section class="slider">
+            <div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel" style="margin-bottom: 20px">
+                <div class="carousel-inner">
+                    <div class="carousel-indicators text-center">
+                        <c:forEach items="${promotions}" var="p" varStatus="i" >
+                            <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="${i.index}" <c:if test="${i.index==0}"> class="active" aria-current="true"</c:if> aria-label="${p.getTitle()}"></button>
+                        </c:forEach>
+                    </div>
+                    <c:forEach items="${promotions}" var="p" varStatus="i">
+                        <div class="carousel-item text-center ${i.index==0?'active':''}" >
+                            <img src="${pageContext.request.contextPath}/assets/img/promotion/${p.getImageLink()}" width="50%" height="auto" alt="..." />
+                        </div>  
+                    </c:forEach>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions1"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions1"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <%@include file="template/footer.jsp" %>
+
+        <!-- BOOTSTRAP5-->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <!-- SCRIPT -->
+        <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+        <!-- SAKURA -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+        <script>
+            $(window).load(function () {
+                $('body').sakura();
+            });
+        </script>
+    </body>
 </html>

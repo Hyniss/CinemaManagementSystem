@@ -32,6 +32,50 @@
         <servlet-name>ChangePasswordController</servlet-name>
         <servlet-class>controller.ChangePasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PremereController</servlet-name>
+        <servlet-class>controller.PremereController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ComingSoonController</servlet-name>
+        <servlet-class>controller.ComingSoonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionController</servlet-name>
+        <servlet-class>controller.PromotionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PromotionDetail</servlet-name>
+        <servlet-class>controller.PromotionDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminBannerListConntroller</servlet-name>
+        <servlet-class>controller.AdminBannerListConntroller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddBannerController</servlet-name>
+        <servlet-class>controller.AdminAddBannerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditBannerController</servlet-name>
+        <servlet-class>controller.AdminEditBannerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteBannerController</servlet-name>
+        <servlet-class>controller.AdminDeleteBannerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminPromotionListController</servlet-name>
+        <servlet-class>controller.AdminPromotionListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditPromotionController</servlet-name>
+        <servlet-class>controller.AdminEditPromotionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeletePromotionController</servlet-name>
+        <servlet-class>controller.AdminDeletePromotionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -63,6 +107,50 @@
     <servlet-mapping>
         <servlet-name>ChangePasswordController</servlet-name>
         <url-pattern>/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PremereController</servlet-name>
+        <url-pattern>/premere</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ComingSoonController</servlet-name>
+        <url-pattern>/coming</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionController</servlet-name>
+        <url-pattern>/promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionDetail</servlet-name>
+        <url-pattern>/promotion_detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminBannerListConntroller</servlet-name>
+        <url-pattern>/adminbannerlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddBannerController</servlet-name>
+        <url-pattern>/add_banner</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditBannerController</servlet-name>
+        <url-pattern>/edit_banner</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteBannerController</servlet-name>
+        <url-pattern>/delete_banner</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminPromotionListController</servlet-name>
+        <url-pattern>/adminpromotionlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditPromotionController</servlet-name>
+        <url-pattern>/edit_promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeletePromotionController</servlet-name>
+        <url-pattern>/delete_promotion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

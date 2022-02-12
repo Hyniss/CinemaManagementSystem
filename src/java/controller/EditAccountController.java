@@ -7,7 +7,6 @@ package controller;
 
 import dao.AccountDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,19 +20,11 @@ import model.Account;
  */
 public class EditAccountController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    AccountDAO accountDao = new AccountDAO();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        AccountDAO accountdao = new AccountDAO();
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -54,7 +45,7 @@ public class EditAccountController extends HttpServlet {
         account.setPhone(phone);
         account.setRoleId(roleid);
 
-        accountdao.editAccount(account);
+        accountDao.editAccount(account);
         request.setAttribute("account", account);
         request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
     }
