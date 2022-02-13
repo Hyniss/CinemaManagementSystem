@@ -17,6 +17,9 @@ import model.Movie;
  *
  * @author Bảo Châu Bống
  */
+
+//show the detail of movies
+
 public class ViewMovieController extends HttpServlet {
 
     MovieDAO movieDao = new MovieDAO();

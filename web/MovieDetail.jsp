@@ -44,11 +44,17 @@
         <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
     </head>
 
-    <body class="no-skin">         
-
+    <body class="no-skin">  
+        
+<!--        HEADER-->
+        <%@include file="template/header.jsp" %>
+        
+        
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        
+<!--        CONTAINER-->
         <div class="container">
-            <%@include file="template/header.jsp" %>
+
             <section style="background-color: #fff" class="member-details" style="padding-top:50px;padding-bottom: 50px">
                 <div class="container">
                     <div class="row">
@@ -63,7 +69,7 @@
                                 <span>${movie.getCategoryMovie()}</span>
                             </div>
                             <div class="member_desc">
-                                
+
                                 <ul class="styled_list">
                                     <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>   Đạo diễn: ${movie.getAuthor()}</li>
                                     <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i>   Diễn viên: ${movie.getActor()}</li>
@@ -73,7 +79,7 @@
                             </div>
 
                             <a href="#" type="button" class="btn btn-outline-danger">Đặt vé ngay</a>
-                            
+
                             <div class="member_desc">
                                 <h4>Mô tả</h4>
                                 <p>
@@ -83,19 +89,18 @@
                                 <h4>Trailer</h4>
                                 <iframe class="center"  style="margin-top:20px; width: 80%; height: 420px" width="560" height="315" src="${movie.getTrailer()}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
-                            
-                            
-                            
+
+
+
                         </div>
 
                     </div>
                 </div>
             </section>
-            <%@include file="template/footer.jsp" %>
+            
         </div>
-
+                            <!--CSS-->
         <style>
-            body{margin-top:20px;}
 
             .member-details {
                 padding-top: 80px;
@@ -361,6 +366,10 @@
                 $('body').sakura();
             });
         </script>
+        
+        
+<!--        FOOTER-->
+        <%@include file="template/footer.jsp" %>
     </body>
 </html>
 

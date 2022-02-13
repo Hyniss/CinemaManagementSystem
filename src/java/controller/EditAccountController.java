@@ -19,6 +19,9 @@ import model.Account;
  *
  * @author HP
  */
+
+//user can edit properites of account
+
 public class EditAccountController extends HttpServlet {
 
     IAccountDAO accountDao = new AccountDAO();
@@ -27,7 +30,9 @@ public class EditAccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-
+        
+        //get account properites from jsp and edit
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String avatar = request.getParameter("avatar");

@@ -17,6 +17,9 @@ import model.Account;
  *
  * @author HP
  */
+
+// show the details ò account
+
 public class ViewAccountController extends HttpServlet {
 
     AccountDAO accountDao = new AccountDAO();
