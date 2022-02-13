@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.IPromotionDAO;
 import dao.PromotionDAO;
 import java.io.IOException;
 import java.sql.Date;
@@ -20,7 +21,7 @@ import model.Promotion;
  */
 public class AdminEditPromotionController extends HttpServlet {
 
-    PromotionDAO promotionDao = new PromotionDAO();
+    IPromotionDAO promotionDao = new PromotionDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

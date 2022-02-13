@@ -6,6 +6,9 @@
 package controller;
 
 import dao.BannerDAO;
+import dao.IBannerDAO;
+import dao.IMovieDAO;
+import dao.IPromotionDAO;
 import dao.MovieDAO;
 import dao.PromotionDAO;
 import java.io.IOException;
@@ -24,9 +27,9 @@ import model.Promotion;
  */
 public class HomeController extends HttpServlet {
 
-    MovieDAO movieDao = new MovieDAO();
-    BannerDAO bannerDao = new BannerDAO();
-    PromotionDAO promotionDao = new PromotionDAO();
+    IMovieDAO movieDao = new MovieDAO();
+    IBannerDAO bannerDao = new BannerDAO();
+    IPromotionDAO promotionDao = new PromotionDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

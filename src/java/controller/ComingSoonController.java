@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.IMovieDAO;
 import dao.MovieDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import model.Movie;
  */
 public class ComingSoonController extends HttpServlet {
 
-    MovieDAO movieDao = new MovieDAO();
+    IMovieDAO movieDao = new MovieDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

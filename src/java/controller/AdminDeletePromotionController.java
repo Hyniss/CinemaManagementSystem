@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.IPromotionDAO;
 import dao.PromotionDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AdminDeletePromotionController extends HttpServlet {
 
-    PromotionDAO promotionDao = new PromotionDAO();
+    IPromotionDAO promotionDao = new PromotionDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

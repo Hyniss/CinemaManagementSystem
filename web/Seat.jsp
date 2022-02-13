@@ -3,7 +3,10 @@
     Created on : Feb 10, 2022, 8:53:28 PM
     Author     : tenhik
 --%>
-
+<%@page import="model.Seat"%>
+<%@page import="java.util.ArrayList"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,6 +41,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+        <%ArrayList<String> listCheckedSeatId = (ArrayList<String>) request.getAttribute("listcheckedSeatId"); %>
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -75,7 +79,12 @@
                                         <div class="screen">
                                             <span class="text-screen">Phòng chiếu</span>
                                         </div>
-                                        <form action="book" method="post">
+                                        <form action="book" method="get">
+                                            <!--room info-->
+                                            <input name="room" value="" hidden>
+                                            <!--movie info-->
+                                            <input name="movie" value="" hidden>
+                                            <!--seat info-->
                                             <table class="seat-map" border="0">
                                                 <tr style="height: 10px">
                                                     <td></td>         
@@ -88,18 +97,36 @@
                                                 <tr style="height: 26px">
                                                     <td style="text-align:center;width:10px;" ><%=j%></td>
                                                     <% for (int i = 0; i < a.length; i++) {%>
-                                                    <td style="text-align: center;width:50px;padding-top: 1px">                                                
-                                                        <input type="checkbox">
-                                                        <label class="seat__label">
+                                                    <% String pos = a[i] + j;%>
+                                                    <td style="text-align: center;width:50px;padding-top: 1px">        
+                                                        <!--seats are not checked-->
+                                                        <% if (listCheckedSeatId == null) {%>  
+                                                        <input type="checkbox" id="<%=pos%>" name="seatId" value="<%=pos%>"onchange="this.form.submit()">
+                                                        <label class="seat__label" for="<%=pos%>">
                                                             <i class="fas fa-box rating__icon--star"></i>
                                                         </label>
+                                                        <%}%>
+                                                        <!--seats are checked-->
+                                                        <% if (listCheckedSeatId != null) {%>                              
+                                                        <input type="checkbox" id="<%=pos%>" name="seatId" value="<%=pos%>"onchange="this.form.submit()"
+                                                               <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
+                                                               <%if (listCheckedSeatId.get(k).equals(pos)) {%>
+                                                               checked
+                                                               <%}%>
+                                                               <%}%>
+                                                               >  
+                                                        <label class="seat__label" for="<%=pos%>">
+                                                            <i class="fas fa-box rating__icon--star"></i>
+                                                        </label>
+                                                        <%}%>
+                                                        <!--seats are unavailable-->
+                                                        <!--not done-->
                                                     </td>
                                                     <%}%> 
                                                 </tr>              
                                                 <%}%> 
                                             </table>
                                             <div class="submit-btn">
-                                                <input type="submit" value="Submit">
                                             </div>
                                         </form>
                                         <div class="ticketbox-notice">
@@ -183,19 +210,19 @@
                                                 <thead>
                                                     <tr class="block-box" style="height: 20px">
                                                         <td class="label">Giá vé</td>
-                                                        <td class="price"> 55,000 vnđ</td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Combo</td>
-                                                        <td class="price"> 0 vnđ</td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="block-box">
                                                         <td class="label" style="font-weight: bold">TỔNG</td>
-                                                        <td class="price"> 55,000 vnđ</td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -223,5 +250,7 @@
         <!-- SAKURA -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+        
     </body>
+    
 </html>

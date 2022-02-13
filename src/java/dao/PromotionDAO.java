@@ -19,13 +19,14 @@ import model.Promotion;
  *
  * @author Bảo Châu Bống
  */
-public class PromotionDAO {
+public class PromotionDAO implements IPromotionDAO{
 
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
 
+    @Override
     public Promotion getPromotion(int id) {
         Promotion promotion = null;
         try {
@@ -46,6 +47,7 @@ public class PromotionDAO {
         return promotion;
     }
 
+    @Override
     public ArrayList<Promotion> getAllPromotion() {
         ArrayList<Promotion> list = new ArrayList<>();
         try {
@@ -65,6 +67,7 @@ public class PromotionDAO {
         return list;
     }
 
+    @Override
     public void addPromotion(Promotion promotion) {
         try {
             query = "INSERT INTO dbo.Promotion VALUES (?, ?, ?, ?)";
@@ -81,6 +84,7 @@ public class PromotionDAO {
         }
     }
 
+    @Override
     public void editPromotion(Promotion promotion) {
         try {
             query = "UPDATE dbo.Promotion SET Title = ?, Content = ?, imageLink = ?, date = ? WHERE ID = ?";
@@ -99,6 +103,7 @@ public class PromotionDAO {
         }
     }
 
+    @Override
     public void deletePromotion(int id) {
         try {
             query = "DELETE FROM dbo.Promotion WHERE ID = ?";
@@ -113,6 +118,7 @@ public class PromotionDAO {
         }
     }
 
+    @Override
     public Promotion get(int id) {
         try {
             query = "SELECT * FROM dbo.Promotion WHERE ID = ?";

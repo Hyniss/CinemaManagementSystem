@@ -6,6 +6,7 @@
 package controller;
 
 import dao.BannerDAO;
+import dao.IBannerDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import model.Banner;
  */
 public class AdminEditBannerController extends HttpServlet {
 
-    BannerDAO bannerDao = new BannerDAO();
+    IBannerDAO bannerDao = new BannerDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

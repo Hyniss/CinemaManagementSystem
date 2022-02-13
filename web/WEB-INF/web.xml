@@ -76,6 +76,10 @@
         <servlet-name>AdminDeletePromotionController</servlet-name>
         <servlet-class>controller.AdminDeletePromotionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewSeatController</servlet-name>
+        <servlet-class>controller.ViewSeatController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>AdminDeletePromotionController</servlet-name>
         <url-pattern>/delete_promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSeatController</servlet-name>
+        <url-pattern>/seat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -6,6 +6,7 @@
 package controller;
 
 import dao.AccountDAO;
+import dao.IAccountDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,7 @@ import model.Account;
  */
 public class LoginController extends HttpServlet {
 
-    AccountDAO accountDao = new AccountDAO();
+    IAccountDAO accountDao = new AccountDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

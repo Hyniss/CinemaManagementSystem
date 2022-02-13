@@ -19,13 +19,14 @@ import model.Banner;
  *
  * @author Bảo Châu Bống
  */
-public class BannerDAO {
+public class BannerDAO implements IBannerDAO{
 
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
 
+    @Override
     public Banner getBanner(int id) {
         Banner banner = null;
         try {
@@ -45,7 +46,7 @@ public class BannerDAO {
         }
         return banner;
     }
-
+    @Override
     public ArrayList<Banner> getAllBanner() {
         ArrayList<Banner> list = new ArrayList<>();
         try {
@@ -64,7 +65,7 @@ public class BannerDAO {
         }
         return list;
     }
-
+    @Override
     public void addBanner(Banner banner) {
         try {
             query = "INSERT INTO dbo.Banner VALUES (?, ?, ?)";
@@ -81,6 +82,8 @@ public class BannerDAO {
         }
     }
 
+    
+    @Override
     public void editBanner(Banner banner) {
         try {
             query = "UPDATE dbo.Banner SET Img = ?, Title = ? , [desc] = ? WHERE ID = ?";
@@ -98,6 +101,7 @@ public class BannerDAO {
         }
     }
 
+    @Override
     public void deleteBanner(int id) {
         try {
             query = "DELETE FROM dbo.Banner WHERE ID = ?";
@@ -112,6 +116,7 @@ public class BannerDAO {
         }
     }
 
+    @Override
     public Banner get(int id) {
         try {
             query = "SELECT * FROM dbo.Banner WHERE ID = ?";

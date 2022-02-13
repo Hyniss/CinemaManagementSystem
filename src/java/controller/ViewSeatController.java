@@ -5,50 +5,32 @@
  */
 package controller;
 
-import dao.AccountDAO;
-import dao.IAccountDAO;
 import java.io.IOException;
-import java.sql.Date;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
 
 /**
  *
- * @author HP
+ * @author tenhik
  */
-public class EditAccountController extends HttpServlet {
+public class ViewSeatController extends HttpServlet {
 
-    IAccountDAO accountDao = new AccountDAO();
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String avatar = request.getParameter("avatar");
-        String fullname = request.getParameter("fullname");
-        Date dob = Date.valueOf(request.getParameter("dob"));
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        int roleid = Integer.parseInt(request.getParameter("roleid"));
-
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-        account.setAvatar(avatar);
-        account.setFullName(fullname);
-        account.setDob(dob);
-        account.setEmail(email);
-        account.setPhone(phone);
-        account.setRoleId(roleid);
-
-        accountDao.editAccount(account);
-        request.setAttribute("account", account);
-        request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("Seat.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

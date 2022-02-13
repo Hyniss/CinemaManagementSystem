@@ -20,12 +20,14 @@ import model.Account;
  *
  * @author HP
  */
-public class AccountDAO {
+public class AccountDAO implements IAccountDAO{
+
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
-
+    
+    @Override
     public ArrayList<Account> getAllAccount() {
         ArrayList<Account> accountList = new ArrayList<>();
         try {
@@ -50,6 +52,7 @@ public class AccountDAO {
         return accountList;
     }
 
+    @Override
     public Account getAccountByUsername(String username) {
         try {
             query = "SELECT * FROM dbo.Account where username=?";
@@ -75,8 +78,10 @@ public class AccountDAO {
         }
         return null;
     }
-    
-    public void editAccount(Account a) {
+
+    @Override
+    public boolean editAccount(Account a) {
+        int check = 0;
         try {
             query = "UPDATE [Account] SET [password] = ?,[avatar]=?,[fullname]=?,[DOB]=?,[email]=?,[phone]=?, [roleId]=? WHERE [username] = ?";
             con = new DBContext().getConnection();
@@ -89,11 +94,11 @@ public class AccountDAO {
             ps.setString(6, a.getPhone());
             ps.setInt(7, a.getRoleId());
             ps.setString(8, a.getUsername());
-            ps.executeUpdate();
+            check = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return check > 0;
     }
 
     public static void main(String[] args) {
@@ -108,7 +113,8 @@ public class AccountDAO {
     }
     
     //hàm đăng nhập
-     public Account login(String user, String pass) {
+    @Override 
+    public Account login(String user, String pass) {
 
         query = "select * from account where username = ? and password = ?";
         try {
@@ -128,6 +134,7 @@ public class AccountDAO {
     }
 
     //check xem tài khoản có tồn tại ko
+    @Override
     public Account checkAccountExist(String user) {
 
         query = "select * from account where username = ?";
@@ -148,6 +155,7 @@ public class AccountDAO {
     }
     
     //hàm kiểm tra xem mật khẩu của tài khoản này có đúng ko nếu đúng thì mới cho đổi mật khẩu
+    @Override
     public Account checkPassword(String user,String pass) {
 
         query = "select * from account where username = ? and password=?";
@@ -168,6 +176,7 @@ public class AccountDAO {
     }
     
     //hàm đăng ký
+    @Override
     public void signup(String user,String pass,String fullname,String dob,String email,String phone){
         query= "insert into account values(?,?,null,?,?,?,?,3)";
         try {
@@ -187,6 +196,7 @@ public class AccountDAO {
     }
     
     //hàm change mật khẩu
+    @Override
     public void changePassword(String newpass,String oldpass,String user){
         query="update account set password=? where username=? and password=? ";
         try {

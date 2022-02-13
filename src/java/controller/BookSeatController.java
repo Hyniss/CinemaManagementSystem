@@ -5,50 +5,62 @@
  */
 package controller;
 
-import dao.AccountDAO;
-import dao.IAccountDAO;
+import dao.ISeatDAO;
+import dao.SeatDAO;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import javax.servlet.http.HttpSession;
+import model.Seat;
 
 /**
  *
- * @author HP
+ * @author tenhik
  */
-public class EditAccountController extends HttpServlet {
+@WebServlet(name = "BookSeatController", urlPatterns = {"/book"})
+public class BookSeatController extends HttpServlet {
 
-    IAccountDAO accountDao = new AccountDAO();
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        ISeatDAO seatDao = new SeatDAO();
+        Seat seat = new Seat();
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String avatar = request.getParameter("avatar");
-        String fullname = request.getParameter("fullname");
-        Date dob = Date.valueOf(request.getParameter("dob"));
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        int roleid = Integer.parseInt(request.getParameter("roleid"));
+        double totalPrice = 0;
+        double seatPrice = 0;
+        String[] checkedSeatId = null;
 
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-        account.setAvatar(avatar);
-        account.setFullName(fullname);
-        account.setDob(dob);
-        account.setEmail(email);
-        account.setPhone(phone);
-        account.setRoleId(roleid);
+        checkedSeatId = request.getParameterValues("seatId");
+        ArrayList<String> listSeatChecked = new ArrayList<>();
 
-        accountDao.editAccount(account);
-        request.setAttribute("account", account);
-        request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
+        if (checkedSeatId != null) {
+
+            request.setAttribute("status", "check");
+            for (String checked : checkedSeatId) {
+                String price = seatDao.getSeatPriceBySeatId(checked);
+                try {
+                    seatPrice = Double.parseDouble(price);
+                } catch (Exception e) {
+                }
+                totalPrice += seatPrice;
+                listSeatChecked.add(checked);
+            }
+        }
+        request.setAttribute("listcheckedSeatId", listSeatChecked);
+        request.setAttribute("totalPrice", totalPrice);
+        request.getRequestDispatcher("Seat.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

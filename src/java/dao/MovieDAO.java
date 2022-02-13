@@ -17,13 +17,14 @@ import model.Movie;
  *
  * @author Bảo Châu Bống
  */
-public class MovieDAO {
+public class MovieDAO implements IMovieDAO {
 
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
 
+    @Override
     public ArrayList<Movie> getAllMovie() {
         ArrayList<Movie> list = new ArrayList<>();
         try {
@@ -50,6 +51,7 @@ public class MovieDAO {
         return list;
     }
 
+    @Override
     public ArrayList<Movie> getTop6Movie() {
         ArrayList<Movie> list = new ArrayList<>();
         try {
@@ -75,13 +77,14 @@ public class MovieDAO {
         }
         return list;
     }
-    
-    public Movie getMovieById(int mId) {
+
+    @Override
+    public Movie getMovieById(int movieId) {
         try {
             query = "SELECT * FROM dbo.Movie where movieId=?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, mId);
+            ps.setInt(1, movieId);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -103,7 +106,8 @@ public class MovieDAO {
         return null;
     }
 
-public ArrayList<Movie> getMoviePremere() {
+    @Override
+    public ArrayList<Movie> getMoviePremere() {
         ArrayList<Movie> list = new ArrayList<>();
         try {
             query = "select * from Movie\n"
@@ -131,7 +135,8 @@ public ArrayList<Movie> getMoviePremere() {
         }
         return list;
     }
-    
+
+    @Override
     public ArrayList<Movie> getMovieComing() {
         ArrayList<Movie> list = new ArrayList<>();
         try {
@@ -167,7 +172,7 @@ public ArrayList<Movie> getMoviePremere() {
         for (Movie o : list) {
             System.out.println(o);
         }
-        
+
         Movie m = dao.getMovieById(7);
         System.out.println(m);
     }
