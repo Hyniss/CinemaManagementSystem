@@ -178,7 +178,7 @@ public class AccountDAO implements IAccountDAO{
     //hàm đăng ký
     @Override
     public void signup(String user,String pass,String fullname,String dob,String email,String phone){
-        query= "insert into account values(?,?,null,?,?,?,?,3)";
+        query= "insert into account values(?,?,'profile-pic.jpg',?,?,?,?,3)";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
