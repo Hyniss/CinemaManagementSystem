@@ -42,10 +42,10 @@
     <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
     <title>Amazing Cinema</title>
 </head>
-<%@include file="template/header.jsp" %>
 
 <body>
-    <div class="content-wrapper">
+    <%@include file="template/header.jsp" %>
+    <div class="content-wrapper" style="margin-bottom: 50px">
         <div class="container-fluid">
 
             <div class="row">
@@ -117,8 +117,17 @@
             }
         </style>
     </div>
+    <%@include file="template/footer.jsp" %>
 </body>
 
+<!-- BOOTSTRAP5-->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+></script>
+<!-- SCRIPT -->
+<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
 <!-- SAKURA -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
@@ -127,6 +136,7 @@
                                                             $('body').sakura();
                                                         });
 </script>
+
 <script>
     function showMess(id) {
         var option = confirm('Are you sure to delete?');

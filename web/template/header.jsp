@@ -66,7 +66,7 @@
                         <c:if test ="${sessionScope.acc !=  null}">
                             <!-- Default -->
                             <li><span class="dropdown-item-text">Hello ${acc.getUsername()}</span></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/ProfileControl">View profile</a></li>  
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/account?username=${acc.getUsername()}">View profile</a></li>  
                             <!-- Admin -->
                             <c:if test="${sessionScope.acc.roleId ==  1}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AccountManagerControl">Manage Staff</a></li>
