@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import dao.BannerDAO;
@@ -16,17 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import model.Banner;
 
 /**
- *
+ * Documentation: AdminBannerListConntroller 
+ * Created on: 13-Feb-2022, 01:41:21
  * @author Bảo Châu Bống
  */
+
+// Admin can see the list of Banner and do CRUD
+
 public class AdminBannerListConntroller extends HttpServlet {
+    
+    // Calling method of database
+    IBannerDAO bannerDao = new BannerDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        IBannerDAO bannerDao = new BannerDAO();
+        request.setCharacterEncoding("utf-8");
+        
+        // Transfer data from database
         List<Banner> bannerList = bannerDao.getAllBanner();
+        
+        // Set Attribute
         request.setAttribute("bannerList", bannerList);
+        
+        // Lead to AdminBannerList.jsp
         request.getRequestDispatcher("AdminBannerList.jsp").forward(request, response);
     }
 

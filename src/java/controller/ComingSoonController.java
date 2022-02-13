@@ -16,20 +16,29 @@ import javax.servlet.http.HttpServletResponse;
 import model.Movie;
 
 /**
- *
+ * Document   : ComingSoonController
+ * Created on : 12-Feb-2022, 13:34:08
  * @author Bảo Châu Bống
  */
+
+// The ist of movie that unrealeased
+
 public class ComingSoonController extends HttpServlet {
 
+    // Calling method of database
     IMovieDAO movieDao = new MovieDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // SHOW THE LIST OF MOVIE SHOWING NOW
+        
+        // Get data from database and transfer in parameter
         ArrayList<Movie> movieComing = movieDao.getMovieComing();
+        
+        // Set Attribute
         request.setAttribute("movieComing", movieComing);
 
+        // Lead to Coming.jsp
         request.getRequestDispatcher("Coming.jsp").forward(request, response);
     }
 }

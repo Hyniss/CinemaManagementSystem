@@ -51,7 +51,7 @@ public class PromotionDAO implements IPromotionDAO{
     public ArrayList<Promotion> getAllPromotion() {
         ArrayList<Promotion> list = new ArrayList<>();
         try {
-            query = "SELECT * FROM dbo.Promotion";
+            query = "SELECT * FROM dbo.Promotion ORDER BY [date] desc";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -106,7 +106,7 @@ public class PromotionDAO implements IPromotionDAO{
     @Override
     public void deletePromotion(int id) {
         try {
-            query = "DELETE FROM dbo.Promotion WHERE ID = ?";
+            query = "DELETE FROM dbo.Promotion WHERE ID = ? ORDER BY [date] desc";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -121,7 +121,7 @@ public class PromotionDAO implements IPromotionDAO{
     @Override
     public Promotion get(int id) {
         try {
-            query = "SELECT * FROM dbo.Promotion WHERE ID = ?";
+            query = "SELECT * FROM dbo.Promotion WHERE ID = ? ORDER BY [date] desc";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, id);

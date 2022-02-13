@@ -15,10 +15,10 @@ import model.Movie;
 
 /**
  *
- * @author Bảo Châu Bống
+ * @author Thái Trần
  */
 
-//show the detail of movies
+// show the detail of movies
 
 public class ViewMovieController extends HttpServlet {
 

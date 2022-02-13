@@ -45,8 +45,8 @@
         <servlet-class>controller.PromotionController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PromotionDetail</servlet-name>
-        <servlet-class>controller.PromotionDetail</servlet-class>
+        <servlet-name>PromotionDetailController</servlet-name>
+        <servlet-class>controller.PromotionDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminBannerListConntroller</servlet-name>
@@ -83,6 +83,10 @@
     <servlet>
         <servlet-name>ForgotPassController</servlet-name>
         <servlet-class>controller.ForgotPassController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddPromotionController</servlet-name>
+        <servlet-class>controller.AdminAddPromotionController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -129,7 +133,7 @@
         <url-pattern>/promotion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PromotionDetail</servlet-name>
+        <servlet-name>PromotionDetailController</servlet-name>
         <url-pattern>/promotion_detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>ForgotPassController</servlet-name>
         <url-pattern>/ForgotPassController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddPromotionController</servlet-name>
+        <url-pattern>/add_promotion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

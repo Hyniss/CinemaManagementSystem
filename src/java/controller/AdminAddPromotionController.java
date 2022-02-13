@@ -8,6 +8,7 @@ package controller;
 import dao.IPromotionDAO;
 import dao.PromotionDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import model.Promotion;
 
 /**
- *
- * Documentation : AdminEditPromotion 
- * Created on : 13-Feb-2022, 04:38:41 
+ * Documentation : AdminAddPromotionController
+ * Created on : 13-Feb-2022, 01:41:21
  * @author Bảo Châu Bống
  */
-public class AdminEditPromotionController extends HttpServlet {
+
+
+public class AdminAddPromotionController extends HttpServlet {
 
     // Calling method of database
     IPromotionDAO promotionDao = new PromotionDAO();
@@ -30,39 +32,34 @@ public class AdminEditPromotionController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        
-        // Parameter Initializing
-        String id = request.getParameter("id");
-        
-        // Get value from database
-        Promotion promotion = promotionDao.get(Integer.parseInt(id));
-        
-        // Set Attribute
-        request.setAttribute("promotion", promotion);
-        
-        // Lead to AdminEditPromotion.jsp
-        request.getRequestDispatcher("AdminEditPromotion.jsp").forward(request, response);
+
+        // Lead to AdminAddBanner.jsp
+        request.getRequestDispatcher("AdminAddPromotion.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        
-        // Calling method
-        Promotion promotion = new Promotion();
-        
-        // Set Parameter
-        promotion.setId(Integer.parseInt(request.getParameter("new_id")));
-        promotion.setTitle(request.getParameter("new_title"));
-        promotion.setImageLink(request.getParameter("new_Img"));
-        promotion.setContent(request.getParameter("new_content"));
-        promotion.setDate(Date.valueOf(request.getParameter("new_date")));
-        
-        // Edit value from Database
-        promotionDao.editPromotion(promotion);
+        response.setContentType("text/html;charset=UTF-8");
 
-        // Lead to Page that show the list of promotion
+        // Parameter Initializing
+        String new_title = request.getParameter("new_title");
+        String new_content = request.getParameter("new_content");
+        String new_imageLink = request.getParameter("new_imageLink");
+        String new_date = request.getParameter("new_date");
+
+        // Set the value
+        Promotion promotion = new Promotion();
+        promotion.setTitle(new_title);
+        promotion.setContent(new_content);
+        promotion.setImageLink(new_imageLink);
+        promotion.setDate(Date.valueOf(new_date));
+
+        // Add value to database
+        promotionDao.addPromotion(promotion);
+        
+        // Lead to Page that show the list of banner
         response.sendRedirect(request.getContextPath() + "/adminpromotionlist");
     }
 }

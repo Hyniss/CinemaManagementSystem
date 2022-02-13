@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import dao.BannerDAO;
@@ -14,18 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Documentation : AdminDeleteBannerController
+ * Created on : 13-Feb-2022, 02:29:34 
  * @author Bảo Châu Bống
  */
+
+// Admin Can delete Banner
+
 public class AdminDeleteBannerController extends HttpServlet {
 
+    // Calling method of database
     IBannerDAO bannerDao = new BannerDAO();
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        
+        // Parameter Initializing
         String id = request.getParameter("id");
+        
+        // Delete value from Database
         bannerDao.deleteBanner(Integer.parseInt(id));
+        
+        // Lead to Page that show the list of banner
         response.sendRedirect(request.getContextPath() + "/adminbannerlist");
     }
 }

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : Profile
+    Document   : AccountDetail
     Created on : 08/02/2022, 9:49:22 PM
-    Author     : HP
+    Author     : Thái Trần
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
@@ -46,14 +46,9 @@
     </head>
 
     <body>
-        
-<!--        HEADER-->
-        <%@include file="template/header.jsp" %>
-        
-        
-<!-- CONTAINER       -->
         <div class="container-xl px-4 mt-4">
 
+            <%@include file="template/header.jsp" %>
 
             <hr class="mt-0 mb-4">
             <div class="row">
@@ -132,13 +127,12 @@
                 </div>
             </div>
 
+            <%@include file="template/footer.jsp" %>
 
         </div>
 
-                                    
-<!--                                    CSS-->
         <style>
-            body{
+            body{margin-top:20px;
                  background-color:#f2f6fc;
                  color:#69707a;
             }
@@ -215,11 +209,6 @@
                 $('body').sakura();
             });
         </script>
-        
-        <!--        FOOTER-->
-        <%@include file="template/footer.jsp" %>
-        
-        
     </body>
 </html>
 

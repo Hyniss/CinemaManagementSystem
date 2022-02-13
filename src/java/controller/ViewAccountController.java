@@ -15,10 +15,10 @@ import model.Account;
 
 /**
  *
- * @author HP
+ * @author Thái Trần
  */
 
-// show the details ò account
+// show the details of account
 
 public class ViewAccountController extends HttpServlet {
 

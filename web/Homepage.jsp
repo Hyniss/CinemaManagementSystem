@@ -122,9 +122,11 @@
                     </div>
                     <c:forEach items="${promotions}" var="p" varStatus="i">
                         <div class="carousel-item text-center ${i.index==0?'active':''}" >
-                            <img src="${pageContext.request.contextPath}/assets/img/promotion/${p.getImageLink()}" width="50%" height="auto" alt="..." />
+                            <figure class="aa-blog-img">
+                                <a href="${pageContext.request.contextPath}/promotion_detail?id=${p.id}"><img src="${pageContext.request.contextPath}/assets/img/promotion/${p.imageLink}" alt="farm products" height="50%" width="50%"></a>
+                            </figure>
                         </div>  
-                    </c:forEach>
+                        </c:forEach>
 
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions1"
                             data-bs-slide="prev">

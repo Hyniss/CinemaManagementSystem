@@ -1,6 +1,6 @@
 <%-- 
-    Document   : AdminAddBanner
-    Created on : 13-Feb-2022, 01:41:21
+    Document   : AdminAddPromotion
+    Created on : 13-Feb-2022, 20:43:25
     Author     : Bảo Châu Bống
 --%>
 
@@ -52,7 +52,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title" style="margin: 10px; color: #ffffff">Add Banner</div>
-                            <form action="${pageContext.request.contextPath}/add_banner" method="post">
+                            <form action="${pageContext.request.contextPath}/add_promotion" method="post">
 
                                 <div class="form-group">
                                     <label>Title</label>
@@ -61,17 +61,23 @@
 
                                 <div class="form-group">
                                     <label for="input-1">Image</label>
-                                    <input type="text" class="form-control" id="input-1" placeholder="Add Image" name="new_Img">
+                                    <input type="text" class="form-control" id="input-1" placeholder="Add Image" name="new_imageLink">
                                 </div>
                                 <div class="form-group">
                                     <label for="input-2" class="col-form-label">Content</label>
                                     <div>
-                                        <textarea class="form-control" rows="4" id="input-17" name="new_desc"></textarea>
+                                        <textarea class="form-control" rows="4" id="input-17" name="new_content"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-footer" style="margin-top: 10px"">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i> Thêm</button>
-                                    <button class="btn btn-danger"><i class="fa fa-times"></i><a href="${pageContext.request.contextPath}/adminbannerlist">Hủy</a></button>
+                                <div class="form-group">
+                                    <label for="input-1">Created Date</label> 
+                                    <div>
+                                        <input type="date" class="form-control" id="the-date" placeholder="Ngày đăng" name="new_date">
+                                    </div>
+                                </div>
+                                <div class="form-footer" style="margin-top: 10px">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>Add</button>
+                                    <button class="btn btn-danger"><i class="fa fa-times"></i><a href="${pageContext.request.contextPath}/adminpromotionlist">Cancel</a></button>
                                 </div>
                             </form>
                         </div>
@@ -89,3 +95,4 @@
         $('body').sakura();
     });
 </script>
+
