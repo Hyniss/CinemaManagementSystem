@@ -29,4 +29,8 @@ public interface IAccountDAO {
     public void signup(String user, String pass, String fullname, String dob, String email, String phone);
 
     public void changePassword(String newpass, String oldpass, String user);
+
+    public Account checkLogin(String user, String email);
+
+    public void ChangePass(String newpass, String question, String email);
 }

@@ -210,4 +210,41 @@ public class AccountDAO implements IAccountDAO{
             System.out.println(e);
         }
     }
+    
+      // hàm check thông tin
+          public Account checkLogin(String user,String email) {
+        
+            query = "select * from account where username = ? and email=?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            ps.setString(2, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+          //Lấy lại mật khẩu
+        public void ChangePass(String newpass,String question,String email) {
+        
+           query="update account set password=? where security = ? and email= ? ";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, newpass);
+            ps.setString(2, question);
+            ps.setString(3, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        
+    }
 }
