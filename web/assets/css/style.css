@@ -275,7 +275,7 @@ canvas{
 /*food*/
 .food {
     position: relative;
-    min-height: 860px;
+    min-height: 790px;
 }
 .main-content .products-list {
     display: flex;
@@ -308,7 +308,7 @@ canvas{
 @media only screen and (max-width : 1000px) {
     .food {
         position: relative;
-        min-height: 900px;
+        min-height: 780px;
     }
 }
 @media only screen and (max-width : 860px) {
@@ -320,7 +320,7 @@ canvas{
 @media only screen and (max-width : 790px) {
     .food {
         position: relative;
-        min-height: 1500px;
+        min-height: 1400px;
     }
     .main-content .products-list {
         flex-direction: column;
@@ -336,7 +336,7 @@ canvas{
 @media only screen and (max-width : 690px) {
     .food {
         position: relative;
-        min-height: 1870px;
+        min-height: 1500px;
     }
     .main-content .products-list {
         flex-direction: column;

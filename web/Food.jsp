@@ -1,9 +1,16 @@
 <%-- 
-    Document   : food
-    Created on : 11/02/2022, 12:17:29 PM
-    Author     : TIEN HUY
+   CinemaManagementSystem
+   Copyright(C)2022, Group 4 SE1511 FPTU-HN
+  
+   Food
+   Record of change:
+   DATE         Version     AUTHOR        Description
+   2022-02-11   1.0         Nguyen Nam    First Implement
 --%>
-
+<%@page import="model.Seat"%>
+<%@page import="java.util.ArrayList"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,6 +45,9 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+        <% String bookFoodId = (String) request.getAttribute("bookFoodId");%>
+        <% HttpSession listSeatSession = request.getSession(true); %>
+        <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) listSeatSession.getAttribute("listcheckedSeatId"); %>  
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -49,6 +59,7 @@
                         <div class="page-title">
                             <h1>Booking online</h1>
                         </div>
+                        <!--top content-->
                         <div class="top-content">
                             <ol class="products-list">
                                 <li class="item">
@@ -56,7 +67,12 @@
                                         <div class="f-fix">
                                             <div class="product-primary">
                                                 <p>
-                                                    Room 1 | Số ghế (64/64) 
+                                                    Room 1 | Ghế
+                                                    <% if (listCheckedSeatId != null) {%>          
+                                                    <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
+                                                    <%=listCheckedSeatId.get(k).getSeatId()%>;
+                                                    <%}%>
+                                                    <%}%>
                                                 </p>
                                                 <p>14/02/2022 | từ 18:30 đến 20h42</p>
                                             </div>
@@ -65,6 +81,7 @@
                                 </li>   
                             </ol>
                         </div>
+                        <!--main content-->
                         <div class="main-content">
                             <ul class="food progress">
                                 <li class="booking-step" style="position: absolute;top:0px;
@@ -72,35 +89,46 @@
                                     visibility: visible">               
                                     <label class="h2"> Combo </label>
                                     <ol class="products-list">
-                                        <c:forEach begin="1" end="8" step="1">
+                                        <!--list food and drink-->
+                                        <c:forEach items="${listFoodAndDrink}" var="i">                                         
                                             <li class="item first">
                                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ64OS1v8waUJCsjt5vyvULJ0h0BSPTZ3H9iA&usqp=CAU" class="combo-image">
                                                 <div class="product-shop">
                                                     <div class="f-fix">
                                                         <div class="product-primary">
-                                                            <h3> My combo </h3>
+                                                            <h4 style="font-weight: bold; text-transform:uppercase"> ${i.name} </h4>
                                                         </div>
                                                         <div class="desc std">
-                                                            1 bắp lớn + 1 nước siêu lớn. Nhận trong ngày xem phim
-                                                            <br>** Miễn phí đổi vị bắp Caramel *
+                                                            *Nhận trong ngày xem phim*
                                                         </div>
                                                         <div class="desc">
                                                             <div class="price-box">
                                                                 <span class="label">Giá: </span>
-                                                                <span class="price">83,000 vnđ</span>
+                                                                <span class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${i.price}" type = "currency"/></span>
                                                             </div>
                                                             <div class="product-choose"> 
                                                                 <span class="input-group-btn">
-                                                                    <a href="" class="btn" data-type="minus">
+                                                                    <a href="book-food?" class="btn" data-type="minus">
                                                                         <i class="fas fa-minus"></i>
                                                                     </a>
                                                                 </span>
-                                                                <input type="number" id="quantity" name="" class="form-control input-number" value="1" min="1" max="10" disabled>
-                                                                <input type="text" name="" value="" hidden>
+                                                                <c:if test="${bookFood != true}">
+                                                                    <input type="number" id="${i.foodId}" name="" class="form-control input-number" value="0" min="0" max="10" >
+                                                                </c:if>
+                                                                <c:if test="${bookFood == true}">
+                                                                    <input type="number" id="${i.foodId}" name="" class="form-control input-number" value="${quantity}" min="0" max="10" >
+                                                                </c:if>
                                                                 <span class="input-group-btn ml-1">
-                                                                    <a href="" class="btn" data-type="minus">
-                                                                        <i class="fas fa-plus"></i>
-                                                                    </a>
+                                                                    <c:if test="${bookFood != true}">
+                                                                        <a href="book-food? class="btn" data-type="plus">
+                                                                           <i class="fas fa-plus"></i>
+                                                                        </a>  
+                                                                    </c:if>
+                                                                    <c:if test="${bookFood == true}">
+                                                                        <a href="book-food?" class="btn" data-type="plus">
+                                                                            <i class="fas fa-plus"></i>
+                                                                        </a>  
+                                                                    </c:if>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -112,11 +140,14 @@
                                 </li>
                             </ul>
                         </div>
+                        <!--bottom content-->
                         <div class="bottom-content">
+                            <!--button go back-->
                             <div class="format-bg-top"></div> 
-                            <a class="btn-pre-left" href="" title="Previous"></a>
+                            <a class="btn-pre-left" href="book?bookSeat=true" title="Previous"></a>
                             <div class="minicart">
                                 <ul>
+                                    <!--movie info-->
                                     <li class="item first">
                                         <div class="product-details">
                                             <table class ="info-wrapper">
@@ -146,6 +177,7 @@
                                             </table>
                                         </div>
                                     </li>
+                                    <!--movie schedule-->
                                     <li class="item">
                                         <div class="product-details">
                                             <table class ="info-wrapper">
@@ -155,40 +187,37 @@
                                                 </colgroup>
                                                 <tbody>
                                                     <tr style="height: 43px">
-                                                        <td class="label">Rạp chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">CGV Aeon mall Hà Đông<td>
-                                                    </tr>
-                                                    <tr style="height: 43px">
                                                         <td class="label">Suất chiếu</td>
                                                         <td style="font-weight: bold;font-size:16px;">10h05, 11/02/2022<td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="label">Phòng</td>
+                                                    <tr style="height: 43px">
+                                                        <td class="label">Phòng chiếu</td>
                                                         <td style="font-weight: bold;font-size:16px;">Room 2<td>
                                                     </tr>
                                                 </tbody>
                                             </table> 
                                         </div>
                                     </li>
+                                    <!--movie ticket price-->
                                     <li class="item">
                                         <div class="product-details">
                                             <table class ="info-wrapper">
                                                 <thead>
                                                     <tr class="block-box" style="height: 20px">
                                                         <td class="label">Giá vé</td>
-                                                        <td class="price"> 55,000 vnđ</td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Combo</td>
-                                                        <td class="price"> 0 vnđ</td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="block-box">
                                                         <td class="label" style="font-weight: bold">TỔNG</td>
-                                                        <td class="price"> 55,000 vnđ</td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -196,6 +225,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            <!--button go next-->  
                             <a class="btn-next-right" href="" title="Next"></a>
                             <div class="format-bg-bottom"></div>           
                         </div>

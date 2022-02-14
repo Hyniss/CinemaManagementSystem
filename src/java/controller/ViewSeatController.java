@@ -1,20 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * ViewSeatController
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * This is a Servlet responsible for handling the task when the user wants to
+ * see the seat map /seat is the URL of the web site 
+ * Extend HttpServlet class
  *
- * @author tenhik
+ * @author Nguyen Nam
  */
 public class ViewSeatController extends HttpServlet {
 
@@ -30,6 +36,9 @@ public class ViewSeatController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        
+        /*Attach attribute subjects for request and redirect it to Seat.jsp*/
         request.getRequestDispatcher("Seat.jsp").forward(request, response);
     }
 

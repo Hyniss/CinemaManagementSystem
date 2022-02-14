@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * BookSeatController
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package controller;
 
@@ -18,8 +22,11 @@ import javax.servlet.http.HttpSession;
 import model.Seat;
 
 /**
+ * This is a Servlet responsible for handling the task when the user wants to
+ * book the seat
+ * /book is the URL of the web site Extend HttpServlet class
  *
- * @author tenhik
+ * @author Nguyen Nam
  */
 @WebServlet(name = "BookSeatController", urlPatterns = {"/book"})
 public class BookSeatController extends HttpServlet {
@@ -35,32 +42,51 @@ public class BookSeatController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Use ISeatDAO interface to call
         ISeatDAO seatDao = new SeatDAO();
-        Seat seat = new Seat();
 
-        double totalPrice = 0;
+        double totalSeatPrice = 0;
         double seatPrice = 0;
         String[] checkedSeatId = null;
+        boolean bookSeat = false;
 
         checkedSeatId = request.getParameterValues("seatId");
-        ArrayList<String> listSeatChecked = new ArrayList<>();
+        try {
+            bookSeat = Boolean.valueOf(request.getParameter("bookSeat"));
+        } catch (Exception e) {
+        }
+
+        ArrayList<Seat> listSeatChecked = new ArrayList<>();
+        HttpSession BookSeatSession = request.getSession(true);
 
         if (checkedSeatId != null) {
-
+            //add seat chosen into list and update the price 
             request.setAttribute("status", "check");
             for (String checked : checkedSeatId) {
-                String price = seatDao.getSeatPriceBySeatId(checked);
+                String price = seatDao.getSeatInfoBySeatId(checked).getPrice();
                 try {
                     seatPrice = Double.parseDouble(price);
                 } catch (Exception e) {
                 }
-                totalPrice += seatPrice;
-                listSeatChecked.add(checked);
+                Seat seat = new Seat();
+                seat.setSeatId(checked);
+                totalSeatPrice += seatPrice;
+                listSeatChecked.add(seat);
             }
+            /*Attach attribute subjects for request and redirect it to Seat.jsp*/
+            BookSeatSession.setAttribute("listcheckedSeatId", listSeatChecked);
+            BookSeatSession.setAttribute("totalSeatPrice", totalSeatPrice);
+            request.getRequestDispatcher("Seat.jsp").forward(request, response);
+        } else if (bookSeat && checkedSeatId == null) {
+            /* redirect it to Seat.jsp*/
+            request.getRequestDispatcher("Seat.jsp").forward(request, response);
+        } else if ((!bookSeat && checkedSeatId == null)) {
+            /*Remove and redirect it to view seat*/
+            BookSeatSession.removeAttribute("listcheckedSeatId");
+            BookSeatSession.removeAttribute("totalSeatPrice");
+            response.sendRedirect("seat");
         }
-        request.setAttribute("listcheckedSeatId", listSeatChecked);
-        request.setAttribute("totalPrice", totalPrice);
-        request.getRequestDispatcher("Seat.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

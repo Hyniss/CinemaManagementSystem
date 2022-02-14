@@ -1,17 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * SeatDAO
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Seat;
 
 /**
- *
- * @author tenhik
+ * This class contain method to find Seat information from database
+ * Implement ISeatDAO Interface
+ * 
+ * @author Nguyen Nam 
  */
 public class SeatDAO implements ISeatDAO {
 
@@ -20,27 +30,37 @@ public class SeatDAO implements ISeatDAO {
     private ResultSet rs;
     private String query;
 
+     /**
+     * getSeatPriceBySeatId method implement from ISeatDAO
+     * 
+     * @param seatId ID of the Seat.
+     * @return chapter <code>model.Seat</code> object
+     */
+    
     @Override
-    public String getSeatPriceBySeatId(String seatId) {
-        String price = "";
+    public Seat getSeatInfoBySeatId(String seatId) {
+        Seat seat = new Seat();
         try {
-            query = "SELECT price FROM dbo.Seat WHERE seatId = ?";
+            /*Set up connection and Sql statement for Querry*/
+            query = "SELECT * FROM dbo.Seat WHERE seatId = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, seatId);
+            /*Querry and save in ResultSet*/
             rs = ps.executeQuery();
+             /*Assign data to an Seat Model*/
             while (rs.next()) {
-                price = rs.getString("price");
-                return price;
+                seat.setSeatId(rs.getString("seatId"));
+                seat.setSeatNumber(rs.getInt("seatNumber"));
+                seat.setSeatRow(rs.getString("seatRow"));
+                seat.setPrice(rs.getString("price"));
             }
-        } catch (Exception e) {
+            con.close();
+        } catch (SQLException e) {
+            Logger.getLogger(SeatDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally{
+            DBContext.close(con, ps, rs);
         }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        ISeatDAO seatDAO = new SeatDAO();
-        String price = seatDAO.getSeatPriceBySeatId("A1");
-        System.out.println(price);
+        return seat;
     }
 }

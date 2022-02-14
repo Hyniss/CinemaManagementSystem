@@ -11,24 +11,26 @@ package model;
  */
 public class FoodAndDrink {
 
-    private String foodId;
+    private int foodId;
     private String category;
     private String name;
+    private float price;
 
     public FoodAndDrink() {
     }
 
-    public FoodAndDrink(String foodId, String category, String name) {
+    public FoodAndDrink(int foodId, String category, String name, float price) {
         this.foodId = foodId;
         this.category = category;
         this.name = name;
+        this.price = price;
     }
 
-    public String getFoodId() {
+    public int getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(String foodId) {
+    public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
 
@@ -46,6 +48,14 @@ public class FoodAndDrink {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     @Override
