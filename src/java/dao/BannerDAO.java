@@ -46,6 +46,7 @@ public class BannerDAO implements IBannerDAO{
         }
         return banner;
     }
+    
     @Override
     public ArrayList<Banner> getAllBanner() {
         ArrayList<Banner> list = new ArrayList<>();
@@ -65,6 +66,7 @@ public class BannerDAO implements IBannerDAO{
         }
         return list;
     }
+    
     @Override
     public void addBanner(Banner banner) {
         try {
@@ -82,7 +84,6 @@ public class BannerDAO implements IBannerDAO{
         }
     }
 
-    
     @Override
     public void editBanner(Banner banner) {
         try {
