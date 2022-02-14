@@ -1,11 +1,7 @@
 <%-- 
-   CinemaManagementSystem
-   Copyright(C)2022, Group 4 SE1511 FPTU-HN
-  
-   Seat
-   Record of change:
-   DATE         Version     AUTHOR        Description
-   2022-02-11   1.0         Nguyen Nam    First Implement
+    Document   : Seat
+    Created on : 08/02/2022, 9:49:22 PM
+    Author     : Nguyen Nam
 --%>
 <%@page import="model.Seat"%>
 <%@page import="java.util.ArrayList"%>
