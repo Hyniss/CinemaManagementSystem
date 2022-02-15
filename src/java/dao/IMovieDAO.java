@@ -16,9 +16,15 @@ public interface IMovieDAO {
 
     public ArrayList<Movie> getAllMovie();
 
-    public ArrayList<Movie> getTop6Movie();
+    public ArrayList<Movie> getTop8Movie();
+    
+    public ArrayList<Movie> getTop4Movie();
+    
+    public ArrayList<Movie> getNext4Movie(int amount);
 
     public Movie getMovieById(int movieId);
+    
+    public ArrayList<Movie> getMovieByName(String movieName);
     
     public ArrayList<Movie> getMoviePremere();
     

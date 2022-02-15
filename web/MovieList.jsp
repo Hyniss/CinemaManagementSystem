@@ -1,7 +1,7 @@
 <%-- 
-    Document   : Homepage
-    Created on : 09-Feb-2022, 00:20:55
-    Author     : Bảo Châu Bống
+    Document   : MovieList
+    Created on : Feb 16, 2022, 12:46:04 AM
+    Author     : Thai Tran
 --%>
 
 <%@page import="java.util.Date"%>
@@ -49,33 +49,6 @@
     <body>
         <%@include file="template/header.jsp" %>
         <!-- SLIDER -->
-        <section class="slider">
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-indicators text-center">
-                        <c:forEach items="${banners}" var="banner" varStatus="i" >
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="${i.index}" <c:if test="${i.index==0}"> class="active" aria-current="true"</c:if> aria-label="${banner.getTitle()}"></button>
-                        </c:forEach>
-                    </div>
-                    <c:forEach items="${banners}" var="banner" varStatus="i">
-                        <div class="carousel-item text-center ${i.index==0?'active':''}" >
-                            <img src="${pageContext.request.contextPath}/assets/img/banner/${banner.getImg()}" width="80%" height="auto" alt="..." />
-                        </div>  
-                    </c:forEach>
-
-                    <button class="carousel-control-prev" style="margin-left: 2%" type="button" data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" style="margin-right: 2%" type="button" data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-        </section>
 
         <!-- MOVIE -->
         <section class="product">
@@ -110,43 +83,7 @@
                 </c:forEach>
             </div> 
 
-            <!--            Load more button    -->
-            <div style="text-align:center; margin-top: 50px">
-                <button onclick="loadMoreMovie()" type="button" class="btn btn-warning" style="width:120px; height: 50px;">Load more</button>
-            </div>
 
-        </section>
-
-
-        <!-- PROMOTION -->
-        <section class="slider">
-            <div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel" style="margin-bottom: 20px">
-                <div class="carousel-inner">
-                    <div class="carousel-indicators text-center">
-                        <c:forEach items="${promotions}" var="p" varStatus="i" >
-                            <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="${i.index}" <c:if test="${i.index==0}"> class="active" aria-current="true"</c:if> aria-label="${p.getTitle()}"></button>
-                        </c:forEach>
-                    </div>
-                    <c:forEach items="${promotions}" var="p" varStatus="i">
-                        <div class="carousel-item text-center ${i.index==0?'active':''}" >
-                            <figure class="aa-blog-img">
-                                <a href="${pageContext.request.contextPath}/promotion_detail?id=${p.id}"><img src="${pageContext.request.contextPath}/assets/img/promotion/${p.imageLink}" alt="farm products" height="50%" width="50%"></a>
-                            </figure>
-                        </div>  
-                    </c:forEach>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions1"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions1"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
         </section>
 
         <%@include file="template/footer.jsp" %>
@@ -191,6 +128,25 @@
                             }
                         });
                     }
+
+
+                    function searchByName(param) {
+                        var searchName = param.value;
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/searchmovieajax",
+                            type: "get",
+                            data: {
+                                moviename: searchName
+                            },
+                            success: function (data) {
+                                var row = document.getElementById("movie-content");
+                                row.innerHTML = data;
+                            },
+                            error: function (xhr) {
+                                //Do something handle 
+                            }
+                        });
+                        }
 
         </script>
     </body>

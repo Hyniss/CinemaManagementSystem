@@ -50,8 +50,8 @@ public class MovieDAOTest {
     }
 
     @Test
-    public void testGetTop6Movie() {
-        movieDAO.getTop6Movie();
+    public void testGetTop8Movie() {
+        movieDAO.getTop8Movie();
     }
 
     @Test

@@ -92,7 +92,7 @@
                                     <!-- Form Group (password)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Mật khẩu</label>
-                                        <input name="password" class="form-control" type="text" placeholder="Enter your password" value="${account.getPassword()}" required>
+                                        <input name="password" class="form-control" type="password" placeholder="Enter your password" value="${account.getPassword()}" readonly>
                                     </div>
                                 </div>
                                 <!-- Form Row        -->

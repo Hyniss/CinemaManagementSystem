@@ -88,6 +88,14 @@
         <servlet-name>AdminAddPromotionController</servlet-name>
         <servlet-class>controller.AdminAddPromotionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadMoreMovieController</servlet-name>
+        <servlet-class>controller.LoadMoreMovieController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchMovieController</servlet-name>
+        <servlet-class>controller.SearchMovieController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -175,6 +183,14 @@
     <servlet-mapping>
         <servlet-name>AdminAddPromotionController</servlet-name>
         <url-pattern>/add_promotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadMoreMovieController</servlet-name>
+        <url-pattern>/loadmoremovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMovieController</servlet-name>
+        <url-pattern>/searchmovie</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

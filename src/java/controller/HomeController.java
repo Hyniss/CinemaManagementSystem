@@ -51,8 +51,8 @@ public class HomeController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
 
         // SHOW THE LIST OF MOVIE
-        ArrayList<Movie> listMovie = movieDao.getAllMovie();
-        request.setAttribute("listMovie", listMovie);
+        ArrayList<Movie> listTop8Movie = movieDao.getTop8Movie();
+        request.setAttribute("listMovie", listTop8Movie);
 
         // SHOW THE LIST OF BANNER
         ArrayList<Banner> banners = bannerDao.getAllBanner();

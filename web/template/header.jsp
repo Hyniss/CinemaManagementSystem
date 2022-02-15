@@ -28,9 +28,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <!-- SEARCHBAR -->
-            <form class="d-flex searchbar" method="get" action="${pageContext.request.contextPath}/movie">
+            <form class="d-flex searchbar" method="get" action="${pageContext.request.contextPath}/searchmovie">
                 <input type="hidden" name="page" value="1"/>
-                <input name="query" class="form-control me-2" type="search" placeholder="Search movie you want ..." aria-label="Search">
+                <input name="moviename" value="${movieNameInput}" class="form-control me-2" type="text" placeholder="Search movie you want ..." aria-label="Search">
 
                 <button class="btn btn-danger" type="submit"><i class="fas fa-search" style="font-size: 100%; "></i></button>
             </form>
@@ -94,7 +94,7 @@
                         <!-- Neu khong co user -->
                         <c:if test ="${sessionScope.acc ==  null}">
                             <li><a class="dropdown-item" href="Login.jsp">Login</a></li>
-                            <li><a class="dropdown-item" href="Register.jsp">Regiter</a></li>
+                            <li><a class="dropdown-item" href="Register.jsp">Register</a></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AboutCinema.jsp">About Cinema</a></li>
                             </c:if>
                     </ul>
