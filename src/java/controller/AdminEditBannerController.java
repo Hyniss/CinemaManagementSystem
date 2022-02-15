@@ -17,7 +17,7 @@ import model.Banner;
 /**
  * Documentation: AdminEditBannerController
  * Created on : 13-Feb-2022, 02:29:34
- * @author Bảo Châu Bống
+ * @author Nguyễn Tiến Huy
  */
 
 // Admin can edit the information of Banner

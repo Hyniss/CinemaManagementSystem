@@ -45,14 +45,14 @@ public class ViewFoodController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         IFoodDAO foodDAO = new FoodDAO();
-        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.listAllFoodAndDrink();
+//        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.listAllFoodAndDrink(); lấy lại hàm
         HttpSession BookSeatSession = request.getSession(true);
 
         double totalSeatPrice = (double) BookSeatSession.getAttribute("totalSeatPrice");
         if (BookSeatSession != null) {
             /*Attach attribute subjects for request and redirect it to Food.jsp*/
             request.setAttribute("totalSeatPrice", totalSeatPrice);
-            request.setAttribute("listFoodAndDrink", listFoodAndDrink);
+//            request.setAttribute("listFoodAndDrink", listFoodAndDrink); lấy lại hàm
             request.getRequestDispatcher("Food.jsp").forward(request, response);
         } else {
            response.sendRedirect("book");

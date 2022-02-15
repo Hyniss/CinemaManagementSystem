@@ -60,7 +60,7 @@ public class BookFoodController extends HttpServlet {
             throws ServletException, IOException {
 
         IFoodDAO foodDAO = new FoodDAO();
-        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.listAllFoodAndDrink();
+//        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.listAllFoodAndDrink(); lấy lại hàm
         String totalSeatPrice = request.getParameter("totalSeatPrice");
         String movie = request.getParameter("movie");
         String room = request.getParameter("room");
@@ -85,7 +85,7 @@ public class BookFoodController extends HttpServlet {
         request.setAttribute("movie", movie);
         request.setAttribute("room", room);
         request.setAttribute("seat", seat);
-        request.setAttribute("listFoodAndDrink", listFoodAndDrink);
+//        request.setAttribute("listFoodAndDrink", listFoodAndDrink); lấy lại hàm
         request.getRequestDispatcher("Food.jsp").forward(request, response);
     }
 

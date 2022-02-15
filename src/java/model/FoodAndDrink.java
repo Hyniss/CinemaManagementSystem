@@ -10,27 +10,33 @@ package model;
  * @author Bảo Châu Bống
  */
 public class FoodAndDrink {
-
-    private int foodId;
+    private String foodId;
     private String category;
     private String name;
-    private float price;
+    private String price;
+    private String img;
+    
 
     public FoodAndDrink() {
     }
 
-    public FoodAndDrink(int foodId, String category, String name, float price) {
+    public FoodAndDrink(String foodId, String category, String name, String price, String img) {
         this.foodId = foodId;
         this.category = category;
         this.name = name;
         this.price = price;
+        this.img = img;
     }
 
-    public int getFoodId() {
+  
+
+   
+
+    public String getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(int foodId) {
+    public void setFoodId(String foodId) {
         this.foodId = foodId;
     }
 
@@ -50,17 +56,26 @@ public class FoodAndDrink {
         this.name = name;
     }
 
-    public float getPrice() {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
+    
 
     @Override
     public String toString() {
-        return "FoodAndDrink{" + "foodId=" + foodId + ", category=" + category + ", name=" + name + '}';
+        return "FoodAndDrink{" + "foodId=" + foodId + ", category=" + category + ", name=" + name + ", price=" + price + ", img=" + img + '}';
     }
 
 }

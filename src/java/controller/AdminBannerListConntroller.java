@@ -13,7 +13,7 @@ import model.Banner;
 
 /**
  * Documentation: AdminBannerListConntroller 
- * Created on: 13-Feb-2022, 01:41:21
+ * Created on: 13-Feb-2022, 0:41:21
  * @author Bảo Châu Bống
  */
 
