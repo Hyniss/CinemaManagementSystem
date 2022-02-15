@@ -17,9 +17,11 @@ import model.Account;
 
 /**
  *
- * @author Thái Trần
+ * @author HP
  */
+
 //user can edit properites of account
+
 public class EditAccountController extends HttpServlet {
 
     IAccountDAO accountDao = new AccountDAO();
@@ -28,8 +30,9 @@ public class EditAccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-
-        //get account properites from jsp and edit
+        
+        //get account properites from jsp
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String avatar = request.getParameter("avatar");
@@ -39,17 +42,31 @@ public class EditAccountController extends HttpServlet {
         String phone = request.getParameter("phone");
         int roleid = Integer.parseInt(request.getParameter("roleid"));
 
+        //set popeties into new account
         Account account = new Account();
-        account.setUsername(username);
+        account.setUsername(username.trim());
         account.setPassword(password);
-        account.setAvatar(avatar);
-        account.setFullName(fullname);
+        account.setAvatar(avatar.trim());
+        account.setFullName(fullname.trim());
         account.setDob(dob);
-        account.setEmail(email);
-        account.setPhone(phone);
+        account.setEmail(email.trim());
+        account.setPhone(phone.trim());
         account.setRoleId(roleid);
 
-        accountDao.editAccount(account);
+        //edit account
+        boolean check = accountDao.editAccount(account);
+        
+        //get edit status through check variable
+        if(check == true){
+            String successMessage = "Edit successfully!";
+            request.setAttribute("successMessage", successMessage);
+            
+        } else {
+            String failMessage = "Edit failed!";
+            request.setAttribute("failMessage", failMessage);
+        }
+        
+        //get properties and getRequestDispatcher to AccountDetail.jsp
         request.setAttribute("account", account);
         request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
     }

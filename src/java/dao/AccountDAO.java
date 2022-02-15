@@ -18,7 +18,7 @@ import model.Account;
 
 /**
  *
- * @author HP
+ * @author Thai Tran
  */
 public class AccountDAO implements IAccountDAO{
 
@@ -27,14 +27,26 @@ public class AccountDAO implements IAccountDAO{
     private ResultSet rs;
     private String query;
     
+    
+    /**
+     * getAllAccount method implement from IAccountDAO
+     *
+     *
+     * @return chapters. <code>java.util.ArrayList</code> object
+     */
     @Override
     public ArrayList<Account> getAllAccount() {
         ArrayList<Account> accountList = new ArrayList<>();
         try {
+            /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM dbo.Account";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
+            
+            /*Query and save in ResultSet*/
             rs = ps.executeQuery();
+            
+            /*Assign data to an arraylist of Account*/
             while (rs.next()) {
                 accountList.add(new Account(
                         rs.getString("username"),
@@ -48,19 +60,34 @@ public class AccountDAO implements IAccountDAO{
                 ));
             }
         } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            DBContext.close(con, ps, rs);
         }
         return accountList;
     }
 
+    /**
+     * getAccountByUserName method implement from IAccountDAO
+     *
+     * @param username is primary key of the Account. String object
+     * @return Account object
+     */
     @Override
     public Account getAccountByUsername(String username) {
         try {
+            /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM dbo.Account where username=?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, username);
+            
+            /*Query and save in ResultSet*/
             rs = ps.executeQuery();
 
+            /*Assign data to an Account*/
             while (rs.next()) {
                 Account a = new Account(
                         rs.getString("username"),
@@ -75,17 +102,31 @@ public class AccountDAO implements IAccountDAO{
                 return a;
             }
         } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            DBContext.close(con, ps, rs);
         }
         return null;
     }
 
+    /**
+     * editAccount method implement from IAccountDAO
+     *
+     * @param Account. Account object
+     * @return boolean object to know it executed or not
+     */
     @Override
     public boolean editAccount(Account a) {
         int check = 0;
         try {
+            /*Set up connection and Sql statement for Query*/
             query = "UPDATE [Account] SET [password] = ?,[avatar]=?,[fullname]=?,[DOB]=?,[email]=?,[phone]=?, [roleId]=? WHERE [username] = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
+            
+            /*Set params for Query*/
             ps.setString(1, a.getPassword());
             ps.setString(2, a.getAvatar());
             ps.setString(3, a.getFullName());
@@ -94,9 +135,16 @@ public class AccountDAO implements IAccountDAO{
             ps.setString(6, a.getPhone());
             ps.setInt(7, a.getRoleId());
             ps.setString(8, a.getUsername());
+            
+            /*Excute query and store it to check*/
             check = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            DBContext.close(con, ps, rs);
         }
         return check > 0;
     }

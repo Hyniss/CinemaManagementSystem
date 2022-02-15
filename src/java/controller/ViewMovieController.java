@@ -28,7 +28,7 @@ public class ViewMovieController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //Get moive and get request dispatcher to movie_detail.jsp
+        //Get movie and get request dispatcher to movie_detail.jsp
         int mid = Integer.parseInt(request.getParameter("mid"));
         Movie m = movieDao.getMovieById(mid);
         request.setAttribute("movie", m);

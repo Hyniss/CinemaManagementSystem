@@ -27,7 +27,7 @@ public class ViewAccountController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Get moive and get request dispatcher to movie_detail.jsp
+        //Get account and get request dispatcher to AccountDetail.jsp"
         String username = request.getParameter("username");
         Account a = accountDao.getAccountByUsername(username);
         request.setAttribute("account", a);

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : AccountDetail
+    Document   : Profile
     Created on : 08/02/2022, 9:49:22 PM
-    Author     : Thái Trần
+    Author     : Thai Tran
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
@@ -46,9 +46,14 @@
     </head>
 
     <body>
+
+        <!--        HEADER-->
+        <%@include file="template/header.jsp" %>
+
+
+        <!-- CONTAINER       -->
         <div class="container-xl px-4 mt-4">
 
-            <%@include file="template/header.jsp" %>
 
             <hr class="mt-0 mb-4">
             <div class="row">
@@ -75,50 +80,53 @@
                                 <!-- Form Group (fullname)-->
                                 <div class="mb-3">
                                     <label class="small mb-1">Họ tên</label>
-                                    <input name="fullname" class="form-control" type="text" placeholder="Enter your fullname" value="${account.getFullName()}">
+                                    <input name="fullname" class="form-control" type="text" placeholder="Enter your fullname" value="${account.getFullName()}" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (username)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Tài khoản</label>
-                                        <input name="username" class="form-control" type="text" readonly placeholder="Enter your username" value="${account.getUsername()}">
+                                        <input name="username" class="form-control" type="email" readonly placeholder="Enter your username" value="${account.getUsername()}">
                                     </div>
                                     <!-- Form Group (password)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Mật khẩu</label>
-                                        <input name="password" class="form-control" type="text" placeholder="Enter your password" value="${account.getPassword()}">
+                                        <input name="password" class="form-control" type="text" placeholder="Enter your password" value="${account.getPassword()}" required>
                                     </div>
                                 </div>
                                 <!-- Form Row        -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (avatar)-->
                                     <div class="col-md-6">
-                                        <input name="avatar" class="form-control" type="hidden" value="${account.getAvatar()}">
+                                        <input name="avatar" class="form-control" type="hidden" value="${account.getAvatar()}" required>
                                     </div>
                                     <!-- Form Group (role id)-->
                                     <div class="col-md-6">
-                                        <input name="roleid" class="form-control" type="hidden" value="${account.getRoleId()}">
+                                        <input name="roleid" class="form-control" type="hidden" value="${account.getRoleId()}" required>
                                     </div>
                                 </div>
                                 <!-- Form Group (email address)-->
                                 <div class="mb-3">
                                     <label class="small mb-1">Email</label>
-                                    <input name="email" class="form-control" type="email" placeholder="Enter your email address" value="${account.getEmail()}">
+                                    <input name="email" class="form-control" type="email" placeholder="Enter your email address" value="${account.getEmail()}" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Số điện thoại</label>
-                                        <input name="phone" class="form-control" type="number" placeholder="Enter your phone number" value="${account.getPhone()}">
+                                        <input name="phone" class="form-control" type="number" placeholder="Enter your phone number" value="${account.getPhone()}" required>
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">DOB</label>
-                                        <input name="dob" class="form-control" type="date" placeholder="Enter your birthday" value="${account.getDob()}">
+                                        <input name="dob" class="form-control" type="date" placeholder="Enter your birthday" value="${account.getDob()}" required>
                                     </div>
                                 </div>
+<!--                                Edit message    -->
+                                <p style="color: red;font-size: 14px">${failMessage}</p>
+                                <p style="color: green;font-size: 14px">${successMessage}</p>
                                 <!-- Save changes button-->
                                 <button class="btn btn-primary" type="submit">Thay đổi</button>
                             </form>
@@ -127,14 +135,15 @@
                 </div>
             </div>
 
-            <%@include file="template/footer.jsp" %>
 
         </div>
 
+
+        <!--                                    CSS-->
         <style>
-            body{margin-top:20px;
-                 background-color:#f2f6fc;
-                 color:#69707a;
+            body{
+                background-color:#f2f6fc;
+                color:#69707a;
             }
             .img-account-profile {
                 height: 10rem;
@@ -209,6 +218,11 @@
                 $('body').sakura();
             });
         </script>
+
+        <!--        FOOTER-->
+        <%@include file="template/footer.jsp" %>
+
+
     </body>
 </html>
 
