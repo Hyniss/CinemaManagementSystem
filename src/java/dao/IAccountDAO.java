@@ -30,7 +30,7 @@ public interface IAccountDAO {
 
     public void changePassword(String newpass, String oldpass, String user);
 
-    public Account checkLogin(String user, String email);
+    public Account checkEmail(String user, String email);
 
-    public void ChangePass(String newpass, String question, String email);
+  
 }
