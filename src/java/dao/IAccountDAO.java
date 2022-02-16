@@ -20,15 +20,12 @@ public interface IAccountDAO {
 
     public boolean editAccount(Account a);
 
-    public Account login(String user, String pass);
+    public Account getAccountByUsernameAndPassword(String user, String pass);
 
-    public Account checkAccountExist(String user);
 
-    public Account checkPassword(String user, String pass);
+    public void insertAccount(String user, String pass, String fullname, String dob, String email, String phone);
 
-    public void signup(String user, String pass, String fullname, String dob, String email, String phone);
-
-    public void changePassword(String newpass, String oldpass, String user);
+    public void updatePassword(String newpass, String oldpass, String user);
 
     public Account checkEmail(String user, String email);
 

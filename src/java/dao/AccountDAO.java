@@ -75,6 +75,8 @@ public class AccountDAO implements IAccountDAO{
      * @param username is primary key of the Account. String object
      * @return Account object
      */
+    
+       //check xem tài khoản có tồn tại ko
     @Override
     public Account getAccountByUsername(String username) {
         try {
@@ -160,14 +162,15 @@ public class AccountDAO implements IAccountDAO{
         System.out.println(a);
     }
     
-    //hàm đăng nhập
+     //           hàm đăng nhập
     @Override 
-    public Account login(String user, String pass) {
-
+    public Account getAccountByUsernameAndPassword(String user, String pass) {
+        
+        //câu truy vấn lấy ra account theo username va password
         query = "select * from account where username = ? and password = ?";
         try {
             con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
+            ps = con.prepareStatement(query); // thực hiện truy vấn tham số trong câu truy vấn
             ps.setString(1, user);
             ps.setString(2, pass);
             rs = ps.executeQuery();
@@ -176,59 +179,22 @@ public class AccountDAO implements IAccountDAO{
                         rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            DBContext.close(con, ps, rs); //giúp giải phóng bộ nhớ 1 cách nhanh hơn
         }
         return null;
     }
 
-    //check xem tài khoản có tồn tại ko
-    @Override
-    public Account checkAccountExist(String user) {
-
-        query = "select * from account where username = ?";
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, user);
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Account(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
     
-    //hàm kiểm tra xem mật khẩu của tài khoản này có đúng ko nếu đúng thì mới cho đổi mật khẩu
-    @Override
-    public Account checkPassword(String user,String pass) {
-
-        query = "select * from account where username = ? and password=?";
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, user);
-            ps.setString(2, pass);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Account(rs.getString(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getDate(5), rs.getString(6), rs.getString(7), rs.getInt(8));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
     
     //hàm đăng ký
     @Override
-    public void signup(String user,String pass,String fullname,String dob,String email,String phone){
+    public void insertAccount(String user,String pass,String fullname,String dob,String email,String phone){
+        //câu lệnh insert account
         query= "insert into account values(?,?,'profile-pic.jpg',?,?,?,?,3)";
         try {
-            con = new DBContext().getConnection();
+            con = new DBContext().getConnection(); //kết nối vs database
             ps = con.prepareStatement(query);
             ps.setString(1, user);
             ps.setString(2, pass);
@@ -238,14 +204,16 @@ public class AccountDAO implements IAccountDAO{
             ps.setString(6, phone);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            DBContext.close(con, ps, rs); //giúp giải phóng bộ nhớ 1 cách nhanh hơn
         }
           
     }
     
-    //hàm change mật khẩu
+    //hàm thay đổi mật khẩu
     @Override
-    public void changePassword(String newpass,String oldpass,String user){
+    public void updatePassword(String newpass,String oldpass,String user){
         query="update account set password=? where username=? and password=? ";
         try {
             con = new DBContext().getConnection();
@@ -255,7 +223,9 @@ public class AccountDAO implements IAccountDAO{
             ps.setString(3, oldpass);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally {
+            DBContext.close(con, ps, rs); //giúp giải phóng bộ nhớ 1 cách nhanh hơn
         }
     }
     

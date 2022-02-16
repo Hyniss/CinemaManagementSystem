@@ -17,18 +17,20 @@ import model.Account;
 
 /**
  *
- * @author NITRO
+ * @author Tạ Văn Tân
  */
 public class LoginController extends HttpServlet {
 
-    IAccountDAO accountDao = new AccountDAO();
+    IAccountDAO accountDAO = new AccountDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("user");
-        String password = request.getParameter("pass");
-        Account a = accountDao.login(username, password);
+         // lấy giá trị username từ request mà người dùng nhập và xóa đi khoảng trắng đầu và cuối
+        String username = request.getParameter("user").trim();
+
+        String password = request.getParameter("pass"); // lấy giá trị password từ request mà người dùng nhập
+        Account a = accountDAO.getAccountByUsernameAndPassword(username, password);
         if (a == null) {
             //nêu a bằng null thì gửi 1 câu thông báo về trang login là ko thành công
             request.setAttribute("mess", "Wrong user or pass");
@@ -39,7 +41,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             //lưu a lên trên session khi a tồn tại
             session.setAttribute("acc", a);
-            session.setMaxInactiveInterval(10000);//đặt thời gian lưu cho session
+            session.setMaxInactiveInterval(10000);//đặt thời gian tồn tại cho session
             request.getRequestDispatcher("home").forward(request, response);
         }
     }
