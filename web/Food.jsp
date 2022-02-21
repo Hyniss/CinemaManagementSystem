@@ -3,6 +3,8 @@
     Created on : 08/02/2022, 9:49:22 PM
     Author     : Nguyen Nam
 --%>
+<%@page import="model.FoodAndDrink"%>
+<%@page import="model.FoodAndDrinkCart"%>
 <%@page import="model.Seat"%>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -41,9 +43,9 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
-        <% String bookFoodId = (String) request.getAttribute("bookFoodId");%>
-        <% HttpSession listSeatSession = request.getSession(true); %>
-        <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) listSeatSession.getAttribute("listcheckedSeatId"); %>  
+        <%ArrayList<FoodAndDrink> listFoodAndDrink = (ArrayList<FoodAndDrink>) request.getAttribute("listFoodAndDrink"); %> 
+        <%ArrayList<FoodAndDrinkCart> listFoodCarts = (ArrayList<FoodAndDrinkCart>) request.getSession().getAttribute("listFoodCarts"); %> 
+        <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) request.getSession().getAttribute("listcheckedSeatId"); %>         
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -70,6 +72,7 @@
                                                     <%}%>
                                                     <%}%>
                                                 </p>
+
                                                 <p>14/02/2022 | từ 18:30 đến 20h42</p>
                                             </div>
                                         </div>
@@ -84,54 +87,103 @@
                                     left: 0px;z-index: 100;opacity: 1;display: block;
                                     visibility: visible">               
                                     <label class="h2"> Combo </label>
+                                    <!--pagging food and drink-->
+
+                                    <nav class="pagging" aria-label="Page navigation example">
+                                        <c:if test="${bookFood != true}">
+                                            <form action="food" method="post">
+                                                <input name="viewFood" value="true" hidden>
+                                                <c:if test="${back>0}">
+                                                    <button type="submit" name="pageIndex" value="${back}">Quay lại</button>
+                                                </c:if>  
+                                                <c:forEach begin="1" end="${totalPage}" step="1" var="i">
+                                                    <c:if test="${i==pageIndex}">
+                                                        <button type="submit" class="active-true" name="pageIndex" value="${i}">${i}</button>
+                                                    </c:if>
+                                                    <c:if test="${i!=pageIndex}">
+                                                        <button type="submit" class="active-false" name="pageIndex" value="${i}">${i}</button>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:if test="${next<totalPage+1}">
+                                                    <button type="submit" name="pageIndex" value="${next}">Trang sau</button>
+                                                </c:if>
+                                            </form>
+                                        </c:if>
+                                        <!--chưa xong-->
+                                        <c:if test="${bookFood == true}">
+                                            <form action="book-food" method="get">
+                                                <input name="bookFood" value="true" hidden>
+                                                <input name="changePage" value="true" hidden>
+                                                <c:if test="${back>0}">
+                                                    <button type="submit" name="pageIndex" value="${back}">Quay lại</button>
+                                                </c:if>  
+                                                <c:forEach begin="1" end="${totalPage}" step="1" var="i">
+                                                    <c:if test="${i==pageIndex}">
+                                                        <button type="submit" class="active-true" name="pageIndex" value="${i}">${i}</button>
+                                                    </c:if>
+                                                    <c:if test="${i!=pageIndex}">
+                                                        <button type="submit" class="active-false" name="pageIndex" value="${i}">${i}</button>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:if test="${next<totalPage+1}">
+                                                    <button type="submit" name="pageIndex" value="${next}">Trang sau</button>
+                                                </c:if>
+                                            </form>                                     
+                                        </c:if>
+                                    </nav>
                                     <ol class="products-list">
                                         <!--list food and drink-->
-                                        <c:forEach items="${listFoodAndDrink}" var="i">                                         
-                                            <li class="item first">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ64OS1v8waUJCsjt5vyvULJ0h0BSPTZ3H9iA&usqp=CAU" class="combo-image">
-                                                <div class="product-shop">
-                                                    <div class="f-fix">
-                                                        <div class="product-primary">
-                                                            <h4 style="font-weight: bold; text-transform:uppercase"> ${i.name} </h4>
+                                        <% String pos = "";%>
+                                        <%for (int i = 0; i < listFoodAndDrink.size(); i++) {%>                                         
+                                        <li class="item first">
+                                            <img src="assets/img/food/<%=listFoodAndDrink.get(i).getImg()%>" class="combo-image" >
+                                            <div class="product-shop">
+                                                <div class="f-fix">
+                                                    <div class="product-primary">
+                                                        <h4 style="font-weight: bold; text-transform:uppercase"> <%=listFoodAndDrink.get(i).getName()%> </h4>
+                                                    </div>
+                                                    <div class="desc std">
+                                                        *Nhận trong ngày xem phim*
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="price-box">
+                                                            <span class="label">Giá: </span>
+                                                            <span class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "<%=listFoodAndDrink.get(i).getPrice()%>" type = "currency"/></span>
                                                         </div>
-                                                        <div class="desc std">
-                                                            *Nhận trong ngày xem phim*
-                                                        </div>
-                                                        <div class="desc">
-                                                            <div class="price-box">
-                                                                <span class="label">Giá: </span>
-                                                                <span class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${i.price}" type = "currency"/></span>
-                                                            </div>
-                                                            <div class="product-choose"> 
-                                                                <span class="input-group-btn">
-                                                                    <a href="book-food?" class="btn" data-type="minus">
-                                                                        <i class="fas fa-minus"></i>
-                                                                    </a>
-                                                                </span>
-                                                                <c:if test="${bookFood != true}">
-                                                                    <input type="number" id="${i.foodId}" name="" class="form-control input-number" value="0" min="0" max="10" >
-                                                                </c:if>
-                                                                <c:if test="${bookFood == true}">
-                                                                    <input type="number" id="${i.foodId}" name="" class="form-control input-number" value="${quantity}" min="0" max="10" >
-                                                                </c:if>
-                                                                <span class="input-group-btn ml-1">
-                                                                    <c:if test="${bookFood != true}">
-                                                                        <a href="book-food? class="btn" data-type="plus">
-                                                                           <i class="fas fa-plus"></i>
-                                                                        </a>  
-                                                                    </c:if>
-                                                                    <c:if test="${bookFood == true}">
-                                                                        <a href="book-food?" class="btn" data-type="plus">
-                                                                            <i class="fas fa-plus"></i>
-                                                                        </a>  
-                                                                    </c:if>
-                                                                </span>
-                                                            </div>
+                                                        <div class="product-choose"> 
+                                                            <span class="input-group-btn">
+                                                                <a href="book-food?&bookFood=true&foodId=<%=listFoodAndDrink.get(i).getFoodId()%>&caculateType=plus&quantity=1&type=minus&pageIndex=${pageIndex}" class="btn" data-type="plus" disable>
+                                                                    <i class="fas fa-minus"></i>
+                                                                </a>
+                                                            </span>
+                                                            <% int count = 0;%>           
+                                                            <%if (listFoodCarts == null) {%>
+                                                            <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" >
+                                                            <%}%> 
+                                                            <%if (listFoodCarts != null) {%>
+                                                            <% for (int j = 0; j < listFoodCarts.size(); j++) {%>
+                                                            <% pos = listFoodCarts.get(j).getFoodId();%>
+                                                            <%if (listFoodCarts.get(j).getFoodId().equals(listFoodAndDrink.get(i).getFoodId())) {%>
+                                                            <input type="number"  name="" class="form-control input-number" value="<%=listFoodCarts.get(j).getQuantity()%>" min="0" max="10" >
+                                                            <% count = 1;%>
+                                                            <%}%>
+                                                            <%}%>
+                                                            <%if (count == 0) {%>
+                                                            <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" >
+                                                            <% count = 0;%>
+                                                            <%}%>
+                                                            <%}%>                                                         
+                                                            <span class="input-group-btn ml-1">
+                                                                <a href="book-food?&bookFood=true&foodId=<%=listFoodAndDrink.get(i).getFoodId()%>&caculateType=plus&quantity=1&type=plus&pageIndex=${pageIndex}" class="btn" data-type="plus">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </a>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </c:forEach>
+                                            </div>
+                                        </li>
+                                        <%}%>
                                     </ol>
                                 </li>
                             </ul>
@@ -189,7 +241,7 @@
                                                     <tr style="height: 43px">
                                                         <td class="label">Phòng chiếu</td>
                                                         <td style="font-weight: bold;font-size:16px;">Room 2<td>
-                                                    </tr>
+                                                    </tr>                                                
                                                 </tbody>
                                             </table> 
                                         </div>
@@ -201,19 +253,19 @@
                                                 <thead>
                                                     <tr class="block-box" style="height: 20px">
                                                         <td class="label">Giá vé</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalSeatPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Combo</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalFoodPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="block-box">
                                                         <td class="label" style="font-weight: bold">TỔNG</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -222,7 +274,7 @@
                                 </ul>
                             </div>
                             <!--button go next-->  
-                            <a class="btn-next-right" href="" title="Next"></a>
+                            <a class="btn-next-right" href="" onclick="showAlert()" title="Next"></a>
                             <div class="format-bg-bottom"></div>           
                         </div>
                     </div>
@@ -241,5 +293,10 @@
         <!-- SAKURA -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+        <script>
+                                function showAlert() {
+                                    window.alert("Hãy chọn một loại đồ ăn hoặc thức uống!");
+                                }
+        </script>
     </body>
 </html>

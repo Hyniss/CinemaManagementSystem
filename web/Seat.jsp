@@ -42,8 +42,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />  
         <!--get session--> 
-        <% HttpSession listSeatSession = request.getSession(true); %>
-        <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) listSeatSession.getAttribute("listcheckedSeatId"); %>   
+        <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) request.getSession().getAttribute("listcheckedSeatId"); %>   
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -231,13 +230,13 @@
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Combo</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalFoodPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="block-box">
                                                         <td class="label" style="font-weight: bold">TỔNG</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -249,7 +248,7 @@
                             <% if (listCheckedSeatId == null) {%> 
                             <a class="btn-next-right" href="" onclick="showAlert()" title="Next"></a>
                             <% } else { %>
-                            <a class="btn-next-right" href="food"title="Next"></a>
+                            <a class="btn-next-right" href="food?viewFood=true"title="Next"></a>
                             <%}%> 
                             <div class="format-bg-bottom"></div>           
                         </div>

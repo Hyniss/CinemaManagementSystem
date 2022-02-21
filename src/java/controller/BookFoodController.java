@@ -13,18 +13,20 @@ import dao.FoodDAO;
 import dao.IFoodDAO;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.FoodAndDrink;
+import model.FoodAndDrinkCart;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
- * book the foods
- * /book-food is the URL of the web site 
- * Extend HttpServlet class
+ * book the foods /book-food is the URL of the web site Extend HttpServlet class
  *
  * @author Nguyen Nam
  */
@@ -43,7 +45,118 @@ public class BookFoodController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        //Use IFoodDAO interface to call
+        IFoodDAO foodDAO = new FoodDAO();
+        HttpSession session = request.getSession();
+        ArrayList<FoodAndDrinkCart> listFoodAndDrinkCarts = (ArrayList<FoodAndDrinkCart>) session.getAttribute("listFoodCarts");
+        ArrayList<FoodAndDrinkCart> listFoodToRemove = new ArrayList<>();
+        double totalSeatPrice = 0;
+        double totalFoodPrice = 0;
+        double totalPrice = 0;
+        int quantity = 0;
 
+        int foodQuantity = 0;
+        int pageIndex = 1;
+        int pageSize = 8;
+        int totalProduct = foodDAO.countTotalFood();
+        int totalPage = 0;
+        int page = 0;
+
+        boolean bookFood = false;
+        String foodId = request.getParameter("foodId");
+        String calcType = request.getParameter("type");
+        String changePage = request.getParameter("changePage");
+        /* parse String to boolean and int*/
+        try {
+            bookFood = Boolean.valueOf(request.getParameter("bookFood"));
+        } catch (Exception e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            totalSeatPrice = (double) session.getAttribute("totalSeatPrice");
+        } catch (Exception e) {
+            response.sendRedirect("seat");
+            return;
+        }
+        /*order product*/
+        if (changePage == null) {
+            FoodAndDrink food = foodDAO.getFoodAndDrink(foodId);
+            if (quantity == 0 && calcType.equals("plus")) {
+                quantity = 1;
+            }
+            FoodAndDrinkCart foodCart = new FoodAndDrinkCart(foodId, quantity, Double.parseDouble(food.getPrice()));
+            boolean checkExist = false;
+            if (listFoodAndDrinkCarts == null) {/* add new product*/
+                listFoodAndDrinkCarts = new ArrayList<>();
+                listFoodAndDrinkCarts.add(foodCart);
+                session.setAttribute("listFoodCarts", listFoodAndDrinkCarts);
+            } else {
+                /*update quantity*/
+                for (FoodAndDrinkCart l : listFoodAndDrinkCarts) {
+                    if (l.getFoodId().equals(foodId)) {
+                        if (calcType.equalsIgnoreCase("plus")) {/* check user wants to plus or minus*/
+                            foodQuantity = l.getQuantity() + 1;
+                        } else {
+                            if (l.getQuantity() >= 1) {
+                                foodQuantity = l.getQuantity() - 1;
+                            }
+                        }
+                        if (foodQuantity == 0) {
+                            listFoodToRemove.add(l);
+                        }
+                        l.setQuantity(foodQuantity);
+                        checkExist = true;
+                    }
+                }
+                /* remove food and drink if quantity = 0*/
+                listFoodAndDrinkCarts.removeAll(listFoodToRemove);
+                if (!checkExist) {
+                    listFoodAndDrinkCarts.add(foodCart);
+                    checkExist = false;
+                }
+                session.setAttribute("listFoodCarts", listFoodAndDrinkCarts);
+            }
+            /* redirect if product list is empty*/
+            if (listFoodAndDrinkCarts.isEmpty()) {
+                response.sendRedirect("food?viewFood=true");
+                return;
+            }
+        }
+        /* update total food price*/
+        for (FoodAndDrinkCart listFoodAndDrinkCart : listFoodAndDrinkCarts) {
+            totalFoodPrice += listFoodAndDrinkCart.getPrice() * listFoodAndDrinkCart.getQuantity();
+        }
+
+        session.setAttribute("totalFoodPrice", totalFoodPrice);
+        /* update total price*/
+        totalPrice = totalFoodPrice + totalSeatPrice;
+        session.setAttribute("totalPrice", totalPrice);
+        /*pagging product*/
+        if (totalProduct > 0) {
+            page = totalProduct % pageSize;
+            totalPage = totalProduct / pageSize;
+            if (page == 0) {
+                totalPage += 0;
+            } else {
+                totalPage += 1;
+            }
+        }
+        int next = pageIndex + 1;
+        int back = pageIndex - 1;
+        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.getAllFoodPagging(pageIndex, pageSize);
+        /*Attach attribute subjects for request and redirect it to Food.jsp*/
+        request.setAttribute("next", next);
+        request.setAttribute("back", back);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", pageIndex);
+        request.setAttribute("listFoodAndDrink", listFoodAndDrink);
+        request.setAttribute("bookFood", bookFood);
+        request.getRequestDispatcher("Food.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,35 +171,7 @@ public class BookFoodController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        IFoodDAO foodDAO = new FoodDAO();
-//        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.listAllFoodAndDrink(); lấy lại hàm
-        String totalSeatPrice = request.getParameter("totalSeatPrice");
-        String movie = request.getParameter("movie");
-        String room = request.getParameter("room");
-        String seat = request.getParameter("seat");
-
-        String bookFoodId = request.getParameter("foodId");
-        String bookFood = request.getParameter("bookFood");
-        String subQuan = request.getParameter("quantity");
-        int subQuantity = 0;
-        try {
-            subQuantity = Integer.parseInt(subQuan);
-        } catch (Exception e) {
-        }
-        subQuantity += 1;
-
-        /*Attach attribute subjects for request and redirect it to Food.jsp*/
-        request.setAttribute("bookFoodId", bookFoodId);
-        request.setAttribute("quantity", subQuantity);
-        request.setAttribute("bookFood", bookFood);
-
-        request.setAttribute("totalSeatPrice", totalSeatPrice);
-        request.setAttribute("movie", movie);
-        request.setAttribute("room", room);
-        request.setAttribute("seat", seat);
-//        request.setAttribute("listFoodAndDrink", listFoodAndDrink); lấy lại hàm
-        request.getRequestDispatcher("Food.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

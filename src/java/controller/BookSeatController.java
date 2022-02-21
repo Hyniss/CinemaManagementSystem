@@ -13,6 +13,8 @@ import dao.ISeatDAO;
 import dao.SeatDAO;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,23 +52,23 @@ public class BookSeatController extends HttpServlet {
         String[] checkedSeatId = null;
         boolean bookSeat = false;
 
-        checkedSeatId = request.getParameterValues("seatId");
         try {
             bookSeat = Boolean.valueOf(request.getParameter("bookSeat"));
         } catch (Exception e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
         }
-
+        checkedSeatId = request.getParameterValues("seatId");
         ArrayList<Seat> listSeatChecked = new ArrayList<>();
-        HttpSession BookSeatSession = request.getSession(true);
+        HttpSession session = request.getSession();// create session
 
-        if (checkedSeatId != null) {
-            //add seat chosen into list and update the price 
-            request.setAttribute("status", "check");
+        if (checkedSeatId != null) { // seats are checked
+
             for (String checked : checkedSeatId) {
                 String price = seatDao.getSeatInfoBySeatId(checked).getPrice();
                 try {
                     seatPrice = Double.parseDouble(price);
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
+                    Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
                 }
                 Seat seat = new Seat();
                 seat.setSeatId(checked);
@@ -74,16 +76,17 @@ public class BookSeatController extends HttpServlet {
                 listSeatChecked.add(seat);
             }
             /*Attach attribute subjects for request and redirect it to Seat.jsp*/
-            BookSeatSession.setAttribute("listcheckedSeatId", listSeatChecked);
-            BookSeatSession.setAttribute("totalSeatPrice", totalSeatPrice);
+            request.setAttribute("status", "check");
+            session.setAttribute("listcheckedSeatId", listSeatChecked);
+            session.setAttribute("totalSeatPrice", totalSeatPrice);
             request.getRequestDispatcher("Seat.jsp").forward(request, response);
-        } else if (bookSeat && checkedSeatId == null) {
-            /* redirect it to Seat.jsp*/
+        } else if (bookSeat && checkedSeatId == null) { 
+            //when user go back to view seat bookes from view food
             request.getRequestDispatcher("Seat.jsp").forward(request, response);
-        } else if ((!bookSeat && checkedSeatId == null)) {
+        } else if ((!bookSeat && checkedSeatId == null)) { // remove seat checked
             /*Remove and redirect it to view seat*/
-            BookSeatSession.removeAttribute("listcheckedSeatId");
-            BookSeatSession.removeAttribute("totalSeatPrice");
+            session.removeAttribute("listcheckedSeatId");
+            session.removeAttribute("totalSeatPrice");
             response.sendRedirect("seat");
         }
 

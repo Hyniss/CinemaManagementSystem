@@ -32,4 +32,8 @@ public interface IFoodDAO {
     public FoodAndDrink getFoodAndDrink(String id);//search id into database
 
     public void deleteFood(String id);//remove object into database
+
+    public int countTotalFood();// count all food and drink from database
+
+    public ArrayList<FoodAndDrink> getAllFoodPagging(int pageIndex, int pageSize);// List all food and drink and pagging food and drink
 }

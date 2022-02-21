@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * Interface IFoodDAO
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package dao;
 
@@ -15,8 +19,10 @@ import java.util.logging.Logger;
 import model.FoodAndDrink;
 
 /**
+ * This class contain method to find Food and drink information from database
+ * Implement IFoodtDAO Interface
  *
- * @author tenhik
+ * @author Nguyen Nam
  */
 public class FoodDAO implements IFoodDAO {
 
@@ -25,8 +31,7 @@ public class FoodDAO implements IFoodDAO {
     private ResultSet rs;
     private String query;
 
-
-     @Override
+    @Override
     public ArrayList<FoodAndDrink> getAllFood() {
         ArrayList<FoodAndDrink> list = new ArrayList<>();
         try {
@@ -44,6 +49,95 @@ public class FoodDAO implements IFoodDAO {
             DBContext.close(con, ps, rs);
         }
         return list;
+    }
+
+    @Override
+    public int countTotalFood() {
+        int count = 0;
+        try {
+            /*Set up connection and Sql statement for Querry*/
+            query = "SELECT COUNT(*) FROM Fastfood";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            /*Querry and save in ResultSet*/
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                /*Assign data*/
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+        return 0;
+    }
+
+    @Override
+    public ArrayList<FoodAndDrink> getAllFoodPagging(int pageIndex, int pageSize) {
+        ArrayList<FoodAndDrink> list = new ArrayList<>();
+        try {
+            /*Set up connection and Sql statement for Querry*/
+            query = "select * from(\n"
+                    + "select ROW_NUMBER() over \n"
+                    + "(order by foodId asc\n"
+                    + ") as r,*\n"
+                    + "from Fastfood \n"
+                    + ") as t\n"
+                    + "where r between(?-1)*?+1\n"
+                    + "and ?*?;";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, pageIndex);
+            ps.setInt(2, pageSize);
+            ps.setInt(3, pageIndex);
+            ps.setInt(4, pageSize);
+            /*Querry and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                /*Assign data to an arraylist of FoodAndDrink model*/
+                list.add(new FoodAndDrink(rs.getString("foodId"),
+                        rs.getString("category"),
+                        rs.getString("name"),
+                        rs.getString("price"),
+                        rs.getString("img")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+        return list;
+    }
+
+    @Override
+    public FoodAndDrink getFoodAndDrink(String id) {
+        try {
+            /*Set up connection and Sql statement for Querry*/
+            query = "SELECT * FROM Fastfood WHERE foodId = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            /*Querry and save in ResultSet*/
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                /*Assign data to an FoodAndDrink Model*/
+                FoodAndDrink fd = new FoodAndDrink();
+                fd.setFoodId(rs.getString("foodId"));
+                fd.setCategory(rs.getString("category"));
+                fd.setImg(rs.getString("img"));
+                fd.setPrice(rs.getString("price"));
+                fd.setName(rs.getString("name"));
+                return fd;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+        return null;
     }
 
     @Override
@@ -83,34 +177,10 @@ public class FoodDAO implements IFoodDAO {
             DBContext.close(con, ps, rs);
         }
     }
-      public FoodAndDrink getFoodAndDrink(String id) {
-        try {
-            query = "SELECT * FROM Fastfood WHERE foodId = ?";
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, id);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-               FoodAndDrink fd = new FoodAndDrink();
-               fd.setFoodId(rs.getString("foodId"));
-               fd.setCategory(rs.getString("category"));
-               fd.setImg(rs.getString("img"));
-               fd.setPrice(rs.getString("price"));
-               fd.setName(rs.getString("name"));
-                return fd;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            DBContext.close(con, ps, rs);
-        }
-        return null;
-    }
 
     @Override
     public void deleteFood(String id) {
-         try {
+        try {
             query = "DELETE FROM Fastfood WHERE foodId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
@@ -122,7 +192,4 @@ public class FoodDAO implements IFoodDAO {
             DBContext.close(con, ps, rs);
         }
     }
-
- 
-
 }

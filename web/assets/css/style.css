@@ -273,9 +273,33 @@ canvas{
 }
 
 /*food*/
+/*pagging food*/
+.pagging{
+    width: 89%;
+}
+.pagging form{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.pagging button{
+    height: 25px;
+    padding: 0 15px;
+    background:#E4EBF5;   
+    border: none !important;
+}
+.pagging button:hover{
+    background:#f5ad42;   
+}
+.active-true{
+     background:#f5ad42!important;
+}
+
 .food {
-    position: relative;
-    min-height: 790px;
+    position: relative;  
+    min-height: 100vh;
 }
 .main-content .products-list {
     display: flex;
@@ -291,6 +315,8 @@ canvas{
 }
 .products-list .item .combo-image{
     width: 33%;
+    height: 150px;
+    object-fit: cover;
     float: left;
 } 
 .price-box{
@@ -308,19 +334,19 @@ canvas{
 @media only screen and (max-width : 1000px) {
     .food {
         position: relative;
-        min-height: 780px;
+        min-height: 100vh
     }
 }
 @media only screen and (max-width : 860px) {
     .food {
         position: relative;
-        min-height: 960px;
+        min-height: 100vh;
     }
 }
 @media only screen and (max-width : 790px) {
     .food {
         position: relative;
-        min-height: 1400px;
+        min-height: 152vh;
     }
     .main-content .products-list {
         flex-direction: column;
@@ -336,7 +362,7 @@ canvas{
 @media only screen and (max-width : 690px) {
     .food {
         position: relative;
-        min-height: 1500px;
+        min-height: 150vh;
     }
     .main-content .products-list {
         flex-direction: column;
@@ -607,5 +633,3 @@ input::-webkit-inner-spin-button {
     height: 8px;
     overflow: hidden;
 }
-
-

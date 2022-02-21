@@ -13,6 +13,8 @@ import dao.FoodDAO;
 import dao.IFoodDAO;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,20 +46,62 @@ public class ViewFoodController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+       //Use IFoodDAO interface to call
         IFoodDAO foodDAO = new FoodDAO();
-//        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.listAllFoodAndDrink(); lấy lại hàm
-        HttpSession BookSeatSession = request.getSession(true);
+        HttpSession session = request.getSession();
 
-        double totalSeatPrice = (double) BookSeatSession.getAttribute("totalSeatPrice");
-        if (BookSeatSession != null) {
+        boolean viewFood = false;
+        try {
+            viewFood = Boolean.valueOf(request.getParameter("viewFood"));
+        } catch (Exception e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        if (!viewFood) {
+            /*redirect back to view seat*/
+            response.sendRedirect("seat");
+            return;
+        }
+        int pageIndex = 1;
+        int pageSize = 8;
+        int totalProduct = foodDAO.countTotalFood();
+        int totalPage = 0;
+        int page = 0;
+
+        try {
+            pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        /*pagging product*/
+        if (totalProduct > 0) {
+            page = totalProduct % pageSize;
+            totalPage = totalProduct / pageSize;
+            if (page == 0) {
+                totalPage += 0;
+            } else {
+                totalPage += 1;
+            }
+        }
+
+        int next = pageIndex + 1;
+        int back = pageIndex - 1;
+
+        ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.getAllFoodPagging(pageIndex, pageSize);
+
+        /*if session is null redirect back to view seat*/
+        try {
             /*Attach attribute subjects for request and redirect it to Food.jsp*/
-            request.setAttribute("totalSeatPrice", totalSeatPrice);
-//            request.setAttribute("listFoodAndDrink", listFoodAndDrink); lấy lại hàm
+            request.setAttribute("next", next);
+            request.setAttribute("back", back);
+            request.setAttribute("totalPage", totalPage);
+            request.setAttribute("pageIndex", pageIndex);
+            request.setAttribute("listFoodAndDrink", listFoodAndDrink);
             request.getRequestDispatcher("Food.jsp").forward(request, response);
-        } else {
-           response.sendRedirect("book");
+        } catch (Exception e) {
+            response.sendRedirect("seat");
         }
     }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
