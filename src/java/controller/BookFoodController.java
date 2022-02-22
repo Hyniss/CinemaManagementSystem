@@ -155,6 +155,7 @@ public class BookFoodController extends HttpServlet {
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("listFoodAndDrink", listFoodAndDrink);
+        request.setAttribute("listFoodAndDrinkCarts", listFoodAndDrinkCarts);
         request.setAttribute("bookFood", bookFood);
         request.getRequestDispatcher("Food.jsp").forward(request, response);
     }

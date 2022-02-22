@@ -300,6 +300,7 @@ canvas{
 .food {
     position: relative;  
     min-height: 100vh;
+   
 }
 .main-content .products-list {
     display: flex;

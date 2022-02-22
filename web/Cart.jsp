@@ -4,6 +4,9 @@
     Author     : TIEN HUY
 --%>
 
+<%@page import="model.FoodAndDrinkCart"%>
+<%@page import="model.Seat"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,6 +41,8 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+         <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) request.getSession().getAttribute("list"); %> 
+          <%ArrayList<FoodAndDrinkCart> listFoodCarts = (ArrayList<FoodAndDrinkCart>) request.getSession().getAttribute("listFoodCarts"); %> 
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -54,14 +59,14 @@
                         <hr>
                         <h6 class="mb-0">Shopping cart</h6>
                         <div class="d-flex justify-content-between"><span>You have 4 items in your cart</span>
-                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
+<!--                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
                                 <form action="" method="">
                                     <select name="" onchange="this.form.submit()" style="background-color: #e9ecef; border: none ">
                                         <option value="">Sort by price</option>
                                         <option value="">Sort by name</option>
                                     </select>
                                 </form>
-                            </div>
+                            </div>-->
                         </div>
                         <br>
                         
@@ -119,7 +124,13 @@
                                                 
                                                     <tr>
                                                         <td class="label">Ghế</td>
-                                                        <td style="font-weight: bold;font-size:16px;">D6<td>
+                                                       <% if (listCheckedSeatId != null) {%>          
+                                                    <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
+                                                   <td style="font-weight: bold;font-size:16px;"> <%=listCheckedSeatId.get(k).getSeatId()%><td> 
+                                                       
+                                                    <%}%>
+                                                    <%}%>
+                                                       
                                                     </tr>
                                                 </tbody>
                                             </table> 
@@ -131,25 +142,33 @@
                                                 <thead>
                                                     <tr class="block-box" style="height: 24px">
                                                         <td class="label">Giá</td>
-                                                        <td class="price">: 55,000 vnđ</td>
+                                                        <td class="price">: ${totalFoodPrice} vnđ</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Số lượng</td>
-                                                        <td class="price">: 1</td>
+                                                        <td class="price">: ${quantitySeat}</td>
                                                     </tr>
                                                 </tbody>
                                                  <thead>
                                                     <tr class="block-box" style="height: 24px">
                                                         <td class="label">Combo</td>
-                                                        <td class="price">: 55,000 vnđ</td>
+                                                        <td class="price">: ${totalSeatPrice} vnđ</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Số lượng</td>
-                                                        <td class="price">: 1</td>
+                                                        <% int pos = 0;%>
+                                                          <%if (listFoodCarts != null) {%>
+                                                            <% for (int j = 0; j < listFoodCarts.size(); j++) {%>
+                                                            <%  pos +=listFoodCarts.get(j).getQuantity();%>
+                                                            
+                                                           
+                                                            <%}%>
+                                                            <%}%> 
+                                                            <td class="price">: <%=pos%> </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -163,7 +182,7 @@
                         </div>
 
                      <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                            <span>Back<i class="fa fa-long-arrow-right ml-1"></i></span>
+                            <a style="text-decoration: none" href="#">Back<i class="fa fa-long-arrow-right ml-1"></i></a>
                         </button>
                     </div>
                 </div>
@@ -184,12 +203,8 @@
                         <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanuAdlL4DpFARUlwfObpts-eSlnfhXdETpaWcnevAOcOmkrG8-7kZ9N2c1kERrxLx_uc&usqp=CAU" /></span> Thanh toán với thẻ ngân hàng </label>
                         <hr class="line">
                         <div class="d-flex justify-content-between information">
-                            <span>Subtotal</span><span>$3000.00</span>
+                            <span>Subtotal</span><span>${totalPrice}</span>
                         </div>
-                        
-                        <div class="d-flex justify-content-between information">
-                            <span>Total(Incl. taxes)</span><span>$2980.00</span>
-                            </div>
                         <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
                             <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
                         </button>

@@ -78,6 +78,7 @@ public class BookSeatController extends HttpServlet {
             /*Attach attribute subjects for request and redirect it to Seat.jsp*/
             request.setAttribute("status", "check");
             session.setAttribute("listcheckedSeatId", listSeatChecked);
+            session.setAttribute("quantitySeat", listSeatChecked.size());
             session.setAttribute("totalSeatPrice", totalSeatPrice);
             request.getRequestDispatcher("Seat.jsp").forward(request, response);
         } else if (bookSeat && checkedSeatId == null) { 

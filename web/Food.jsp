@@ -274,7 +274,7 @@
                                 </ul>
                             </div>
                             <!--button go next-->  
-                            <a class="btn-next-right" href="" onclick="showAlert()" title="Next"></a>
+                            <a class="btn-next-right" href="${pageContext.request.contextPath}/Cart"  title="Next"></a>
                             <div class="format-bg-bottom"></div>           
                         </div>
                     </div>
