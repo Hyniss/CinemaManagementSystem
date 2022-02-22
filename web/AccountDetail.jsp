@@ -126,6 +126,7 @@
                                 </div>
 <!--                                Edit message    -->
                                 <p style="color: red;font-size: 14px">${failMessage}</p>
+                                <p style="color: red;font-size: 14px">${mess}</p>
                                 <p style="color: green;font-size: 14px">${successMessage}</p>
                                 <!-- Save changes button-->
                                 <button class="btn btn-primary" type="submit">Thay đổi</button>

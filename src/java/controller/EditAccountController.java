@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Validation.Validate;
 import dao.AccountDAO;
 import dao.IAccountDAO;
 import java.io.IOException;
@@ -17,11 +18,9 @@ import model.Account;
 
 /**
  *
- * @author HP
+ * @author Thai Tran
  */
-
 //user can edit properites of account
-
 public class EditAccountController extends HttpServlet {
 
     IAccountDAO accountDao = new AccountDAO();
@@ -30,9 +29,8 @@ public class EditAccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         //get account properites from jsp
-        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String avatar = request.getParameter("avatar");
@@ -53,22 +51,39 @@ public class EditAccountController extends HttpServlet {
         account.setPhone(phone.trim());
         account.setRoleId(roleid);
 
-        //edit account
-        boolean check = accountDao.editAccount(account);
-        
-        //get edit status through check variable
-        if(check == true){
-            String successMessage = "Edit successfully!";
-            request.setAttribute("successMessage", successMessage);
-            
+        String mess = "";
+        if (Validate.checkFullName(fullname) == false) {
+            mess = "Thông tin fullname không hợp lệ";
+        } else if (Validate.checkUserName(username) == false) {
+            mess = "Username phải có ít nhất 6 ký tự không bao gồm ký tự đặc biệt";
+        } else if (Validate.checkPassword(password) == false) {
+            mess = "Password phải có ít nhất 6 đến 8 ký tự và có ít nhất 1 ky tự chữ thường, chữ hoa, số và ký tự đặc biệt";
+        } else if (Validate.checkEmail(email) == false) {
+            mess = "Vui lòng nhập email có dạng example@xxx.xxx(.xxx)";
+        } else if (Validate.checkPhone(phone) == false) {
+            mess = "Số điện thoại phải có 10 chữ số";
         } else {
-            String failMessage = "Edit failed!";
-            request.setAttribute("failMessage", failMessage);
+
+            //edit account
+            boolean check = accountDao.editAccount(account);
+
+            //get edit status through check variable
+            if (check == true) {
+                String successMessage = "Edit successfully!";
+                request.setAttribute("successMessage", successMessage);
+
+            } else {
+                String failMessage = "Edit failed!";
+                request.setAttribute("failMessage", failMessage);
+            }
         }
-        
+
+        request.setAttribute("mess", mess);
+
         //get properties and getRequestDispatcher to AccountDetail.jsp
         request.setAttribute("account", account);
         request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

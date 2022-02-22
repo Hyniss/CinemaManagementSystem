@@ -303,7 +303,7 @@ public class MovieDAO implements IMovieDAO {
         try {
             /*Set up connection and Sql statement for Query*/
             query = "select * from Movie\n"
-                    + "where (DATEDIFF(DAY,GETDATE(),premiere)) > -14";
+                    + "where (DATEDIFF(DAY,GETDATE(),premiere)) > -14 and (DATEDIFF(DAY,GETDATE(),premiere))<=0";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
 

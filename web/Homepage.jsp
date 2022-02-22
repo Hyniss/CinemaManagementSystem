@@ -168,8 +168,6 @@
                     });
         </script>
 
-        <!--        JQuery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <!--        Java script function: Load more movie when click load more button-->
         <script>

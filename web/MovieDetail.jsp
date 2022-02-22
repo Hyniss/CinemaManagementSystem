@@ -44,11 +44,11 @@
         <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
     </head>
 
-    <body class="no-skin">         
+    <body class="no-skin">   
+        <%@include file="template/header.jsp" %>
 
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div class="container">
-            <%@include file="template/header.jsp" %>
             <section style="background-color: #fff" class="member-details" style="padding-top:50px;padding-bottom: 50px">
                 <div class="container">
                     <div class="row">
@@ -91,7 +91,6 @@
                     </div>
                 </div>
             </section>
-            <%@include file="template/footer.jsp" %>
         </div>
 
         <style>
@@ -361,6 +360,7 @@
                 $('body').sakura();
             });
         </script>
+        <%@include file="template/footer.jsp" %>
     </body>
 </html>
 

@@ -92,6 +92,10 @@
         <servlet-name>SearchMovieController</servlet-name>
         <servlet-class>controller.SearchMovieController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminListUserController</servlet-name>
+        <servlet-class>controller.AdminListUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>SearchMovieController</servlet-name>
         <url-pattern>/searchmovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListUserController</servlet-name>
+        <url-pattern>/adminuserlist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
