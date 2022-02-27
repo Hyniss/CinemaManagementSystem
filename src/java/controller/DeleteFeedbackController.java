@@ -2,91 +2,83 @@
  * CinemaManagementSystem
  * Copyright(C)2022, Group 4 SE1511 FPTU-HN
  * 
- * ViewFoodController
+ * Interface IFoodDAO
  * Record of change:
  * DATE         Version     AUTHOR        Description
- * 2022-02-11   1.0         Thái Trần    First Implement
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package controller;
 
 import dao.FeedbackDAO;
 import dao.IFeedbackDAO;
-import dao.MovieDAO;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Feedback;
-import model.Movie;
+import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
- * see the detail info of the movie
- * /movie is the URL of the web site Extend HttpServlet
+ * delete the feedback 
+ * /delete-feedback is the URL of the web site Extend HttpServlet
  * class
  *
- * @author Thái Trần
+ * @author Nguyen Nam
  */
-public class ViewMovieController extends HttpServlet {
+@WebServlet(name = "DeleteFeedbackController", urlPatterns = {"/delete-feedback"})
+public class DeleteFeedbackController extends HttpServlet {
 
-    MovieDAO movieDao = new MovieDAO();
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         IFeedbackDAO feedbackDAO = new FeedbackDAO();
-        /*Get movie*/
-        int mid = 0;
-        String movieId = request.getParameter("mid");
-         try {
-           mid  = Integer.parseInt(movieId);
-        } catch (NumberFormatException e) {
-            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        HttpSession session = request.getSession();
+        /*get all value*/
+        Account account = (Account) session.getAttribute("acc");
+        String curUsername = request.getParameter("username");
+        String result = "";
+        for (int i = 0; i < curUsername.length(); i++) {
+            char r = curUsername.charAt(i);
+            r--;
+            result += r;
         }
-        /*Pagging and sorting feedback*/
-        int sortId = 0;
-        int pageIndex = 1;
-        int pageSize = 8;
-        int totalFeedback = feedbackDAO.countTotalFeedback();
-        int totalPage = 0;
-        int page = 0;
+        /*parse to int*/
+        int feedbackId = 0;
+        int movieId = 0;
         try {
-            sortId = Integer.parseInt(request.getParameter("sortId"));
+            feedbackId = Integer.parseInt(request.getParameter("feedbackId"));
         } catch (NumberFormatException e) {
             Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
         }
         try {
-            pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
+            movieId = Integer.parseInt(request.getParameter("mid"));
         } catch (NumberFormatException e) {
             Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
         }
-        /*pagging*/
-        if (totalFeedback > 0) {
-            page = totalFeedback % pageSize;
-            totalPage = totalFeedback / pageSize;
-            if (page == 0) {
-                totalPage += 0;
-            } else {
-                totalPage += 1;
+        /*call delete function*/
+        boolean checkDelete = false;
+        if (account != null) {
+            if (result.equals(account.getUsername())) {
+                checkDelete = feedbackDAO.deleteFeeback(feedbackId);
             }
         }
-        int next = pageIndex + 1;
-        int back = pageIndex - 1;
-        Movie m = movieDao.getMovieById(mid);
-        ArrayList<Feedback> listFeedback = feedbackDAO.getAllFeedbackPaggingAndSorting(pageIndex, pageSize, sortId);
-        /*Attach attribute and redirect it to MovieDetail.jsp*/
-        request.setAttribute("next", next);
-        request.setAttribute("back", back);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("pageIndex", pageIndex);
-        request.setAttribute("listFeedback", listFeedback);
-        request.setAttribute("sortId", sortId);
-        request.setAttribute("movie", m);
-        request.getRequestDispatcher("MovieDetail.jsp").forward(request, response);
+        /*Attach attribute and redirect it to movie with id*/
+        request.setAttribute("mid", movieId);
+        request.getRequestDispatcher("movie").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -127,4 +119,5 @@ public class ViewMovieController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

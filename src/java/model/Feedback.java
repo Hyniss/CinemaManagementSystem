@@ -5,63 +5,74 @@
  */
 package model;
 
+import java.sql.Date;
+import java.sql.Time;
+
 /**
  *
  * @author Bảo Châu Bống
  */
 public class Feedback {
 
-    private String feedbackId;
-    private String accoutnId;
-    private String movieId;
+    private int feedbackId;
+    private String username;
+    private int movieId;
     private String feedback;
-    private int rating;
-
-    private Account account;
-    private Movie movie;
+    private int rate;
+    private Date feedbackDate;
+    private Time feedbackTime;
 
     public Feedback() {
     }
 
-    public Feedback(String feedbackId, String accoutnId, String movieId, String feedback, int rating) {
-        this.feedbackId = feedbackId;
-        this.accoutnId = accoutnId;
+    public Feedback(String username, int movieId, String feedback, int rate, Date feedbackDate, Time feedbackTime) {
+        this.username = username;
         this.movieId = movieId;
         this.feedback = feedback;
-        this.rating = rating;
+        this.rate = rate;
+        this.feedbackDate = feedbackDate;
+        this.feedbackTime = feedbackTime;
     }
 
-    public Feedback(String feedbackId, String accoutnId, String movieId, String feedback, int rating, Account account, Movie movie) {
+    public Feedback(int feedbackId, String username, int movieId, String feedback, int rate) {
         this.feedbackId = feedbackId;
-        this.accoutnId = accoutnId;
+        this.username = username;
         this.movieId = movieId;
         this.feedback = feedback;
-        this.rating = rating;
-        this.account = account;
-        this.movie = movie;
+        this.rate = rate;
     }
 
-    public String getFeedbackId() {
+    public Feedback(int feedbackId, String username, int movieId, String feedback, int rate, Date feedbackDate, Time feedbackTime) {
+        this.feedbackId = feedbackId;
+        this.username = username;
+        this.movieId = movieId;
+        this.feedback = feedback;
+        this.rate = rate;
+        this.feedbackDate = feedbackDate;
+        this.feedbackTime = feedbackTime;
+    }
+
+    public int getFeedbackId() {
         return feedbackId;
     }
 
-    public void setFeedbackId(String feedbackId) {
+    public void setFeedbackId(int feedbackId) {
         this.feedbackId = feedbackId;
     }
 
-    public String getAccoutnId() {
-        return accoutnId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccoutnId(String accoutnId) {
-        this.accoutnId = accoutnId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMovieId() {
+    public int getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(String movieId) {
+    public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 
@@ -73,33 +84,28 @@ public class Feedback {
         this.feedback = feedback;
     }
 
-    public int getRating() {
-        return rating;
+    public int getRate() {
+        return rate;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
-    public Account getAccount() {
-        return account;
+    public Date getFeedbackDate() {
+        return feedbackDate;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setFeedbackDate(Date feedbackDate) {
+        this.feedbackDate = feedbackDate;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public Time getFeedbackTime() {
+        return feedbackTime;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }
-
-    @Override
-    public String toString() {
-        return "Feedback{" + "feedbackId=" + feedbackId + ", accoutnId=" + accoutnId + ", movieId=" + movieId + ", feedback=" + feedback + ", rating=" + rating + ", account=" + account + ", movie=" + movie + '}';
+    public void setFeedbackTime(Time feedbackTime) {
+        this.feedbackTime = feedbackTime;
     }
 
 }

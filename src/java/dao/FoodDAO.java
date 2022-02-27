@@ -20,7 +20,7 @@ import model.FoodAndDrink;
 
 /**
  * This class contain method to find Food and drink information from database
- * Implement IFoodtDAO Interface
+ * Implement IFoodDAO Interface
  *
  * @author Nguyen Nam
  */
@@ -143,17 +143,22 @@ public class FoodDAO implements IFoodDAO {
     @Override
     public void addFood(FoodAndDrink food) {
         try {
+            /*Set up connection and Sql statement for Query*/
             query = "INSERT INTO Fastfood VALUES (?,?,?,?)";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
+            /*Set params for Query*/
             ps.setString(1, food.getCategory());
             ps.setString(2, food.getName());
             ps.setString(3, food.getPrice());
             ps.setString(4, food.getImg());
+            /*Excute query and store it to check*/
             ps.executeUpdate();
         } catch (SQLException e) {
+            /*Exeption Handle*/
             Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            /*Close connection, prepare statement, result set*/
             DBContext.close(con, ps, rs);
         }
     }
@@ -161,19 +166,23 @@ public class FoodDAO implements IFoodDAO {
     @Override
     public void editFood(FoodAndDrink food) {
         try {
+            /*Set up connection and Sql statement for Query*/
             query = "UPDATE Fastfood SET category = ?, name = ? , price  = ?, img = ? WHERE foodId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
+            /*Set params for Query*/
             ps.setString(1, food.getCategory());
             ps.setString(2, food.getName());
             ps.setString(3, food.getPrice());
             ps.setString(4, food.getImg());
             ps.setString(5, food.getFoodId());
-
+            /*Excute query and store it to check*/
             ps.executeQuery();
         } catch (SQLException e) {
+            /*Exeption Handle*/
             Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            /*Close connection, prepare statement, result set*/
             DBContext.close(con, ps, rs);
         }
     }
@@ -181,14 +190,19 @@ public class FoodDAO implements IFoodDAO {
     @Override
     public void deleteFood(String id) {
         try {
+            /*Set up connection and Sql statement for Query*/
             query = "DELETE FROM Fastfood WHERE foodId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
+            /*Set params for Query*/
             ps.setString(1, id);
+            /*Excute query and store it to check*/
             ps.executeQuery();
         } catch (SQLException e) {
+            /*Exeption Handle*/
             Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
         } finally {
+            /*Close connection, prepare statement, result set*/
             DBContext.close(con, ps, rs);
         }
     }
