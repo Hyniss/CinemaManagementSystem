@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -23,24 +24,25 @@
         <a href="home" class="home-user">Home</a>
     </div>
     <div id="container">
+
         
-        <form action="login" id="form-login">
+        <form action="login" id="form-login" method="post">
             <h1 class="form-heading">Login</h1>
-            <h3 style="color: red;font-weight: ">${mess}</h3>
+            <h3 style="color: red;font-weight:50 ">${mess}</h3>
             <div class="form-group">
                 <i class="form-icon far fa-user"></i>
-                <input name="user" type="text" class="form-input" placeholder="Tên đăng nhập">
+                <input value="${username}"  name="user" type="text" class="form-input" placeholder="Tên đăng nhập">
             </div>
             <div class="form-group">
                 <i class="form-icon fas fa-key"></i>
-                <input name="pass" type="password" class="form-input" placeholder="Mật khẩu">
+                <input value="${password}"  name="pass" type="password" class="form-input" placeholder="Mật khẩu">
                 <div id="eye">
                     <i class="form-icon far fa-eye"></i>
                 </div>
             </div>
 
         <div class="form-save">
-            <input type="checkbox" class="form-checksave"> Remember me
+            <input  name="remember" type="checkbox" class="form-checksave"> Remember me
             <a href="ForgotPass.jsp" class="form-forget">Forgot Password?</a>
         </div>
         <input type="submit" value="Đăng nhập" class="form-submit">

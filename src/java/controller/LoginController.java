@@ -9,10 +9,12 @@ import dao.AccountDAO;
 import dao.IAccountDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import model.Account;
 
 /**
@@ -26,24 +28,7 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         // lấy giá trị username từ request mà người dùng nhập và xóa đi khoảng trắng đầu và cuối
-        String username = request.getParameter("user").trim();
-
-        String password = request.getParameter("pass"); // lấy giá trị password từ request mà người dùng nhập
-        Account a = accountDAO.getAccountByUsernameAndPassword(username, password);
-        if (a == null) {
-            //nêu a bằng null thì gửi 1 câu thông báo về trang login là ko thành công
-            request.setAttribute("mess", "Wrong user or pass");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-        } else {
-            //còn nếu a khac null nghĩa là tài khoản tồn tại đăng nhập thành công và trả về trang home
-            HttpSession session = request.getSession();
-            //lưu a lên trên session khi a tồn tại
-            session.setAttribute("acc", a);
-            session.setMaxInactiveInterval(10000);//đặt thời gian tồn tại cho session
-            request.getRequestDispatcher("home").forward(request, response);
-        }
+        
     }
     
     
@@ -60,7 +45,22 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //lay ra user, pass tu cookie
+        Cookie arr[]=request.getCookies();
+        if(arr!=null){
+            for (Cookie o : arr) {
+            if(o.getName().equals("userC")){
+                request.setAttribute("username", o.getValue());
+                
+            }
+            if(o.getName().equals("passC")){
+                request.setAttribute("password", o.getValue());
+                
+            }
+        }
+        }
+        
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     /**
@@ -74,7 +74,38 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         // lấy giá trị username từ request mà người dùng nhập và xóa đi khoảng trắng đầu và cuối
+        String username = request.getParameter("user").trim();
+
+        String password = request.getParameter("pass"); // lấy giá trị password từ request mà người dùng nhập
+        String remember= request.getParameter("remember");
+        Account a = accountDAO.getAccountByUsernameAndPassword(username, password);
+        if (a == null) {
+            //nêu a bằng null thì gửi 1 câu thông báo về trang login là ko thành công
+            request.setAttribute("mess", "Wrong user or pass");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+
+        } else {
+            //còn nếu a khac null nghĩa là tài khoản tồn tại đăng nhập thành công và trả về trang home
+            HttpSession session = request.getSession();
+            //lưu a lên trên session khi a tồn tại
+            session.setAttribute("acc", a);
+            session.setMaxInactiveInterval(60*60*24);//đặt thời gian tồn tại cho session
+            
+            //Tao cookie de luu tai khoan
+            Cookie u=new Cookie("userC", username);
+            Cookie p=new Cookie("passC", password);
+            u.setMaxAge(60*60*24*30);// set thoi gian ton tai cho tai khoan cookie 30 ngay
+            if(remember!=null){
+                p.setMaxAge(60*60*24*30);
+            }else{
+                p.setMaxAge(0);
+            }
+            
+            response.addCookie(u);// luu account vao cookie
+            response.addCookie(p);
+            response.sendRedirect("home");
+        }
     }
 
     /**
@@ -87,3 +118,4 @@ public class LoginController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
+

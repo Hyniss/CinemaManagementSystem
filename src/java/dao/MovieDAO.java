@@ -376,7 +376,77 @@ public class MovieDAO implements IMovieDAO {
         }
         return list;
     }
-
+    
+    //add movie
+    @Override
+    public void addMovie(Movie movie) {
+        try {
+            
+            query = "set identity_insert movie ON\n" +// có thể cho insert cả cột chứa thuộc tính identity
+                    "insert into Movie(movieId,movieName,image,categoryMovie,"
+                    + "describe,trailer,author,actor,duration,[premiere]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movie.getMovieId());
+            ps.setString(2, movie.getMovieName());
+            ps.setString(3, movie.getImage());
+            ps.setString(4, movie.getCategoryMovie());
+            ps.setString(5, movie.getDescription());
+            ps.setString(6, movie.getTrailer());
+            ps.setString(7, movie.getAuthor());
+            ps.setString(8, movie.getActor());
+            ps.setString(9, movie.getDuration());
+            ps.setDate(10, movie.getPremiere());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+    }
+    
+    //delete movie
+    @Override
+    public void deleteMovie(int id) {
+        try {
+            query = "DELETE FROM dbo.Movie WHERE movieId = ? ";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeQuery();
+        } catch (SQLException e) {
+            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+    }
+    
+    //update movie
+    @Override
+    public void editMovie(Movie movie) {
+        try {
+            query = "UPDATE Movie SET movieName = ?, image = ?, categoryMovie = ?, describe = ?, "
+                    + "trailer=?, author=?, actor=?, duration=?, premiere=? WHERE movieId = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, movie.getMovieName());
+            ps.setString(2, movie.getImage());
+            ps.setString(3, movie.getCategoryMovie());
+            ps.setString(4, movie.getDescription());
+            ps.setString(5, movie.getTrailer());
+            ps.setString(6, movie.getAuthor());
+            ps.setString(7, movie.getActor());
+            ps.setString(8, movie.getDuration());
+            ps.setDate(9, movie.getPremiere());
+            ps.setInt(10, movie.getMovieId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            DBContext.close(con, ps, rs);
+        }
+    }
+    
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();
         List<Movie> list = dao.getTop8Movie();

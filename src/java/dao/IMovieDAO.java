@@ -29,5 +29,10 @@ public interface IMovieDAO {
     public ArrayList<Movie> getMoviePremere();
     
     public ArrayList<Movie> getMovieComing();
-
+    
+    public void addMovie(Movie movie);
+    
+    public void deleteMovie(int id);
+    
+    public void editMovie(Movie movie);
 }

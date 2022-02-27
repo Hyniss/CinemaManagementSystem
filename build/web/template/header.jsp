@@ -70,6 +70,7 @@
                             <!-- Admin -->
                             <c:if test="${sessionScope.acc.roleId ==  1}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminaccountlist">Manage Account</a></li>
+                                <li><a class="dropdown-item" href="adminListMovie">Manage Movie</a></li>
                                 </c:if>
                             <!-- Staff -->
                             <c:if test="${sessionScope.acc.roleId  ==  2}">
@@ -93,7 +94,7 @@
 
                         <!-- Neu khong co user -->
                         <c:if test ="${sessionScope.acc ==  null}">
-                            <li><a class="dropdown-item" href="Login.jsp">Login</a></li>
+                            <li><a class="dropdown-item" href="login">Login</a></li>
                             <li><a class="dropdown-item" href="Register.jsp">Register</a></li>
                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/AboutCinema.jsp">About Cinema</a></li>
                             </c:if>
