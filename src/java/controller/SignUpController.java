@@ -115,7 +115,7 @@ public class SignUpController extends HttpServlet {
                 } else {
 
                     //kiểm tra biến account a ko tồn tại cho phép được đăng ký
-                    accountDAO.insertAccount(user, pass, fullname, date, email, phone);
+                    accountDAO.insertAccount(user, pass, fullname, date, email, phone, 3);
                     request.setAttribute("messSuccess", "Register succesfull!");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }

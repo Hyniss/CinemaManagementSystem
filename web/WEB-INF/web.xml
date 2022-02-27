@@ -96,6 +96,22 @@
         <servlet-name>AdminListUserController</servlet-name>
         <servlet-class>controller.AdminListUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminListAccount</servlet-name>
+        <servlet-class>controller.AdminListAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditAccountController</servlet-name>
+        <servlet-class>controller.AdminEditAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteAccountController</servlet-name>
+        <servlet-class>controller.AdminDeleteAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddAccountController</servlet-name>
+        <servlet-class>controller.AdminAddAccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -191,6 +207,22 @@
     <servlet-mapping>
         <servlet-name>AdminListUserController</servlet-name>
         <url-pattern>/adminuserlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListAccount</servlet-name>
+        <url-pattern>/adminaccountlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditAccountController</servlet-name>
+        <url-pattern>/adminaccountedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteAccountController</servlet-name>
+        <url-pattern>/adminaccountdelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddAccountController</servlet-name>
+        <url-pattern>/adminaccountadd</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

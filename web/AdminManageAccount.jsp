@@ -9,7 +9,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-    <hea<meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1" />
         <title>Amazing Cinema</title>
@@ -192,90 +193,6 @@
                 margin-top: 10px;
                 font-size: 13px;
             }    
-            /* Custom checkbox */
-            .custom-checkbox {
-                position: relative;
-            }
-            .custom-checkbox input[type="checkbox"] {    
-                opacity: 0;
-                position: absolute;
-                margin: 5px 0 0 3px;
-                z-index: 9;
-            }
-            .custom-checkbox label:before{
-                width: 18px;
-                height: 18px;
-            }
-            .custom-checkbox label:before {
-                content: '';
-                margin-right: 10px;
-                display: inline-block;
-                vertical-align: text-top;
-                background: white;
-                border: 1px solid #bbb;
-                border-radius: 2px;
-                box-sizing: border-box;
-                z-index: 2;
-            }
-            .custom-checkbox input[type="checkbox"]:checked + label:after {
-                content: '';
-                position: absolute;
-                left: 6px;
-                top: 3px;
-                width: 6px;
-                height: 11px;
-                border: solid #000;
-                border-width: 0 3px 3px 0;
-                transform: inherit;
-                z-index: 3;
-                transform: rotateZ(45deg);
-            }
-            .custom-checkbox input[type="checkbox"]:checked + label:before {
-                border-color: #03A9F4;
-                background: #03A9F4;
-            }
-            .custom-checkbox input[type="checkbox"]:checked + label:after {
-                border-color: #fff;
-            }
-            .custom-checkbox input[type="checkbox"]:disabled + label:before {
-                color: #b8b8b8;
-                cursor: auto;
-                box-shadow: none;
-                background: #ddd;
-            }
-            /* Modal styles */
-            .modal .modal-dialog {
-                max-width: 400px;
-            }
-            .modal .modal-header, .modal .modal-body, .modal .modal-footer {
-                padding: 20px 30px;
-            }
-            .modal .modal-content {
-                border-radius: 3px;
-                font-size: 14px;
-            }
-            .modal .modal-footer {
-                background: #ecf0f1;
-                border-radius: 0 0 3px 3px;
-            }
-            .modal .modal-title {
-                display: inline-block;
-            }
-            .modal .form-control {
-                border-radius: 2px;
-                box-shadow: none;
-                border-color: #dddddd;
-            }
-            .modal textarea.form-control {
-                resize: vertical;
-            }
-            .modal .btn {
-                border-radius: 2px;
-                min-width: 100px;
-            }	
-            .modal form label {
-                font-weight: normal;
-            }
             #navbar1 {
                 padding: 0 0 0 0 ;
             }
@@ -324,16 +241,15 @@
                                 </h2>
                             </div>
                             <div class="col-sm-6">
-                                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
-
+                                <a href="adminaccountadd" class="btn btn-success"><i class="material-icons">&#xE147;</i>Add New Account</a>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Choose Role to Manage
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">User</a>
-                                        <a class="dropdown-item" href="#">Marketer</a>
-                                        <a class="dropdown-item" href="#">Staff</a>
+                                        <a class="dropdown-item" href="adminaccountlist?roleId=3">User</a>
+                                        <a class="dropdown-item" href="adminaccountlist?roleId=4">Marketer</a>
+                                        <a class="dropdown-item" href="adminaccountlist?roleId=2">Staff</a>
                                     </div>
                                 </div>
 
@@ -343,132 +259,60 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Fullname</th>
                                 <th>Email</th>
-                                <th>Address</th>
                                 <th>Phone</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Thomas Hardy</td>
-                                <td>thomashardy@mail.com</td>
-                                <td>89 Chiaroscuro Rd, Portland, USA</td>
-                                <td>(171) 555-2222</td>
-                                <td>
-                                    <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                                </td>
-                            </tr>
+                            <c:forEach items="${accountList}" var="account" varStatus="i" >
+                                <tr>
+                                    <td>${account.username}</td>
+                                    <td>${account.fullName}</td>
+                                    <td>${account.email}</td>
+                                    <td>${account.phone}</td>
+                                    <td>
+                                        <a href="adminaccountedit?username=${account.username}"><i class="material-icons" title="Edit">&#xE254;</i></a>
+<!--                                        <a href="adminaccountdelete?username=${account.username}&roleId=${account.roleId}"><i class="material-icons" title="Delete">&#xE872;</i></a>-->
+                                        <a href="#" onclick="showDelMess('${account.username}',${account.roleId})"><i class="material-icons" title="Delete">&#xE872;</i></a>
+
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                     <div class="clearfix">
-                        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                        <div class="hint-text">Showing <b>${accountList.size()}</b> out of <b>${total}</b> entries</div>
                         <ul class="pagination">
-                            <li class="page-item disabled"><a href="#">Previous</a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link">5</a></li>
-                            <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                            <c:if test="${pageIndex>1}">
+                                <li class="page-item disabled"><a href="adminaccountlist?pageIndex=${pageIndex-1}&roleId=${accountList.get(0).roleId}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex-1}&roleId=${accountList.get(0).roleId}">${pageIndex-1}</a></li>
+                            </c:if>
+                            
+                            <li class="page-item active"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex}&roleId=${accountList.get(0).roleId}">${pageIndex}</a></li>
+                            
+                            <c:if test="${pageIndex<endPage}">
+                                <li class="page-item"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex+1}&roleId=${accountList.get(0).roleId}">${pageIndex+1}</a></li>
+                                <li class="page-item"><a href="adminaccountlist?pageIndex=${pageIndex+1}&roleId=${accountList.get(0).roleId}" class="page-link">Next</a></li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
-            </div>        
-        </div>
-        <!-- Add Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" class="form-control" required>
-                            </div>					
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
             </div>
+            <p style="color: red;font-size: 14px">${failMessage}</p>
+            <p style="color: red;font-size: 14px">${mess}</p>
+            <p style="color: green;font-size: 14px">${successMessage}</p>
         </div>
-        <!-- Edit Modal HTML -->
-        <div id="editEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Edit Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" class="form-control" required>
-                            </div>					
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-info" value="Save">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Delete Modal HTML -->
-        <div id="deleteEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Delete Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <p>Are you sure you want to delete these Records?</p>
-                            <p class="text-warning"><small>This action cannot be undone.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+
+        <script>
+            function showMess2(username, roleId) {
+                var option = confirm('Are you sure to delete?');
+                if (option === true) {
+                    window.location.href = 'adminaccountdelete?username=' + username;
+                }
+            }
+        </script>
 
         <!-- BOOTSTRAP5-->
         <script
@@ -486,6 +330,15 @@
                 $('body').sakura();
             });
         </script>
+        <script>
+            function showDelMess(username, roleId) {
+                var result = confirm("Bạn có muốn tiếp tục xóa không?");
+                if (result === true) {
+                    window.location.href = 'adminaccountdelete?username=' + username + '&roleId=' + roleId;
+                }
+            }
+        </script>
+
 
         <!--        FOOTER-->
         <%@include file="template/footer.jsp" %>

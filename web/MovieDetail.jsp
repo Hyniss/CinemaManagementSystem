@@ -94,8 +94,6 @@
         </div>
 
         <style>
-            body{margin-top:20px;}
-
             .member-details {
                 padding-top: 80px;
                 padding-bottom: 80px
