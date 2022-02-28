@@ -41,8 +41,8 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
-         <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) request.getSession().getAttribute("list"); %> 
-          <%ArrayList<FoodAndDrinkCart> listFoodCarts = (ArrayList<FoodAndDrinkCart>) request.getSession().getAttribute("listFoodCarts"); %> 
+        <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) request.getSession().getAttribute("list"); %> 
+        <%ArrayList<FoodAndDrinkCart> listFoodCarts = (ArrayList<FoodAndDrinkCart>) request.getSession().getAttribute("listFoodCarts"); %> 
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -59,17 +59,17 @@
                         <hr>
                         <h6 class="mb-0">Shopping cart</h6>
                         <div class="d-flex justify-content-between"><span>You have 4 items in your cart</span>
-<!--                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
-                                <form action="" method="">
-                                    <select name="" onchange="this.form.submit()" style="background-color: #e9ecef; border: none ">
-                                        <option value="">Sort by price</option>
-                                        <option value="">Sort by name</option>
-                                    </select>
-                                </form>
-                            </div>-->
+                            <!--                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
+                                                            <form action="" method="">
+                                                                <select name="" onchange="this.form.submit()" style="background-color: #e9ecef; border: none ">
+                                                                    <option value="">Sort by price</option>
+                                                                    <option value="">Sort by name</option>
+                                                                </select>
+                                                            </form>
+                                                        </div>-->
                         </div>
                         <br>
-                        
+
                         <div class="cart-content mt-3">
                             <div class="format-bg-top"></div> 
                             <div class="minicart">
@@ -121,16 +121,16 @@
                                                         <td class="label">Phòng</td>
                                                         <td style="font-weight: bold;font-size:16px;">Room 2<td>
                                                     </tr>
-                                                
+
                                                     <tr>
                                                         <td class="label">Ghế</td>
-                                                       <% if (listCheckedSeatId != null) {%>          
-                                                    <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
-                                                   <td style="font-weight: bold;font-size:16px;"> <%=listCheckedSeatId.get(k).getSeatId()%><td> 
-                                                       
-                                                    <%}%>
-                                                    <%}%>
-                                                       
+                                                        <td style="font-weight: bold;font-size:16px;">
+                                                            <% if (listCheckedSeatId != null) {%>          
+                                                            <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
+                                                            <%=listCheckedSeatId.get(k).getSeatId()+ " "%>
+                                                            <%}%>
+                                                            <%}%>
+                                                        <td> 
                                                     </tr>
                                                 </tbody>
                                             </table> 
@@ -142,7 +142,7 @@
                                                 <thead>
                                                     <tr class="block-box" style="height: 24px">
                                                         <td class="label">Giá</td>
-                                                        <td class="price">: ${totalFoodPrice} vnđ</td>
+                                                        <td class="price">: ${totalSeatPrice} vnđ</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -151,37 +151,37 @@
                                                         <td class="price">: ${quantitySeat}</td>
                                                     </tr>
                                                 </tbody>
-                                                 <thead>
+                                                <thead>
                                                     <tr class="block-box" style="height: 24px">
                                                         <td class="label">Combo</td>
-                                                        <td class="price">: ${totalSeatPrice} vnđ</td>
+                                                        <td class="price">: ${totalFoodPrice} vnđ</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
                                                         <td class="label">Số lượng</td>
                                                         <% int pos = 0;%>
-                                                          <%if (listFoodCarts != null) {%>
-                                                            <% for (int j = 0; j < listFoodCarts.size(); j++) {%>
-                                                            <%  pos +=listFoodCarts.get(j).getQuantity();%>
-                                                            
-                                                           
-                                                            <%}%>
-                                                            <%}%> 
-                                                            <td class="price">: <%=pos%> </td>
+                                                        <%if (listFoodCarts != null) {%>
+                                                        <% for (int j = 0; j < listFoodCarts.size(); j++) {%>
+                                                        <%  pos += listFoodCarts.get(j).getQuantity();%>
+
+
+                                                        <%}%>
+                                                        <%}%> 
+                                                        <td class="price">: <%=pos%> </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            
+
                                         </div>
                                     </li>
                                 </ul>
-                                
+
                             </div>
                             <div class="format-bg-bottom"></div>           
                         </div>
 
-                     <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
+                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
                             <a style="text-decoration: none" href="#">Back<i class="fa fa-long-arrow-right ml-1"></i></a>
                         </button>
                     </div>
@@ -189,9 +189,9 @@
 
                 <div class="col-md-4" style="background:#fff1ce">
                     <div class="payment-info">
-                       
+
                         <div class="d-flex justify-content-between align-items-center"><span>Card details</span></div><span class="type d-block mt-3 mb-1">Card type</span><label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> Thanh toán với VISA </label>
-                        
+
                         <br>
                         <br>
                         <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://developers.momo.vn/v3/vi/assets/images/square-8c08a00f550e40a2efafea4a005b1232.png" /></span>  Thanh toán với MOMO </label> 
@@ -199,7 +199,7 @@
                         <br>
                         <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJZPbSE5ssowAn0vChY-R7E6xfjG3TeNe5k9xcGaA9G5DnNX_v5YpC9ozQ0-sr4WBIkME&usqp=CAU" /></span> Thanh toán với ViettelPay</label>
                         <br>
-                                <br>
+                        <br>
                         <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanuAdlL4DpFARUlwfObpts-eSlnfhXdETpaWcnevAOcOmkrG8-7kZ9N2c1kERrxLx_uc&usqp=CAU" /></span> Thanh toán với thẻ ngân hàng </label>
                         <hr class="line">
                         <div class="d-flex justify-content-between information">
