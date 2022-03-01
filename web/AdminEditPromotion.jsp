@@ -58,31 +58,47 @@
                                     <label for="input-1">ID</label>
                                     <input type="text" class="form-control" readonly id="input-1" placeholder="ID" value="${promotion.id}" name="new_id">
                                 </div>
+                                </br>
                                 <div class="form-group">
                                     <label for="input-2">Title</label>
                                     <input type="text" class="form-control" id="input-2" placeholder="Update Title ..." value="${promotion.title}"name="new_title">
                                 </div>
+                                </br>
                                 <div class="form-group">
                                     <label for="input-2">Image</label>
                                     <input type="text" class="form-control" id="input-10" placeholder="The direct of Image" value="${promotion.imageLink}"name="new_Img">
                                 </div>
+                                </br>
                                 <div class="form-group">
                                     <label for="input-3">Content</label>
                                     <textarea class="form-control" rows="4" id="input-17" name="new_content">${promotion.content}</textarea>
                                 </div>
+                                </br>
                                 <div class="form-group">
                                     <label for="input-5">Created Date</label>
                                     <input type="date" class="form-control" id="input-5" value="${promotion.date}" name="new_date">
                                 </div>
+                                </br>
+                                <div class="form-group">
+                                    <label for="input-3">Discount</label>
+                                    <textarea class="form-control" rows="4" id="input-17" name="new_discount">${promotion.discount} %</textarea>
+                                </div>
+                                </br>
+                                <div class="form-group">
+                                    <label for="input-3">Mã giảm</label>
+                                    <textarea class="form-control" rows="4" id="input-17" name="new_magiam">${promotion.magiam}</textarea>
+                                </div>
+                                </br>
                                 <div class="form-footer">
+                                    <button class="btn btn-success">Update</button>
                                     <button class="btn btn-danger"><a href="${pageContext.request.contextPath}/adminpromotionlist">Hủy</a></button>
-                                    <button class="btn btn-success">Cập nhật</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>                            </br>
+
             <div class="overlay toggle-menu"></div>
         </div>
     </div>

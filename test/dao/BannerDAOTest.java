@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dao.impl.BannerDAO;
 import java.util.ArrayList;
 import model.Banner;
 import org.junit.After;
@@ -13,7 +14,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
 
 /**
  *

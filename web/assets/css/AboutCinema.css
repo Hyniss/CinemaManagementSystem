@@ -1,0 +1,119 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 7, 2021, 3:35:44 PM
+    Author     : LAMDTHE153097
+*/
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+html{
+    font-family: 'Lato',sans-serif;
+    font-size: 20px;
+    color: #5a5a5a;
+    background-color: #ffffff;
+    text-rendering: optimizeLegibility;
+}
+header{
+    background-image: linear-gradient(45deg,rgba(2,33,44,0.8) 55%,rgba(45,95,93,0.85)),url("../resources/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-attachment: fixed;
+}
+.logo {
+    width: 250px;
+    float: left;
+    margin-left: 70px;
+    margin-top: -20px;
+}
+.main-nav{
+    float: right;
+    list-style: none;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+.main-nav li{
+    display: inline-block;
+    margin-right: 30px;
+}
+.main-nav li a{
+    text-decoration: none;
+    color: white;
+    font-size: 110%;
+    font-weight: 700;
+    transition: border-bottom 0.5s;
+    padding: 3px 0;
+}
+.main-nav li a:hover,
+.main-nav li a:active{
+    border-bottom: 5px solid #cccccc;
+}
+.clearfix::after{
+    content: " ";
+    display: table;
+    clear: both;
+}
+.row{
+    max-width: 1140px;
+    margin: 0 auto;
+}
+.heading-main-box{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-45%,-55%);
+    width: 1140px;
+}
+.titles{
+    text-transform: uppercase;
+    font-size: 300%;
+    font-weight: 400;
+    letter-spacing: 1px;
+    word-spacing: 5px;
+    color: white;
+    
+}
+.text-center{
+    text-align: center;
+    background-color: #101214;
+    padding: 20px; 
+    color: white;
+    line-height: 135%;
+}
+.container{
+    margin: 0 auto;
+    width: 50%;
+    font-size: 20px;
+    font-style: normal;
+}
+.map{
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+.form{
+    height: auto;
+}
+.post-time{
+    float: left;
+    margin-left: 200px;
+}
+.social{
+    float: right;
+    margin-right: 200px;
+}
+.text-center{
+    clear: both;
+}
+.long{
+    margin-left: 200px;
+    font-size: 15px;
+}
+
+

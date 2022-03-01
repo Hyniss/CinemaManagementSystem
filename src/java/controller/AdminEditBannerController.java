@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.BannerDAO;
+import dao.impl.BannerDAO;
 import dao.IBannerDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -7,8 +7,10 @@
  * DATE         Version     AUTHOR        Description
  * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IFeedbackDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -26,7 +28,7 @@ import model.Feedback;
  *
  * @author Nguyen Nam
  */
-public class FeedbackDAO implements IFeedbackDAO {
+public class FeedbackDAO extends DBContext implements IFeedbackDAO {
 
     private Connection con;
     private PreparedStatement ps;
@@ -86,7 +88,9 @@ public class FeedbackDAO implements IFeedbackDAO {
         } catch (SQLException e) {
             Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -109,7 +113,9 @@ public class FeedbackDAO implements IFeedbackDAO {
         } catch (SQLException e) {
             Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return 0;
     }
@@ -146,7 +152,9 @@ public class FeedbackDAO implements IFeedbackDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return check > 0;
     }
@@ -177,7 +185,9 @@ public class FeedbackDAO implements IFeedbackDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return check > 0;
     }
@@ -198,7 +208,9 @@ public class FeedbackDAO implements IFeedbackDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return check > 0;
     }

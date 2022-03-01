@@ -6,7 +6,7 @@
 package controller;
 
 import dao.IPromotionDAO;
-import dao.PromotionDAO;
+import dao.impl.PromotionDAO;
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
@@ -57,7 +57,9 @@ public class AdminEditPromotionController extends HttpServlet {
         promotion.setTitle(request.getParameter("new_title"));
         promotion.setImageLink(request.getParameter("new_Img"));
         promotion.setContent(request.getParameter("new_content"));
-        promotion.setDate(Date.valueOf(request.getParameter("new_date")));
+        promotion.setDate(request.getParameter("new_date"));
+        promotion.setDiscount(Integer.parseInt(request.getParameter("new_discount")));
+        promotion.setMagiam(request.getParameter("new_magiam"));
         
         // Edit value from Database
         promotionDao.editPromotion(promotion);

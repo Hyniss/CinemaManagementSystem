@@ -5,10 +5,9 @@
  */
 package controller;
 
-import dao.AccountDAO;
+import dao.impl.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.SecureRandom;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -21,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 

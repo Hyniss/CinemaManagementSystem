@@ -70,7 +70,7 @@
                                                                 <a href="${pageContext.request.contextPath}/promotion_detail?id=${promotion.id}"><img src="${pageContext.request.contextPath}/assets/img/promotion/${promotion.imageLink}" alt="farm products" height="180px" width="300px"></a>
                                                             </figure>
                                                             <div class="aa-article-bottom">
-                                                                <div class="aa-post-date"><h4>${promotion.getFormatedDate()}</h4></div>
+                                                                <div class="aa-post-date"><h4>${promotion.getDate()}</h4></div>
                                                             </div>
                                                         </article>
                                                     </div>

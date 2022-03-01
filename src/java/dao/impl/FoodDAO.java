@@ -7,8 +7,10 @@
  * DATE         Version     AUTHOR        Description
  * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IFoodDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +26,7 @@ import model.FoodAndDrink;
  *
  * @author Nguyen Nam
  */
-public class FoodDAO implements IFoodDAO {
+public class FoodDAO extends DBContext implements IFoodDAO {
 
     private Connection con;
     private PreparedStatement ps;
@@ -44,9 +46,11 @@ public class FoodDAO implements IFoodDAO {
                 list.add(new FoodAndDrink(rs.getString("foodId"), rs.getString("category"), rs.getString("name"), rs.getString("price"), rs.getString("img")));
             }
         } catch (SQLException e) {
-            Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -69,7 +73,9 @@ public class FoodDAO implements IFoodDAO {
         } catch (SQLException e) {
             Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return 0;
     }
@@ -107,7 +113,9 @@ public class FoodDAO implements IFoodDAO {
         } catch (SQLException e) {
             Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -135,7 +143,9 @@ public class FoodDAO implements IFoodDAO {
         } catch (SQLException e) {
             Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return null;
     }
@@ -156,10 +166,11 @@ public class FoodDAO implements IFoodDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             /*Exeption Handle*/
-            Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -180,10 +191,11 @@ public class FoodDAO implements IFoodDAO {
             ps.executeQuery();
         } catch (SQLException e) {
             /*Exeption Handle*/
-            Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -200,10 +212,11 @@ public class FoodDAO implements IFoodDAO {
             ps.executeQuery();
         } catch (SQLException e) {
             /*Exeption Handle*/
-            Logger.getLogger(FoodAndDrink.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 }

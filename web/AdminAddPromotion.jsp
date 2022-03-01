@@ -52,8 +52,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title" style="margin: 10px; color: #ffffff">Add Banner</div>
-                            <form action="${pageContext.request.contextPath}/add_promotion" method="post">
-
+                            <form action="add_promotion" method="post">
+                                <h3 style="color: red;font-weight: 200;margin: 10px">${mess}</h3>
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" class="form-control" required name="new_title">
@@ -73,6 +73,18 @@
                                     <label for="input-1">Created Date</label> 
                                     <div>
                                         <input type="date" class="form-control" id="the-date" placeholder="Ngày đăng" name="new_date">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-2" class="col-form-label">Discount</label>
+                                    <div>
+                                        <textarea class="form-control" rows="4" id="input-17" name="new_discount"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-2" class="col-form-label">Mã giảm</label>
+                                    <div>
+                                        <textarea class="form-control" rows="4" id="input-17" name="new_magiam"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-footer" style="margin-top: 10px">

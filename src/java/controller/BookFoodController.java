@@ -9,7 +9,7 @@
  */
 package controller;
 
-import dao.FoodDAO;
+import dao.impl.FoodDAO;
 import dao.IFoodDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,21 +121,13 @@ public class BookFoodController extends HttpServlet {
                 }
                 session.setAttribute("listFoodCarts", listFoodAndDrinkCarts);
             }
-            /* redirect if product list is empty*/
-            if (listFoodAndDrinkCarts.isEmpty()) {
-                response.sendRedirect("food?viewFood=true");
-                return;
-            }
         }
         /* update total food price*/
         for (FoodAndDrinkCart listFoodAndDrinkCart : listFoodAndDrinkCarts) {
             totalFoodPrice += listFoodAndDrinkCart.getPrice() * listFoodAndDrinkCart.getQuantity();
         }
-
         session.setAttribute("totalFoodPrice", totalFoodPrice);
-        /* update total price*/
-        totalPrice = totalFoodPrice + totalSeatPrice;
-        session.setAttribute("totalPrice", totalPrice);
+        
         /*pagging product*/
         if (totalProduct > 0) {
             page = totalProduct % pageSize;
@@ -149,13 +141,17 @@ public class BookFoodController extends HttpServlet {
         int next = pageIndex + 1;
         int back = pageIndex - 1;
         ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.getAllFoodPagging(pageIndex, pageSize);
+        /* redirect if product list is empty*/
+        if (listFoodAndDrinkCarts.isEmpty()) {
+            response.sendRedirect("food?viewFood=true");
+            return;
+        }
         /*Attach attribute subjects for request and redirect it to Food.jsp*/
         request.setAttribute("next", next);
         request.setAttribute("back", back);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("listFoodAndDrink", listFoodAndDrink);
-        request.setAttribute("listFoodAndDrinkCarts", listFoodAndDrinkCarts);
         request.setAttribute("bookFood", bookFood);
         request.getRequestDispatcher("Food.jsp").forward(request, response);
     }

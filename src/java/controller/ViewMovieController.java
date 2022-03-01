@@ -9,9 +9,9 @@
  */
 package controller;
 
-import dao.FeedbackDAO;
+import dao.impl.FeedbackDAO;
 import dao.IFeedbackDAO;
-import dao.MovieDAO;
+import dao.impl.MovieDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;

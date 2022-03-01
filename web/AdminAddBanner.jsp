@@ -52,8 +52,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title" style="margin: 10px; color: #ffffff">Add Banner</div>
-                            <form action="${pageContext.request.contextPath}/add_banner" method="post">
-
+                            <form action="add_banner" method="post">
+                                ${mess}
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" class="form-control" required name="new_title">

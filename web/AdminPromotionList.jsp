@@ -64,9 +64,11 @@
                                         <tr style="text-align: center">
                                             <th scope="col" style="width: 2%; text-align: center">#</th>
                                             <th scope="col" style="width: 15%">Title</th>
-                                            <th scope="col" style="width: 45%">Image</th>
+                                            <th scope="col" style="width: 30%">Image</th>
                                             <th scope="col" style="width: 15%">Created Date</th>
-                                            <th scope="col" style="width: 18%">Action</th>
+                                            <th scope="col" style="width: 10%">Discount</th>
+                                            <th scope="col" style="width: 10%">Mã</th>
+                                            <th scope="col" style="width: 30%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,9 +77,12 @@
                                                 <td scope="row" style="text-align: center">${promotion.id}</td>
                                                 <td style="text-align: center">${promotion.title}</td>
                                                 <td style="text-align: center"><img style="object-fit: cover; height: 50%; width: 100%; text-align: center" src="${pageContext.request.contextPath}/assets/img/promotion/${promotion.imageLink}"></td>
-                                                <td style="text-align: center">${promotion.getFormatedDate()}</td>
+                                                <td style="text-align: center">${promotion.getDate()}</td>
+                                                <td style="text-align: center">${promotion.discount}</td>
+                                                <td style="text-align: center">${promotion.magiam}</td>
+
                                                 <td style="text-align: center">
-                                                    <button class="btn btn-danger"><a href="${pageContext.request.contextPath}/edit_promotion?id=${promotion.id}"><p  style="color: #ffffff; margin: 1px">Update</p></a></button>
+                                                    <button class="btn btn-danger"><a href="${pageContext.request.contextPath}/edit_promotion?id=${promotion.id}"><p  style="color: #ffffff; margin: 1px">Save</p></a></button>
                                                    <!-- <button class="btn btn-success"><a href="${pageContext.request.contextPath}/delete_banner?id=${promotion.id}"><p  style="color: #ffffff; margin: 1px">Delete</p></a></button> -->
                                                     <a href="#" onclick="showMess(${promotion.id})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p>
 

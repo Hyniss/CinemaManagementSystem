@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IBannerDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +21,7 @@ import model.Banner;
  *
  * @author Bảo Châu Bống
  */
-public class BannerDAO implements IBannerDAO{
+public class BannerDAO extends DBContext implements IBannerDAO {
 
     private Connection con;
     private PreparedStatement ps;
@@ -40,13 +42,15 @@ public class BannerDAO implements IBannerDAO{
                 banner = new Banner(rs.getInt("ID"), rs.getString("Img"), rs.getString("Title"), rs.getString("desc"));
             }
         } catch (SQLException e) {
-            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return banner;
     }
-    
+
     @Override
     public ArrayList<Banner> getAllBanner() {
         ArrayList<Banner> list = new ArrayList<>();
@@ -60,13 +64,15 @@ public class BannerDAO implements IBannerDAO{
                 list.add(new Banner(rs.getInt("ID"), rs.getString("Img"), rs.getString("Title"), rs.getString("desc")));
             }
         } catch (SQLException e) {
-            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
-    
+
     @Override
     public void addBanner(Banner banner) {
         try {
@@ -78,9 +84,11 @@ public class BannerDAO implements IBannerDAO{
             ps.setString(3, banner.getDesc());
             ps.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -96,9 +104,11 @@ public class BannerDAO implements IBannerDAO{
             ps.setInt(4, banner.getId());
             ps.executeQuery();
         } catch (SQLException e) {
-            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -111,9 +121,11 @@ public class BannerDAO implements IBannerDAO{
             ps.setInt(1, id);
             ps.executeQuery();
         } catch (SQLException e) {
-            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -135,9 +147,11 @@ public class BannerDAO implements IBannerDAO{
                 return banner;
             }
         } catch (SQLException e) {
-            Logger.getLogger(Banner.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return null;
     }

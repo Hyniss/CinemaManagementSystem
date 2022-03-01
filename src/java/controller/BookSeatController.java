@@ -10,7 +10,7 @@
 package controller;
 
 import dao.ISeatDAO;
-import dao.SeatDAO;
+import dao.impl.SeatDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;

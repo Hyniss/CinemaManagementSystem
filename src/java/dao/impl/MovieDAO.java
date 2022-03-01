@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IMovieDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +23,7 @@ import model.Movie;
  *
  * @author Thai Tran
  */
-public class MovieDAO implements IMovieDAO {
+public class MovieDAO extends DBContext implements IMovieDAO {
 
     private Connection con;
     private PreparedStatement ps;
@@ -66,7 +68,9 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -108,7 +112,9 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -150,7 +156,9 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -199,7 +207,9 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -242,11 +252,13 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return null;
     }
-    
+
     /**
      * getMovieByName method implement from IMovieDAO
      *
@@ -261,7 +273,7 @@ public class MovieDAO implements IMovieDAO {
             query = "select * from Movie where movieName like ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, "%"+movieName.trim()+"%");
+            ps.setString(1, "%" + movieName.trim() + "%");
 
 
             /*Query and save in ResultSet*/
@@ -286,7 +298,9 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -329,7 +343,9 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -372,17 +388,20 @@ public class MovieDAO implements IMovieDAO {
             Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
-    
+
     //add movie
     @Override
     public void addMovie(Movie movie) {
         try {
-            
-            query = "set identity_insert movie ON\n" +// có thể cho insert cả cột chứa thuộc tính identity
+
+            query = "set identity_insert movie ON\n"
+                    +// có thể cho insert cả cột chứa thuộc tính identity
                     "insert into Movie(movieId,movieName,image,categoryMovie,"
                     + "describe,trailer,author,actor,duration,[premiere]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             con = DBContext.getConnection();
@@ -401,10 +420,12 @@ public class MovieDAO implements IMovieDAO {
         } catch (SQLException e) {
             Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
-    
+
     //delete movie
     @Override
     public void deleteMovie(int id) {
@@ -417,10 +438,12 @@ public class MovieDAO implements IMovieDAO {
         } catch (SQLException e) {
             Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
-    
+
     //update movie
     @Override
     public void editMovie(Movie movie) {
@@ -443,10 +466,12 @@ public class MovieDAO implements IMovieDAO {
         } catch (SQLException e) {
             Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
-    
+
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();
         List<Movie> list = dao.getTop8Movie();

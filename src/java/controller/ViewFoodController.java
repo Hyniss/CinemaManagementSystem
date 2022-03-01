@@ -9,7 +9,7 @@
  */
 package controller;
 
-import dao.FoodDAO;
+import dao.impl.FoodDAO;
 import dao.IFoodDAO;
 import java.io.IOException;
 import java.util.ArrayList;

@@ -18,17 +18,21 @@ public class Promotion {
     private String title;
     private String content;
     private String imageLink;
-    private Date date;
+    private String date;
+    private int discount;
+    private String magiam;
 
     public Promotion() {
     }
 
-    public Promotion(int id, String title, String content, String imageLink, Date date) {
+    public Promotion(int id, String title, String content, String imageLink, String date, int discount, String magiam) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.imageLink = imageLink;
         this.date = date;
+        this.discount = discount;
+        this.magiam = magiam;
     }
 
     public int getId() {
@@ -63,21 +67,33 @@ public class Promotion {
         this.imageLink = imageLink;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public String getFormatedDate() {
-        String formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
-        return formattedDate;
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public String getMagiam() {
+        return magiam;
+    }
+
+    public void setMagiam(String magiam) {
+        this.magiam = magiam;
     }
 
     @Override
     public String toString() {
-        return "Promotion{" + "id=" + id + ", title=" + title + ", content=" + content + ", imageLink=" + imageLink + ", date=" + date + '}';
+        return "Promotion{" + "id=" + id + ", title=" + title + ", content=" + content + ", imageLink=" + imageLink + ", date=" + date + ", discount=" + discount + ", magiam=" + magiam + '}';
     }
+
 }

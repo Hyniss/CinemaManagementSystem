@@ -112,6 +112,46 @@
         <servlet-name>AdminAddAccountController</servlet-name>
         <servlet-class>controller.AdminAddAccountController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowtimesCinema</servlet-name>
+        <servlet-class>controller.ShowtimesCinema</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RecruitmentController</servlet-name>
+        <servlet-class>controller.RecruitmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RecruitmentDetailsController</servlet-name>
+        <servlet-class>controller.RecruitmentDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddRecruitmentController</servlet-name>
+        <servlet-class>controller.AdminAddRecruitmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminRecruitmentListController</servlet-name>
+        <servlet-class>controller.AdminRecruitmentListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteRecruitmentController</servlet-name>
+        <servlet-class>controller.AdminDeleteRecruitmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditRecruitmentController</servlet-name>
+        <servlet-class>controller.AdminEditRecruitmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminListCVController</servlet-name>
+        <servlet-class>controller.AdminListCVController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserAddCVInforController</servlet-name>
+        <servlet-class>controller.UserAddCVInforController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditCVController</servlet-name>
+        <servlet-class>controller.AdminEditCVController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -209,6 +249,38 @@
         <url-pattern>/adminuserlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ShowtimesCinema</servlet-name>
+        <url-pattern>/showtimes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecruitmentController</servlet-name>
+        <url-pattern>/recruitment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecruitmentDetailsController</servlet-name>
+        <url-pattern>/recruitment_detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddRecruitmentController</servlet-name>
+        <url-pattern>/add_recruitment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRecruitmentListController</servlet-name>
+        <url-pattern>/adminrecruitmentlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteRecruitmentController</servlet-name>
+        <url-pattern>/delete_recruitment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditRecruitmentController</servlet-name>
+        <url-pattern>/edit_recruitment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListUserController</servlet-name>
+        <url-pattern>/adminuserlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminListAccount</servlet-name>
         <url-pattern>/adminaccountlist</url-pattern>
     </servlet-mapping>
@@ -224,9 +296,24 @@
         <servlet-name>AdminAddAccountController</servlet-name>
         <url-pattern>/adminaccountadd</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListCVController</servlet-name>
+        <url-pattern>/admincvlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserAddCVInforController</servlet-name>
+        <url-pattern>/add_CV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditCVController</servlet-name>
+        <url-pattern>/edit_status</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
 </web-app>

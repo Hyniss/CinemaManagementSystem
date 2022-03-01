@@ -6,7 +6,7 @@
 package controller;
 
 import dao.IPromotionDAO;
-import dao.PromotionDAO;
+import dao.impl.PromotionDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

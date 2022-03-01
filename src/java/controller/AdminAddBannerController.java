@@ -1,7 +1,7 @@
-
 package controller;
 
-import dao.BannerDAO;
+import Validation.Validate;
+import dao.impl.BannerDAO;
 import dao.IBannerDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import model.Banner;
 
 /**
- * Documentation : AdminPromotionListController 
- * Created on : 13-Feb-2022, 01:41:21
+ * Documentation : AdminPromotionListController Created on : 13-Feb-2022,
+ * 01:41:21
+ *
  * @author Bảo Châu Bống
  */
-
 //  Admin can add new Banner
-
 public class AdminAddBannerController extends HttpServlet {
 
     // Calling method of database
@@ -39,8 +38,8 @@ public class AdminAddBannerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         // Parameter Initializing
-        String new_title = request.getParameter("new_title");
-        String new_desc = request.getParameter("new_desc");
+        String new_title = request.getParameter("new_title".trim());
+        String new_desc = request.getParameter("new_desc").trim();
         String new_Img = request.getParameter("new_Img");
 
         // Set the value
@@ -49,10 +48,22 @@ public class AdminAddBannerController extends HttpServlet {
         banner.setImg(new_Img);
         banner.setDesc(new_desc);
 
-        // Add value to database
-        bannerDao.addBanner(banner);
-        
-        // Lead to Page that show the list of banner
-        response.sendRedirect(request.getContextPath() + "/adminbannerlist");
+        String mess = "";
+        if (Validate.checkImg(banner.getImg()) == false) {
+            mess = "Sai định dạng ảnh !";
+        } else if (Validate.checkTitle(banner.getTitle()) == false) {
+            mess = "Thông tin Title không hợp lệ !";
+        } else if (Validate.checkDesc(banner.getDesc()) == false) {
+            mess = "Thông tin Content không hợp lệ !";
+        } else {
+            bannerDao.addBanner(banner);
+            //request.getRequestDispatcher("/adminrecruitmentlist").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/adminbannerlist");
+        }
+        if (!mess.equals("")) {
+            request.setAttribute("mess", mess);
+            request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
+        }
+
     }
 }

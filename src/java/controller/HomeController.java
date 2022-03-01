@@ -5,12 +5,12 @@
  */
 package controller;
 
-import dao.BannerDAO;
+import dao.impl.BannerDAO;
 import dao.IBannerDAO;
 import dao.IMovieDAO;
 import dao.IPromotionDAO;
-import dao.MovieDAO;
-import dao.PromotionDAO;
+import dao.impl.MovieDAO;
+import dao.impl.PromotionDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;

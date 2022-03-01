@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IRoleDAO;
+import dao.impl.AccountDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,16 +22,15 @@ import model.Role;
  *
  * @author HP
  */
-public class RoleDAO implements IRoleDAO {
-    
+public class RoleDAO extends DBContext implements IRoleDAO {
+
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
 
     /**
-     * getAllAccount method implement from IAccountDAO
-     * get all role in database
+     * getAllAccount method implement from IAccountDAO get all role in database
      *
      * @return chapters. <code>java.util.ArrayList</code> object
      */
@@ -56,13 +58,14 @@ public class RoleDAO implements IRoleDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return roleList;
     }
-    
-    
-        public static void main(String[] args) {
+
+    public static void main(String[] args) {
         RoleDAO dao = new RoleDAO();
         List<Role> roleList = dao.getAllRole();
         for (Role a : roleList) {
@@ -71,5 +74,4 @@ public class RoleDAO implements IRoleDAO {
 
     }
 
-    
 }

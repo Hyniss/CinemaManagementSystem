@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IPromotionDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +21,7 @@ import model.Promotion;
  *
  * @author Bảo Châu Bống
  */
-public class PromotionDAO implements IPromotionDAO{
+public class PromotionDAO extends DBContext implements IPromotionDAO {
 
     private Connection con;
     private PreparedStatement ps;
@@ -37,12 +39,21 @@ public class PromotionDAO implements IPromotionDAO{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                promotion = new Promotion(rs.getInt("ID"), rs.getString("Title"), rs.getString("Content"), rs.getString("imageLink"), rs.getDate("date"));
+                promotion = new Promotion(
+                        rs.getInt("ID"),
+                        rs.getString("Title"),
+                        rs.getString("Content"),
+                        rs.getString("imageLink"),
+                        rs.getString("date"),
+                        rs.getInt("discount"),
+                        rs.getString("MAGIAM"));
             }
         } catch (SQLException e) {
-            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return promotion;
     }
@@ -57,12 +68,21 @@ public class PromotionDAO implements IPromotionDAO{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new Promotion(rs.getInt("ID"), rs.getString("Title"), rs.getString("Content"), rs.getString("imageLink"), rs.getDate("date")));
+                list.add(new Promotion(
+                        rs.getInt("ID"),
+                        rs.getString("Title"),
+                        rs.getString("Content"),
+                        rs.getString("imageLink"),
+                        rs.getString("date"), 
+                        rs.getInt("discount"),
+                        rs.getString("MAGIAM")));
             }
         } catch (SQLException e) {
-            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return list;
     }
@@ -70,36 +90,45 @@ public class PromotionDAO implements IPromotionDAO{
     @Override
     public void addPromotion(Promotion promotion) {
         try {
-            query = "INSERT INTO dbo.Promotion VALUES (?, ?, ?, ?)";
+            query = "INSERT INTO dbo.Promotion VALUES (?, ?, ?, ?, ?, ?)";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, promotion.getTitle());
             ps.setString(2, promotion.getContent());
             ps.setString(3, promotion.getImageLink());
-            ps.setString(4, promotion.getFormatedDate());
+            ps.setString(4, promotion.getDate());
+            ps.setInt(5, promotion.getDiscount());
+            ps.setString(6, promotion.getMagiam());
+            ps.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
     @Override
     public void editPromotion(Promotion promotion) {
         try {
-            query = "UPDATE dbo.Promotion SET Title = ?, Content = ?, imageLink = ?, date = ? WHERE ID = ?";
+            query = "UPDATE dbo.Promotion SET Title = ?, Content = ?, imageLink = ?, date = ?, discount = ?, MAGIAM = ? WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, promotion.getTitle());
             ps.setString(2, promotion.getContent());
             ps.setString(3, promotion.getImageLink());
-            ps.setString(4, promotion.getFormatedDate());
-            ps.setInt(5, promotion.getId());
+            ps.setString(4, promotion.getDate());
+            ps.setInt(5, promotion.getDiscount());
+            ps.setString(6, promotion.getMagiam());
+            ps.setInt(7, promotion.getId());
             ps.executeQuery();
         } catch (SQLException e) {
-            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -112,9 +141,11 @@ public class PromotionDAO implements IPromotionDAO{
             ps.setInt(1, id);
             ps.executeQuery();
         } catch (SQLException e) {
-            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 
@@ -133,13 +164,17 @@ public class PromotionDAO implements IPromotionDAO{
                 promotion.setTitle(rs.getString("Title"));
                 promotion.setContent(rs.getString("Content"));
                 promotion.setImageLink(rs.getString("imageLink"));
-                promotion.setDate(rs.getDate("date"));
+                promotion.setDate(rs.getString("date"));
+                promotion.setDiscount(rs.getInt("discount"));
+                promotion.setMagiam(rs.getString("MAGIAM"));
                 return promotion;
             }
         } catch (SQLException e) {
-            Logger.getLogger(Promotion.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return null;
     }

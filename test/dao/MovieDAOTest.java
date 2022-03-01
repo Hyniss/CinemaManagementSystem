@@ -5,15 +5,13 @@
  */
 package dao;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import model.Movie;
+import dao.impl.MovieDAO;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

@@ -49,7 +49,7 @@
     <body>
         <%@include file="template/header.jsp" %>
 
-        <section id="aa-blog-archive">
+        <section id="aa-blog-archive" style="background-color: #fff" class="member-details" style="padding-top:50px;padding-bottom: 50px">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -59,14 +59,16 @@
                                     <!-- Blog details -->
                                     <div class="aa-blog-content aa-blog-details">
                                         <article class="aa-blog-content-single" style="margin-top: 30px; margin-bottom: 30px">                        
-                                            <h2><a href="#" style="color: #FAFAFA ">${promotion.title}</a></h2>
+                                            <h2><a href="#" style="color: #0061f2 ">${promotion.title}</a></h2>
                                             <div class="aa-article-bottom">
-                                                <div class="aa-post-date"><h4>${promotion.getFormatedDate()}</h4></div>
+                                                <div class="aa-post-date"><h4>${promotion.getDate()}</h4></div>
                                             </div>
                                             <figure class="aa-blog-img">
                                                 <a href="#"><img src="${pageContext.request.contextPath}/assets/img/promotion/${promotion.imageLink}" alt="fashion img" style="width: 70%"></a>
                                             </figure>
                                             <h5>${promotion.content}</h5>
+                                            <p>Mã giảm giá: <h5>${promotion.magiam}</h5></p>
+                                            
 
                                         </article>
                                     </div>

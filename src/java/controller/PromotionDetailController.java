@@ -6,7 +6,7 @@
 package controller;
 
 import dao.IPromotionDAO;
-import dao.PromotionDAO;
+import dao.impl.PromotionDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -22,7 +22,6 @@ import model.Promotion;
  */
 
 // The list of information of Promotion
-
 public class PromotionDetailController extends HttpServlet {
 
     // Calling method of database

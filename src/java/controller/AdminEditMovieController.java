@@ -6,7 +6,7 @@
 package controller;
 
 import dao.IMovieDAO;
-import dao.MovieDAO;
+import dao.impl.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;

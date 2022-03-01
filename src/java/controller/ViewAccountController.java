@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.AccountDAO;
+import dao.impl.AccountDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

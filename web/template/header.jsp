@@ -48,13 +48,16 @@
                     </a>                   
                 </li>
                 <li class="nav-item d-none d-lg-block">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/user/cart">
+                    <a class="nav-link" href="Cart.jsp">
                         <i class="fas fa-shopping-cart"></i>
+                        <c:if test="${listcheckedSeatId != null}">
+                            <span class="bg-danger">1</span>
+                        </c:if>
+                        <c:if test="${listcheckedSeatId == null}">
+                            <span class="bg-danger">0</span>
+                        </c:if>
                         <c:if test="${sessionScope.user !=null}">
-                            <span class="position-relative translate-middle badge rounded-pill bg-danger">
-                                ${cartAmount}
-                                <span class="visually-hidden">cart items</span>
-                            </span>
+
                         </c:if>
                     </a>
                 </li> 
@@ -70,6 +73,7 @@
                             <!-- Admin -->
                             <c:if test="${sessionScope.acc.roleId ==  1}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminaccountlist">Manage Account</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminrecruitmentlist">Manage Recruitment</a></li>
                                 <li><a class="dropdown-item" href="adminListMovie">Manage Movie</a></li>
                                 </c:if>
                             <!-- Staff -->

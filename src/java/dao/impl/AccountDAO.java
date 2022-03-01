@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package dao.impl;
 
+import dao.DBContext;
+import dao.IAccountDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,7 +22,7 @@ import model.Account;
  *
  * @author Thai Tran
  */
-public class AccountDAO implements IAccountDAO {
+public class AccountDAO extends DBContext implements IAccountDAO {
 
     private Connection con;
     private PreparedStatement ps;
@@ -62,14 +64,17 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return accountList;
     }
-    
+
     /**
-     * getAccountByRoleId method implement from IAccountDAO
-     * Get all accounts by an identify id
+     * getAccountByRoleId method implement from IAccountDAO Get all accounts by
+     * an identify id
+     *
      * @return chapters. <code>java.util.ArrayList</code> object
      */
     @Override
@@ -103,11 +108,13 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return accountList;
     }
-    
+
     /**
      * getAccountByUserName method implement from IAccountDAO
      *
@@ -146,11 +153,13 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return null;
     }
-    
+
     /**
      * insertAccount1 method implement from IAccountDAO
      *
@@ -177,7 +186,9 @@ public class AccountDAO implements IAccountDAO {
         } catch (SQLException e) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return check > 0;
     }
@@ -215,11 +226,13 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return check > 0;
     }
-    
+
     /**
      * deleteAccount method implement from IAccountDAO
      *
@@ -246,11 +259,13 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return check > 0;
     }
-     
+
     /**
      * getTotalAccountByRole method implement from IAccountDAO
      *
@@ -278,11 +293,13 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return 0;
     }
-    
+
     /**
      * pagingAccount implement from IAccountDAO
      *
@@ -306,11 +323,11 @@ public class AccountDAO implements IAccountDAO {
             ps = con.prepareStatement(query);
             int a = roleId;
             int b = pageIndex;
-            int c = (pageIndex-1)*5;
-            int d = pageIndex+5;
+            int c = (pageIndex - 1) * 5;
+            int d = pageIndex + 5;
             ps.setInt(1, roleId);
-            ps.setInt(2, (pageIndex-1)*5+1);
-            ps.setInt(3, (pageIndex-1)*5+5);
+            ps.setInt(2, (pageIndex - 1) * 5 + 1);
+            ps.setInt(3, (pageIndex - 1) * 5 + 5);
 
             /*Excute query and store it to check*/
             rs = ps.executeQuery();
@@ -333,14 +350,16 @@ public class AccountDAO implements IAccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             /*Close connection, prepare statement, result set*/
-            DBContext.close(con, ps, rs);
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return accountList;
     }
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
-        List<Account> accountList = dao.pagingAccount(0,3);
+        List<Account> accountList = dao.pagingAccount(0, 3);
         for (Account a : accountList) {
             System.out.println(a);
         }
@@ -366,7 +385,9 @@ public class AccountDAO implements IAccountDAO {
         } catch (SQLException e) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs); //giúp giải phóng bộ nhớ 1 cách nhanh hơn
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
         return null;
     }
@@ -390,7 +411,9 @@ public class AccountDAO implements IAccountDAO {
         } catch (SQLException e) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs); //giúp giải phóng bộ nhớ 1 cách nhanh hơn
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
 
     }
@@ -409,7 +432,9 @@ public class AccountDAO implements IAccountDAO {
         } catch (SQLException e) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            DBContext.close(con, ps, rs); //giúp giải phóng bộ nhớ 1 cách nhanh hơn
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
         }
     }
 

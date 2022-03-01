@@ -9,7 +9,7 @@
  */
 package controller;
 
-import dao.FeedbackDAO;
+import dao.impl.FeedbackDAO;
 import dao.IFeedbackDAO;
 import java.io.IOException;
 import java.util.logging.Level;

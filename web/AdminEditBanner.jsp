@@ -71,8 +71,8 @@
                                     <textarea class="form-control" rows="4" id="input-17" name="new_desc">${banner.desc}</textarea>
                                 </div>
                                 <div class="form-footer">
+                                    <button class="btn btn-success">Save</button>
                                     <button class="btn btn-danger"><a href="${pageContext.request.contextPath}/adminbannerlist">Hủy</a></button>
-                                    <button class="btn btn-success">Cập nhật</button>
                                 </div>
                             </form>
                         </div>
