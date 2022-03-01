@@ -148,10 +148,6 @@
         <servlet-name>UserAddCVInforController</servlet-name>
         <servlet-class>controller.UserAddCVInforController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AdminEditCVController</servlet-name>
-        <servlet-class>controller.AdminEditCVController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -303,10 +299,6 @@
     <servlet-mapping>
         <servlet-name>UserAddCVInforController</servlet-name>
         <url-pattern>/add_CV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminEditCVController</servlet-name>
-        <url-pattern>/edit_status</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

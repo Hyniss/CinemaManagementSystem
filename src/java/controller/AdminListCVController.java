@@ -6,7 +6,9 @@
 package controller;
 
 import dao.ICVInforDAO;
+import dao.IStatusDAO;
 import dao.impl.CVInforDAO;
+import dao.impl.StatusDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CVInfor;
+import model.Status;
 import util.CustomException;
 
 /**
@@ -25,6 +28,7 @@ import util.CustomException;
 public class AdminListCVController extends HttpServlet {
 
     ICVInforDAO cvInforDao = new CVInforDAO();
+    IStatusDAO statusDao = new StatusDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,13 +37,15 @@ public class AdminListCVController extends HttpServlet {
 
         List<CVInfor> cvInforList = cvInforDao.getAllCV();
         List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
+       // List<Status> statusList = statusDao.getAllStatus();
 
+       // request.setAttribute("statusList", statusList);
         request.setAttribute("cvStatusList", cvStatusList);
         request.setAttribute("cvInforList", cvInforList);
 
         request.getRequestDispatcher("AdminCVInforList.jsp").forward(request, response);
     }
-   
+
 //    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        List<CustomException> validationErrors = new ArrayList<>();
 //
