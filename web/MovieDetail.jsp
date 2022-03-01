@@ -80,7 +80,7 @@
                                         <fmt:formatDate pattern="dd-MM-yyyy" value = "<%=movie.getPremiere()%>"/>  </li>
                                 </ul>
                             </div>
-
+                             <!--tag để biết đường dẫn thôi nhé -->
                             <a href="#" type="button" class="btn btn-outline-danger">Đặt vé ngay</a>
 
                             <div class="member_desc">

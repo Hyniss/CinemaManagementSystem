@@ -73,7 +73,7 @@
                                     <label>Role</label>
                                     <select name="recruitmentid" class="form-select" aria-label="Default select example">
                                         <c:forEach items="${recruimentList}" var="o">
-                                            <option value="${o.ID}" ${ o.ID==cvList.ID ? "selected" : ""}>${o.getTitle()}</option>
+                                            <option value="${o.ID}" ${ o.ID==cvList.id ? "selected" : ""}>${o.getTitle()}</option>
                                         </c:forEach>
                                     </select>
                                 </div>

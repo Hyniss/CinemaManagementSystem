@@ -158,6 +158,9 @@
                                 </li>
                             </ul>
                         </div>
+                        <div id="seat-alert">
+                            <p>Hãy chọn ghế ngồi của bạn</p>
+                        </div>
                         <!--bottom content-->
                         <div class="bottom-content">
                             <!--button go back-->
@@ -229,15 +232,28 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
-                                                        <td class="label">Combo</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalFoodPrice}" type = "currency"/></td>
+                                                        <c:if test="${sessionScope.totalFoodPrice == 0}">
+                                                            <td class="label">Combo</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
+                                                        </c:if>
+                                                        <c:if test="${sessionScope.totalFoodPrice > 0}">
+                                                            <td class="label">Combo</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalFoodPrice}" type = "currency"/></td>          
+                                                        </c:if>
                                                     </tr>
+
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="block-box">
-                                                        <td class="label" style="font-weight: bold">TỔNG</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
-                                                    </tr>
+                                                        <c:if test="${sessionScope.totalFoodPrice > 0}">
+                                                            <td class="label" style="font-weight: bold">TỔNG</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
+                                                        </c:if>
+                                                        <c:if test="${sessionScope.totalFoodPrice == 0}">
+                                                            <td class="label">Giá vé</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
+                                                        </c:if>
+                                                    </tr>   
                                                 </tfoot>
                                             </table>
                                         </div>
@@ -246,7 +262,7 @@
                             </div>
                             <!--button go next-->                        
                             <% if (listCheckedSeatId == null) {%> 
-                            <a class="btn-next-right" href="" onclick="showAlert()" title="Next"></a>
+                            <a class="btn-next-right" href="#" onclick="showAlert()" title="Next"></a>
                             <% } else { %>
                             <a class="btn-next-right" href="food?viewFood=true"title="Next"></a>
                             <%}%> 
@@ -270,7 +286,7 @@
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
         <script>
                                 function showAlert() {
-                                    window.alert("Hãy chọn ghế ngồi của bạn!");
+                                    document.getElementById("seat-alert").style.display = "block";
                                 }
         </script>
     </body>

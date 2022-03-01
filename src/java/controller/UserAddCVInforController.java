@@ -60,7 +60,7 @@ public class UserAddCVInforController extends HttpServlet {
 
         String mess = "";
         if (Validate.checkFullName(cvinfor.getFullname()) == false) {
-            mess = "Sai dinh dang ten";
+            mess = "Sai định dạng tên";
         } else if (Validate.checkImg(cvinfor.getCV()) == false) {
             mess = "Sai định dạng ảnh !";
         } else {

@@ -50,14 +50,14 @@
                 <li class="nav-item d-none d-lg-block">
                     <a class="nav-link" href="Cart.jsp">
                         <i class="fas fa-shopping-cart"></i>
-                        <c:if test="${listcheckedSeatId != null}">
-                            <span class="bg-danger">1</span>
+                         <c:if test="${listcheckedSeatId != null}">
+                        <span class="bg-danger">1</span>
                         </c:if>
                         <c:if test="${listcheckedSeatId == null}">
-                            <span class="bg-danger">0</span>
+                        <span class="bg-danger">0</span>
                         </c:if>
                         <c:if test="${sessionScope.user !=null}">
-
+                            
                         </c:if>
                     </a>
                 </li> 
@@ -74,6 +74,7 @@
                             <c:if test="${sessionScope.acc.roleId ==  1}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminaccountlist">Manage Account</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminrecruitmentlist">Manage Recruitment</a></li>
+                                
                                 <li><a class="dropdown-item" href="adminListMovie">Manage Movie</a></li>
                                 </c:if>
                             <!-- Staff -->

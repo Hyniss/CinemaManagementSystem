@@ -152,24 +152,24 @@
                                                         </div>
                                                         <div class="product-choose"> 
                                                             <span class="input-group-btn">
-                                                                <a href="book-food?&bookFood=true&foodId=<%=listFoodAndDrink.get(i).getFoodId()%>&caculateType=plus&quantity=1&type=minus&pageIndex=${pageIndex}" class="btn" data-type="plus" disable>
+                                                                <a href="book-food?&bookFood=true&foodId=<%=listFoodAndDrink.get(i).getFoodId()%>&caculateType=plus&quantity=1&type=minus&pageIndex=${pageIndex}" class="btn" data-type="minus">
                                                                     <i class="fas fa-minus"></i>
                                                                 </a>
                                                             </span>
                                                             <% int count = 0;%>           
                                                             <%if (listFoodCarts == null) {%>
-                                                            <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" >
+                                                            <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" readonly>
                                                             <%}%> 
                                                             <%if (listFoodCarts != null) {%>
                                                             <% for (int j = 0; j < listFoodCarts.size(); j++) {%>
                                                             <% pos = listFoodCarts.get(j).getFoodId();%>
                                                             <%if (listFoodCarts.get(j).getFoodId().equals(listFoodAndDrink.get(i).getFoodId())) {%>
-                                                            <input type="number"  name="" class="form-control input-number" value="<%=listFoodCarts.get(j).getQuantity()%>" min="0" max="10" >
+                                                            <input type="number"  name="" class="form-control input-number" value="<%=listFoodCarts.get(j).getQuantity()%>" min="0" max="10" readonly>
                                                             <% count = 1;%>
                                                             <%}%>
                                                             <%}%>
                                                             <%if (count == 0) {%>
-                                                            <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" >
+                                                            <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" readonly>
                                                             <% count = 0;%>
                                                             <%}%>
                                                             <%}%>                                                         
@@ -253,20 +253,33 @@
                                                 <thead>
                                                     <tr class="block-box" style="height: 20px">
                                                         <td class="label">Giá vé</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalSeatPrice}" type = "currency"/></td>
+                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr class="block-box" style="height: 23px">
-                                                        <td class="label">Combo</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalFoodPrice}" type = "currency"/></td>
+                                                        <c:if test="${sessionScope.totalFoodPrice == 0}">
+                                                            <td class="label">Combo</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "0" type = "currency"/></td>
+                                                        </c:if>
+                                                        <c:if test="${sessionScope.totalFoodPrice > 0}">
+                                                            <td class="label">Combo</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalFoodPrice}" type = "currency"/></td>          
+                                                        </c:if>
                                                     </tr>
+
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="block-box">
-                                                        <td class="label" style="font-weight: bold">TỔNG</td>
-                                                        <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
-                                                    </tr>
+                                                        <c:if test="${sessionScope.totalFoodPrice > 0}">
+                                                            <td class="label" style="font-weight: bold">TỔNG</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
+                                                        </c:if>
+                                                        <c:if test="${sessionScope.totalFoodPrice == 0}">
+                                                            <td class="label">Giá vé</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
+                                                        </c:if>
+                                                    </tr>   
                                                 </tfoot>
                                             </table>
                                         </div>
