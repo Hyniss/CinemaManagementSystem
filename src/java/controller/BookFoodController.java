@@ -126,8 +126,11 @@ public class BookFoodController extends HttpServlet {
         for (FoodAndDrinkCart listFoodAndDrinkCart : listFoodAndDrinkCarts) {
             totalFoodPrice += listFoodAndDrinkCart.getPrice() * listFoodAndDrinkCart.getQuantity();
         }
+
         session.setAttribute("totalFoodPrice", totalFoodPrice);
-        
+        /* update total price*/
+        totalPrice = totalFoodPrice + totalSeatPrice;
+        session.setAttribute("totalPrice", totalPrice);
         /*pagging product*/
         if (totalProduct > 0) {
             page = totalProduct % pageSize;

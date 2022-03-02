@@ -154,13 +154,13 @@
                                                     </div>
                                                     <% } else {%>
                                                     <!--account list not equal account session-->
-                                                    <p><%="User " + count%></p>
+                                                    <p><%="User "%></p>
                                                     <p><fmt:formatDate pattern="dd-MM-yyyy" value = "<%=listFeedback.get(i).getFeedbackDate()%>"/> | 
                                                         <fmt:formatDate type="time" value="<%=listFeedback.get(i).getFeedbackTime()%>"/></p> 
                                                         <% }%>
                                                         <% } else {%>
                                                     <!--account is null-->
-                                                    <p><%="User " + count%></p>
+                                                    <p><%="User "%></p>
                                                     <p><fmt:formatDate pattern="dd-MM-yyyy" value = "<%=listFeedback.get(i).getFeedbackDate()%>"/> | 
                                                         <fmt:formatDate type="time" value="<%=listFeedback.get(i).getFeedbackTime()%>"/></p> 
                                                         <% }%>

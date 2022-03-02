@@ -270,16 +270,6 @@
 
                                                 </tbody>
                                                 <tfoot>
-                                                    <tr class="block-box">
-                                                        <c:if test="${sessionScope.totalFoodPrice > 0}">
-                                                            <td class="label" style="font-weight: bold">TỔNG</td>
-                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
-                                                        </c:if>
-                                                        <c:if test="${sessionScope.totalFoodPrice == 0}">
-                                                            <td class="label">Giá vé</td>
-                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
-                                                        </c:if>
-                                                    </tr>   
                                                 </tfoot>
                                             </table>
                                         </div>

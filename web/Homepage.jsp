@@ -85,11 +85,11 @@
                 </div>
             </div>
 
-            <div id="movie-content" class="row" style="width: 96%; margin-left: 2%; margin-right: 2%">
+            <div id="movie-content" class="row" style="width: 93%; margin:auto;">
                 <c:forEach var="o" items="${listMovie}">
                     <div class="movie col-md-3 mt-4" >
                         <div class="card card-custom h-100 shadow-sm" style="position: relative"> 
-                            <a href="movie?mid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-product-img shadow border-radius-lg card-header" position="absolute" top="0" left="0" display="block" width="100%" height="500px" margin-bottom ="20px" object-fit= "cover" alt="..."></a>
+                            <a href="movie?mid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-product-img shadow border-radius-lg card-header" position="absolute" top="0" left="0" display="block" width="100%" height="450px" margin-bottom ="20px" object-fit= "cover" alt="..."></a>
                             <div class="card-body">
                                 <div class="clearfix mb-3 text-center"> 
                                     <h2 class="currency price-hp" style="color: #ff3333">${o.getMovieName()}</h2> 
