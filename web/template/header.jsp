@@ -9,14 +9,14 @@
 <%@ page trimDirectiveWhitespaces="true" %> 
 <!DOCTYPE html>
 
-<div class="row m-0 p-0" style="background-color: #2E3293">
-    <span id="promo" class="d-lg-block d-none" style="color: #00FFFFFF">
+<div class="row m-0 p-0" style="background-color: #FFF">
+    <span id="promo" class="d-lg-block d-none" style="color: #000">
         <marquee behavior="scroll" direction="left">Bùng nổ với năm Nhâm Dần 2022 !!!</marquee>
     </span>
 </div>
 
 <nav class="navbar main-navbar navbar-expand-lg navbar-light bg-light pt-0" id="navbar1">
-    <div class="container-fluid" style="background-image: linear-gradient(#2E3192, #1BFFFF);" >
+    <div class="container-fluid" style="background:#f0f2f2;" >
         <!-- LOGO -->
         <a class="navbar-brand col-lg-2 offset-lg-2 logo" href="${pageContext.request.contextPath}/home">
             <img src="${pageContext.request.contextPath}/assets/img/logo.png">

@@ -68,8 +68,8 @@
                                                 <th scope="col" style="width: 2%; text-align: center">#</th>
                                                 <th scope="col" style="width: 15%">Fullname</th>
                                                 <th scope="col" style="width: 15%">CV</th>
-                                                <th scope="col" style="width: 15%">Chức vụ</th>
-                                                <th scope="col" style="width: 15%">Date</th>
+                                                <!--                                                <th scope="col" style="width: 15%">Chức vụ</th>-->
+<!--                                                <th scope="col" style="width: 15%">Date</th>-->
                                                 <th scope="col" style="width: 15%">Status</th>
                                                 <th scope="col" style="width: 15%">Action</th>
 
@@ -81,17 +81,17 @@
                                                     <td scope="row" style="text-align: center">${cvInforList.id}</td>
                                                     <td style="text-align: center">${cvInforList.fullname}</td>
                                                     <td>
-                                                        <img id="myImg" src="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.getCV()}" alt="CV Image" style="width:100%;max-width:300px">
-                                                        <!-- The Modal -->
+<!--                                                        <img id="myImg" src="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.CV}" alt="CV Image" style="width:100%;max-width:300px">
+                                                         The Modal 
                                                         <div id="myModal" class="modal">
 
-                                                            <!-- The Close Button -->
+                                                             The Close Button 
                                                             <span class="close">&times;</span>
 
-                                                            <!-- Modal Content (The Image) -->
+                                                             Modal Content (The Image) 
                                                             <img class="modal-content" id="img01">
 
-                                                            <!-- Modal Caption (Image Text) -->
+                                                             Modal Caption (Image Text) 
                                                             <div id="caption"></div>
                                                         </div>
                                                         <style>
@@ -195,10 +195,25 @@
                                                             span.onclick = function () {
                                                                 modal.style.display = "none";
                                                             }
-                                                        </script>
+                                                        </script>-->
+                                                        <style>
+                                                            .row img {
+                                                                border: 1px solid #ddd;
+                                                                border-radius: 4px;
+                                                                padding: 5px;
+                                                                width: 150px;
+                                                            }
+
+                                                            img:hover {
+                                                                box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+                                                            }
+                                                        </style>
+                                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.CV}">
+                                                            <img src="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.CV}" alt="Forest" style="width:150px">
+                                                        </a>
                                                     </td>
-                                                    <td style="text-align: center">${cvInforList.chucvu}</td>
-                                                    <td style="text-align: center">${cvInforList.date}</td>
+<!--                                                    <td style="text-align: center">${cvInforList.chucvu}</td>-->
+<!--                                                    <td style="text-align: center">${cvInforList.date}</td>-->
                                                     <td>
                                                         <select name="cvStatusList" class="form-select" aria-label="Default select example">
                                                             <c:forEach items="${cvStatusList}" var="o">

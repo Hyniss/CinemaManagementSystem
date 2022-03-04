@@ -52,7 +52,7 @@
                 <div class="col-lg-12" style="margin: 30px">
                     <button class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="${pageContext.request.contextPath}/add_recruitment">
                             <span class="btn-inner--icon text-md" style="color: red"><i class="fas fa-plus-square"></i></span>
-                            <span class="btn-inner--text text-sm" style="color: red;">Create</span>
+                            <span class="btn-inner--text text-sm" style="color: red; font-size: 20px">Create</span>
                     </button>
                 </div>
                 <div class="col-lg-12" style="margin: 30px">

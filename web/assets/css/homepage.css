@@ -487,8 +487,7 @@ and open the template in the editor.
 }
 
 .price-hp {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.8rem;
     color: darkgray
 }
 
@@ -590,7 +589,7 @@ ul{
 body{
     height: 100%;
     background-color: #009ceb;
-    background-image: linear-gradient(#2E3192, #1BFFFF);
+    background: #fff;
 }
 
 .container .row .play-button {
