@@ -249,7 +249,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div style="display:flex; flex-direction:row; justify-content:end; margin-top 22px">
+                                                            <div style="display:flex; flex-direction:row; justify-content:end; margin-top:22px">
                                                                 <p>Số kí tự:</p> 
                                                                 <p id="<%=feedIndex%>" style=" color: #000"></p>
                                                                 <p>/300</p>
@@ -323,7 +323,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="display:flex; flex-direction:row; justify-content:end; margin-top 22px">
+                                        <div style="display:flex; flex-direction:row; justify-content:end; margin-top:22px">
                                             <p>Số kí tự:</p> 
                                             <p id="length" style=" color: #000"></p>
                                             <p>/300</p>

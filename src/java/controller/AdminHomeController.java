@@ -5,47 +5,52 @@
  */
 package controller;
 
+import dao.impl.BannerDAO;
+import dao.IBannerDAO;
 import dao.IMovieDAO;
+import dao.IPromotionDAO;
 import dao.impl.MovieDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
+import model.Banner;
 import model.Movie;
+import model.Promotion;
 
 /**
- * Search Movie By Name
  *
- * @author Thai Tran
+ * @author HP
  */
-public class SearchMovieController extends HttpServlet {
+public class AdminHomeController extends HttpServlet {
 
-    IMovieDAO movieDAO = new MovieDAO();
-
+    // Calling method of database
+    IMovieDAO movieDao = new MovieDAO();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
 
-        //get movieName attribute from search input
-        String movieName = request.getParameter("moviename").trim();
-
-        if (movieName.equals("")) {
-            String searchMess = "This field can not empty!";
-            request.setAttribute("searchMess", searchMess);
-            request.getRequestDispatcher("MovieList.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("acc");
+        if (account == null) {
+            response.sendRedirect("home");
         } else {
+            if (account.getRoleId() != 1) {
+                response.sendRedirect("home");
+            } else {
+                // SHOW THE LIST OF MOVIE
+                ArrayList<Movie> listTop8Movie = movieDao.getTop8Movie();
+                request.setAttribute("listMovie", listTop8Movie);
 
-            //call search mothod in dao
-            ArrayList<Movie> movieList = movieDAO.getMovieByName(movieName);
-
-            request.setAttribute("movieNameInput", movieName);
-            request.setAttribute("listMovie", movieList);
-
-            // Lead to Homepage.jsp
-            request.getRequestDispatcher("MovieList.jsp").forward(request, response);
+                // Lead to Homepage.jsp
+                request.getRequestDispatcher("AdminHomepage.jsp").forward(request, response);
+            }
         }
 
     }

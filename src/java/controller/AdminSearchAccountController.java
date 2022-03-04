@@ -5,49 +5,57 @@
  */
 package controller;
 
-import dao.IMovieDAO;
-import dao.impl.MovieDAO;
+import dao.impl.AccountDAO;
+import dao.IAccountDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Movie;
+import model.Account;
 
 /**
- * Search Movie By Name
  *
- * @author Thai Tran
+ * @author HP
  */
-public class SearchMovieController extends HttpServlet {
+public class AdminSearchAccountController extends HttpServlet {
 
-    IMovieDAO movieDAO = new MovieDAO();
+    IAccountDAO accountDao = new AccountDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        //get movieName attribute from search input
-        String movieName = request.getParameter("moviename").trim();
+        //get search txt
+        String accSubUsername = request.getParameter("searchtxt").trim();
 
-        if (movieName.equals("")) {
+        if (accSubUsername.equals("")) {
             String searchMess = "This field can not empty!";
             request.setAttribute("searchMess", searchMess);
-            request.getRequestDispatcher("MovieList.jsp").forward(request, response);
+            request.setAttribute("total", 0);
+            request.getRequestDispatcher("AdminManageAccount.jsp").forward(request, response);
         } else {
 
-            //call search mothod in dao
-            ArrayList<Movie> movieList = movieDAO.getMovieByName(movieName);
+            //get list account bu search txt
+            List<Account> accountList = new ArrayList<>();
+            accountList = accountDao.getUserAccountBySubUsername(accSubUsername);
+            if (accountList.size() == 0) {
+                String searchMess = "No data to show!";
+                request.setAttribute("searchMess", searchMess);
+                request.setAttribute("total", 0);
+                request.getRequestDispatcher("AdminManageAccount.jsp").forward(request, response);
+            } else {
 
-            request.setAttribute("movieNameInput", movieName);
-            request.setAttribute("listMovie", movieList);
-
-            // Lead to Homepage.jsp
-            request.getRequestDispatcher("MovieList.jsp").forward(request, response);
+                //set properties and send to jsp
+                request.setAttribute("total", accountList.size());
+                request.setAttribute("accountList", accountList);
+                request.getRequestDispatcher("AdminManageAccount.jsp").forward(request, response);
+            }
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

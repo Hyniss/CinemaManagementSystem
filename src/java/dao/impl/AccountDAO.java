@@ -161,6 +161,51 @@ public class AccountDAO extends DBContext implements IAccountDAO {
     }
 
     /**
+     * getAccountBySubUserName method implement from IAccountDAO
+     *
+     * @param accountsubUserName String
+     * @return <List>Account
+     */
+    @Override
+    public ArrayList<Account> getUserAccountBySubUsername(String accountsubUsername) {
+        ArrayList<Account> list = new ArrayList<>();
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "select * from Account where roleId = 3 and username like ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + accountsubUsername.trim() + "%");
+
+
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            /*Assign data to an arraylist of Movie*/
+            while (rs.next()) {
+                list.add(new Account(
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("avatar"),
+                        rs.getString("fullName"),
+                        rs.getDate("DOB"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getInt("roleId")
+                ));
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    /**
      * insertAccount1 method implement from IAccountDAO
      *
      * @param Account. Account object

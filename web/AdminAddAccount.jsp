@@ -57,7 +57,7 @@
                         <form action="adminaccountadd" method="post">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label>Username</label>
+                                    <label>User name</label>
                                     <input value="${account.username}" name="username" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
@@ -69,7 +69,7 @@
                                     <input value="${account.avatar}" name="avatar" type="hidden" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Fullname</label>
+                                    <label>Full name</label>
                                     <input value="${account.fullName}" name="fullname" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">

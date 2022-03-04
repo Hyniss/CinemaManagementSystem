@@ -5,6 +5,8 @@
  */
 package Validation;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +20,7 @@ public class Validate {
     public static boolean checkFullName(String fullName) {
         String regex = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪ"
                 + "ẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồ"
-                + "ổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{4,}(?:[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨ"
+                + "ổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{4,32}(?:[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨ"
                 + "ŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềề"
                 + "ểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵ"
                 + "ỷỹ]+){0,2}$";   // regex cho tên tiếng việt
@@ -97,5 +99,12 @@ public class Validate {
         Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
         Matcher matcher = pattern.matcher(desc); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
+    }
+
+    //hàm check đầu vào cho dob
+    public static boolean checkAccountDob(Date dob) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dob);
+        return dob.before(Calendar.getInstance().getTime()) && cal.get(Calendar.YEAR) > 1900;
     }
 }

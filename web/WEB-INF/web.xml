@@ -148,6 +148,14 @@
         <servlet-name>UserAddCVInforController</servlet-name>
         <servlet-class>controller.UserAddCVInforController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminHomeController</servlet-name>
+        <servlet-class>controller.AdminHomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchAccountController</servlet-name>
+        <servlet-class>controller.AdminSearchAccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -299,6 +307,14 @@
     <servlet-mapping>
         <servlet-name>UserAddCVInforController</servlet-name>
         <url-pattern>/add_CV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHomeController</servlet-name>
+        <url-pattern>/adminhome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchAccountController</servlet-name>
+        <url-pattern>/adminaccountsearch</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

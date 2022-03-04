@@ -63,7 +63,7 @@
                         <div class="card-header">Tài khoản</div>
                         <div class="card-body text-center">
                             <!-- Profile picture image-->
-                            <img class="img-account-profile rounded-circle mb-2" src="${pageContext.request.contextPath}/assets/avatars/${account.getAvatar()}" alt="">
+                            <img class="img-account-profile rounded-circle mb-2" src="${pageContext.request.contextPath}/assets/avatars/${sessionScope.acc.getAvatar()}" alt="">
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                             <!-- Profile picture upload button-->
@@ -80,48 +80,48 @@
                                 <!-- Form Group (fullname)-->
                                 <div class="mb-3">
                                     <label class="small mb-1">Họ tên</label>
-                                    <input name="fullname" class="form-control" type="text" placeholder="Enter your fullname" value="${account.getFullName()}" required>
+                                    <input name="fullname" class="form-control" type="text" placeholder="Enter your fullname" value="${sessionScope.acc.getFullName()}" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (username)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Tài khoản</label>
-                                        <input name="username" class="form-control" type="email" readonly placeholder="Enter your username" value="${account.getUsername()}">
+                                        <input name="username" class="form-control" type="email" readonly placeholder="Enter your username" value="${sessionScope.acc.getUsername()}">
                                     </div>
                                     <!-- Form Group (password)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Mật khẩu</label>
-                                        <input name="password" class="form-control" type="password" placeholder="Enter your password" value="${account.getPassword()}" readonly>
+                                        <input name="password" class="form-control" type="password" placeholder="Enter your password" value="${sessionScope.acc.getPassword()}" readonly>
                                     </div>
                                 </div>
                                 <!-- Form Row        -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (avatar)-->
                                     <div class="col-md-6">
-                                        <input name="avatar" class="form-control" type="hidden" value="${account.getAvatar()}" required>
+                                        <input name="avatar" class="form-control" type="hidden" value="${sessionScope.acc.getAvatar()}" required>
                                     </div>
                                     <!-- Form Group (role id)-->
                                     <div class="col-md-6">
-                                        <input name="roleid" class="form-control" type="hidden" value="${account.getRoleId()}" required>
+                                        <input name="roleid" class="form-control" type="hidden" value="${sessionScope.acc.getRoleId()}" required>
                                     </div>
                                 </div>
                                 <!-- Form Group (email address)-->
                                 <div class="mb-3">
                                     <label class="small mb-1">Email</label>
-                                    <input name="email" class="form-control" type="email" placeholder="Enter your email address" value="${account.getEmail()}" required>
+                                    <input name="email" class="form-control" type="email" placeholder="Enter your email address" value="${sessionScope.acc.getEmail()}" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Số điện thoại</label>
-                                        <input name="phone" class="form-control" type="number" placeholder="Enter your phone number" value="${account.getPhone()}" required>
+                                        <input name="phone" class="form-control" type="number" placeholder="Enter your phone number" value="${sessionScope.acc.getPhone()}" required>
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">DOB</label>
-                                        <input name="dob" class="form-control" type="date" placeholder="Enter your birthday" value="${account.getDob()}" required>
+                                        <input name="dob" class="form-control" type="date" placeholder="Enter your birthday" value="${sessionScope.acc.getDob()}" required>
                                     </div>
                                 </div>
 <!--                                Edit message    -->

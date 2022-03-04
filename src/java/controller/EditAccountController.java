@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 
 /**
@@ -58,6 +59,8 @@ public class EditAccountController extends HttpServlet {
             mess = "Username phải có ít nhất 6 ký tự không bao gồm ký tự đặc biệt";
         } else if (Validate.checkPassword(password) == false) {
             mess = "Password phải có ít nhất 6 đến 8 ký tự và có ít nhất 1 ky tự chữ thường, chữ hoa, số và ký tự đặc biệt";
+        } else if (Validate.checkAccountDob((Date) account.getDob()) == false) {
+            mess = "Ngày sinh không hợp lệ";
         } else if (Validate.checkEmail(email) == false) {
             mess = "Vui lòng nhập email có dạng example@xxx.xxx(.xxx)";
         } else if (Validate.checkPhone(phone) == false) {
@@ -81,7 +84,9 @@ public class EditAccountController extends HttpServlet {
         request.setAttribute("mess", mess);
 
         //get properties and getRequestDispatcher to AccountDetail.jsp
-        request.setAttribute("account", account);
+        HttpSession session = request.getSession();
+        session.removeAttribute("acc");
+        session.setAttribute("acc", account);
         request.getRequestDispatcher("AccountDetail.jsp").forward(request, response);
 
     }

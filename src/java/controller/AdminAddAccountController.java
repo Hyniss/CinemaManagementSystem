@@ -61,14 +61,14 @@ public class AdminAddAccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         //get role list from database
         ArrayList<Role> roleList = roleDao.getAllRole();
-        
+
         //set attribute and send to jsp
         request.setAttribute("roleList", roleList);
         request.getRequestDispatcher("AdminAddAccount.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -84,7 +84,7 @@ public class AdminAddAccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         //get account properites from jsp
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -94,7 +94,7 @@ public class AdminAddAccountController extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         int roleid = Integer.parseInt(request.getParameter("roleid"));
-        
+
         //set popeties into new account
         Account account = new Account();
         account.setUsername(username.trim());
@@ -105,10 +105,10 @@ public class AdminAddAccountController extends HttpServlet {
         account.setEmail(email.trim());
         account.setPhone(phone.trim());
         account.setRoleId(roleid);
-        
+
         //check constraint and store in mess
         String mess = "";
-        if(accountDao.getAccountByUsername(account.getUsername()) != null){
+        if (accountDao.getAccountByUsername(account.getUsername()) != null) {
             mess = "Username đã tồn tại";
         } else if (Validate.checkUserName(account.getUsername()) == false) {
             mess = "Username phải có ít nhất 6 ký tự không bao gồm ký tự đặc biệt";
@@ -116,6 +116,8 @@ public class AdminAddAccountController extends HttpServlet {
             mess = "Password phải có ít nhất 6 đến 8 ký tự và có ít nhất 1 ky tự chữ thường, chữ hoa, số và ký tự đặc biệt";
         } else if (Validate.checkFullName(account.getFullName()) == false) {
             mess = "Thông tin fullname không hợp lệ";
+        } else if (Validate.checkAccountDob((Date) account.getDob()) == false) {
+            mess = "Ngày sinh không hợp lệ";
         } else if (Validate.checkEmail(account.getEmail()) == false) {
             mess = "Vui lòng nhập email có dạng example@xxx.xxx(.xxx)";
         } else if (Validate.checkPhone(account.getPhone()) == false) {

@@ -227,7 +227,7 @@
 
 
         <!--        HEADER-->
-        <%@include file="template/header.jsp" %>
+        <%@include file="template/adminheader.jsp" %>
 
 
         <div class="container-xl">
@@ -256,11 +256,18 @@
                             </div>
                         </div>
                     </div>
+                    <form action="adminaccountsearch" method="post" style="width:40%;min-width: 200px; margin: 10px auto 10px auto " class="input-group rounded">
+                        <input name="searchtxt" value="${accSubUsername}" type="search" class="form-control rounded" placeholder="Search user by username" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="submit"  style="height:38px;" class="input-group-text border-0" id="search-addon">
+                            <i class="fas fa-search"></i></a>
+                        </button>
+                    </form>
+                    <p style="color:red; text-align: center">${searchMess}</p>    
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Fullname</th>
+                                <th>User name</th>
+                                <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Actions</th>
@@ -275,7 +282,6 @@
                                     <td>${account.phone}</td>
                                     <td>
                                         <a href="adminaccountedit?username=${account.username}"><i class="material-icons" title="Edit">&#xE254;</i></a>
-<!--                                        <a href="adminaccountdelete?username=${account.username}&roleId=${account.roleId}"><i class="material-icons" title="Delete">&#xE872;</i></a>-->
                                         <a href="#" onclick="showDelMess('${account.username}',${account.roleId})"><i class="material-icons" title="Delete">&#xE872;</i></a>
 
                                 </tr>
@@ -288,14 +294,14 @@
                             <c:if test="${pageIndex>1}">
                                 <li class="page-item disabled"><a href="adminaccountlist?pageIndex=${pageIndex-1}&roleId=${accountList.get(0).roleId}">Previous</a></li>
                                 <li class="page-item"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex-1}&roleId=${accountList.get(0).roleId}">${pageIndex-1}</a></li>
-                            </c:if>
-                            
+                                </c:if>
+
                             <li class="page-item active"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex}&roleId=${accountList.get(0).roleId}">${pageIndex}</a></li>
-                            
+
                             <c:if test="${pageIndex<endPage}">
                                 <li class="page-item"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex+1}&roleId=${accountList.get(0).roleId}">${pageIndex+1}</a></li>
                                 <li class="page-item"><a href="adminaccountlist?pageIndex=${pageIndex+1}&roleId=${accountList.get(0).roleId}" class="page-link">Next</a></li>
-                            </c:if>
+                                </c:if>
                         </ul>
                     </div>
                 </div>

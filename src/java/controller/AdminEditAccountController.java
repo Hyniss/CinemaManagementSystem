@@ -56,11 +56,11 @@ public class AdminEditAccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
         //get username param from jsp
         String username = request.getParameter("username");
         Account account = accountDao.getAccountByUsername(username);
-        
+
         //set attribute and send to jsp
         request.setAttribute("account", account);
         request.getRequestDispatcher("AdminEditAccount.jsp").forward(request, response);
@@ -101,7 +101,7 @@ public class AdminEditAccountController extends HttpServlet {
         account.setEmail(email.trim());
         account.setPhone(phone.trim());
         account.setRoleId(roleid);
-        
+
         //check constraint and store in mess
         String mess = "";
         if (Validate.checkUserName(username) == false) {
@@ -110,6 +110,8 @@ public class AdminEditAccountController extends HttpServlet {
             mess = "Password phải có ít nhất 6 đến 8 ký tự và có ít nhất 1 ky tự chữ thường, chữ hoa, số và ký tự đặc biệt";
         } else if (Validate.checkFullName(fullname) == false) {
             mess = "Thông tin fullname không hợp lệ";
+        } else if (Validate.checkAccountDob(dob) == false) {
+            mess = "Ngày sinh không hợp lệ";
         } else if (Validate.checkEmail(email) == false) {
             mess = "Vui lòng nhập email có dạng example@xxx.xxx(.xxx)";
         } else if (Validate.checkPhone(phone) == false) {

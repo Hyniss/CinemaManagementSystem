@@ -25,13 +25,15 @@ public interface IAccountDAO {
     public Account getAccountByUsernameAndPassword(String user, String pass);
 
     public ArrayList<Account> getAccountByRoleId(int roleId);
-    
+
     public boolean deleteAccount(String username);
-    
+
     public int getTotalAccountByRole(int roleId);
-    
+
     public List<Account> pagingAccount(int pageIndex, int roleId);
-    
+
+    public ArrayList<Account> getUserAccountBySubUsername(String accountsubUsername);
+
     public boolean insertAccount1(Account a);
 
     public void insertAccount(String user, String pass, String fullname, String dob, String email, String phone, int roleId);
@@ -40,5 +42,4 @@ public interface IAccountDAO {
 
     public Account checkEmail(String user, String email);
 
-  
 }
