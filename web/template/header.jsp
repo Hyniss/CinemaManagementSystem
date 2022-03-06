@@ -9,14 +9,14 @@
 <%@ page trimDirectiveWhitespaces="true" %> 
 <!DOCTYPE html>
 
-<div class="row m-0 p-0" style="background-color: #FFF">
+<div class="row m-0 p-0" style="background: linear-gradient(333deg, rgba(233,197,212,1) 0%, rgba(162,195,234,1) 100%);">
     <span id="promo" class="d-lg-block d-none" style="color: #000">
         <marquee behavior="scroll" direction="left">Bùng nổ với năm Nhâm Dần 2022 !!!</marquee>
     </span>
 </div>
 
 <nav class="navbar main-navbar navbar-expand-lg navbar-light bg-light pt-0" id="navbar1">
-    <div class="container-fluid" style="background:#f0f2f2;" >
+    <div class="container-fluid" style="background: linear-gradient(333deg, rgba(233,197,212,1) 0%, rgba(162,195,234,1) 100%);" >
         <!-- LOGO -->
         <a class="navbar-brand col-lg-2 offset-lg-2 logo" href="${pageContext.request.contextPath}/home">
             <img src="${pageContext.request.contextPath}/assets/img/logo.png">
@@ -32,7 +32,7 @@
                 <input type="hidden" name="page" value="1"/>
                 <input name="moviename" value="${movieNameInput}" class="form-control me-2" type="text" placeholder="Search movie you want ..." aria-label="Search">
 
-                <button class="btn btn-danger" type="submit"><i class="fas fa-search" style="font-size: 100%; "></i></button>
+                <button class="btn btn-search" type="submit"><span><i class="fas fa-search" style="font-size: 100%; "></i></span></button>
             </form>
             <ul class="navbar-nav me-auto ms-auto">                
 

@@ -80,6 +80,7 @@ body{
     padding-top: 80px;
     font-family: 'Poppins',sans-serif;
     overflow-x: hidden;
+
 }
 
 .title {
@@ -170,6 +171,16 @@ canvas{
 
 #myTBTN:hover {
     background-color: #a5b1c2; /* Add a dark-grey background on hover */
+}
+
+.btn-search{
+    background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
+    line-height: 42px;
+    padding: 0 13px;
+    border: none;
+}
+.btn-search:hover{
+    opacity:0.5;
 }
 /*online booking layout*/
 .main-container {
@@ -298,7 +309,7 @@ canvas{
 
 .food {
     position: relative;  
-    min-height: 100vh;
+    height: 900px;
 }
 .main-content .products-list {
     display: flex;

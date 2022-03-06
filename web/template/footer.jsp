@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- FOOTER --%>
-<footer class="text-black text-center text-lg-start" style="background-color: #f0f2f2;" id="footer">
+<footer class="text-black text-center text-lg-start" style="background-color: #f8f9fa;" id="footer">
     <!-- Grid container -->
     <div class="container p-4">
         <!--Grid row-->
@@ -65,7 +65,7 @@
     <!-- Grid container -->
 
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center p-3" style="background: linear-gradient(277deg, rgba(233,197,212,1) 0%, rgba(162,195,234,1) 100%);">
         <a style="color: #002a80"> © 2022 Copyright:</a>
         <a class="text-white" href="#">SWP391 - GRP4</a>
     </div>

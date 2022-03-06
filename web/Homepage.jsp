@@ -63,14 +63,14 @@
                         </div>  
                     </c:forEach>
 
-                    <button class="carousel-control-prev" style="margin-left: 2%" type="button" data-bs-target="#carouselExampleCaptions"
+                    <button class="carousel-control-prev" style="margin-left: 1%;font-size: 40px;" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <i class="far fa-arrow-alt-circle-left"></i>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" style="margin-right: 2%" type="button" data-bs-target="#carouselExampleCaptions"
+                    <button class="carousel-control-next" style="margin-right: 1%;font-size: 40px;" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <i class="far fa-arrow-alt-circle-right"></i>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
@@ -99,9 +99,9 @@
                                     <h4 class="currency price-hp" style="color: #000">Thời lượng: ${o.getDuration()} phút</h4> 
                                     <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
                                 </div>
-                                <div class="text-center my-4 hover"> 
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
+                                <div class="text-center my-4 hover">                               
+                                    <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
+                                    <button onclick="" class="custom-btn btn-book"><span>Mua vé !</span><span>Mua vé</span></button>
                                 </div>
                                 <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                             </div>
@@ -112,7 +112,7 @@
 
             <!--            Load more button    -->
             <div style="text-align:center; margin-top: 50px">
-                <button onclick="loadMoreMovie()" type="button" class="btn btn-warning" style="width:120px; height: 50px;">Load more</button>
+                <button onclick="loadMoreMovie()"  class="custom-btn btn-loadmore"><span>Xem thêm !</span><span>Xem thêm</span></button>
             </div>
 
         </section>
@@ -167,28 +167,30 @@
                         $('body').sakura();
                     });
         </script>
-
-
-        <!--        Java script function: Load more movie when click load more button-->
+        <script>
+            function viewDetail(movieId) {
+                window.location.href = "movie?mid="+movieId;
+            }
+        </script>
         <script>
 
-                    function loadMoreMovie() {
-                        var amount = document.getElementsByClassName("movie").length;
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/loadmoremovie",
-                            type: "get",
-                            data: {
-                                exists: amount
-                            },
-                            success: function (data) {
-                                var row = document.getElementById("movie-content");
-                                row.innerHTML += data;
-                            },
-                            error: function (xhr) {
-                                //Do something handle 
-                            }
-                        });
+            function loadMoreMovie() {
+                var amount = document.getElementsByClassName("movie").length;
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/loadmoremovie",
+                    type: "get",
+                    data: {
+                        exists: amount
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("movie-content");
+                        row.innerHTML += data;
+                    },
+                    error: function (xhr) {
+                        //Do something handle 
                     }
+                });
+            }
 
         </script>
     </body>
