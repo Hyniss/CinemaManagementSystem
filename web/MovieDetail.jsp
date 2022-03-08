@@ -80,9 +80,8 @@
                                         <fmt:formatDate pattern="dd-MM-yyyy" value = "<%=movie.getPremiere()%>"/>  </li>
                                 </ul>
                             </div>
-                             <!--tag để biết đường dẫn thôi nhé -->
-                            <a href="#" type="button" class="btn btn-outline-danger">Đặt vé ngay</a>
-
+                            <!--tag để biết đường dẫn thôi nhé -->
+                            <a type="button" class="btn btn-outline-danger"  href="${pageContext.request.contextPath}/showtimes?movieId=${movie.movieId}" >Đặt vé ngay</a>
                             <div class="member_desc">
                                 <h4 style="font-weight: bold">Mô tả</h4>
                                 <p>
@@ -113,7 +112,9 @@
                                         <!--have a review-->
                                         <% boolean check = false;%>
                                         <% if (listFeedback.isEmpty() || listFeedback == null) {
+
                                                 check = true;
+
                                             }%>
                                         <% int count = 0;%>
                                         <%for (int i = 0; i < listFeedback.size(); i++) {%>
@@ -604,9 +605,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
         <script>
-                                            $(window).load(function () {
-                                                $('body').sakura();
-                                            });
+                                                            $(window).load(function () {
+                                                                $('body').sakura();
+                                                            });
         </script>
         <script>
             function showConfirm(feedbackId, movieId, username) {

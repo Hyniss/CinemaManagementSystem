@@ -5,62 +5,91 @@
  */
 package model;
 
+import java.sql.Time;
+import java.time.format.DateTimeFormatter;
+import java.util.SimpleTimeZone;
+
 /**
  *
  * @author Bảo Châu Bống
  */
 public class MovieRoom {
 
-    private String movieRoomId;
-    private String premereMovieRoom;
-    private String movieId;
-    private String roomId;
+    private int movieRoomId;
+    private String premiere;
+    private String time;
+    private int movieId;
+    private int roomId;
 
     public MovieRoom() {
     }
 
-    public MovieRoom(String movieRoomId, String premereMovieRoom, String movieId, String roomId) {
+    public MovieRoom(String premiere) {
+        this.premiere = premiere;
+    }
+
+    public MovieRoom(String premiere, String time, int movieId) {
+        this.premiere = premiere;
+        this.time = time;
+        this.movieId = movieId;
+    }
+
+    public MovieRoom(int movieRoomId, String premiere, String time, int movieId, int roomId) {
         this.movieRoomId = movieRoomId;
-        this.premereMovieRoom = premereMovieRoom;
+        this.premiere = premiere;
+        this.time = time;
         this.movieId = movieId;
         this.roomId = roomId;
     }
 
-    public String getMovieRoomId() {
+    public int getMovieRoomId() {
         return movieRoomId;
     }
 
-    public void setMovieRoomId(String movieRoomId) {
+    public void setMovieRoomId(int movieRoomId) {
         this.movieRoomId = movieRoomId;
     }
 
-    public String getPremereMovieRoom() {
-        return premereMovieRoom;
+    public String getPremiere() {
+        return premiere;
     }
 
-    public void setPremereMovieRoom(String premereMovieRoom) {
-        this.premereMovieRoom = premereMovieRoom;
+    public void setPremiere(String premiere) {
+        this.premiere = premiere;
     }
 
-    public String getMovieId() {
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(String movieId) {
+    public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 
-    public String getRoomId() {
+    public int getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(String roomId) {
+    public void setRoomId(int roomId) {
         this.roomId = roomId;
     }
 
+//    public void setNewTime(String time) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ѕѕ");
+//        time = time.format(formatter);
+//    }
+
     @Override
     public String toString() {
-        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premereMovieRoom=" + premereMovieRoom + ", movieId=" + movieId + ", roomId=" + roomId + '}';
+        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + ", time=" + time + ", movieId=" + movieId + ", roomId=" + roomId + '}';
     }
 
 }

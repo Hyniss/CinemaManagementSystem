@@ -115,7 +115,7 @@ public class BannerDAO extends DBContext implements IBannerDAO {
     @Override
     public void deleteBanner(int id) {
         try {
-            query = "DELETE FROM dbo.Banner WHERE ID = ?";
+            query = "DELETE FROM dbo.Banner WHERE ID = ??,";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, id);

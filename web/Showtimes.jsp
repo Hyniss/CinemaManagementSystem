@@ -3,9 +3,10 @@
     Created on : 23-Feb-2022, 16:01:28
     Author     : Bảo Châu Bống
 --%>
-
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@page import = "java.time.LocalDateTime"%>
+<%@page import = "java.time.ZoneId"%>
+<%@page import = "java.util.Date"%>
+<%@page import = "java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -47,68 +48,106 @@
         <title>Amazing Cinema</title>
     </head>
     <body>
+
+        <script>
+            $(document).ready(function () {
+                // Activate tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Select/Deselect checkboxes
+                var checkbox = $('table tbody input[type="checkbox"]');
+                $("#selectAll").click(function () {
+                    if (this.checked) {
+                        checkbox.each(function () {
+                            this.checked = true;
+                        });
+                    } else {
+                        checkbox.each(function () {
+                            this.checked = false;
+                        });
+                    }
+                });
+                checkbox.click(function () {
+                    if (!this.checked) {
+                        $("#selectAll").prop("checked", false);
+                    }
+                });
+            });
+        </script>
         <%@include file="template/header.jsp" %>
         <!-- MOVIE -->
         <section class="product">
-
-            <div class="row" style="width: 96%; margin-left: 2%; margin-right: 2%">
-                <c:forEach var="o" items="${showtimes}">
-                    <div class="col-md-3 mt-4" >
-                        <div class="card card-custom h-100 shadow-sm" style="position: relative"> 
-                            <div class="card-body">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/seat"></a>
-                                <ul class="current"> 
-                                    <div class="day">
-                                        <span style="color: #717171;
-                                              font-size: 15px;
-                                              left: 4px;
-                                              position: absolute;
-                                              top: 4px">${o.getFormatedMonth()}</span>
-                                        <em style="color: #717171;
-                                            font-size: 15px;
-                                            font-style: normal;
-                                            left: 4px;
-                                            position: absolute;
-                                            top: 20px">${o.getFormatedDate()}</em>
-                                        <strong style="color: #717171;
-                                                font-size: 32px;
-                                                font-weight: normal;
-                                                left: 31px;
-                                                line-height: 32px;
-                                                position: absolute;
-                                                top: 8px">${o.getFormatedDay()}</strong>
+            <div class="table-title">
+                <div class="container-xl">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h2>
+                                            Manage <b>Time</b>
+                                        </h2>
                                     </div>
-                                </ul>
+                                    <div class="col-sm-6">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Choose Time
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <c:forEach items="${showtime}" var="o">
+                                                    <a class="dropdown-item" href="showtimes?movieId=${o.movieId}&premiere=${o.premiere}">${o.premiere}</a>                                       
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clearfix mb-3" style="margin: 10px"> 
-                            <h4 class="currency price-hp" style="color: #000">Time: ${o.getTimeMovie()}</h4> 
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${test}" var="o">
+                                        <tr>
+                                            <td>                                   
+                                                <a class="dropdown-item" href="${pageContext.request.contextPath}/seat">${o.time}</a>                                       
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                 </div>
-            </c:forEach>
-        </div> 
-    </section>
 
-    <%@include file="template/footer.jsp" %>
+            </div>
+        </section>
 
-    <!-- BOOTSTRAP5-->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"
-    ></script>
-    <!-- SCRIPT -->
-    <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-    <!-- SAKURA -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
-    <script>
-        $(window).load(function () {
-            $('body').sakura();
-        });
-    </script>
-</body>
+        <%@include file="template/footer.jsp" %>
+
+        <!-- BOOTSTRAP5-->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"
+        ></script>
+        <!-- SCRIPT -->
+        <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+        <!-- SAKURA -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script>
+            $(window).load(function () {
+                $('body').sakura();
+            });
+        </script>
+    </body>
 </html>
 

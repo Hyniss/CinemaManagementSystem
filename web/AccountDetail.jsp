@@ -87,7 +87,7 @@
                                     <!-- Form Group (username)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">Tài khoản</label>
-                                        <input name="username" class="form-control" type="email" readonly placeholder="Enter your username" value="${sessionScope.acc.getUsername()}">
+                                        <input name="username" class="form-control" type="email" placeholder="Enter your username" value="${sessionScope.acc.getUsername()}" readonly>
                                     </div>
                                     <!-- Form Group (password)-->
                                     <div class="col-md-6">

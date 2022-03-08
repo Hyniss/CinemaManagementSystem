@@ -113,10 +113,6 @@
         <servlet-class>controller.AdminAddAccountController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShowtimesCinema</servlet-name>
-        <servlet-class>controller.ShowtimesCinema</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RecruitmentController</servlet-name>
         <servlet-class>controller.RecruitmentController</servlet-class>
     </servlet>
@@ -155,6 +151,10 @@
     <servlet>
         <servlet-name>AdminSearchAccountController</servlet-name>
         <servlet-class>controller.AdminSearchAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Showtimes</servlet-name>
+        <servlet-class>controller.ShowtimesController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -253,10 +253,6 @@
         <url-pattern>/adminuserlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ShowtimesCinema</servlet-name>
-        <url-pattern>/showtimes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RecruitmentController</servlet-name>
         <url-pattern>/recruitment</url-pattern>
     </servlet-mapping>
@@ -315,6 +311,10 @@
     <servlet-mapping>
         <servlet-name>AdminSearchAccountController</servlet-name>
         <url-pattern>/adminaccountsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Showtimes</servlet-name>
+        <url-pattern>/showtimes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
