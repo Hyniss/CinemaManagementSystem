@@ -41,8 +41,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             while (rs.next()) {
                 list.add(new MovieRoom(
                         rs.getInt("movieRoomId"),
-                        rs.getString("premiere"),
-                        rs.getString("time"),
+                        rs.getDate("premiere"),
+                        rs.getTime("time"),
                         rs.getInt("movieId"),
                         rs.getInt("roomId")));
             }
@@ -72,8 +72,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             while (rs.next()) {
                 list.add(new MovieRoom(
                         rs.getInt("movieRoomId"),
-                        rs.getString("premiere"),
-                        rs.getString("time"),
+                        rs.getDate("premiere"),
+                        rs.getTime("time"),
                         rs.getInt("movieId"),
                         rs.getInt("roomId")));
             }
@@ -103,8 +103,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             while (rs.next()) {
                 list.add(new MovieRoom(
                         rs.getInt("movieRoomId"),
-                        rs.getString("premiere"),
-                        rs.getString("time"),
+                        rs.getDate("premiere"),
+                        rs.getTime("time"),
                         rs.getInt("movieId"),
                         rs.getInt("roomId")));
             };
@@ -122,7 +122,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     public static void main(String[] args) {
         ShowtimesDAO dao = new ShowtimesDAO();
         // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
-        List<MovieRoom> list = dao.getTimeByDateAndId(48, "2022-02-18");
+        List<MovieRoom> list = dao.getTimeByDateAndId(48, "2022-02-20");
 //        for (MovieRoom o : list) {
 //            System.out.println(o);
 //        }
@@ -145,8 +145,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             while (rs.next()) {
                 list.add(new MovieRoom(
                         rs.getInt("movieRoomId"),
-                        rs.getString("premiere"),
-                        rs.getString("time"),
+                        rs.getDate("premiere"),
+                        rs.getTime("time"),
                         rs.getInt("movieId"),
                         rs.getInt("roomId")));
             }
@@ -167,8 +167,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             query = "INSERT INTO dbo.MovieRoom values (?, ?, ?, ?)";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, movieRoom.getPremiere());
-            ps.setString(2, movieRoom.getTime());
+            ps.setDate(1, movieRoom.getPremiere());
+            ps.setTime(2, movieRoom.getTime());
             ps.setInt(3, movieRoom.getMovieId());
             ps.setInt(4, movieRoom.getMovieRoomId());
             ps.executeUpdate();
@@ -190,8 +190,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
                     + "[time] = ? , movieId = ?, roomId = ? WHERE movieRoomId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, movieRoom.getPremiere());
-            ps.setString(2, movieRoom.getTime());
+            ps.setDate(1, movieRoom.getPremiere());
+            ps.setTime(2, movieRoom.getTime());
             ps.setInt(3, movieRoom.getMovieId());
             ps.setInt(4, movieRoom.getRoomId());
             ps.executeQuery();

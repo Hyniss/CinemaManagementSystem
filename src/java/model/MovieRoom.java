@@ -5,9 +5,9 @@
  */
 package model;
 
+import java.sql.Date;
 import java.sql.Time;
-import java.time.format.DateTimeFormatter;
-import java.util.SimpleTimeZone;
+
 
 /**
  *
@@ -16,25 +16,25 @@ import java.util.SimpleTimeZone;
 public class MovieRoom {
 
     private int movieRoomId;
-    private String premiere;
-    private String time;
+    private Date premiere;
+    private Time time;
     private int movieId;
     private int roomId;
 
     public MovieRoom() {
     }
 
-    public MovieRoom(String premiere) {
+    public MovieRoom(Date premiere) {
         this.premiere = premiere;
     }
 
-    public MovieRoom(String premiere, String time, int movieId) {
+    public MovieRoom(Date premiere, Time time, int movieId) {
         this.premiere = premiere;
         this.time = time;
         this.movieId = movieId;
     }
 
-    public MovieRoom(int movieRoomId, String premiere, String time, int movieId, int roomId) {
+    public MovieRoom(int movieRoomId, Date premiere, Time time, int movieId, int roomId) {
         this.movieRoomId = movieRoomId;
         this.premiere = premiere;
         this.time = time;
@@ -50,19 +50,19 @@ public class MovieRoom {
         this.movieRoomId = movieRoomId;
     }
 
-    public String getPremiere() {
+    public Date getPremiere() {
         return premiere;
     }
 
-    public void setPremiere(String premiere) {
+    public void setPremiere(Date premiere) {
         this.premiere = premiere;
     }
 
-    public String getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

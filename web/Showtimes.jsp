@@ -9,6 +9,7 @@
 <%@page import = "java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -96,7 +97,10 @@
 
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <c:forEach items="${showtime}" var="o">
-                                                    <a class="dropdown-item" href="showtimes?movieId=${o.movieId}&premiere=${o.premiere}">${o.premiere}</a>                                       
+                                                    <a class="dropdown-item" href="showtimes?movieId=${o.movieId}&premiere=${o.premiere}">
+                                                        <fmt:formatDate pattern="EEEE, dd-MM-yyyy"  value = "${o.premiere}"/> 
+                                                       
+                                                    </a>                                       
                                                 </c:forEach>
                                             </div>
                                         </div>
@@ -114,7 +118,9 @@
                                     <c:forEach items="${test}" var="o">
                                         <tr>
                                             <td>                                   
-                                                <a class="dropdown-item" href="${pageContext.request.contextPath}/seat">${o.time}</a>                                       
+                                                <a class="dropdown-item" href="${pageContext.request.contextPath}/seat">
+                                                    <fmt:formatDate pattern="HH:mm" type="time" value="${o.time}"/>
+                                                </a>                                       
                                             </td>
                                         </tr>
                                     </c:forEach>
