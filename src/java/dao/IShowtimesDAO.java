@@ -6,6 +6,7 @@
 package dao;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import model.MovieRoom;
 
@@ -28,4 +29,8 @@ public interface IShowtimesDAO {
     public void editShowtimes(MovieRoom movieRoom);
 
     public void deleteShowtimes(int movieRoomId);
+
+    public MovieRoom getShowtimesExist(int movieId, Time time, Date premiere, int roomId);
+
+    public MovieRoom get(int id);
 }

@@ -54,7 +54,14 @@
                 <div class="col-lg-12" style="margin: 30px;">
                     <button style="background: #ccc" class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="AdminAddMovie">
                             <span class="btn-inner--icon text-md" style="color: #000"><i class="fas fa-plus-square"></i></span>
-                            <span class="btn-inner--text text-sm" style="color: #000;text-decoration: none">Create</span></button>
+                            <span class="btn-inner--text text-sm" style="color: #000;text-decoration: none">Create</span>
+                    </button>
+                </div>
+                <div class="col-lg-12" style="margin: 30px;">
+                    <button style="background: #ccc" class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="adminshowtimeslist">
+                            <span class="btn-inner--icon text-md" style="color: #000"><i class="fas fa-plus-square"></i></span>
+                            <span class="btn-inner--text text-sm" style="color: #000;text-decoration: none">Showtimes List</span>
+                    </button>
                 </div>
                 <div class="col-lg-12">
                     <div class="card"  style="border-radius: 12px" >
@@ -86,15 +93,15 @@
                                                 <td style="text-align: center">${movie.description}</td>
                                                 <td style="text-align: center">${movie.author}</td>
                                                 <td style="text-align: center">${movie.actor}</td>
-                                                 <td style="text-align: center">${movie.duration}</td>
-                                                 <td style="text-align: center">${movie.premiere}</td>
+                                                <td style="text-align: center">${movie.duration}</td>
+                                                <td style="text-align: center">${movie.premiere}</td>
                                                 <td style="text-align: center">
                                                     <button class="btn btn-danger"><a href="editmovie?movieID=${movie.movieId}"><p  style="color: #ffffff; margin: 1px">Update</p></a></button>
+                                                    <a  href="#" onclick="showMess(${movie.movieId})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p></a>
+                                                    <button class="btn btn-danger"><a href="add_showtimes?movieId=${movie.movieId}"><p  style="color: #ffffff; margin: 1px">Add new Showtimes </p></a></button>
 
-                                                    <a  href="#" onclick="showMess(${movie.movieId})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p>
-
-                                                    </a>
                                                 </td>
+
 
                                             </tr>
                                         </c:forEach>
@@ -107,7 +114,7 @@
             </div>
         </div>
         <style>
-            
+
             .content-wrapper {
                 margin-left: 10%;
                 padding-left: 10px;

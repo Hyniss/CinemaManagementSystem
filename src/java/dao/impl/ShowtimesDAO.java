@@ -8,9 +8,11 @@ package dao.impl;
 import dao.DBContext;
 import dao.IShowtimesDAO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -170,7 +172,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             ps.setDate(1, movieRoom.getPremiere());
             ps.setTime(2, movieRoom.getTime());
             ps.setInt(3, movieRoom.getMovieId());
-            ps.setInt(4, movieRoom.getMovieRoomId());
+            ps.setInt(4, movieRoom.getRoomId());
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -194,6 +196,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             ps.setTime(2, movieRoom.getTime());
             ps.setInt(3, movieRoom.getMovieId());
             ps.setInt(4, movieRoom.getRoomId());
+            ps.setInt(5, movieRoom.getMovieRoomId());
             ps.executeQuery();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -208,11 +211,11 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     @Override
     public void deleteShowtimes(int movieRoomId) {
         try {
-            query = "DELETE * FROM dbo.MovieRoom WHERE movieRoomId = ?";
+            query = "DELETE FROM dbo.MovieRoom WHERE movieRoomId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, movieRoomId);
-            rs = ps.executeQuery();
+            ps.executeQuery();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -222,6 +225,70 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             closeResultSet(rs);
         }
     }
+
+    @Override
+    public MovieRoom getShowtimesExist(int movieId, Time time, Date premiere, int roomId) {
+        try {
+            query = "select * from dbo.MovieRoom\n"
+                    + "where movieId = ? and "
+                    + "[time] = ? and premiere = ? "
+                    + "and roomId = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movieId);
+            ps.setTime(2, time);
+            ps.setDate(3, premiere);
+            ps.setInt(4, roomId);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                MovieRoom m = new MovieRoom(
+                        rs.getInt("movieRoomId"),
+                        rs.getDate("premiere"),
+                        rs.getTime("time"),
+                        rs.getInt("movieId"),
+                        rs.getInt("roomId")
+                );
+                return m;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
+
+    @Override
+    public MovieRoom get(int id) {
+        try {
+            query = "SELECT * FROM dbo.MovieRoom WHERE movieRoomId = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                MovieRoom movieRoom = new MovieRoom();
+                movieRoom.setMovieRoomId(rs.getInt("movieRoomId"));
+                movieRoom.setMovieId(rs.getInt("movieId"));
+                movieRoom.setPremiere(rs.getDate("premiere"));
+                movieRoom.setTime(rs.getTime("time"));
+                movieRoom.setRoomId(rs.getInt("roomId"));
+                return movieRoom;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
 }
-
-
