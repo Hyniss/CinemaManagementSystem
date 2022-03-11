@@ -5,13 +5,9 @@
  */
 package controller;
 
-import dao.impl.BannerDAO;
-import dao.IBannerDAO;
 import dao.IMovieDAO;
-import dao.IPromotionDAO;
 import dao.impl.MovieDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
-import model.Banner;
 import model.Movie;
-import model.Promotion;
 
 /**
  *
@@ -29,9 +23,6 @@ import model.Promotion;
  */
 public class AdminHomeController extends HttpServlet {
 
-    // Calling method of database
-    IMovieDAO movieDao = new MovieDAO();
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -44,10 +35,6 @@ public class AdminHomeController extends HttpServlet {
             if (account.getRoleId() != 1) {
                 response.sendRedirect("home");
             } else {
-                // SHOW THE LIST OF MOVIE
-                ArrayList<Movie> listTop8Movie = movieDao.getTop8Movie();
-                request.setAttribute("listMovie", listTop8Movie);
-
                 // Lead to Homepage.jsp
                 request.getRequestDispatcher("AdminHomepage.jsp").forward(request, response);
             }

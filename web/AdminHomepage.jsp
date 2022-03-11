@@ -1,16 +1,13 @@
 <%-- 
-    Document   : AdminHomepage
-    Created on : Mar 1, 2022, 11:10:57 PM
-    Author     : HP
+    Document   : AdminAddMovieSchedule
+    Created on : Mar 10, 2022, 7:44:17 PM
+    Author     : tenhik
 --%>
 
-
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -29,8 +26,8 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
             />
-        <!--FONTAWESOME-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!--FONTAWESOME-->
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -38,98 +35,84 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
             />
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
-
-        <!-- Sakura -->
-        <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <title>Amazing Cinema</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin.css" />
     </head>
-    <body>
-        <%@include file="template/adminheader.jsp" %>
 
-        <!-- MOVIE -->
-        <section class="product">
-            <div class="row">
-                <div class="title text-center">
-                    <img src="${pageContext.request.contextPath}/assets/img/moviecollection.png" width="625px" height="159px">                    
+    <body>
+        <!--side bar-->
+        <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left" id="show-side-navigation1">
+            <i class="fas fa-bars close-aside d-md-none d-lg-none" data-close="show-side-navigation1"></i>
+            <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
+                <img
+                    class="rounded-pill img-fluid"
+                    width="65"
+                    src="${pageContext.request.contextPath}/assets/images/128-1280822_check-mark-box-clip-art-blue-admin-icon.png"
+                    alt="">
+                <div class="ms-2">
+                    <h5 class="fs-6 mb-0">
+                        <a class="text-decoration-none" href="#">Admin                        
+                            <i class="fas fa-cogs"></i> 
+                        </a>
+                    </h5>
                 </div>
             </div>
-
-            <div id="movie-content" class="row" style="width: 96%; margin-left: 2%; margin-right: 2%">
-                <c:forEach var="o" items="${listMovie}">
-                    <div class="movie col-md-3 mt-4" >
-                        <div class="card card-custom h-100 shadow-sm" style="position: relative"> 
-                            <a href="movie?mid=${o.getMovieId()}"><img src="${pageContext.request.contextPath}/assets/img/movie/${o.getImage()}" class="aa-product-img shadow border-radius-lg card-header" position="absolute" top="0" left="0" display="block" width="100%" height="500px" margin-bottom ="20px" object-fit= "cover" alt="..."></a>
-                            <div class="card-body">
-                                <div class="clearfix mb-3 text-center"> 
-                                    <h2 class="currency price-hp" style="color: #ff3333">${o.getMovieName()}</h2> 
-                                </div>
-                                <div class="clearfix mb-3"> 
-                                    <h4 class="currency price-hp" style="color: #000">Thể loại: ${o.getCategoryMovie()}</h4> 
-                                    <h4 class="currency price-hp" style="color: #000">Thời lượng: ${o.getDuration()} phút</h4> 
-                                    <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
-                                </div>
-                                <div class="text-center my-4 hover"> 
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
-                                </div>
-                                <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div> 
-
-            <!--            Load more button    -->
-            <div style="text-align:center; margin-top: 50px">
-                <button onclick="loadMoreMovie()" type="button" class="btn btn-warning" style="width:120px; height: 50px;">Load more</button>
+            <!--search input-->
+            <div class="search position-relative text-center py-3 mt-2">
+                <form action="adminaccountsearch" method="post" class="input-group rounded">
+                    <input name="searchtxt" value="${accSubUsername}" type="search" class="form-control" placeholder="Search username" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit"  style="height:38px;background-color: #252636;" class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search" style="color: #FFF"></i></a>
+                    </button>
+                </form>
             </div>
-
+            <!--menu sidebar-->
+            <%@include file="template/adminMenu.jsp" %>
+        </aside>
+        <!--main content-->
+        <section id="wrapper">
+            <!--header-->
+            <%@include file="template/adminNewHeader.jsp" %>
+            <!--content-->
+            <div class="p-4">
+                <div class="backgound-img">
+                    <div class="img"></div>
+                </div>
+                <!--header table-->
+                <div class="container-header">
+                    <h1>Welcome back
+                        <span class="txt-type" data-wait="3000" data-words='[", Administrator", ",Glad to meet you"]'></span>
+                    </h1>
+                    <h2>Cinema Management System</h2>
+                </div>
+                <!--static-->
+                <%@include file="template/adminStatics.jsp" %>
+            </div>
+            <!--footer-->
+            <%@include file="template/adminFooter.jsp" %>
         </section>
-
-        <%@include file="template/footer.jsp" %>
-
-        <!-- BOOTSTRAP5-->
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"
         ></script>
-        <!-- SCRIPT -->
-        <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-        <!-- SAKURA -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/admin.js"></script>
         <script>
-                    $(window).load(function () {
-                        $('body').sakura();
-                    });
-        </script>
-
-
-        <!--        Java script function: Load more movie when click load more button-->
-        <script>
-
-                    function loadMoreMovie() {
-                        var amount = document.getElementsByClassName("movie").length;
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/loadmoremovie",
-                            type: "get",
-                            data: {
-                                exists: amount
-                            },
-                            success: function (data) {
-                                var row = document.getElementById("movie-content");
-                                row.innerHTML += data;
-                            },
-                            error: function (xhr) {
-                                //Do something handle 
-                            }
-                        });
-                    }
+            function dropdown() {
+                if (document.getElementById("sidebar-dropdown").style.display === "none") {
+                    document.getElementById("sidebar-dropdown").style.display = "block";
+                } else {
+                    document.getElementById("sidebar-dropdown").style.display = "none";
+                }
+            }
 
         </script>
     </body>
