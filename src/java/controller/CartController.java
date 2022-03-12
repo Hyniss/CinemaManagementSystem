@@ -38,6 +38,7 @@ public class CartController extends HttpServlet {
         double total = 0;
         double totalFood = 0;
         double totalSeat = 0;
+        int count = 0;
 //        session.getAttribute("totalPrice");
          // get Attribute from Session
         session.getAttribute("totalFoodPrice");
@@ -87,6 +88,9 @@ public class CartController extends HttpServlet {
             //call method in  PromotionDAO
             PromotionDAO proDAO = new PromotionDAO();
             Promotion pro = proDAO.discount(magiam);
+            
+           
+            
 //             if (pro == null && !magiam.equals("")) {
 //
 //                session.setAttribute("error", "Error");
@@ -95,6 +99,17 @@ public class CartController extends HttpServlet {
 //            }else {
 //                session.setAttribute("success", "Success");
 //            }
+            if(pro != null){
+                request.setAttribute("success", "thành công");
+                count++;
+                session.setAttribute("c", count);
+            }else if(magiam.isEmpty())
+            {
+                request.setAttribute("so", "");
+            }
+            else{
+                request.setAttribute("error", "thất bại");
+            }
             //caculator about discount
             double disc = (total * pro.getDiscount()) / 100;
             //last price
