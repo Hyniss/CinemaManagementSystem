@@ -69,16 +69,17 @@
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="Cart.jsp">
                             <i class="fas fa-shopping-cart"></i>
-                            <c:if test="${listcheckedSeatId != null}">
+                            <c:if test="${total > 0}">
                                 <span class="position-relative translate-middle badge rounded-pill bg-danger">
                                     1
                                 </span>
                             </c:if>
-                            <c:if test="${listcheckedSeatId == null}">
+                            <c:if test="${total == null}">
                                 <span class="position-relative translate-middle badge rounded-pill bg-danger">
                                     0
                                 </span>
                             </c:if>
+                            
                             <c:if test="${sessionScope.user !=null}">
 
                             </c:if>
