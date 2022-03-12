@@ -39,4 +39,8 @@
     <li class="">
         <a href="${pageContext.request.contextPath}/adminbannerlist"><i class="fas fa-ad"></i> Banner</a>
     </li>
+    <!--notification-->
+    <li class="">
+        <a href="${pageContext.request.contextPath}/adminnotificationlist"><i class='fas fa-bullhorn'></i> Notification</a>
+    </li>
 </ul>

@@ -1,14 +1,15 @@
 <%-- 
-    Document   : AdminEditAccount
-    Created on : Feb 23, 2022, 9:08:25 PM
+    Document   : AdminAddNotification
+    Created on : Mar 9, 2022, 4:46:15 PM
     Author     : HP
 --%>
+
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,14 +32,13 @@
         <!-- Sakura -->
         <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
     </head>
-
     <body>
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Edit <b>Account</b></h2>
+                            <h2>Add <b>Notification</b></h2>
                         </div>
                         <div class="col-sm-6">
                         </div>
@@ -51,43 +51,27 @@
 
                         <div class="modal-header">
                             <form method="post" action="tourmanage">
-                                <h4 class="modal-title">Edit Account</h4>
+                                <h4 class="modal-title">Add Notification</h4>
                                 <button type="submit" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </form>
                         </div>
-                        <form action="adminaccountedit" method="post">
+                        <form action="adminnotificationadd" method="post">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label>User name</label>
-                                    <input value="${account.username}" name="username" type="text" class="form-control" readonly required>
+                                    <label>Notification Image</label>
+                                    <input value="${successMessage==null? notification.notificationImg:""}" name="img" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
-                                    <input value="${account.password}" name="password" type="password" class="form-control" required>
+                                    <label>Notification Title</label>
+                                    <input value="${successMessage==null? notification.notificationTitle:""}" name="title" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <!--                                    <label>Avatar</label>-->
-                                    <input value="${account.avatar}" name="avatar" type="hidden" class="form-control" required>
+                                    <label>Notification Description</label>
+                                    <textarea value="${successMessage==null? notification.notificationDescription:""}" name="description" type="text" class="form-control">${successMessage==null? notification.notificationDescription:""}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Full name</label>
-                                    <input value="${account.fullName}" name="fullname" type="text" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>DOB</label>
-                                    <input value="${account.dob}" name="dob" type="date" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input value="${account.email}" name="email" type="email" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Phone</label>
-                                    <input value="${account.phone}" name="phone" type="number" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <!--                                    <label>Role</label>-->
-                                    <input value="${account.roleId}" name="roleid" type="hidden" class="form-control" required>
+                                    <label>Notification Date</label>
+                                    <input value="${currentdate}" name="date" type="date" class="form-control" readonly>
                                 </div>
                                 <p style="color: red;font-size: 14px">${failMessage}</p>
                                 <p style="color: red;font-size: 14px">${mess}</p>
@@ -95,8 +79,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <a class="btn btn-danger" href="adminaccountlist?roleId=${account.roleId}" role="button">Back to Manage</a>
-                                <input type="submit" class="btn btn-success" value="Edit">
+                                <a class="btn btn-danger" href="adminnotificationlist" role="button">Back to Manage</a>
+                                <input type="submit" class="btn btn-success" value="Add">
                             </div>
                         </form>
                     </div>
@@ -113,3 +97,4 @@
         </script>
     </body>
 </html>
+

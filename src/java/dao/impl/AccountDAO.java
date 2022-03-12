@@ -167,14 +167,23 @@ public class AccountDAO extends DBContext implements IAccountDAO {
      * @return <List>Account
      */
     @Override
-    public ArrayList<Account> getUserAccountBySubUsername(String accountsubUsername) {
+    public ArrayList<Account> getUserAccountBySubUsername(String accountsubUsername, int pageIndex) {
         ArrayList<Account> list = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
-            query = "select * from Account where roleId = 3 and username like ?";
+            query = "SELECT *\n"
+                    + "FROM\n"
+                    + "(\n"
+                    + "SELECT *,\n"
+                    + "ROW_NUMBER() OVER (ORDER BY username) AS Seq\n"
+                    + "FROM dbo.Account\n"
+                    + "where roleId = 3 and username like ?)t\n"
+                    + "WHERE Seq BETWEEN ? AND ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, "%" + accountsubUsername.trim() + "%");
+            ps.setInt(2, (pageIndex - 1) * 5 + 1);
+            ps.setInt(3, (pageIndex - 1) * 5 + 5);
 
 
             /*Query and save in ResultSet*/
@@ -204,6 +213,40 @@ public class AccountDAO extends DBContext implements IAccountDAO {
         }
         return list;
     }
+    
+    /**
+     * getTotalAccountByUsername method implement from IAccountDAO
+     *
+     * @return boolean object to know it executed or not
+     */
+    @Override
+    public int getTotalAccountByUsername(String username) {
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "select count(*) from Account where roleId=3 and username like ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%"+username+"%");
+
+            /*Excute query and store it to check*/
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
 
     /**
      * insertAccount1 method implement from IAccountDAO
