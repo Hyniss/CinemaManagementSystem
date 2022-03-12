@@ -111,7 +111,7 @@
             </div> 
 
             <!--            Load more button    -->
-            <div style="text-align:center; margin-top: 50px">
+            <div style="text-align:center; margin-top: 50px; margin-bottom: 50px">
                 <button onclick="loadMoreMovie()"  class="custom-btn btn-loadmore"><span>Xem thêm !</span><span>Xem thêm</span></button>
             </div>
 

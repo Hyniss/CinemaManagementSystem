@@ -32,7 +32,9 @@ public interface IAccountDAO {
 
     public List<Account> pagingAccount(int pageIndex, int roleId);
 
-    public ArrayList<Account> getUserAccountBySubUsername(String accountsubUsername);
+     public ArrayList<Account> getUserAccountBySubUsername(String accountsubUsername, int pageIndex);
+    
+    public int getTotalAccountByUsername(String username);
 
     public boolean insertAccount1(Account a);
 

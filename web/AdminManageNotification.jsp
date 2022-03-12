@@ -1,7 +1,7 @@
 <%-- 
-    Document   : AdminManageAccont
-    Created on : Feb 22, 2022, 6:05:34 PM
-    Author     : Thai Tran
+    Document   : AdminListNotification
+    Created on : Mar 8, 2022, 7:12:12 PM
+    Author     : HP
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
@@ -237,27 +237,16 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <h2>
-                                    Manage <b>Account</b>
+                                    Manage <b>Notification</b>
                                 </h2>
                             </div>
                             <div class="col-sm-6">
-                                <a href="adminaccountadd" class="btn btn-success"><i class="material-icons">&#xE147;</i>Add New Account</a>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Choose Role to Manage
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="adminaccountlist?roleId=3">User</a>
-                                        <a class="dropdown-item" href="adminaccountlist?roleId=4">Marketer</a>
-                                        <a class="dropdown-item" href="adminaccountlist?roleId=2">Staff</a>
-                                    </div>
-                                </div>
-
+                                <a href="adminnotificationadd" class="btn btn-success"><i class="material-icons">&#xE147;</i>Add New Notification</a>
                             </div>
                         </div>
                     </div>
-                    <form action="adminaccountsearch" method="post" style="width:40%;min-width: 200px; margin: 10px auto 10px auto " class="input-group rounded">
-                        <input name="searchtxt" value="${searchtxt}" type="search" class="form-control rounded" placeholder="Search user by username" aria-label="Search" aria-describedby="search-addon" />
+                    <form action="adminnotificationsearch" method="post" style="width:40%;min-width: 200px; margin: 10px auto 10px auto " class="input-group rounded">
+                        <input value="${searchtxt}" name="searchtxt" value="" type="search" class="form-control rounded" placeholder="Search by Title" aria-label="Search" aria-describedby="search-addon" />
                         <button type="submit"  style="height:38px;" class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i></a>
                         </button>
@@ -266,60 +255,60 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>User name</th>
-                                <th>Full name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
+                                <th>Image</th>
+                                <th>Notification Title</th>
+                                <th>Notification Description</th>
+                                <th>Notification Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${accountList}" var="account" varStatus="i" >
+                            <c:forEach items="${notificationList}" var="notification" varStatus="i" >
                                 <tr>
-                                    <td>${account.username}</td>
-                                    <td>${account.fullName}</td>
-                                    <td>${account.email}</td>
-                                    <td>${account.phone}</td>
+                                    <td style="width:25%"><img style="height:100%; width: 100%" src="${pageContext.request.contextPath}/assets/img/notification/${notification.notificationImg}"></td>
+                                    <td>${notification.notificationTitle}</td>
+                                    <td>${notification.notificationDescription}</td>
+                                    <td>${notification.notificationDate}</td>
                                     <td>
-                                        <a href="adminaccountedit?username=${account.username}"><i class="material-icons" title="Edit">&#xE254;</i></a>
-                                        <a href="#" onclick="showDelMess('${account.username}',${account.roleId})"><i class="material-icons" title="Delete">&#xE872;</i></a>
+                                        <a href="adminnotificationedit?notiId=${notification.notificationId}"><i class="material-icons" title="Edit">&#xE254;</i></a>
+                                        <a href="#" onclick="showDelMess(${notification.notificationId})"><i class="material-icons" title="Delete">&#xE872;</i></a>
 
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
-                    <c:if test="${searchtxt!=null}">
+                    <c:if test="${searchtxt==null}">
                         <div class="clearfix">
-                            <div class="hint-text">Showing <b>${accountList.size()}</b> out of <b>${total}</b> entries</div>
+                            <div class="hint-text">Showing <b>${notificationList.size()}</b> out of <b>${total}</b> entries</div>
                             <ul class="pagination">
                                 <c:if test="${pageIndex>1}">
-                                    <li class="page-item disabled"><a href="adminaccountsearch?pageIndex=${pageIndex-1}&searchtxt=${searchtxt}">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="adminaccountsearch?pageIndex=${pageIndex-1}&searchtxt=${searchtxt}">${pageIndex-1}</a></li>
+                                    <li class="page-item disabled"><a href="adminnotificationlist?pageIndex=${pageIndex-1}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="adminnotificationlist?pageIndex=${pageIndex-1}">${pageIndex-1}</a></li>
                                     </c:if>
                                     <c:if test="${pageIndex!=null}">
-                                    <li class="page-item active"><a class="page-link" href="adminaccountsearch?pageIndex=${pageIndex}&searchtxt=${searchtxt}">${pageIndex}</a></li>
+                                    <li class="page-item active"><a class="page-link" href="adminnotificationlist?pageIndex=${pageIndex}">${pageIndex}</a></li>
                                     </c:if>
                                     <c:if test="${pageIndex<endPage}">
-                                    <li class="page-item"><a class="page-link" href="adminaccountsearch?pageIndex=${pageIndex+1}&searchtxt=${searchtxt}">${pageIndex+1}</a></li>
-                                    <li class="page-item"><a href="adminaccountsearch?pageIndex=${pageIndex+1}&searchtxt=${searchtxt}" class="page-link">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="adminnotificationlist?pageIndex=${pageIndex+1}">${pageIndex+1}</a></li>
+                                    <li class="page-item"><a href="adminnotificationlist?pageIndex=${pageIndex+1}" class="page-link">Next</a></li>
                                     </c:if>
                             </ul>
                         </div>
                     </c:if>
-                    <c:if test="${searchtxt==null}">
+                    <c:if test="${searchtxt!=null}">
                         <div class="clearfix">
-                            <div class="hint-text">Showing <b>${accountList.size()}</b> out of <b>${total}</b> entries</div>
+                            <div class="hint-text">Showing <b>${notificationList.size()}</b> out of <b>${total}</b> entries</div>
                             <ul class="pagination">
                                 <c:if test="${pageIndex>1}">
-                                    <li class="page-item disabled"><a href="adminaccountlist?pageIndex=${pageIndex-1}&roleId=${accountList.get(0).roleId}">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex-1}&roleId=${accountList.get(0).roleId}">${pageIndex-1}</a></li>
+                                    <li class="page-item disabled"><a href="adminnotificationsearch?pageIndex=${pageIndex-1}&searchtxt=${searchtxt}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="adminnotificationsearch?pageIndex=${pageIndex-1}&searchtxt=${searchtxt}">${pageIndex-1}</a></li>
                                     </c:if>
                                     <c:if test="${pageIndex!=null}">
-                                    <li class="page-item active"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex}&roleId=${accountList.get(0).roleId}">${pageIndex}</a></li>
+                                    <li class="page-item active"><a class="page-link" href="adminnotificationsearch?pageIndex=${pageIndex}&searchtxt=${searchtxt}">${pageIndex}</a></li>
                                     </c:if>
                                     <c:if test="${pageIndex<endPage}">
-                                    <li class="page-item"><a class="page-link" href="adminaccountlist?pageIndex=${pageIndex+1}&roleId=${accountList.get(0).roleId}">${pageIndex+1}</a></li>
-                                    <li class="page-item"><a href="adminaccountlist?pageIndex=${pageIndex+1}&roleId=${accountList.get(0).roleId}" class="page-link">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="adminnotificationsearch?pageIndex=${pageIndex+1}&searchtxt=${searchtxt}">${pageIndex+1}</a></li>
+                                    <li class="page-item"><a href="adminnotificationsearch?pageIndex=${pageIndex+1}&searchtxt=${searchtxt}" class="page-link">Next</a></li>
                                     </c:if>
                             </ul>
                         </div>
@@ -357,10 +346,10 @@
             });
         </script>
         <script>
-            function showDelMess(username, roleId) {
+            function showDelMess(notiid) {
                 var result = confirm("Bạn có muốn tiếp tục xóa không?");
                 if (result === true) {
-                    window.location.href = 'adminaccountdelete?username=' + username + '&roleId=' + roleId;
+                    window.location.href = 'adminnotificationdelete?notiId=' + notiid;
                 }
             }
         </script>
