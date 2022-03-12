@@ -12,11 +12,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.MovieRoom;
 import model.MovieRoom1;
 
 /**
@@ -31,22 +31,61 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     private String query;
 
     @Override
-    public ArrayList<MovieRoom1> getAllShowtimes() {
-        ArrayList<MovieRoom1> list = new ArrayList<>();
+    public int countTotal() {
+        int count = 0;
         try {
-            query = "SELECT * FROM dbo.MovieRoom";
+            /*Set up connection and Sql statement for Querry*/
+            query = "SELECT COUNT(*) FROM dbo.MovieRoom";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-
+            /*Querry and save in ResultSet*/
             rs = ps.executeQuery();
-
             while (rs.next()) {
-                list.add(new MovieRoom1(
+                /*Assign data*/
+                count = rs.getInt(1);
+            }
+            return count;
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    @Override
+    public ArrayList<MovieRoom> getAllDatePaggingAndSearching(int pageIndex, int pageSize, Date searchDate) {
+        ArrayList<MovieRoom> list = new ArrayList<>();
+        try {
+            String query1 = "select * from(\n"
+                    + "select ROW_NUMBER() over\n"
+                    + "(order by movieRoomId Desc)as r,\n"
+                    + "*\n"
+                    + "from MovieRoom\n";
+            if (searchDate != null) {
+                query1 += "where premiere = ?";
+            }
+            String query2 = ") as t\n"
+                    + "where r between(?-1)*?+1\n"
+                    + "and ?*?";
+            query = query1 + query2;
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            int count = 1;
+            if (searchDate != null) {
+                ps.setDate(count++, searchDate);
+            }
+            ps.setInt(count++, pageIndex);
+            ps.setInt(count++, pageSize);
+            ps.setInt(count++, pageIndex);
+            ps.setInt(count++, pageSize);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new MovieRoom(
                         rs.getInt("movieRoomId"),
-                        rs.getDate("premiere"),
-                        rs.getTime("time"),
-                        rs.getInt("movieId"),
-                        rs.getInt("roomId")));
+                        rs.getDate("premiere")));
             }
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -60,24 +99,17 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public ArrayList<MovieRoom1> getTimeByDate(String premiere) {
-        ArrayList<MovieRoom1> list = new ArrayList<>();
+    public int addShowtimes(Date date) {
+        int id = 0;
         try {
-            query = "select *"
-                    + "from MovieRoom\n"
-                    + "where premiere = ?";
+            query = "INSERT INTO dbo.MovieRoom([premiere])  values (?)";
             con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, premiere);
-
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new MovieRoom1(
-                        rs.getInt("movieRoomId"),
-                        rs.getDate("premiere"),
-                        rs.getTime("time"),
-                        rs.getInt("movieId"),
-                        rs.getInt("roomId")));
+            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setDate(1, date);
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
             }
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -87,116 +119,24 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
-        return list;
-    }
-
-    @Override
-    public ArrayList<MovieRoom1> getTimeById(int movieId) {
-        ArrayList<MovieRoom1> list = new ArrayList<>();
-        try {
-            query = "select *"
-                    + "from MovieRoom\n"
-                    + "where movieId = ?";
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            ps.setInt(1, movieId);
-
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new MovieRoom1(
-                        rs.getInt("movieRoomId"),
-                        rs.getDate("premiere"),
-                        rs.getTime("time"),
-                        rs.getInt("movieId"),
-                        rs.getInt("roomId")));
-            };
-        } catch (SQLException e) {
-            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            /*Close connection, prepare statement, result set*/
-            closeConnection(con);
-            closePreparedStatement(ps);
-            closeResultSet(rs);
-        }
-        return list;
+        return id;
     }
 
     public static void main(String[] args) {
         ShowtimesDAO dao = new ShowtimesDAO();
-        // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
-        List<MovieRoom1> list = dao.getTimeByDateAndId(48, "2022-02-20");
-//        for (MovieRoom1 o : list) {
-//            System.out.println(o);
-//        }
-        //MovieRoom m = dao.getTimeById(49);
-        System.out.println(list);
+        System.out.println(dao.addShowtimes(Date.valueOf("2022-04-04")));
     }
 
     @Override
-    public ArrayList<MovieRoom1> getTimeByDateAndId(int movieId, String premiere) {
-        ArrayList<MovieRoom1> list = new ArrayList<>();
-        try {
-            query = "SELECT * FROM dbo.MovieRoom WHERE movieId = ? and premiere = ?";
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            ps.setInt(1, movieId);
-            ps.setString(2, premiere);
-
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                list.add(new MovieRoom1(
-                        rs.getInt("movieRoomId"),
-                        rs.getDate("premiere"),
-                        rs.getTime("time"),
-                        rs.getInt("movieId"),
-                        rs.getInt("roomId")));
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            /*Close connection, prepare statement, result set*/
-            closeConnection(con);
-            closePreparedStatement(ps);
-            closeResultSet(rs);
-        }
-        return list;
-    }
-
-    @Override
-    public void addShowtimes(MovieRoom1 movieRoom) {
-        try {
-            query = "INSERT INTO dbo.MovieRoom values (?, ?, ?, ?)";
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            ps.setDate(1, movieRoom.getPremiere());
-            ps.setTime(2, movieRoom.getTime());
-            ps.setInt(3, movieRoom.getMovieId());
-            ps.setInt(4, movieRoom.getRoomId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            /*Close connection, prepare statement, result set*/
-            closeConnection(con);
-            closePreparedStatement(ps);
-            closeResultSet(rs);
-        }
-    }
-
-    @Override
-    public void editShowtimes(MovieRoom1 movieRoom) {
+    public void editShowtimes(MovieRoom movieRoom) {
         try {
             query = "update dbo.MovieRoom set\n"
-                    + "premiere = ?, "
-                    + "[time] = ? , movieId = ?, roomId = ? WHERE movieRoomId = ?";
+                    + "premiere = ?\n "
+                    + "WHERE movieRoomId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setDate(1, movieRoom.getPremiere());
-            ps.setTime(2, movieRoom.getTime());
-            ps.setInt(3, movieRoom.getMovieId());
-            ps.setInt(4, movieRoom.getRoomId());
-            ps.setInt(5, movieRoom.getMovieRoomId());
+            ps.setInt(2, movieRoom.getMovieRoomId());
             ps.executeQuery();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -215,7 +155,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, movieRoomId);
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -227,59 +167,21 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public MovieRoom1 getShowtimesExist(int movieId, Time time, Date premiere, int roomId) {
+    public MovieRoom getShowtimes(int movieRoomId) {
         try {
-            query = "select * from dbo.MovieRoom\n"
-                    + "where movieId = ? and "
-                    + "[time] = ? and premiere = ? "
-                    + "and roomId = ?";
+            /*Set up connection and Sql statement for Query*/
+            query = "SELECT * FROM dbo.MovieRoom WHERE movieRoomId = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, movieId);
-            ps.setTime(2, time);
-            ps.setDate(3, premiere);
-            ps.setInt(4, roomId);
-
+            ps.setInt(1, movieRoomId);
+            /*Query and save in ResultSet*/
             rs = ps.executeQuery();
-
+            /*Assign data to an Account*/
             while (rs.next()) {
-                MovieRoom1 m = new MovieRoom1(
+                MovieRoom m = new MovieRoom(
                         rs.getInt("movieRoomId"),
-                        rs.getDate("premiere"),
-                        rs.getTime("time"),
-                        rs.getInt("movieId"),
-                        rs.getInt("roomId")
-                );
+                        rs.getDate("premiere"));
                 return m;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            /*Close connection, prepare statement, result set*/
-            closeConnection(con);
-            closePreparedStatement(ps);
-            closeResultSet(rs);
-        }
-        return null;
-    }
-
-    @Override
-    public MovieRoom1 get(int id) {
-        try {
-            query = "SELECT * FROM dbo.MovieRoom WHERE movieRoomId = ?";
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                MovieRoom1 movieRoom = new MovieRoom1();
-                movieRoom.setMovieRoomId(rs.getInt("movieRoomId"));
-                movieRoom.setMovieId(rs.getInt("movieId"));
-                movieRoom.setPremiere(rs.getDate("premiere"));
-                movieRoom.setTime(rs.getTime("time"));
-                movieRoom.setRoomId(rs.getInt("roomId"));
-                return movieRoom;
             }
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);

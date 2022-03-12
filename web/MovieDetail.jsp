@@ -635,7 +635,6 @@
                 var mess = document.querySelector('textarea[name=' + index + ']');
                 var messTrim = mess.value.trim();
                 var messReplaceSpace = messTrim.replace(/\s\s+/g, ' ');
-                console.log(messReplaceSpace);
                 var messLength = messReplaceSpace.length;
                 document.getElementById(index).innerHTML = messLength;
                 if (messLength > 300) {

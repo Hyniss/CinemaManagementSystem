@@ -157,14 +157,6 @@
         <servlet-class>controller.ShowtimesController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminAddShowtimesController</servlet-name>
-        <servlet-class>controller.AdminAddShowtimesController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminListShowtimesController</servlet-name>
-        <servlet-class>controller.AdminListShowtimesController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminDeleteShowtimesController</servlet-name>
         <servlet-class>controller.AdminDeleteShowtimesController</servlet-class>
     </servlet>
@@ -355,14 +347,6 @@
     <servlet-mapping>
         <servlet-name>Showtimes</servlet-name>
         <url-pattern>/showtimes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminAddShowtimesController</servlet-name>
-        <url-pattern>/add_showtimes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminListShowtimesController</servlet-name>
-        <url-pattern>/adminshowtimeslist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminDeleteShowtimesController</servlet-name>
