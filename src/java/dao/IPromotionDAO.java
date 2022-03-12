@@ -25,4 +25,5 @@ public interface IPromotionDAO {
     public void deletePromotion(int id);
 
     public Promotion get(int id);
+    public Promotion discount(String magiam);
 }

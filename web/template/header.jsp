@@ -47,6 +47,7 @@
                         </c:if>
                     </a>                   
                 </li>
+                     <c:if test ="${sessionScope.acc !=  null}">
                 <li class="nav-item d-none d-lg-block">
                     <a class="nav-link" href="Cart.jsp">
                         <i class="fas fa-shopping-cart"></i>
@@ -60,7 +61,16 @@
                             
                         </c:if>
                     </a>
-                </li> 
+                </li>
+                </c:if>
+                  <c:if test ="${sessionScope.acc ==  null}">
+                <li class="nav-item d-none d-lg-block">
+                    <a class="nav-link" href="Login.jsp">
+                        <i class="fas fa-shopping-cart"></i>
+                       
+                    </a>
+                </li>
+                </c:if>
                 <li class="nav-item dropdown d-none d-lg-block">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user-circle"></i>

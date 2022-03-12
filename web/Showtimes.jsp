@@ -117,7 +117,7 @@
                                                     margin: 0px;">
                                                     <ul class="current" style="    border: 2px solid #222;
                                                         border-radius: 5px;">
-                                                        <div class="day" id="myTable" style="color: #717171;
+                                                        <div class="day active" style="color: #717171;
                                                              cursor: pointer;
                                                              height: 48px;
                                                              position: relative;
@@ -199,7 +199,13 @@
                         </div>
                     </div>
                 </div>
-
+                <style>
+                    .active {
+                        background: #2196F3;
+                        color: #fff;
+                        
+                    }
+                    </style>
             </div>
         </section>
         <script type="text/javascript">
