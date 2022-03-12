@@ -6,10 +6,6 @@
 package model;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 /**
  *
@@ -24,10 +20,14 @@ public class MovieRoom {
     public MovieRoom() {
     }
 
-    public MovieRoom(int movieRoomId, Date premiere, int movieId) {
+    public MovieRoom(Date premiere) {
+        this.premiere = premiere;
+    }
+
+    public MovieRoom(int movieRoomId, Date premiere) {
         this.movieRoomId = movieRoomId;
         this.premiere = premiere;
-        this.movieId = movieId;
+
     }
 
     public int getMovieRoomId() {
@@ -52,34 +52,6 @@ public class MovieRoom {
 
     public void setMovieId(int movieId) {
         this.movieId = movieId;
-    }
-
-    public int getDate() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd");
-        int strDate = Integer.parseInt((formatter.format(premiere)));
-        //System.out.println(strDate);
-        return strDate;
-    }
-
-    public int getMonth() {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM");
-        int strDate = Integer.parseInt((formatter.format(premiere)));
-        //System.out.println(strDate);
-        return strDate;
-    }
-
-    public int getYear() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
-        int strDate = Integer.parseInt((formatter.format(premiere)));
-        //System.out.println(strDate);
-        return strDate;
-    }
-    
-    public String getDay(){
-        Calendar cal = Calendar.getInstance();
-        cal.set(getYear(), getMonth(), getDate());
-        DateFormat formatter = new SimpleDateFormat("EE", Locale.getDefault());
-        return formatter.format(cal.getTime());
     }
 
     @Override

@@ -559,7 +559,9 @@ button crud
     -moz-transform: rotateX(-90deg);
     transform: rotateX(-90deg);
 }
-/*modal*/
+/*------------------------
+modal add normal input
+---------------------*/
 #admin-add-modal{
     display: none;
 }
@@ -634,4 +636,92 @@ button crud
 }
 .modal-btn button{
     margin: 0 5px;
+}
+/*------------------------
+modal add checkbox input
+---------------------*/
+.modal-add-time{
+    width: 20rem;
+    /* modal height here*/
+    height: 28rem;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    border-radius:5px; 
+}
+.modal-add-time .full-width{
+    width: 100%;
+}
+.modal-add-time .modal-add-title{
+    text-align: center;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 8px 15px;
+    padding: 7px 0;
+    border-bottom: 1px solid #000;
+}
+.modal-add-time .modal-add-body{
+    width: 95%;
+    height: auto;
+    margin: 0 auto;
+}
+.modal-add-time .modal-add-body .add-checkbox{
+    height: 13px;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+}
+.modal-add-time .modal-add-body .add-input{
+    display: flex;
+    width: 83%;
+    margin: auto;
+    margin-bottom: 12px;
+    height: 40px;
+    text-align: center;
+}
+.modal-add-time .modal-add-body .add-checkbox label{
+    margin: auto;
+    width: 80%;
+}
+.modal-add-time .modal-add-body .add-input label{
+    margin: auto 0;
+    margin-right: 16px;
+}
+.modal-add-time .modal-add-body .add-checkbox input{
+    width: 29%;
+    height: 22px;
+}
+.modal-add-time .modal-btn{
+    width: 95%;
+    display: flex;
+    margin: 20px auto;
+    justify-content: center;
+}
+.modal-btn button{
+    margin: 0 5px;
+}
+
+.pagination {
+    float: right;
+    margin: 0 0 5px;
+}
+.pagination button {
+    border: none;
+    font-size: 13px;
+    min-width: 30px;
+    min-height: 30px;
+    color: #fff;
+    margin: 0 2px;
+    line-height: 30px;
+    border-radius: 2px !important;
+    text-align: center;
+    padding: 0 6px;
+}
+.pagination button:hover {
+    color: #666;
+}	
+.pagination .active-true {
+    background: #03A9F4;
 }

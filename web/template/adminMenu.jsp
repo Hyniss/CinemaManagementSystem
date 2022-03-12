@@ -29,7 +29,10 @@
     </li>
     <!--schedule-->
     <li class="">
-        <a href="${pageContext.request.contextPath}/adminaccountlist"><i class="far fa-calendar-alt"></i> Schedule</a>
+        <a href="${pageContext.request.contextPath}/adminListTime"><i class="far fa-calendar-alt"></i> Schedule</a>
+    </li>
+     <li class="">
+        <a href="${pageContext.request.contextPath}/adminListMovieRoom"><i class="far fa-calendar-alt"></i> Movie room</a>
     </li>
     <!--promtion-->
     <li class="">
