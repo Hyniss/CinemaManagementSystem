@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Movie;
-import model.MovieRoom;
+import model.MovieRoom1;
 
 /**
  *
@@ -32,7 +32,7 @@ public class AdminListShowtimesController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
 
-        List<MovieRoom> movieRoomList = showtimesDao.getAllShowtimes();
+        List<MovieRoom1> movieRoomList = showtimesDao.getAllShowtimes();
         String movieId1 = request.getParameter("movieId");
         if (movieId1 == null) {
             movieId1 = "0";

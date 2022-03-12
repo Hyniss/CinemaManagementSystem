@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.MovieRoom;
+import model.MovieRoom1;
 
 /**
  *
@@ -31,8 +31,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     private String query;
 
     @Override
-    public ArrayList<MovieRoom> getAllShowtimes() {
-        ArrayList<MovieRoom> list = new ArrayList<>();
+    public ArrayList<MovieRoom1> getAllShowtimes() {
+        ArrayList<MovieRoom1> list = new ArrayList<>();
         try {
             query = "SELECT * FROM dbo.MovieRoom";
             con = DBContext.getConnection();
@@ -41,7 +41,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new MovieRoom(
+                list.add(new MovieRoom1(
                         rs.getInt("movieRoomId"),
                         rs.getDate("premiere"),
                         rs.getTime("time"),
@@ -60,8 +60,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public ArrayList<MovieRoom> getTimeByDate(String premiere) {
-        ArrayList<MovieRoom> list = new ArrayList<>();
+    public ArrayList<MovieRoom1> getTimeByDate(String premiere) {
+        ArrayList<MovieRoom1> list = new ArrayList<>();
         try {
             query = "select *"
                     + "from MovieRoom\n"
@@ -72,7 +72,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new MovieRoom(
+                list.add(new MovieRoom1(
                         rs.getInt("movieRoomId"),
                         rs.getDate("premiere"),
                         rs.getTime("time"),
@@ -91,8 +91,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public ArrayList<MovieRoom> getTimeById(int movieId) {
-        ArrayList<MovieRoom> list = new ArrayList<>();
+    public ArrayList<MovieRoom1> getTimeById(int movieId) {
+        ArrayList<MovieRoom1> list = new ArrayList<>();
         try {
             query = "select *"
                     + "from MovieRoom\n"
@@ -103,7 +103,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
 
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new MovieRoom(
+                list.add(new MovieRoom1(
                         rs.getInt("movieRoomId"),
                         rs.getDate("premiere"),
                         rs.getTime("time"),
@@ -124,8 +124,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     public static void main(String[] args) {
         ShowtimesDAO dao = new ShowtimesDAO();
         // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
-        List<MovieRoom> list = dao.getTimeByDateAndId(48, "2022-02-20");
-//        for (MovieRoom o : list) {
+        List<MovieRoom1> list = dao.getTimeByDateAndId(48, "2022-02-20");
+//        for (MovieRoom1 o : list) {
 //            System.out.println(o);
 //        }
         //MovieRoom m = dao.getTimeById(49);
@@ -133,8 +133,8 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public ArrayList<MovieRoom> getTimeByDateAndId(int movieId, String premiere) {
-        ArrayList<MovieRoom> list = new ArrayList<>();
+    public ArrayList<MovieRoom1> getTimeByDateAndId(int movieId, String premiere) {
+        ArrayList<MovieRoom1> list = new ArrayList<>();
         try {
             query = "SELECT * FROM dbo.MovieRoom WHERE movieId = ? and premiere = ?";
             con = DBContext.getConnection();
@@ -145,7 +145,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new MovieRoom(
+                list.add(new MovieRoom1(
                         rs.getInt("movieRoomId"),
                         rs.getDate("premiere"),
                         rs.getTime("time"),
@@ -164,7 +164,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public void addShowtimes(MovieRoom movieRoom) {
+    public void addShowtimes(MovieRoom1 movieRoom) {
         try {
             query = "INSERT INTO dbo.MovieRoom values (?, ?, ?, ?)";
             con = DBContext.getConnection();
@@ -185,7 +185,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public void editShowtimes(MovieRoom movieRoom) {
+    public void editShowtimes(MovieRoom1 movieRoom) {
         try {
             query = "update dbo.MovieRoom set\n"
                     + "premiere = ?, "
@@ -227,7 +227,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public MovieRoom getShowtimesExist(int movieId, Time time, Date premiere, int roomId) {
+    public MovieRoom1 getShowtimesExist(int movieId, Time time, Date premiere, int roomId) {
         try {
             query = "select * from dbo.MovieRoom\n"
                     + "where movieId = ? and "
@@ -243,7 +243,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                MovieRoom m = new MovieRoom(
+                MovieRoom1 m = new MovieRoom1(
                         rs.getInt("movieRoomId"),
                         rs.getDate("premiere"),
                         rs.getTime("time"),
@@ -264,7 +264,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
     }
 
     @Override
-    public MovieRoom get(int id) {
+    public MovieRoom1 get(int id) {
         try {
             query = "SELECT * FROM dbo.MovieRoom WHERE movieRoomId = ?";
             con = DBContext.getConnection();
@@ -273,7 +273,7 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                MovieRoom movieRoom = new MovieRoom();
+                MovieRoom1 movieRoom = new MovieRoom1();
                 movieRoom.setMovieRoomId(rs.getInt("movieRoomId"));
                 movieRoom.setMovieId(rs.getInt("movieId"));
                 movieRoom.setPremiere(rs.getDate("premiere"));

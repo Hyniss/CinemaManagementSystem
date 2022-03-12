@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Movie;
-import model.MovieRoom;
+import model.MovieRoom1;
 
 /**
  *
@@ -64,7 +64,7 @@ public class AdminAddShowtimesController extends HttpServlet {
         int movieId = Integer.parseInt(request.getParameter("movieId"));
         int roomId = Integer.parseInt(request.getParameter("roomId"));
         
-        MovieRoom movieRoom = new MovieRoom();
+        MovieRoom1 movieRoom = new MovieRoom1();
         //movieRoom.setMovieRoomId(movieRoomId);
         movieRoom.setPremiere(premiere);
         movieRoom.setTime(time);

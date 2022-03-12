@@ -130,7 +130,7 @@
                 </ul>
             </li>
             <li class="nav-item me-4">
-                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/PostControl">Ticket</a>
+                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/showtimes">Ticket</a>
             </li>
             <li class="nav-item me-4">
                 <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/promotion">Promotions</a>

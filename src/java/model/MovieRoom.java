@@ -6,8 +6,10 @@
 package model;
 
 import java.sql.Date;
-import java.sql.Time;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -17,29 +19,15 @@ public class MovieRoom {
 
     private int movieRoomId;
     private Date premiere;
-    private Time time;
     private int movieId;
-    private int roomId;
 
     public MovieRoom() {
     }
 
-    public MovieRoom(Date premiere) {
-        this.premiere = premiere;
-    }
-
-    public MovieRoom(Date premiere, Time time, int movieId) {
-        this.premiere = premiere;
-        this.time = time;
-        this.movieId = movieId;
-    }
-
-    public MovieRoom(int movieRoomId, Date premiere, Time time, int movieId, int roomId) {
+    public MovieRoom(int movieRoomId, Date premiere, int movieId) {
         this.movieRoomId = movieRoomId;
         this.premiere = premiere;
-        this.time = time;
         this.movieId = movieId;
-        this.roomId = roomId;
     }
 
     public int getMovieRoomId() {
@@ -58,14 +46,6 @@ public class MovieRoom {
         this.premiere = premiere;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
     public int getMovieId() {
         return movieId;
     }
@@ -74,22 +54,36 @@ public class MovieRoom {
         this.movieId = movieId;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public int getMonth() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
     }
 
-//    public void setNewTime(String time) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ѕѕ");
-//        time = time.format(formatter);
-//    }
+    public int getYear() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
+    }
+    
+    public String getDay(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(getYear(), getMonth(), getDate());
+        DateFormat formatter = new SimpleDateFormat("EE", Locale.getDefault());
+        return formatter.format(cal.getTime());
+    }
 
     @Override
     public String toString() {
-        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + ", time=" + time + ", movieId=" + movieId + ", roomId=" + roomId + '}';
+        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + ", movieId=" + movieId + '}';
     }
-
 }

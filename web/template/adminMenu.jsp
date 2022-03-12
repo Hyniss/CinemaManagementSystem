@@ -33,7 +33,7 @@
     </li>
     <!--promtion-->
     <li class="">
-        <a href="href=${pageContext.request.contextPath}/adminpromotionlist"><i class='fas fa-bullhorn'></i> Promotion</a>
+        <a href="${pageContext.request.contextPath}/adminpromotionlist"><i class='fas fa-bullhorn'></i> Promotion</a>
     </li>
     <!--banner-->
     <li class="">

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Movie;
-import model.MovieRoom;
+import model.MovieRoom1;
 
 /**
  *
@@ -57,7 +57,7 @@ public class AdminEditShowtimesController extends HttpServlet {
 //        ArrayList<MovieRoom> movieRoom = showtimesDao.getTimeById(movieId);
 //        request.setAttribute("movie", movie);
 //        request.setAttribute("movieRoom", movieRoom);
-        MovieRoom movieRoom = showtimesDao.get(movieRoomId);
+        MovieRoom1 movieRoom = showtimesDao.get(movieRoomId);
         request.setAttribute("movieRoom", movieRoom);
         request.getRequestDispatcher("AdminEditShowtimes.jsp").forward(request, response);
     }
@@ -80,13 +80,13 @@ public class AdminEditShowtimesController extends HttpServlet {
 //        int movieId = Integer.parseInt(request.getParameter("movieId"));
 //        int roomId = Integer.parseInt(request.getParameter("roomId"));
 //
-//        MovieRoom movieRoom = new MovieRoom();
+//        MovieRoom1 movieRoom = new MovieRoom1();
 //        movieRoom.setMovieRoomId(movieRoomId);
 //        movieRoom.setPremiere(premiere);
 //        movieRoom.setTime(time);
 //        movieRoom.setMovieId(movieId);
 //        movieRoom.setRoomId(roomId);
-        MovieRoom movieRoom = new MovieRoom();
+        MovieRoom1 movieRoom = new MovieRoom1();
         movieRoom.setMovieRoomId(Integer.parseInt(request.getParameter("new_movieRoomId")));
         movieRoom.setMovieId(Integer.parseInt(request.getParameter("new_movieId")));
         movieRoom.setPremiere(Date.valueOf(request.getParameter("new_premiere")));

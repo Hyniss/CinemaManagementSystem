@@ -8,7 +8,7 @@ package dao;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import model.MovieRoom;
+import model.MovieRoom1;
 
 /**
  *
@@ -16,21 +16,21 @@ import model.MovieRoom;
  */
 public interface IShowtimesDAO {
 
-    public ArrayList<MovieRoom> getAllShowtimes();
+    public ArrayList<MovieRoom1> getAllShowtimes();
 
-    public ArrayList<MovieRoom> getTimeByDate(String premiere);
+    public ArrayList<MovieRoom1> getTimeByDate(String premiere);
 
-    public ArrayList<MovieRoom> getTimeById(int movieId);
+    public ArrayList<MovieRoom1> getTimeById(int movieId);
 
-    public ArrayList<MovieRoom> getTimeByDateAndId(int movieId, String premiere);
+    public ArrayList<MovieRoom1> getTimeByDateAndId(int movieId, String premiere);
 
-    public void addShowtimes(MovieRoom movieRoom);
+    public void addShowtimes(MovieRoom1 movieRoom);
 
-    public void editShowtimes(MovieRoom movieRoom);
+    public void editShowtimes(MovieRoom1 movieRoom);
 
     public void deleteShowtimes(int movieRoomId);
 
-    public MovieRoom getShowtimesExist(int movieId, Time time, Date premiere, int roomId);
+    public MovieRoom1 getShowtimesExist(int movieId, Time time, Date premiere, int roomId);
 
-    public MovieRoom get(int id);
+    public MovieRoom1 get(int id);
 }
