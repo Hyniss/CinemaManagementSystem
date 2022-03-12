@@ -53,7 +53,7 @@
                             <li style="text-align: center;">Thông báo</li>
                                 <c:forEach items="${sessionScope.notiHashMap}" var="notiHashMap" varStatus="i" >
                                 <li><hr class="dropdown-divider"></li>
-                                <a href="notificationview?notiId=${notiHashMap.key.notificationId}" class="dropdown-item">
+                                <a href="notificationview?notiId=${notiHashMap.key.notificationId}" class="dropdown-item" <c:if test="${notiHashMap.value.readed == false}"> style="background: linear-gradient(333deg, rgba(233,197,212,1) 0%, rgba(162,195,234,1) 100%);" </c:if>>
                                     <li style="height:50px; width: auto"><img style="height:100%; width: auto" src="${pageContext.request.contextPath}/assets/img/notification/${notiHashMap.key.notificationImg}">   ${notiHashMap.key.notificationTitle}</li>
                                     <li style="font-size:10px;color: blue; font-weight: bold">
                                         <c:if test="${notiHashMap.value.readed == false}">
