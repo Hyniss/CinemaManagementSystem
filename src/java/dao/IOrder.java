@@ -7,6 +7,11 @@ package dao;
 
 import java.util.ArrayList;
 import model.Cart;
+import model.FastFoodCart;
+import model.FoodAndDrink;
+import model.FoodAndDrinkCart;
+import model.SeatRoom;
+import model.SeatRoomCart;
 
 /**
  *
@@ -14,5 +19,9 @@ import model.Cart;
  */
 public interface IOrder {
     public ArrayList<Cart> getMyOrderByName(String user);
+    public ArrayList<FastFoodCart> getOrderFoodById(int cartId);
+    public ArrayList<SeatRoomCart> getOrderSeatById(int cartId);
+    public SeatRoom getSeatById(int id);
+    public FoodAndDrink getFoodById(int id);
     
 }

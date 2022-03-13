@@ -10,7 +10,7 @@ package model;
  * @author tenhik
  */
 public class FoodAndDrinkCart {
-    private String foodId;
+ private String foodId;
     private int quantity;
     private double price;
 
@@ -46,6 +46,7 @@ public class FoodAndDrinkCart {
     public void setPrice(double price) {
         this.price = price;
     }
+   
     
 }
 

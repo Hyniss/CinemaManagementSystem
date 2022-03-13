@@ -99,7 +99,7 @@ $(document).ready(function(){
                         <td>${o.orderDate}</td>                        
                         <td><span class="status text-success">&bull;</span> Delivered</td>
                         <td>${o.totalPrice}</td>
-                        <td><a href="#" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
+                        <td><a href="${pageContext.request.contextPath}/OrderDetail?cartId =${o.cartId}" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
                     </tr>
                    
 <!--                    <tr>

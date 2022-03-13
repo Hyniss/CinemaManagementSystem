@@ -11,43 +11,36 @@ package model;
  */
 public class SeatRoom {
 
-    private String seatRoomId;
-    private boolean statusSeat;
-    private String movieRoomId;
-    private String seatId;
+    private int seatRoomId;
+    private String statusSeat;
+     private String seatId;
+    private int timeId;
+   
 
     public SeatRoom() {
     }
 
-    public SeatRoom(String seatRoomId, boolean statusSeat, String movieRoomId, String seatId) {
+    public SeatRoom(int seatRoomId, String statusSeat, String seatId, int timeId) {
         this.seatRoomId = seatRoomId;
         this.statusSeat = statusSeat;
-        this.movieRoomId = movieRoomId;
         this.seatId = seatId;
+        this.timeId = timeId;
     }
 
-    public String getSeatRoomId() {
+    public int getSeatRoomId() {
         return seatRoomId;
     }
 
-    public void setSeatRoomId(String seatRoomId) {
+    public void setSeatRoomId(int seatRoomId) {
         this.seatRoomId = seatRoomId;
     }
 
-    public boolean isStatusSeat() {
+    public String getStatusSeat() {
         return statusSeat;
     }
 
-    public void setStatusSeat(boolean statusSeat) {
+    public void setStatusSeat(String statusSeat) {
         this.statusSeat = statusSeat;
-    }
-
-    public String getMovieRoomId() {
-        return movieRoomId;
-    }
-
-    public void setMovieRoomId(String movieRoomId) {
-        this.movieRoomId = movieRoomId;
     }
 
     public String getSeatId() {
@@ -58,9 +51,15 @@ public class SeatRoom {
         this.seatId = seatId;
     }
 
-    @Override
-    public String toString() {
-        return "SeatRoom{" + "seatRoomId=" + seatRoomId + ", statusSeat=" + statusSeat + ", movieRoomId=" + movieRoomId + ", seatId=" + seatId + '}';
+    public int getTimeId() {
+        return timeId;
     }
+
+    public void setTimeId(int timeId) {
+        this.timeId = timeId;
+    }
+
+    
+ 
 
 }
