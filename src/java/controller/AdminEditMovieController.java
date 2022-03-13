@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Validation.ValidateMovie;
 import dao.IMovieDAO;
 import dao.impl.MovieDAO;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class AdminEditMovieController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminEditMovieController</title>");            
+            out.println("<title>Servlet AdminEditMovieController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminEditMovieController at " + request.getContextPath() + "</h1>");
@@ -62,13 +63,13 @@ public class AdminEditMovieController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        IMovieDAO movieDAO=new MovieDAO();
-        int movieId=Integer.parseInt(request.getParameter("movieID"));//lay movie id tu request
-        Movie movie=movieDAO.getMovieById(movieId);// lay ra movie update
+        IMovieDAO movieDAO = new MovieDAO();
+        int movieId = Integer.parseInt(request.getParameter("movieID"));//lay movie id tu request
+        Movie movie = movieDAO.getMovieById(movieId);// lay ra movie update
         request.setAttribute("movie", movie);
-        
+
         request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -82,28 +83,69 @@ public class AdminEditMovieController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8"); //có thể nhận dữ liệu là tiếng việt
-        
-        IMovieDAO movieDAO=new MovieDAO();
-        Movie movie=new Movie();
+
+        IMovieDAO movieDAO = new MovieDAO();
+        int movieId = Integer.parseInt(request.getParameter("movieID").trim());
+        String movieName = request.getParameter("movieName").trim();
+        String movieImage = request.getParameter("movieImage").trim();
+        String movieCategory = request.getParameter("movieCategory").trim();
+        String description = request.getParameter("movieDescription").trim();
+        String movieTrailer = request.getParameter("movieTrailer").trim();
+        String movieAuthor = request.getParameter("movieAuthor").trim();
+        String movieActor = request.getParameter("movieActor").trim();
+        String movieDuration = request.getParameter("movieDuration").trim();
+        String moviePremiere = request.getParameter("moviePremiere");
+        Date premiere = Date.valueOf(moviePremiere);//ep kieu du lieu cho date
+        Movie movie = new Movie(movieId, movieName, movieImage, moviePremiere, description, movieTrailer, movieAuthor, movieActor, movieDuration, premiere);
         //update lai du lieu cho movie
-        movie.setMovieId(Integer.parseInt(request.getParameter("movieID").trim()));
-        movie.setMovieName(request.getParameter("movieName").trim());
-        movie.setImage(request.getParameter("movieImage").trim());
-        movie.setCategoryMovie(request.getParameter("movieCategory").trim());
-        movie.setDescription(request.getParameter("movieDescription").trim());
-        movie.setTrailer(request.getParameter("movieTrailer").trim());
-        movie.setAuthor(request.getParameter("movieAuthor").trim());
-        movie.setActor(request.getParameter("movieActor").trim());
-        movie.setDuration(request.getParameter("movieDuration").trim());
-        movie.setPremiere(Date.valueOf(request.getParameter("moviePremiere")));
-        
-        movieDAO.editMovie(movie);
-        request.setAttribute("mess", "Update successful");
-        request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
-                
+        movie.setMovieId(movieId);
+        movie.setMovieName(movieName);
+        movie.setImage(movieImage);
+        movie.setCategoryMovie(movieCategory);
+        movie.setDescription(description);
+        movie.setTrailer(movieTrailer);
+        movie.setAuthor(movieAuthor);
+        movie.setActor(movieActor);
+        movie.setDuration(movieDuration);
+        movie.setPremiere(premiere);
+        if (ValidateMovie.checkDataMovie(movieName) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Movie name không được để trống và giới hạn 4-2000 ký tự!!!");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkDataMovie(movieCategory) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Movie Category không được để trống và giới hạn 4-2000 ký tự!!!");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkDataMovie(description) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Description không được để trống và giới hạn 4-2000 ký tự!!!");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkDataMovie(movieAuthor) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Author không được để trống và giới hạn 4-2000 ký tự!!!");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkDataMovie(movieActor) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Actor không được để trống và giới hạn 4-2000 ký tự!!! ");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkDuration(movieDuration) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 và chỉ được có 3 chữ số ");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkTrailer(movieTrailer) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Trailer phải là 1 đường link bắt đầu bằng http(s) ");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else {
+
+            movieDAO.editMovie(movie);
+            request.setAttribute("mess", "Update successful");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        }
+
     }
 
     /**
