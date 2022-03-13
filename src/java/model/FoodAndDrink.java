@@ -28,10 +28,6 @@ public class FoodAndDrink {
         this.img = img;
     }
 
-  
-
-   
-
     public String getFoodId() {
         return foodId;
     }
@@ -56,6 +52,14 @@ public class FoodAndDrink {
         this.name = name;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public String getImg() {
         return img;
     }
@@ -64,18 +68,8 @@ public class FoodAndDrink {
         this.img = img;
     }
 
-    public String getPrice() {
-        return price;
-    }
+   
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
-    
-
-    @Override
-    public String toString() {
-        return "FoodAndDrink{" + "foodId=" + foodId + ", category=" + category + ", name=" + name + ", price=" + price + ", img=" + img + '}';
-    }
+   
 
 }
