@@ -111,7 +111,8 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminbannerlist">Manage Banner</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminpromotionlist">Manage Promotion</a></li>
                                 </c:if>
-
+                                <!-- My order-->
+                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MyOrder">My Order</a></li>
                             <!-- Change password -->
 
                             <li><a class="dropdown-item" href="ChangePassword.jsp">Change password</a></li>
