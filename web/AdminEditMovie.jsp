@@ -56,7 +56,7 @@
                             <div class="card-title" style="margin: 10px; color: #ffffff">Add Movie</div>
                             
                             <form action="editmovie" method="post">
-                                
+                                <h3 style="color: red ">${error}</h3>
                                 <h3 style="color: #18a665 ">${mess}</h3>
                                 <div class="form-group">
                                     <label>ID movie</label>
@@ -131,3 +131,4 @@
         $('body').sakura();
     });
 </script>
+

@@ -82,7 +82,7 @@ public class AdminAddMovieController extends HttpServlet {
         IMovieDAO movieDAO = new MovieDAO();
 
         //lấy ra các dữ liệu từ request 
-        int movieId = Integer.parseInt(request.getParameter("movieID").trim());
+       
         String movieName = request.getParameter("movieName").trim();
         String movieImage = request.getParameter("movieImage").trim();
         String movieCategory = request.getParameter("movieCategory").trim();
@@ -93,33 +93,38 @@ public class AdminAddMovieController extends HttpServlet {
         String movieDuration = request.getParameter("movieDuration").trim();
         String moviePremiere = request.getParameter("moviePremiere");
         Date premiere = Date.valueOf(moviePremiere);//ep kieu du lieu cho date
-        Movie movie = new Movie(movieId, movieName, movieImage, movieCategory, description, movieTrailer, movieAuthor, movieActor, movieDuration, premiere);
+        Movie movie = new Movie(0, movieName, movieImage, movieCategory, description, movieTrailer, movieAuthor, movieActor, movieDuration, premiere);
 
         if (ValidateMovie.checkDataMovie(movieName) == false) {
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Thông tin movie name không hợp lệ! ");
+            request.setAttribute("error", "Movie name không được để trống và giới hạn 4-2000 ký tự!!!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         } else if(ValidateMovie.checkDataMovie(movieCategory) == false){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Thông tin movie category không hợp lệ! ");
+            request.setAttribute("error", "Movie Category không được để trống và giới hạn 4-2000 ký tự!!!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         } else if(ValidateMovie.checkDataMovie(description) == false){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Thông tin movie description không hợp lệ! ");
+            request.setAttribute("error", "Description không được để trống và giới hạn 4-2000 ký tự!!!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         }else if(ValidateMovie.checkDataMovie(movieAuthor) == false){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Thông tin author không hợp lệ! ");
+            request.setAttribute("error", "Author không được để trống và giới hạn 4-2000 ký tự!!!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         }else if(ValidateMovie.checkDataMovie(movieActor) == false){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Thông tin movie actor không hợp lệ! ");
+            request.setAttribute("error", "Actor không được để trống và giới hạn 4-2000 ký tự!!! ");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
-        }else if(ValidateMovie.checkDuration(movieDuration) == false){
+        }else if(ValidateMovie.checkDuration(movieDuration) == false ){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 ");
+            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 và chỉ được có 3 chữ số ");
+            request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
+        }else if(ValidateMovie.checkTrailer(movieTrailer)==false){
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Trailer phải là 1 đường link bắt đầu bằng http(s) ");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         }
+                
         else {
 
             movieDAO.addMovie(movie);

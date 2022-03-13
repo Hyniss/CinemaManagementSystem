@@ -26,6 +26,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous"
         />
+
     <!--FONTAWESOME-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link
@@ -47,28 +48,45 @@
 
 <body>
     <%@include file="template/header.jsp" %>
-    <div class="content-wrapper"  style="margin-bottom: 50px; width: 90%">
+    <div class="content-wrapper"  style="margin-bottom: 50px; width: 90%;text-decoration: none">
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-lg-12" style="margin: 30px;">
-                    <button style="background: #ccc" class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="AdminAddMovie">
-                            <span class="btn-inner--icon text-md" style="color: #000"><i class="fas fa-plus-square"></i></span>
-                            <span class="btn-inner--text text-sm" style="color: #000;text-decoration: none">Create</span>
-                    </button>
+                <div class="col-lg-12 form-create">
+                    <a href="AdminAddMovie">Create</a>
+                            
                 </div>
-                <div class="col-lg-12" style="margin: 30px;">
-                    <button style="background: #ccc" class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="adminshowtimeslist">
-                            <span class="btn-inner--icon text-md" style="color: #000"><i class="fas fa-plus-square"></i></span>
-                            <span class="btn-inner--text text-sm" style="color: #000;text-decoration: none">Showtimes List</span>
-                    </button>
-                </div>
+                <!--Pagging-->
+                <nav style="margin-top: 30px" aria-label="Page navigation example" class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        <c:if test="${page>1}">
+                            <li class="page-item"><a class="page-link" href="adminListMovie?page=${page-1}">Previous</a></li>
+                            </c:if>
+
+                        <c:forEach begin="1" end="${totalpage}" var="i">
+                            <li class="page-item ${i==page?"active":""} "><a class="page-link" href="adminListMovie?page=${i}">${i}</a></li>
+                            </c:forEach>
+
+                        <c:if test="${page<totalpage}">
+                            <li class="page-item"><a class="page-link" href="adminListMovie?page=${page+1}">Next</a></li>
+                            </c:if>
+                    </ul>
+                </nav>
+                <!--Pagging-->
+
                 <div class="col-lg-12">
                     <div class="card"  style="border-radius: 12px" >
                         <div class="card-body">
-                            <h4 class="card-title" style="margin: 30px">List Movie</h4>
+                            <h3 class="card-title" style="margin: 30px"><a href="adminListMovie">List Movie</a></h3>
                             <div class="table-responsive"  style="margin-left: 0px; margin-right: 5%">
-                                <table class="table table-striped ">
+                                <form action="adminsearchmovie" style="width:40%;min-width: 200px; margin: 10px auto 25px auto " class="input-group rounded ">
+                                    <input  name="movietxt" type="search" class="form-control rounded" placeholder="Search movie by Movie name" aria-label="Search" aria-describedby="search-addon" />
+                                    <button type="submit"  style="height:45px;" class="input-group-text border-0" id="search-addon">
+                                        <i class="fas fa-search"></i></a>
+                                    </button>
+                                </form>
+                                <h4 style="color:red; text-align: center">${error}</h4>
+                                <table class="table ">
                                     <thead>
                                         <tr style="text-align: center" >
                                             <th scope="col" style="width: 2%; text-align: center">#</th>
@@ -97,11 +115,11 @@
                                                 <td style="text-align: center">${movie.premiere}</td>
                                                 <td style="text-align: center">
                                                     <button class="btn btn-danger"><a href="editmovie?movieID=${movie.movieId}"><p  style="color: #ffffff; margin: 1px">Update</p></a></button>
-                                                    <a  href="#" onclick="showMess(${movie.movieId})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p></a>
-                                                    <button class="btn btn-danger"><a href="add_showtimes?movieId=${movie.movieId}"><p  style="color: #ffffff; margin: 1px">Add new Showtimes </p></a></button>
 
+                                                    <a  href="#" onclick="showMess(${movie.movieId})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p>
+
+                                                    </a>
                                                 </td>
-
 
                                             </tr>
                                         </c:forEach>
@@ -113,13 +131,33 @@
                 </div>
             </div>
         </div>
-        <style>
+        <div></div>
 
+        <style>
+            body a{
+                text-decoration: none;
+            }
+            
+            .form-create{
+                margin: 50px 30px 10px 30px;
+                border: 1px solid #000;
+                width: 6%;
+                text-align: center;
+                padding: 5px 0;
+                background-color: #000;
+                color:#fff;
+            }
+            
+            .form-create a{
+                color: #fff;
+            }
+         
+            
             .content-wrapper {
-                margin-left: 10%;
+                margin-left: 5%;
                 padding-left: 10px;
                 padding-right: 10px;
-                margin-right: 10%;
+                margin-right: 5%;
             }
 
             .card-body-icon {
@@ -166,3 +204,5 @@
         }
     }
 </script>
+
+

@@ -8,6 +8,8 @@ package controller;
 import dao.IMovieDAO;
 import dao.impl.MovieDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,35 +22,40 @@ import model.Movie;
  *
  * @author NITRO
  */
-@WebServlet(name = "adminListMovie", urlPatterns = {"/adminListMovie"})
-public class AdminListMovieController extends HttpServlet {
+@WebServlet(name = "AdminSearchMovieController", urlPatterns = {"/adminsearchmovie"})
+public class AdminSearchMovieController extends HttpServlet {
     IMovieDAO movieDAO= new MovieDAO();
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         final int PAGE_SIZE=5; //số lượng phim trong 1 trang
-        int page=1;
-        String pageRequest=request.getParameter("page");
-        if(pageRequest!=null){
-            page=Integer.parseInt(pageRequest);
+        request.setCharacterEncoding("UTF-8");
+        String movietxt=request.getParameter("movietxt").trim();
+        if(movietxt == null || movietxt.equals("") ){
+            request.setAttribute("movietxt", movietxt);
+            request.setAttribute("error", "This field can not empty!");
+            request.getRequestDispatcher("AdminMovieList.jsp").forward(request, response);
+        }else{
+            List<Movie> listmovie=movieDAO.getMovieByName(movietxt);
+            if(listmovie.size()==0){
+                request.setAttribute("error", "No data to show!!");
+                request.setAttribute("movietxt", movietxt);
+                request.getRequestDispatcher("AdminMovieList.jsp").forward(request, response);
+            }else{
+                request.setAttribute("listmovie", listmovie);
+                request.getRequestDispatcher("AdminMovieList.jsp").forward(request, response);
+            
         }
         
-        
-        int totalMovie= movieDAO.getTotalMovie();// tính tổng số lượng phim
-        int totalPage=totalMovie/PAGE_SIZE;    //tính tổng số trang
-        
-        if(totalMovie % PAGE_SIZE!=0){
-            totalPage=totalPage+1;    // nếu chia dư thì cộng số trang lên 1
-        }
-        
-        
-        List<Movie> listMovie=movieDAO.getMovieWithPagging(page,PAGE_SIZE);
-        request.setAttribute("page", page);
-        request.setAttribute("totalpage", totalPage);
-        
-        request.setAttribute("listmovie", listMovie);
-        request.getRequestDispatcher("AdminMovieList.jsp").forward(request, response);
-        
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,3 +98,4 @@ public class AdminListMovieController extends HttpServlet {
     }// </editor-fold>
 
 }
+
