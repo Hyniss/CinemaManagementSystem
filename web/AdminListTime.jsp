@@ -187,7 +187,7 @@
                     <div class="modal-add-body">
                         <div class="add-input">
                             <label>Date: </label>  
-                            <input class="" name="datetxta" oninput="checkDateValid('Add')" type="date" required>
+                            <input class="" name="datetxta"  type="date" required>
                         </div>
                         <div class="add-checkbox">
                             <label>Slot 1 (08h00 đến 10h00): </label>  
@@ -215,7 +215,7 @@
                         </div>
                     </div>
                     <div class="modal-btn">
-                        <button type="submit" class="custom-btn btn-crud"><span>Add now !</span><span>Add time</span></button>
+                        <button type="submit" onclick="checkDateValid('Add')" class="custom-btn btn-crud"><span>Add now !</span><span>Add time</span></button>
                         <button type="button" onclick="closeModal()" class="custom-btn btn-crud"><span>Close !</span><span>Close</span></button>
                     </div> 
                 </form>
@@ -408,34 +408,47 @@
                                     today = yyyy + '-' + mm + '-' + dd;
                                     var dateCur = today.split("-");
                                     var current = new Date(dateCur[0], parseInt(dateCur[1]) - 1, dateCur[2]);
-                                    console.log((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24));
-                                    if (current.getTime() >= inputDate.getTime()) {
-                                        if ((current.getTime() - inputDate.getTime()) / (1000 * 60 * 60 * 24) < 0) {
-                                            for (var i = 0; i < jsArray.length; i++) {
-                                                if (mess.value === jsArray[i]) {
-                                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
-                                                } else {
-                                                    mess.setCustomValidity("");
+                                    if (option === 'Add') {
+                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) >= 0) {
+                                            if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
+                                                mess.setCustomValidity("");
+                                                if (jsArray !== null) {
+                                                    for (var i = 0; i < jsArray.length; i++) {
+                                                        if (mess.value === jsArray[i]) {
+                                                            mess.setCustomValidity("Ngày đã có trong dữ liệu");
+                                                        } else {
+                                                            mess.setCustomValidity("");
+                                                        }
+                                                    }
                                                 }
+                                            } else {
+                                                mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
                                             }
-                                        } else {
-                                            mess.setCustomValidity("Ngày nhập không nhỏ hơn ngày hiện tại");
+                                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) < 0) {
+                                            mess.setCustomValidity('Ngày nhập không nhỏ hơn ngày hiện tại');
                                         }
-                                    } else if (current.getTime() < inputDate.getTime()) {
-                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
-                                            for (var i = 0; i < jsArray.length; i++) {
-                                                if (mess.value === jsArray[i]) {
-                                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
-                                                    break;
-                                                } else {
-                                                    mess.setCustomValidity("");
+                                    } else if (option === 'Edit') {
+                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) >= 0) {
+                                            if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
+                                                mess.setCustomValidity("");
+                                                if (jsArray !== null) {
+                                                    for (var i = 0; i < jsArray.length; i++) {
+                                                        if (mess.value === jsArray[i]) {
+                                                            mess.setCustomValidity("Ngày đã có trong dữ liệu");
+                                                        } else {
+                                                            mess.setCustomValidity("");
+                                                        }
+                                                    }
                                                 }
+                                            } else {
+                                                mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
                                             }
-                                        } else {
-                                            mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
+                                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) < 0) {
+                                            mess.setCustomValidity('Ngày nhập không nhỏ hơn ngày hiện tại');
                                         }
                                     }
                                 }
+
 
         </script>
     </body>
