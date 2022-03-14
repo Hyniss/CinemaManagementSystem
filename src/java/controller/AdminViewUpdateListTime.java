@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * AdminViewUpdateListTime
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package controller;
 
@@ -23,8 +27,12 @@ import model.MovieRoom;
 import model.MovieTime;
 
 /**
+ * This is a Servlet responsible for handling the task when the user wants to
+ * see the list movie room
+ * /viewUpdateListTime is the URL of the web site Extend HttpServlet
+ * class
  *
- * @author tenhik
+ * @author Nguyen Nam
  */
 @WebServlet(name = "AdminViewUpdateListTime", urlPatterns = {"/viewUpdateListTime"})
 public class AdminViewUpdateListTime extends HttpServlet {

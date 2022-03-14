@@ -85,37 +85,37 @@ public class MovieDateDAO extends DBContext implements IMovieDateDAO {
     }
 
     public ArrayList<MovieDate> getId(ArrayList<MovieRoom> listM) {
-        ArrayList<MovieDate> list = new ArrayList<>();
-        query = "select *"
-                + "from MovieRoom m, MovieDate d"
-                + "where ,.movieRoomId = d.movieRoomId "
-                + "and movieId = ?, premiere = ? ";
-        try {
-            con = DBContext.getConnection();
-            ps = con.prepareStatement(query);
-            for (MovieRoom m : listM) {
-                ps = con.prepareStatement(query);
-                ps.setInt(1, m.getMovieId());
-                ps.setDate(2, m.getPremiere());
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    list.add(new MovieDate(
-                            rs.getInt("dateId"),
-                            rs.getInt("movieRoomId"),
-                            rs.getTime("time"),
-                            rs.getInt("roomId")));
-                }
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(MovieDateDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            /*Close connection, prepare statement, result set*/
-            closeConnection(con);
-            closePreparedStatement(ps);
-            closeResultSet(rs);
-        }
+       ArrayList<MovieDate> list = new ArrayList<>();
+//        query = "select *"
+//                + "from MovieRoom m, MovieDate d"
+//                + "where ,.movieRoomId = d.movieRoomId "
+//                + "and movieId = ?, premiere = ? ";
+//        try {
+//            con = DBContext.getConnection();
+//            ps = con.prepareStatement(query);
+//            for (MovieRoom m : listM) {
+//                ps = con.prepareStatement(query);
+//                ps.setInt(1, m.getMovieId());
+//                ps.setDate(2, m.getPremiere());
+//                rs = ps.executeQuery();
+//                while (rs.next()) {
+//                    list.add(new MovieDate(
+//                            rs.getInt("dateId"),
+//                            rs.getInt("movieRoomId"),
+//                            rs.getTime("time"),
+//                            rs.getInt("roomId")));
+//                }
+//            }
+//        } catch (SQLException e) {
+//            Logger.getLogger(MovieDateDAO.class.getName()).log(Level.SEVERE, null, e);
+//        } finally {
+//            /*Close connection, prepare statement, result set*/
+//            closeConnection(con);
+//            closePreparedStatement(ps);
+//            closeResultSet(rs);
+//        }
         return list;
-    }
+   }
 
     public static void main(String[] args) {
         MovieDateDAO dao = new MovieDateDAO();

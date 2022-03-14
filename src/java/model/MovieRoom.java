@@ -15,7 +15,6 @@ public class MovieRoom {
 
     private int movieRoomId;
     private Date premiere;
-    private int movieId;
 
     public MovieRoom() {
     }
@@ -46,16 +45,9 @@ public class MovieRoom {
         this.premiere = premiere;
     }
 
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
 
     @Override
     public String toString() {
-        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + ", movieId=" + movieId + '}';
+        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere  + '}';
     }
 }
