@@ -26,7 +26,26 @@ public class AdminListMovieController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<Movie> listMovie=movieDAO.getAllMovie();
+         final int PAGE_SIZE=5; //số lượng phim trong 1 trang
+        int page=1;
+        String pageRequest=request.getParameter("page");
+        if(pageRequest!=null){
+            page=Integer.parseInt(pageRequest);
+        }
+        
+        
+        int totalMovie= movieDAO.getTotalMovie();// tính tổng số lượng phim
+        int totalPage=totalMovie/PAGE_SIZE;    //tính tổng số trang
+        
+        if(totalMovie % PAGE_SIZE!=0){
+            totalPage=totalPage+1;    // nếu chia dư thì cộng số trang lên 1
+        }
+        
+        
+        List<Movie> listMovie=movieDAO.getMovieWithPagging(page,PAGE_SIZE);
+        request.setAttribute("page", page);
+        request.setAttribute("totalpage", totalPage);
+        
         request.setAttribute("listmovie", listMovie);
         request.getRequestDispatcher("AdminMovieList.jsp").forward(request, response);
         

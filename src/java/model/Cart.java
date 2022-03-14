@@ -5,32 +5,36 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Bảo Châu Bống
  */
 public class Cart {
 
-    private String cartId;
+    private int cartId;
     private String username;
-    private String quantity;
-    private String totalPrice;
+    private double totalPrice;
+    private String status;
+    private Date orderDate ;
 
     public Cart() {
     }
 
-    public Cart(String cartId, String username, String quantity, String totalPrice) {
+    public Cart(int cartId, String username, double totalPrice, String status, Date orderDate) {
         this.cartId = cartId;
         this.username = username;
-        this.quantity = quantity;
         this.totalPrice = totalPrice;
+        this.status = status;
+        this.orderDate = orderDate;
     }
 
-    public String getCartId() {
+    public int getCartId() {
         return cartId;
     }
 
-    public void setCartId(String cartId) {
+    public void setCartId(int cartId) {
         this.cartId = cartId;
     }
 
@@ -42,25 +46,31 @@ public class Cart {
         this.username = username;
     }
 
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    @Override
-    public String toString() {
-        return "Cart{" + "cartId=" + cartId + ", username=" + username + ", quantity=" + quantity + ", totalPrice=" + totalPrice + '}';
+    public String getStatus() {
+        return status;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+   
+    
 
 }

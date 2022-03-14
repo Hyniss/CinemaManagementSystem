@@ -395,27 +395,96 @@ public class MovieDAO extends DBContext implements IMovieDAO {
         return list;
     }
 
+     //get movie with pagging
+    @Override
+    public ArrayList<Movie> getMovieWithPagging(int page,int PAGE_SIZE){
+        ArrayList<Movie> list = new ArrayList<>();
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "Select * from movie order by movieId\n" 
+                    +"offset (?-1)*? row fetch next ? rows only";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, page);
+            ps.setInt(2,PAGE_SIZE);
+            ps.setInt(3, PAGE_SIZE);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            /*Assign data to an arraylist of Movie*/
+            while (rs.next()) {
+                list.add(new Movie(
+                        rs.getInt("movieId"),
+                        rs.getString("movieName"),
+                        rs.getString("image"),
+                        rs.getString("categoryMovie"),
+                        rs.getString("describe"),
+                        rs.getString("trailer"),
+                        rs.getString("author"),
+                        rs.getString("actor"),
+                        rs.getString("duration"),
+                        rs.getDate("premiere")
+                ));
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+    
+    //count total movie
+    
+    @Override
+    public int getTotalMovie(){
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "select count(MovieId) from Movie";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            /*Assign data to an arraylist of Movie*/
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+    
     //add movie
     @Override
     public void addMovie(Movie movie) {
         try {
 
-            query = "set identity_insert movie ON\n"
-                    +// có thể cho insert cả cột chứa thuộc tính identity
-                    "insert into Movie(movieId,movieName,image,categoryMovie,"
-                    + "describe,trailer,author,actor,duration,[premiere]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            query = 
+                    "insert into Movie(movieName,image,categoryMovie,"
+                    + "describe,trailer,author,actor,duration,[premiere]) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, movie.getMovieId());
-            ps.setString(2, movie.getMovieName());
-            ps.setString(3, movie.getImage());
-            ps.setString(4, movie.getCategoryMovie());
-            ps.setString(5, movie.getDescription());
-            ps.setString(6, movie.getTrailer());
-            ps.setString(7, movie.getAuthor());
-            ps.setString(8, movie.getActor());
-            ps.setString(9, movie.getDuration());
-            ps.setDate(10, movie.getPremiere());
+            ps.setString(1, movie.getMovieName());
+            ps.setString(2, movie.getImage());
+            ps.setString(3, movie.getCategoryMovie());
+            ps.setString(4, movie.getDescription());
+            ps.setString(5, movie.getTrailer());
+            ps.setString(6, movie.getAuthor());
+            ps.setString(7, movie.getActor());
+            ps.setString(8, movie.getDuration());
+            ps.setDate(9, movie.getPremiere());
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, e);
@@ -471,6 +540,7 @@ public class MovieDAO extends DBContext implements IMovieDAO {
             closeResultSet(rs);
         }
     }
+
 
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();

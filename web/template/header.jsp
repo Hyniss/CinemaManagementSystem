@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page trimDirectiveWhitespaces="true" %> 
 <!DOCTYPE html>
 
@@ -37,30 +38,54 @@
             <ul class="navbar-nav me-auto ms-auto">                
 
                 <!-- EXPANDED -->
-                <li class="nav-item d-none d-lg-block">
-                    <a class="nav-link" role="button" data-bs-toggle="offcanvas" data-bs-target="#notification" aria-controls="offcanvasRight"><i class="fas fa-bell"></i>
-                        <c:if test="${sessionScope.user !=null}">
-                            <span class="position-relative translate-middle badge rounded-pill bg-danger">
-                                ${unreadnoti}
-                                <span class="visually-hidden">unread notifications</span>
-                            </span>
-                        </c:if>
-                    </a>                   
-                </li>
-                <li class="nav-item d-none d-lg-block">
-                    <a class="nav-link" href="Cart.jsp">
-                        <i class="fas fa-shopping-cart"></i>
-                         <c:if test="${listcheckedSeatId != null}">
-                        <span class="bg-danger">1</span>
-                        </c:if>
-                        <c:if test="${listcheckedSeatId == null}">
-                        <span class="bg-danger">0</span>
-                        </c:if>
-                        <c:if test="${sessionScope.user !=null}">
+                <c:if test="${sessionScope.acc !=null}">
+                    <li class="nav-item dropdown d-none d-lg-block">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <c:if test="${sessionScope.unreadednoti > 0}">
+                                <span class="position-relative translate-middle badge rounded-pill bg-danger">
+                                    ${sessionScope.unreadednoti}
+                                    <span class="visually-hidden">unread notifications</span>
+                                </span>
+                            </c:if>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li style="text-align: center;">Thông báo</li>
+                                <c:forEach items="${sessionScope.notiHashMap}" var="notiHashMap" varStatus="i" >
+                                <li><hr class="dropdown-divider"></li>
+                                <a href="notificationview?notiId=${notiHashMap.key.notificationId}" class="dropdown-item" <c:if test="${notiHashMap.value.readed == false}"> style="background: linear-gradient(333deg, rgba(233,197,212,1) 0%, rgba(162,195,234,1) 100%);" </c:if>>
+                                    <li style="height:50px; width: auto"><img style="height:100%; width: auto" src="${pageContext.request.contextPath}/assets/img/notification/${notiHashMap.key.notificationImg}">   ${notiHashMap.key.notificationTitle}</li>
+                                    <li style="font-size:10px;color: blue; font-weight: bold">
+                                        <c:if test="${notiHashMap.value.readed == false}">
+                                            <span style="font-size: 20px; color: red">•</span>
+                                        </c:if>
+                                        <fmt:formatDate pattern="dd-MM-yyyy" value = "${notiHashMap.key.notificationDate}"/>
+                                    </li>
+                                </a>
+                            </c:forEach>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link" href="Cart.jsp">
+                            <i class="fas fa-shopping-cart"></i>
+                            <c:if test="${total > 0}">
+                                <span class="position-relative translate-middle badge rounded-pill bg-danger">
+                                    1
+                                </span>
+                            </c:if>
+                            <c:if test="${total == null}">
+                                <span class="position-relative translate-middle badge rounded-pill bg-danger">
+                                    0
+                                </span>
+                            </c:if>
                             
-                        </c:if>
-                    </a>
-                </li> 
+                            <c:if test="${sessionScope.user !=null}">
+
+                            </c:if>
+                        </a>
+                    </li>
+                </c:if>
                 <li class="nav-item dropdown d-none d-lg-block">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user-circle"></i>
@@ -74,7 +99,7 @@
                             <c:if test="${sessionScope.acc.roleId ==  1}">
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminaccountlist">Manage Account</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminrecruitmentlist">Manage Recruitment</a></li>
-                                
+
                                 <li><a class="dropdown-item" href="adminListMovie">Manage Movie</a></li>
                                 </c:if>
                             <!-- Staff -->
@@ -86,7 +111,8 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminbannerlist">Manage Banner</a></li>
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/adminpromotionlist">Manage Promotion</a></li>
                                 </c:if>
-
+                                <!-- My order-->
+                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MyOrder">My Order</a></li>
                             <!-- Change password -->
 
                             <li><a class="dropdown-item" href="ChangePassword.jsp">Change password</a></li>
@@ -130,7 +156,7 @@
                 </ul>
             </li>
             <li class="nav-item me-4">
-                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/PostControl">Ticket</a>
+                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/showtimes">Ticket</a>
             </li>
             <li class="nav-item me-4">
                 <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/promotion">Promotions</a>

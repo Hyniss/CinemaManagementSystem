@@ -21,10 +21,19 @@ public class LogOutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         //xóa bỏ session 
-        session.removeAttribute("acc");
-        response.sendRedirect("home");
+        
+       
+                try{
+                  if(session != null){
+                      session.invalidate();
+                      
+                  }
+                }catch(Exception e){
+                    log("Error at LoginController :" + e.toString());
+                }
+                response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

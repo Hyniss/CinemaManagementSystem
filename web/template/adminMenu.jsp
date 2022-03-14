@@ -29,14 +29,21 @@
     </li>
     <!--schedule-->
     <li class="">
-        <a href="${pageContext.request.contextPath}/adminaccountlist"><i class="far fa-calendar-alt"></i> Schedule</a>
+        <a href="${pageContext.request.contextPath}/adminListTime"><i class="far fa-calendar-alt"></i> Schedule</a>
+    </li>
+     <li class="">
+        <a href="${pageContext.request.contextPath}/adminListMovieRoom"><i class="far fa-calendar-alt"></i> Movie room</a>
     </li>
     <!--promtion-->
     <li class="">
-        <a href="href=${pageContext.request.contextPath}/adminpromotionlist"><i class='fas fa-bullhorn'></i> Promotion</a>
+        <a href="${pageContext.request.contextPath}/adminpromotionlist"><i class='fas fa-bullhorn'></i> Promotion</a>
     </li>
     <!--banner-->
     <li class="">
         <a href="${pageContext.request.contextPath}/adminbannerlist"><i class="fas fa-ad"></i> Banner</a>
+    </li>
+    <!--notification-->
+    <li class="">
+        <a href="${pageContext.request.contextPath}/adminnotificationlist"><i class='fas fa-bullhorn'></i> Notification</a>
     </li>
 </ul>

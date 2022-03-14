@@ -59,10 +59,6 @@
                                 
                                 <h3 style="color: #18a665 ">${mess}</h3>
                                 <h3 style="color: red ">${error}</h3>
-                                <div class="form-group">
-                                    <label>ID movie</label>
-                                    <input value="${movie.movieId}" type="number" class="form-control" required placeholder="Enter number" name="movieID">
-                                </div>
                                 
                                 <div class="form-group">
                                     <label>Movie name</label>
@@ -132,3 +128,4 @@
         $('body').sakura();
     });
 </script>
+

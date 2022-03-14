@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input value="${account.password}" name="password" type="text" class="form-control" required>
+                                    <input value="${account.password}" name="password" type="password" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <!--                                    <label>Avatar</label>-->

@@ -4,6 +4,8 @@
     Author     : tenhik
 --%>
 
+<%@page import="model.Room"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -45,6 +47,7 @@
         <title>Amazing Cinema</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin.css" />
+        <%ArrayList<Room> listRoom = (ArrayList<Room>) request.getAttribute("listRoom");%>  
     </head>
 
     <body>
@@ -96,17 +99,16 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
+                                <th style="width: 200px" scope="col">Room name</th>
+                                <th scope="col">Slot 1</th>
+                                <th scope="col">Slot 2</th>
+                                <th scope="col">Slot 3</th>
+                                <th scope="col">Slot 4</th>
+                                <th scope="col">Slot 5</th>
+                                <th scope="col">Slot 6</th>
                                 <th> Function</th>
                                 <th>Function</th>
-                            </tr>
+                            </tr> 
                         </thead>
                         <tbody>
                             <tr>
@@ -196,7 +198,7 @@
                 </form>
             </div>
         </div>
-        
+
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

@@ -35,4 +35,8 @@ public interface IMovieDAO {
     public void deleteMovie(int id);
     
     public void editMovie(Movie movie);
+    
+    public ArrayList<Movie> getMovieWithPagging(int page,int PAGE_SIZE);
+    
+    public int getTotalMovie();
 }

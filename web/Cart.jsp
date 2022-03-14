@@ -48,10 +48,16 @@
     </head>
     <body>
         <%@include file="template/header.jsp" %>
+        <c:if test="${sessionScope.acc ==null}">
+            <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
+              <h1> Bạn phải đăng nhập để thực hiện tác vụ</h1>
+              </div>
+          </c:if>
+        <c:if test="${sessionScope.acc != null}">
         <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
-            <% if(listCheckedSeatId == null && listFoodCarts==null) { %>
-                <h1> Bạn chưa có giao dịch(đơn hàng) nào</h1>
-                <%} else {%>
+            <% if (listCheckedSeatId == null && listFoodCarts == null) { %>
+            <h1> Bạn chưa có giao dịch(đơn hàng) nào</h1>
+            <%} else {%>
             <div class="row no-gutters">
                 <div class="col-md-8">
                     <div class="product-details mr-2">
@@ -131,7 +137,7 @@
                                                         <td style="font-weight: bold;font-size:16px;">
                                                             <% if (listCheckedSeatId != null) {%>          
                                                             <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
-                                                            <%=listCheckedSeatId.get(k).getSeatId()+ " "%>
+                                                            <%=listCheckedSeatId.get(k).getSeatId() + " "%>
                                                             <%}%>
                                                             <%}%>
                                                         <td> 
@@ -159,10 +165,10 @@
                                                     <tr class="block-box" style="height: 24px">
                                                         <td class="label">Combo</td>
                                                         <c:if test="${totalFoodPrice == null}">
-                                                        <td class="price">: 0 vnđ</td>
+                                                            <td class="price">: 0 vnđ</td>
                                                         </c:if>
                                                         <c:if test="${totalFoodPrice != null}">
-                                                        <td class="price">: ${totalFoodPrice} vnđ</td>
+                                                            <td class="price">: ${totalFoodPrice} vnđ</td>
                                                         </c:if>
                                                     </tr>
                                                 </thead>
@@ -190,37 +196,58 @@
 
                 <div class="col-md-4" style="background:#fff1ce">
                     <div class="payment-info">
-
+                        <br>
                         <div class="d-flex justify-content-between align-items-center"><span>My promotions</span></div><span class="type d-block mt-3 mb-1">Enter code</span>
-
-                        <input type="text" name ="#">
-                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                            <a style="text-decoration: none" href="Seat.jsp">Get<i class="fa fa-long-arrow-right ml-1"></i></a>
-                        </button>
-                         <h3 style="color: red;font-weight: 200;margin: 10px">Success</h3>
+                        <c:if test="${c == null}">
+                        <form action="Cart" method="GET">
+                            <input type="text" name ="magiam">
+                            <br>
+                            <br>
+                            <input type="submit" class="btn btn-dark" value="get">
+                        </form>
+                            <h3 style="color: red;font-weight: 200;margin: 10px">${error}</h3>
+                        <h3 style="color: greenyellow;font-weight: 200;margin: 10px">${success}</h3>
+                         <h3 style="color: greenyellow;font-weight: 200;margin: 10px">${so}</h3>
+                        </c:if>
+                        <c:if test="${c == 1}">
+                        <h3 style="color: red;font-weight: 200;margin: 10px">Bạn đã hết lượt khuyến mãi cho ngày hôm nay</h3>
+                        </c:if>
+                        <!--                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
+                                                    <a style="text-decoration: none" href="Cart">Get<i class="fa fa-long-arrow-right ml-1"></i></a>
+                                                </button>-->
+                       
+                    
                         <hr class="line">
                         <div class="d-flex justify-content-between information">
-                            <span>Total</span><span>${total}</span>
+                            <span>Total${c}</span><span>${total}</span>
                         </div>
                         <div class="d-flex justify-content-between information">
-                            <span>Discount</span><span>0</span>
+                            <span>Discount</span><span>${discount}%</span>
                         </div>
                         <hr class="line">
+                        <c:if test="${discount ==null}">
                         <div class="d-flex justify-content-between information">
                             <span>Subtotal</span><span>${total}</span>
                         </div>
+                        </c:if>
+                        <c:if test="${discount !=null}">
+                        <div class="d-flex justify-content-between information">
+                            <span>Subtotal</span><span>${dis}</span>
+                        </div>
+                        </c:if>
                         <div>
-                           
-                            
-                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                            <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
-                        </button>
+
+
+                            <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
+                                <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                            </button>
                         </div>
                     </div>
                     <% }%>
                 </div>
-                
+
             </div> 
+                </c:if>
             <style>
                 a{
                     color: white;

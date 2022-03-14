@@ -157,20 +157,36 @@
         <servlet-class>controller.ShowtimesController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminAddShowtimesController</servlet-name>
-        <servlet-class>controller.AdminAddShowtimesController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminListShowtimesController</servlet-name>
-        <servlet-class>controller.AdminListShowtimesController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminDeleteShowtimesController</servlet-name>
         <servlet-class>controller.AdminDeleteShowtimesController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminEditShowtimesController</servlet-name>
         <servlet-class>controller.AdminEditShowtimesController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAddNotificationController</servlet-name>
+        <servlet-class>controller.AdminAddNotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminListNotificationController</servlet-name>
+        <servlet-class>controller.AdminListNotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminEditNotificationController</servlet-name>
+        <servlet-class>controller.AdminEditNotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDeleteNotificationController</servlet-name>
+        <servlet-class>controller.AdminDeleteNotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchNotificationController</servlet-name>
+        <servlet-class>controller.AdminSearchNotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewNotificationController</servlet-name>
+        <servlet-class>controller.ViewNotificationController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -333,20 +349,36 @@
         <url-pattern>/showtimes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminAddShowtimesController</servlet-name>
-        <url-pattern>/add_showtimes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AdminListShowtimesController</servlet-name>
-        <url-pattern>/adminshowtimeslist</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminDeleteShowtimesController</servlet-name>
         <url-pattern>/delete_showtimes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminEditShowtimesController</servlet-name>
         <url-pattern>/edit_showtimes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddNotificationController</servlet-name>
+        <url-pattern>/adminnotificationadd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminListNotificationController</servlet-name>
+        <url-pattern>/adminnotificationlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditNotificationController</servlet-name>
+        <url-pattern>/adminnotificationedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDeleteNotificationController</servlet-name>
+        <url-pattern>/adminnotificationdelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchNotificationController</servlet-name>
+        <url-pattern>/adminnotificationsearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewNotificationController</servlet-name>
+        <url-pattern>/notificationview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

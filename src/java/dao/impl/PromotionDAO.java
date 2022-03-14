@@ -179,7 +179,38 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
         return null;
     }
 
-    public static void main(String[] args) {
+   
+
+    @Override
+         public Promotion discount(String magiam) {
+        try {
+            query = "SELECT * FROM dbo.Promotion WHERE MAGIAM = ? ";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, magiam);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Promotion promotion = new Promotion();
+                promotion.setId(rs.getInt("ID"));
+                promotion.setTitle(rs.getString("Title"));
+                promotion.setContent(rs.getString("Content"));
+                promotion.setImageLink(rs.getString("imageLink"));
+                promotion.setDate(rs.getString("date"));
+                promotion.setDiscount(rs.getInt("discount"));
+                promotion.setMagiam(rs.getString("MAGIAM"));
+                return promotion;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(PromotionDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
+          public static void main(String[] args) {
         PromotionDAO dao = new PromotionDAO();
         List<Promotion> list = dao.getAllPromotion();
         for (Promotion o : list) {
