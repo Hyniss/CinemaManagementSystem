@@ -409,7 +409,6 @@ navbar
 table.table tr th, table.table tr td {
     border-color: #e9e9e9;
     padding: 12px 15px;
-    vertical-align: middle;
 }
 table.table tr th:first-child {
     width: 60px;
@@ -504,7 +503,6 @@ button crud
     vertical-align: middle;
 }
 .btn-crud span{
-    background: rgb(0,172,238);
     background: linear-gradient(333deg, rgba(225,147,14,1) 0%, rgba(234,63,63,1) 100%);;
     display: block;
     position: absolute;
@@ -559,9 +557,67 @@ button crud
     -moz-transform: rotateX(-90deg);
     transform: rotateX(-90deg);
 }
+.btn-movie{
+    padding: 5px 4px;
+    margin-top: 4px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    background: linear-gradient(333deg, rgba(225,147,14,1) 0%, rgba(234,63,63,1) 100%);
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+    border-radius: 5px;
+    transition-duration: 0.4s;
+}
+.btn-movie:hover{
+    background: #FFF;
+}
+.btn-change-option{
+    height: 35px;
+    padding: 0 5px;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    background: linear-gradient(333deg, rgba(225,147,14,1) 0%, rgba(234,63,63,1) 100%);
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+    border-radius: 5px;
+    transition-duration: 0.4s;    
+    margin-left: 5px;
+}
+.modal-add-body .add-input-option{
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+}
+.add-input-option label{
+    margin: auto;
+}
+.add-input-option input{
+    width: 65%;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
 /*------------------------
 modal add normal input
 ---------------------*/
+#modal-choose-movie{
+    display: none; 
+}
+#modal-choose-slot{
+    display: none;
+}
+#modal-choose-date{
+    display: none;
+}
+#modal-choose-room{
+    display: none;
+}
 #admin-add-modal{
     display: none;
 }
@@ -590,6 +646,26 @@ modal add normal input
     background-color: #fff;
     border-radius:5px; 
 }
+.modal-add-movieroom{
+    width: 29rem;
+    /* modal height here*/
+    height: 25rem;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    border-radius:5px;
+}
+.modal-add-movie{
+    width: 49rem;
+    /* modal height here*/
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    border-radius:5px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
 .full-width{
     width: 100%;
 }
@@ -649,6 +725,26 @@ modal add checkbox input
     background-color: #fff;
     border-radius:5px; 
 }
+.modal-add-medium{
+    width: 26rem;
+    /* modal height here*/
+     max-height: 32rem;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    border-radius:5px; 
+    overflow-y: auto;
+}
+.modal-add-small{
+    width: 20rem;
+    /* modal height here*/
+    max-height: 28rem;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    border-radius:5px; 
+    overflow-y: auto;
+}
 .modal-add-time .full-width{
     width: 100%;
 }
@@ -702,7 +798,12 @@ modal add checkbox input
 .modal-btn button{
     margin: 0 5px;
 }
-
+#alertExist{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #c43a30;
+}
 .pagination {
     float: right;
     margin: 0 0 5px;

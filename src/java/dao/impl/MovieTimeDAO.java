@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * MovietimeDAO
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package dao.impl;
 
@@ -19,8 +23,10 @@ import model.MovieRoom;
 import model.MovieTime;
 
 /**
+ * This class contain method to find movie time information from database
+ * Implement IMovieTimeDAO Interface
  *
- * @author tenhik
+ * @author Nguyen Nam
  */
 public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
 
@@ -41,8 +47,8 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     list.add(new MovieTime(
-                            rs.getString("slot"),
                             rs.getInt("timeId"),
+                            rs.getString("slot"),
                             rs.getTime("start"),
                             rs.getTime("finish"),
                             rs.getInt("movieRoomId"),
@@ -72,8 +78,8 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new MovieTime(
-                        rs.getString("slot"),
                         rs.getInt("timeId"),
+                        rs.getString("slot"),
                         rs.getTime("start"),
                         rs.getTime("finish"),
                         rs.getInt("movieRoomId"),
@@ -90,7 +96,37 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
         }
         return list;
     }
-
+    
+       @Override
+    public ArrayList<MovieTime> getMovieByMovieRoomIdAndAdd(int movieRoomId) {
+        ArrayList<MovieTime> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM dbo.MovieTime where movieRoomId =? and [add] = 'yes'";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movieRoomId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new MovieTime(
+                        rs.getInt("timeId"),
+                        rs.getString("slot"),
+                        rs.getTime("start"),
+                        rs.getTime("finish"),
+                        rs.getInt("movieRoomId"),
+                        rs.getString("add")
+                ));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+    
     @Override
     public boolean addMovieTime(String slot, Time start, Time end, int movieRoomId, String add) {
         int check = 0;
@@ -158,7 +194,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
     }
 
     @Override
-    public void editMovieTime(Time start, Time end, int movieRoomId,String slot, String add) {
+    public void editMovieTime(Time start, Time end, int movieRoomId, String slot, String add) {
         try {
             query = "update dbo.MovieTime\n"
                     + "set start=?,\n"
@@ -203,7 +239,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             closeResultSet(rs);
         }
     }
-
+    
     @Override
     public MovieTime getMovieTime(int movieroomId, String slot) {
         try {
@@ -218,8 +254,8 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             /*Assign data to an Account*/
             while (rs.next()) {
                 MovieTime m = new MovieTime(
-                        rs.getString("slot"),
                         rs.getInt("timeId"),
+                        rs.getString("slot"),
                         rs.getTime("start"),
                         rs.getTime("finish"),
                         rs.getInt("movieRoomId"),
@@ -239,4 +275,76 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
         return null;
     }
 
+    @Override
+    public MovieTime getMovieTime(int timeId) {
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "SELECT * FROM dbo.MovieTime WHERE timeId = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, timeId);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+            /*Assign data to an Account*/
+            while (rs.next()) {
+                MovieTime m = new MovieTime(
+                        rs.getInt("timeId"),
+                        rs.getString("slot"),
+                        rs.getTime("start"),
+                        rs.getTime("finish"),
+                        rs.getInt("movieRoomId"),
+                        rs.getString("add")
+                );
+                return m;
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
+
+    @Override
+    public MovieTime getMovieTimeByTimeRoom(int movieroomId, int timeRoomId) {
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "select m.*\n"
+                    + "from TimeRoom t join MovieTime m\n"
+                    + "on t.timeId = m.timeId\n"
+                    + "where m.movieRoomId = ?\n"
+                    + "and t.timeRoomId = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movieroomId);
+            ps.setInt(2, timeRoomId);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+            /*Assign data to an Account*/
+            while (rs.next()) {
+                MovieTime m = new MovieTime(
+                        rs.getInt("timeId"),
+                        rs.getString("slot"),
+                        rs.getTime("start"),
+                        rs.getTime("finish"),
+                        rs.getInt("movieRoomId"),
+                        rs.getString("add")
+                );
+                return m;
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
 }

@@ -2,25 +2,18 @@
  * CinemaManagementSystem
  * Copyright(C)2022, Group 4 SE1511 FPTU-HN
  * 
- * AdminListMovieRoom
+ * AdminUpdateMovieRoom
  * Record of change:
  * DATE         Version     AUTHOR        Description
  * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package controller;
 
-import dao.IMovieDAO;
 import dao.IMovieTimeDAO;
-import dao.IRoomDAO;
-import dao.IShowtimesDAO;
 import dao.ITimeRoomDAO;
-import dao.impl.MovieDAO;
 import dao.impl.MovieTimeDAO;
-import dao.impl.RoomDAO;
-import dao.impl.ShowtimesDAO;
 import dao.impl.TimeRoomDAO;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -28,22 +21,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Movie;
-import model.MovieRoom;
-import model.MovieTime;
-import model.Room;
 import model.TimeRoom;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
  * see the list movie room
- * /adminListMovieRoom is the URL of the web site Extend HttpServlet
+ * /adminUpdateMovieRoom is the URL of the web site Extend HttpServlet
  * class
  *
  * @author Nguyen Nam
  */
-@WebServlet(name = "AdminListMovieRoom", urlPatterns = {"/adminListMovieRoom"})
-public class AdminListMovieRoom extends HttpServlet {
+@WebServlet(name = "AdminUpdateMovieRoom", urlPatterns = {"/adminUpdateMovieRoom"})
+public class AdminUpdateMovieRoom extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,36 +46,58 @@ public class AdminListMovieRoom extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        IRoomDAO roomDAO = new RoomDAO();
         ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
-        IShowtimesDAO showtimesDAO = new ShowtimesDAO();
         IMovieTimeDAO movieTimeDAO = new MovieTimeDAO();
-        IMovieDAO movieDAO = new MovieDAO();
 
         int movieRoomId = 0;
+        int timeId = 0;
+        int movieId = 0;
+        int timeRoomId = 0;
+        TimeRoom timeRoom;
+        String roomId = request.getParameter("addRoomId");
+        String function = request.getParameter("function");
         try {
-            movieRoomId = Integer.parseInt(request.getParameter("movieRoomId"));
+            movieRoomId = Integer.parseInt(request.getParameter("addMovieRoomId"));
         } catch (NumberFormatException e) {
-            Logger.getLogger(AdminListMovieRoom.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(AdminUpdateMovieRoom.class.getName()).log(Level.SEVERE, null, e);
         }
-
-        MovieRoom movieRoom = showtimesDAO.getShowtimes(movieRoomId);
-        ArrayList<Room> listRoom = roomDAO.getAllRoom();
-        ArrayList<MovieRoom> listDate = showtimesDAO.getAllDate();
-        ArrayList<MovieTime> listTime = movieTimeDAO.getMovieByMovieRoomId(movieRoomId);
-        ArrayList<MovieTime> listTimeChoose = movieTimeDAO.getMovieByMovieRoomIdAndAdd(movieRoomId);
-        ArrayList<Movie> listMovie = movieDAO.getAllMovie();
-        ArrayList<TimeRoom> listTimeRoom = timeRoomDAO.getAllTimeRoomByMovieRoom(movieRoomId);
-
-        request.setAttribute("listTime", listTime);
-        request.setAttribute("listTimeChoose", listTimeChoose);
-        request.setAttribute("listRoom", listRoom);
-        request.setAttribute("listDate", listDate);
-        request.setAttribute("movieRoom", movieRoom);
-        request.setAttribute("listMovie", listMovie);
-        request.setAttribute("listTimeRoom", listTimeRoom);
-
-        request.getRequestDispatcher("AdminListMovieRoom.jsp").forward(request, response);
+        try {
+            timeId = Integer.parseInt(request.getParameter("addTimeId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(AdminUpdateMovieRoom.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            movieId = Integer.parseInt(request.getParameter("addMovieId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(AdminUpdateMovieRoom.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            timeRoomId = Integer.parseInt(request.getParameter("addTimeRoomId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(AdminUpdateMovieRoom.class.getName()).log(Level.SEVERE, null, e);
+        }
+        TimeRoom timeRoom1 = timeRoomDAO.getTimeRoomByMovieRoom(movieRoomId, roomId, timeId);
+        if (function.equals("add")) {
+            timeRoom = new TimeRoom(movieId, roomId, timeId);
+            timeRoomDAO.addTimeRoom(timeRoom);
+        } else if (function.equals("update")) {
+            timeRoom = new TimeRoom(timeRoomId, movieId, roomId, timeId);
+            if (timeRoom1 == null) {
+                timeRoomDAO.editTimeRoom(timeRoom);
+            } else {
+                if (timeRoom1.getRoomId().equals(roomId) && timeRoom1.getTimeId() == timeId) {
+                    if (timeRoom1.getTimeRoomId() != timeRoomId) {
+                        response.sendRedirect("adminUpdateMovieInRoom?movieRoomId=" + movieRoomId + "&timeId=" + timeId + "&roomId=" + roomId + "&addMovieId=" + movieId + "&timeRoomId=" + timeRoomId + "&viewUpdate=true&updateValid=wrong");
+                        return;
+                    } else {
+                        timeRoomDAO.editTimeRoom(timeRoom);
+                    }
+                } else {
+                    timeRoomDAO.editTimeRoom(timeRoom);
+                }
+            }
+        }
+        response.sendRedirect("adminListMovieRoom?movieRoomId=" + movieRoomId);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
