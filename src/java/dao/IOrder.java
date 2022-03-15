@@ -18,14 +18,24 @@ import model.SeatRoomCart;
  * @author TIEN HUY
  */
 public interface IOrder {
-    ArrayList<Cart> getMyOrderByName(String user,int pageIndex);
+
+    ArrayList<Cart> getMyOrderByName(String user, int pageIndex);
+
     ArrayList<FastFoodCart> getOrderFoodById(int cartId);
+
     ArrayList<SeatRoomCart> getOrderSeatById(int cartId);
+
     SeatRoom getSeatById(int id);
-     FoodAndDrink getFoodById(int id);
+
+    FoodAndDrink getFoodById(int id);
+
     int getTotalOrder(String user);
-     int getTotalOrderByDate(String user,String date);
-     ArrayList<Cart> getMyOrderByDate(String user,String date,int pageIndex);
+
+    int getTotalOrderByDate(String user, String date);
+
+    ArrayList<Cart> getMyOrderByDate(String user, String date, int pageIndex);
+
     public Cart getCartById(int id);
-     public boolean updateCartById(Cart cart);
+
+    public boolean updateCartById(int id);
 }

@@ -131,7 +131,7 @@
                                         <c:if test="${o.status == 0}">
                                             <td><span class="status text-danger">&bull;</span> Cancelled</td>
                                             <td>${o.totalPrice}</td>
-                                            <td><a href="${pageContext.request.contextPath}/OrderDetail?cartId=${o.cartId}&username=${acc.username}" class="view" title="Payment" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
+                                            <td><a href="${pageContext.request.contextPath}/payment?id=${o.cartId}&price=${o.totalPrice}" class="view" title="Payment" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
                                         </c:if>
 
                                     </tr>

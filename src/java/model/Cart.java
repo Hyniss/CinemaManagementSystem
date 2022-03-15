@@ -29,6 +29,12 @@ public class Cart {
         this.status = status;
         this.orderDate = orderDate;
     }
+    
+    public Cart(int cartId, String status, Date orderDate) {
+        this.cartId = cartId;
+        this.status = status;
+        this.orderDate = orderDate;
+    }
 
     public int getCartId() {
         return cartId;
