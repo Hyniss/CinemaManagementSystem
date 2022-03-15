@@ -6,6 +6,10 @@
 package model;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -15,7 +19,6 @@ public class MovieRoom {
 
     private int movieRoomId;
     private Date premiere;
-    private int movieId;
 
     public MovieRoom() {
     }
@@ -46,16 +49,36 @@ public class MovieRoom {
         this.premiere = premiere;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public int getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public int getMonth() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
+    }
+
+    public int getYear() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
+    }
+
+    public String getDay() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(getYear(), getMonth(), getDate());
+        DateFormat formatter = new SimpleDateFormat("EE", Locale.getDefault());
+        return formatter.format(cal.getTime());
     }
 
     @Override
     public String toString() {
-        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + ", movieId=" + movieId + '}';
+        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + '}';
     }
 }

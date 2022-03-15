@@ -18,10 +18,13 @@ import model.SeatRoomCart;
  * @author TIEN HUY
  */
 public interface IOrder {
-    public ArrayList<Cart> getMyOrderByName(String user);
-    public ArrayList<FastFoodCart> getOrderFoodById(int cartId);
-    public ArrayList<SeatRoomCart> getOrderSeatById(int cartId);
-    public SeatRoom getSeatById(int id);
-    public FoodAndDrink getFoodById(int id);
+    ArrayList<Cart> getMyOrderByName(String user,int pageIndex);
+    ArrayList<FastFoodCart> getOrderFoodById(int cartId);
+    ArrayList<SeatRoomCart> getOrderSeatById(int cartId);
+    SeatRoom getSeatById(int id);
+     FoodAndDrink getFoodById(int id);
+    int getTotalOrder(String user);
+     int getTotalOrderByDate(String user,String date);
+     ArrayList<Cart> getMyOrderByDate(String user,String date,int pageIndex);
     
 }

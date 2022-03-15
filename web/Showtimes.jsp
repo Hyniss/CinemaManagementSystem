@@ -10,6 +10,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="getTime" class="dao.impl.MovieTimeDAO"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -84,58 +87,62 @@
                         <div class="table-wrapper">
                             <div class="table-title">
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <h2>
-                                            Manage <b>Time</b>
-                                        </h2>
+                                    <div>
+                                        <button  class="custom-btn btn-book" style="background-color: #0092ef">
+                                            <a href="movie?mid=${movie.getMovieId()}">
+                                                <span>Back</span>
+                                                <span>Back</span>
+                                            </a>
+                                        </button>
                                     </div>
+                                    </br>
                                     <div >
-                                        <div class="product-collateral toggle-content tabs tabs-cgv-movie-view-date">
-                                            <!--   <div class="dropdown" style="background: transparent;
-                                                    border: medium none;
-                                                    text-align: center;
-                                                    }">-->
-                                            <!--                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                            Choose Time
-                                                                                        </button>-->
+                                        </br>
+                                        </br>
+                                        <cite style="font-size: 50px; color: #006dcc">${movie.movieName}</cite>
+                                    </div>
+                                    </br>
 
-                                            <!--                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <c:forEach items="${movieRoom2}" var="o">
-                                                <a class="dropdown-item" href="showtimes?movieRoomId=${o.movieRoomId}&movieId=${o.movieId}">
-                                                <fmt:formatDate pattern="EEEE, dd-MM-yyyy"  value = "${o.premiere}"/> 
-                                               <p>${o.getDate()}</p>
-                                            </a>                                       
-                                            </c:forEach>
-                                        </div>-->
-                                            <c:forEach items="${movieRoom2}" var="o">
-                                                <ul class="toggle-tabs"  style="    border-bottom: 2px solid #2b2b2b;
+                                    </br>
+                                    <!--                                    <div class="col-sm-6">
+                                                                            <h2>
+                                                                                Manage <b>Time</b>
+                                                                            </h2>
+                                                                        </div>-->
+                                    <div >
+                                        <div class="product-collateral toggle-content tabs tabs-cgv-movie-view-date" style="margin-left: 10%">
+                                            <c:forEach items="${movieRoom}" var="o">
+                                                <ul class="toggle-tabs parent"  style="    
+                                                    border-bottom: 2px solid #2b2b2b;
                                                     border-top: 2px solid #2b2b2b;
                                                     display: inline-block;
                                                     margin-bottom: 30px;
                                                     padding: 20px 0;
                                                     padding: 20px;
                                                     margin: 0px;">
-                                                    <ul class="current" style="    border: 2px solid #222;
+                                                    <li class="" style=" border: 2px solid #222; list-style: none;
                                                         border-radius: 5px;">
-                                                        <div class="day active" style="color: #717171;
+                                                        <div class="child" style="color: #717171;
                                                              cursor: pointer;
                                                              height: 48px;
                                                              position: relative;
                                                              width: 77px;" >
 
-                                                            <a class="dropdown-item1" href="showtimes?movieRoomId=${o.movieRoomId}&movieId=${o.movieId}">
+                                                            <a class="dropdown-item1 " href="showtimes?movieRoomId=${o.movieRoomId}&movieId=${movieId}">
                                                                 <span style="color: #717171;
                                                                       font-size: 11px;
                                                                       left: 4px;
+                                                                      font-weight: 900;
                                                                       position: absolute;
                                                                       top: 4px;">
-                                                                    0${o.getMonth()}
+                                                                    ${o.getMonth()}
                                                                 </span>
                                                                 <em style="    color: #717171;
                                                                     font-size: 11px;
                                                                     font-style: normal;
                                                                     left: 4px;
                                                                     position: absolute;
+                                                                    font-weight: 900;
                                                                     top: 20px;">
                                                                     ${o.getDay()}
                                                                 </em>
@@ -145,108 +152,155 @@
                                                                         left: 31px;
                                                                         line-height: 32px;
                                                                         position: absolute;
+                                                                        font-weight: 900;
                                                                         top: 8px;">
                                                                     ${o.getDate()}
                                                                 </strong>
                                                             </a>
                                                         </div>
-                                                    </ul>
+                                                    </li>
                                                 </ul>
                                             </c:forEach>
-
                                         </div>
-
                                     </div>
                                 </div>
+
+
+                                <style>
+                                    .bak{ background-color: #009ceb; color: #fff; font-weight:bold; }
+                                </style>
+
+                                <script>
+
+                                    var elements = document.getElementsByClassName("child");
+                                    for (var i = 0; i < elements.length; i++)
+                                    {
+                                        elements[i].onclick = function () {
+
+                                            // remove class from sibling
+
+                                            var el = elements[0];
+                                            while (el)
+                                            {
+                                                if (el.tagName === "DIV") {
+                                                    //remove class
+                                                    el.classList.remove("bak");
+
+                                                }
+                                                // pass to the new sibling
+                                                el = el.nextSibling;
+                                            }
+
+                                            this.classList.add("bak");
+                                        };
+                                    }
+
+                                </script>    
                             </div>
-                            <table class="table table-striped table-hover">
-                                <!--                                <thead>
-                                                                    <tr>
-                                                                        <th>Time</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                <c:forEach items="${movieDate1}" var="o">
-                                    <tr>
-                                        <td>                                   
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/seat">
-                                    <fmt:formatDate pattern="HH:mm" type="time" value="${o.time}"/>
-                                </a>                                       
-                            </td>
-                        </tr>
-                                </c:forEach>
-                            </tbody>-->
-                                <c:forEach items="${movieDate1}" var="o">
-                                    <ul class="products-grid-movie tab-showtime" style="margin-bottom: 15px; list-style: none;
-                                        float: left;">
-                                        <ul class="item" style="    border: 1px solid #222;
-                                            padding: 5px 10px;
-                                            float: left;
-                                            margin-right: 3px;
-                                            text-align: center;
-                                            margin-top: 3px;" >
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/seat" style="color: #e71a0f;
-                                               text-decoration: none;     touch-action: manipulation">
-                                                <span style="color: #222;
-                                                      clear: both;
-                                                      float: left;
-                                                      width: 100%;">${o.getTimeFormatted()}</span>
-                                            </a>
-                                        </ul>
-                                    </ul>
-                                </c:forEach>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <style>
-                    .active {
-                        background: #2196F3;
-                        color: #fff;
-                        
-                    }
-                    </style>
-            </div>
-        </section>
-        <script type="text/javascript">
-            $('#myTable').click(function () {
-                $(this).addClass('active').siblings().removeClass('active');
-            });
-        </script>
-        <%@include file="template/footer.jsp" %>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
 
-        <!-- BOOTSTRAP5-->
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"
-        ></script>
-        <!-- SCRIPT -->
-        <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-        <!-- SAKURA -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script>
-            $(window).load(function () {
-                $('body').sakura();
-            });
-        </script>
+                                    <tbody>
+                                        <c:forEach items="${room}" var="p">
 
-        <!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                <script type="text/javascript">
-        
-                    $(document).ready(function () {
-                        $(".day").click(function () {
-                            $(".day").removeClass("highlight");
-                            $(this).addClass("highlight");
-                        });
-                    });
-        
-                </script>-->
+                                        <td style="padding: 20px">
+                                            <p>${p.roomName}</p>
 
-    </body>
-</html>
+                                        </td>
+                                        <c:forEach items="${getTime.getId(movieId, movieRoomId, p.roomId)}" var="i">
+                                            <td style="margin: 1px">
+                                                <ul class="products-grid-movie tab-showtime" style="margin-bottom: 5px; list-style: none;
+                                                    float: left;">
+                                                    <ul class="item" style="    border: 1px solid #222;
+                                                        padding-top: 5px;
+                                                        float: left;
+                                                        /*                                                        position: fixed;*/
+                                                        margin-right: 5px;
+                                                        text-align: center;
+                                                        margin-top: 3px;
+                                                        width: 120px" >
+
+                                                        <a class="dropdown-item2" href="${pageContext.request.contextPath}/seat" style="color: #e71a0f;
+                                                           text-decoration: none;     touch-action: manipulation">
+                                                            <span style="color: #222;
+                                                                  clear: both;
+                                                                  float: left;
+                                                                  width: 100%;">
+                                                                <fmt:formatDate type="time" pattern="HH:mm aa" value="${i.start}"/></p>  
+
+                                                            </span>
+                                                        </a>
+                                                        </td>
+                                                    </c:forEach>
+
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody> 
+                                                </table>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                                </div>
+
+                                                </section>
+                                                <%@include file="template/footer.jsp" %>
+
+                                                <!-- BOOTSTRAP5-->
+                                                <script
+                                                    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                                                    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                                                    crossorigin="anonymous"
+                                                ></script>
+                                                <!-- SCRIPT -->
+                                                <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+                                                <!-- SAKURA -->
+                                                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                                                <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+                                                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+                                                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+                                                <script>
+                                    $(window).load(function () {
+                                        $('body').sakura();
+                                    });
+                                                </script>
+                                                <script src="https://code.jquery.com/jquery-migrate-3.3.2.js"></script>
+                                                <script type="text/javascript">
+                                    $(document).on('click', 'li day', function () {
+                                    $(this).addClass('active').siblings().removeClass('active')
+                                    }
+                                                </script>
+                                                <!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+                                                        <script type="text/javascript">
+                                                
+                                                            $(document).ready(function () {
+                                                                $(".day").click(function () {
+                                                                    $(".day").removeClass("highlight");
+                                                                    $(this).addClass("highlight");
+                                                                });
+                                                            });
+                                                
+                                                        </script>-->
+
+                                                </body>
+                                                </html>
+
+                                                <script>
+                                                    let btnContainer = document.querySelector('.current');
+                                                    let btn = document.querySelectorAll('.day');
+
+
+                                                    btn.forEach(el => {
+                                                        el.addEventListener('click', function () {
+                                                            btnContainer.querySelector('.active').classList.remove('active');
+
+                                                            el.classList.add('active');
+                                                        });
+                                                    });
+                                                </script>
+                                                <style>
+                                                    .active {
+                                                        opacity: 1;
+                                                    }
+                                                </style>
 

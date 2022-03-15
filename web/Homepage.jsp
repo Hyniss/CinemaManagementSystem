@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="text-center my-4 hover">                               
                                     <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
-                                    <button onclick="" class="custom-btn btn-book"><span>Mua vé !</span><span>Mua vé</span></button>
+                                    <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}"><span>Mua vé !</span><span>Mua vé</span></a></button>
                                 </div>
                                 <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                             </div>

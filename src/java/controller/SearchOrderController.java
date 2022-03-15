@@ -25,8 +25,8 @@ import model.Cart;
  *
  * @author TIEN HUY
  */
-@WebServlet(name = "MyOrderController", urlPatterns = {"/MyOrder"})
-public class MyOrderController extends HttpServlet {
+@WebServlet(name = "SearchOrderController", urlPatterns = {"/SearchOrder"})
+public class SearchOrderController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,27 +40,32 @@ public class MyOrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          HttpSession session = request.getSession();
+             HttpSession session = request.getSession();
+             Account acc = (Account)session.getAttribute("acc");
           try{
           IOrder order = new OrderDAO();
-          Account acc = (Account)session.getAttribute("acc");
+          String date = request.getParameter("searchdate");
           String index = request.getParameter("pageIndex");
            if(index == null) index = "1";
-           String user = acc.getUsername();
+          
         int pageIndex = Integer.parseInt(index);
-         int total =  order.getTotalOrder(user);
+         int total =  order.getTotalOrderByDate(acc.getUsername(),date);
          int endPage = (int) Math.ceil((double)total/3);
           
-        ArrayList<Cart> orderList = order.getMyOrderByName(user, pageIndex);
+        ArrayList<Cart> orderList = order.getMyOrderByDate(acc.getUsername(),date, pageIndex);
+         if (orderList.size() == 0) {
+                String searchMess = "No data to show!";
+                request.setAttribute("searchMess", searchMess);
+            }
         session.setAttribute("order", orderList);
         request.setAttribute("total1", total);
         request.setAttribute("endPage1", endPage);
         request.setAttribute("pageIndex1", pageIndex);
+        request.setAttribute("searchdate", date);
           }catch(Exception e){
               Logger.getLogger(MyOrderController.class.getName()).log(Level.SEVERE, null, e);
           }
         request.getRequestDispatcher("MyOrder.jsp").forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

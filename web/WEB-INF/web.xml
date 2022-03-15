@@ -153,10 +153,6 @@
         <servlet-class>controller.AdminSearchAccountController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Showtimes</servlet-name>
-        <servlet-class>controller.ShowtimesController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminDeleteShowtimesController</servlet-name>
         <servlet-class>controller.AdminDeleteShowtimesController</servlet-class>
     </servlet>
@@ -187,6 +183,10 @@
     <servlet>
         <servlet-name>ViewNotificationController</servlet-name>
         <servlet-class>controller.ViewNotificationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowtimesController</servlet-name>
+        <servlet-class>controller.ShowtimesController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -345,10 +345,6 @@
         <url-pattern>/adminaccountsearch</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Showtimes</servlet-name>
-        <url-pattern>/showtimes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminDeleteShowtimesController</servlet-name>
         <url-pattern>/delete_showtimes</url-pattern>
     </servlet-mapping>
@@ -379,6 +375,10 @@
     <servlet-mapping>
         <servlet-name>ViewNotificationController</servlet-name>
         <url-pattern>/notificationview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowtimesController</servlet-name>
+        <url-pattern>/showtimes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

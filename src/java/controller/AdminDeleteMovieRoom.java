@@ -1,15 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * AdminDeleteMovieRoom
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package controller;
 
-import dao.IOrder;
-import dao.impl.OrderDAO;
+import dao.ITimeRoomDAO;
+import dao.impl.TimeRoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,16 +20,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Account;
-import model.Cart;
 
 /**
+ * This is a Servlet responsible for handling the task when the user wants to
+ * see the list movie room
+ * /adminDeleteMovieRoom is the URL of the web site Extend HttpServlet
+ * class
  *
- * @author TIEN HUY
+ * @author Nguyen Nam
  */
-@WebServlet(name = "MyOrderController", urlPatterns = {"/MyOrder"})
-public class MyOrderController extends HttpServlet {
+@WebServlet(name = "AdminDeleteMovieRoom", urlPatterns = {"/adminDeleteMovieRoom"})
+public class AdminDeleteMovieRoom extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,27 +44,24 @@ public class MyOrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          HttpSession session = request.getSession();
-          try{
-          IOrder order = new OrderDAO();
-          Account acc = (Account)session.getAttribute("acc");
-          String index = request.getParameter("pageIndex");
-           if(index == null) index = "1";
-           String user = acc.getUsername();
-        int pageIndex = Integer.parseInt(index);
-         int total =  order.getTotalOrder(user);
-         int endPage = (int) Math.ceil((double)total/3);
-          
-        ArrayList<Cart> orderList = order.getMyOrderByName(user, pageIndex);
-        session.setAttribute("order", orderList);
-        request.setAttribute("total1", total);
-        request.setAttribute("endPage1", endPage);
-        request.setAttribute("pageIndex1", pageIndex);
-          }catch(Exception e){
-              Logger.getLogger(MyOrderController.class.getName()).log(Level.SEVERE, null, e);
-          }
-        request.getRequestDispatcher("MyOrder.jsp").forward(request, response);
-        
+        ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
+
+        int timeRoomId = 0;
+        int movieRoomId = 0;
+
+        try {
+            timeRoomId = Integer.parseInt(request.getParameter("timeRoomId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(AdminUpdateMovieRoom.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            movieRoomId = Integer.parseInt(request.getParameter("movieRoomId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(AdminViewModalMovieRoom.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        timeRoomDAO.deleteTimeRoom(timeRoomId);
+        response.sendRedirect("adminListMovieRoom?movieRoomId=" + movieRoomId);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

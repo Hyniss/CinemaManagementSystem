@@ -2,7 +2,7 @@
  * CinemaManagementSystem
  * Copyright(C)2022, Group 4 SE1511 FPTU-HN
  * 
- * Interface IFoodDAO
+ * FeedbackDAO
  * Record of change:
  * DATE         Version     AUTHOR        Description
  * 2022-02-11   1.0         Nguyen Nam    First Implement
@@ -118,15 +118,6 @@ public class FeedbackDAO extends DBContext implements IFeedbackDAO {
             closeResultSet(rs);
         }
         return 0;
-    }
-
-    public static void main(String[] args) {
-        IFeedbackDAO f = new FeedbackDAO();
-        System.out.println(f.countTotalFeedback());
-        ArrayList<Feedback> getAllFeedbackPaggingAndSorting = f.getAllFeedbackPaggingAndSorting(1, 5, 1);
-        for (Feedback feedback : getAllFeedbackPaggingAndSorting) {
-            System.out.println(feedback.getUsername());
-        }
     }
 
     @Override

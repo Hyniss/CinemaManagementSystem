@@ -18,8 +18,6 @@ public class MovieTime {
     private Time start;
     private Time end;
     private int movieRoomId;
-    private int movieId;
-    private String roomId;
     private String add;
 
     public MovieTime() {
@@ -34,13 +32,12 @@ public class MovieTime {
         this.add = add;
     }
 
-    public MovieTime(int timeId, String slot, Time start, Time end, int movieRoomId, int movieId, String roomId, String add) {
+    public MovieTime(int timeId, String slot, Time start, Time end, int movieRoomId, String add) {
         this.timeId = timeId;
+        this.slot =slot;
         this.start = start;
         this.end = end;
         this.movieRoomId = movieRoomId;
-        this.movieId = movieId;
-        this.roomId = roomId;
         this.add =add;
     }
 
@@ -76,22 +73,6 @@ public class MovieTime {
         this.end = end;
     }
 
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
-
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
     public int getMovieRoomId() {
         return movieRoomId;
     }
@@ -108,10 +89,9 @@ public class MovieTime {
         this.slot = slot;
     }
 
-    
     @Override
     public String toString() {
-        return "MovieTime{" + "timeId=" + timeId + ", start=" + start + ", end=" + end + ", movieId=" + movieId + ", roomId=" + roomId + '}';
+        return "MovieTime{" + "timeId=" + timeId + ", slot=" + slot + ", start=" + start + ", end=" + end + ", movieRoomId=" + movieRoomId + ", add=" + add + '}';
     }
 
 }

@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * MovieDAO
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Thai Tran    First Implement
  */
 package dao.impl;
 
@@ -167,6 +171,7 @@ public class MovieDAO extends DBContext implements IMovieDAO {
      * getNext4Movie from amount to amount+4 method implement from IMovieDAO
      * param @amount int
      *
+     * @param amount
      * @return chapters. <code>java.util.ArrayList</code> object
      */
     @Override
@@ -316,8 +321,8 @@ public class MovieDAO extends DBContext implements IMovieDAO {
         ArrayList<Movie> list = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
-            query = "select * from Movie\n"
-                    + "where (DATEDIFF(DAY,GETDATE(),premiere)) > -14 and (DATEDIFF(DAY,GETDATE(),premiere))<=0";
+            query = "select * from Movie\n";
+//                    + "where (DATEDIFF(DAY,GETDATE(),premiere)) > -14 and (DATEDIFF(DAY,GETDATE(),premiere))<=0";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
 
@@ -395,18 +400,18 @@ public class MovieDAO extends DBContext implements IMovieDAO {
         return list;
     }
 
-     //get movie with pagging
+    //get movie with pagging
     @Override
-    public ArrayList<Movie> getMovieWithPagging(int page,int PAGE_SIZE){
+    public ArrayList<Movie> getMovieWithPagging(int page, int PAGE_SIZE) {
         ArrayList<Movie> list = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
-            query = "Select * from movie order by movieId\n" 
-                    +"offset (?-1)*? row fetch next ? rows only";
+            query = "Select * from movie order by movieId\n"
+                    + "offset (?-1)*? row fetch next ? rows only";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, page);
-            ps.setInt(2,PAGE_SIZE);
+            ps.setInt(2, PAGE_SIZE);
             ps.setInt(3, PAGE_SIZE);
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
@@ -437,11 +442,51 @@ public class MovieDAO extends DBContext implements IMovieDAO {
         }
         return list;
     }
-    
-    //count total movie
-    
+
     @Override
-    public int getTotalMovie(){
+    public ArrayList<Movie> getMovieByMovieRoomId(int movieRoomId, String roomId) {
+        ArrayList<Movie> list = new ArrayList<>();
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "select M.*\n"
+                    + "from Movie M join MovieTime MT\n"
+                    + "on M.movieId = MT.movieId\n"
+                    + "where MT.movieRoomId = ? and roomId = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            /*Query and save in ResultSet*/
+            ps.setInt(1, movieRoomId);
+            ps.setString(2, roomId);
+            rs = ps.executeQuery();
+            /*Assign data to an arraylist of Movie*/
+            while (rs.next()) {
+                list.add(new Movie(rs.getInt("movieId"),
+                        rs.getString("movieName"),
+                        rs.getString("image"),
+                        rs.getString("categoryMovie"),
+                        rs.getString("describe"),
+                        rs.getString("trailer"),
+                        rs.getString("author"),
+                        rs.getString("actor"),
+                        rs.getString("duration"),
+                        rs.getDate("premiere")
+                ));
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(MovieDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    //count total movie
+    @Override
+    public int getTotalMovie() {
         try {
             /*Set up connection and Sql statement for Query*/
             query = "select count(MovieId) from Movie";
@@ -465,14 +510,14 @@ public class MovieDAO extends DBContext implements IMovieDAO {
         }
         return 0;
     }
-    
+
     //add movie
     @Override
     public void addMovie(Movie movie) {
         try {
 
-            query = 
-                    "insert into Movie(movieName,image,categoryMovie,"
+            query
+                    = "insert into Movie(movieName,image,categoryMovie,"
                     + "describe,trailer,author,actor,duration,[premiere]) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
@@ -540,7 +585,6 @@ public class MovieDAO extends DBContext implements IMovieDAO {
             closeResultSet(rs);
         }
     }
-
 
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();

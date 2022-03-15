@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * CinemaManagementSystem
+ * Copyright(C)2022, Group 4 SE1511 FPTU-HN
+ * 
+ * ShowtimesDAO
+ * Record of change:
+ * DATE         Version     AUTHOR        Description
+ * 2022-02-11   1.0         Nguyen Nam    First Implement
  */
 package dao.impl;
 
@@ -17,11 +21,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.MovieRoom;
-import model.MovieRoom1;
 
 /**
+ * This class contain method to find MovieRoom information from database
+ * Implement IMovieRoomDAO Interface
  *
- * @author Bảo Châu Bống
+ * @author Nguyen Nam
  */
 public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
 
@@ -97,6 +102,31 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
         }
         return list;
     }
+    
+    @Override
+    public ArrayList<MovieRoom> getAllDate() {
+        ArrayList<MovieRoom> list = new ArrayList<>();
+        try {
+            query = "select * from dbo.MovieRoom order by premiere desc "; 
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new MovieRoom(
+                        rs.getInt("movieRoomId"),
+                        rs.getDate("premiere")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+    
 
     @Override
     public int addShowtimes(Date date) {
@@ -120,11 +150,6 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             closeResultSet(rs);
         }
         return id;
-    }
-
-    public static void main(String[] args) {
-        ShowtimesDAO dao = new ShowtimesDAO();
-        System.out.println(dao.addShowtimes(Date.valueOf("2022-04-04")));
     }
 
     @Override
@@ -192,5 +217,10 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
             closeResultSet(rs);
         }
         return null;
+    }
+    public static void main(String[] args) {
+     ShowtimesDAO dao = new ShowtimesDAO();
+     MovieRoom movieRoom = dao.getShowtimes(1);
+        System.out.println(movieRoom);
     }
 }
