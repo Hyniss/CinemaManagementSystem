@@ -75,5 +75,19 @@ public class Notification {
         return "Notification{" + "notificationId=" + notificationId + ", notificationImg=" + notificationImg + ", notificationTitle=" + notificationTitle + ", notificationDescription=" + notificationDescription + ", notificationDate=" + notificationDate + '}';
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Notification) {
+            Notification another = (Notification) obj;
+            if (this.notificationId==another.notificationId &&
+                this.notificationImg.equals(another.notificationImg) &&
+                this.notificationTitle.equals(another.notificationTitle) &&
+                this.notificationDescription.equals(another.notificationDescription) &&
+                this.notificationDate.compareTo(another.notificationDate)==0){
+                    return true;
+            }
+        }
+        return false; //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

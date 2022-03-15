@@ -82,24 +82,24 @@ public class AdminEditAccountController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         //get account properites from jsp
-        String username = request.getParameter("username");
+        String username = request.getParameter("username").replaceAll("\\s+", " ").trim();
         String password = request.getParameter("password");
-        String avatar = request.getParameter("avatar");
-        String fullname = request.getParameter("fullname");
+        String avatar = request.getParameter("avatar").replaceAll("\\s+", " ").trim();
+        String fullname = request.getParameter("fullname").replaceAll("\\s+", " ").trim();
         Date dob = Date.valueOf(request.getParameter("dob"));
-        String email = request.getParameter("email");
+        String email = request.getParameter("email").replaceAll("\\s+", " ").trim();
         String phone = request.getParameter("phone");
         int roleid = Integer.parseInt(request.getParameter("roleid"));
 
         //set popeties into new account
         Account account = new Account();
-        account.setUsername(username.trim());
+        account.setUsername(username);
         account.setPassword(password);
-        account.setAvatar(avatar.trim());
-        account.setFullName(fullname.trim());
+        account.setAvatar(avatar);
+        account.setFullName(fullname);
         account.setDob(dob);
-        account.setEmail(email.trim());
-        account.setPhone(phone.trim());
+        account.setEmail(email);
+        account.setPhone(phone);
         account.setRoleId(roleid);
 
         //check constraint and store in mess

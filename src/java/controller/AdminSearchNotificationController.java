@@ -31,45 +31,39 @@ public class AdminSearchNotificationController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         //get search txt
-        String notificationTitle = request.getParameter("searchtxt").trim();
+        String notificationTitle = request.getParameter("searchtxt").replaceAll("\\s+", " ").trim();
         request.setAttribute("searchtxt", notificationTitle);
 
-        if (notificationTitle.equals("")) {
-            String searchMess = "This field can not empty!";
+        //get pageindex params
+        String index = request.getParameter("pageIndex");
+        if (index == null) {
+            index = "1";
+        }
+        int pageIndex = Integer.parseInt(index);
+
+        //get list account bu search txt
+        List<Notification> notificationtList = new ArrayList<>();
+        notificationtList = notificationDAO.getNotificationByTitle(notificationTitle, pageIndex);
+
+        //count number of pages
+        int total = notificationDAO.getTotalNotificationByTitle(notificationTitle);
+        int endPage = (int) Math.ceil((double) total / 5);
+
+        request.setAttribute("total", total);
+        request.setAttribute("endPage", endPage);
+        request.setAttribute("pageIndex", pageIndex);
+
+        if (notificationtList.size() == 0) {
+            String searchMess = "No data to show!";
             request.setAttribute("searchMess", searchMess);
-            request.setAttribute("total", 0);
             request.getRequestDispatcher("AdminManageNotification.jsp").forward(request, response);
         } else {
-            //get pageindex params
-            String index = request.getParameter("pageIndex");
-            if (index == null) {
-                index = "1";
-            }
-            int pageIndex = Integer.parseInt(index);
 
-            //get list account bu search txt
-            List<Notification> notificationtList = new ArrayList<>();
-            notificationtList = notificationDAO.getNotificationByTitle(notificationTitle, pageIndex);
-            
-            //count number of pages
-            int total = notificationDAO.getTotalNotificationByTitle(notificationTitle);
-            int endPage = (int) Math.ceil((double) total / 5);
-
-            request.setAttribute("total", total);
-            request.setAttribute("endPage", endPage);
-            request.setAttribute("pageIndex", pageIndex);
-
-            if (notificationtList.size() == 0) {
-                String searchMess = "No data to show!";
-                request.setAttribute("searchMess", searchMess);
-                request.getRequestDispatcher("AdminManageNotification.jsp").forward(request, response);
-            } else {
-
-                //set properties and send to jsp
-                request.setAttribute("notificationList", notificationtList);
-                request.getRequestDispatcher("AdminManageNotification.jsp").forward(request, response);
-            }
+            //set properties and send to jsp
+            request.setAttribute("notificationList", notificationtList);
+            request.getRequestDispatcher("AdminManageNotification.jsp").forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
