@@ -58,31 +58,31 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>User name</label>
-                                    <input value="${account.username}" name="username" type="text" class="form-control" required>
+                                    <input value="${successMessage==null? account.username:""}" name="username" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input value="${account.password}" name="password" type="password" class="form-control" required>
+                                    <input value="${successMessage==null? account.password:""}" name="password" type="password" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <!--                                    <label>Avatar</label>-->
-                                    <input value="${account.avatar}" name="avatar" type="hidden" class="form-control" required>
+                                    <input value="${successMessage==null?account.avatar:""}" name="avatar" type="hidden" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Full name</label>
-                                    <input value="${account.fullName}" name="fullname" type="text" class="form-control" required>
+                                    <input value="${successMessage==null?account.fullName:""}" name="fullname" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>DOB</label>
-                                    <input value="${account.dob}" name="dob" type="date" class="form-control" required>
+                                    <input value="${successMessage==null?account.dob:""}" name="dob" type="date" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input value="${account.email}" name="email" type="email" class="form-control" required>
+                                    <input value="${successMessage==null?account.email:""}" name="email" type="email" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Phone</label>
-                                    <input value="${account.phone}" name="phone" type="number" class="form-control" required>
+                                    <input value="${successMessage==null?account.phone:""}" name="phone" type="number" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>

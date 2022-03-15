@@ -88,17 +88,17 @@ public class AdminEditNotificationController extends HttpServlet {
 
         //get notification properites from jsp
         int notiId = Integer.parseInt(request.getParameter("notiId"));
-        String img = request.getParameter("img");
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
+        String img = request.getParameter("img").replaceAll("\\s+", " ").trim();
+        String title = request.getParameter("title").replaceAll("\\s+", " ").trim();
+        String description = request.getParameter("description").replaceAll("\\s+", " ").trim();
         Date date = Date.valueOf(request.getParameter("date"));
 
         //set popeties into new notification
         Notification notification = new Notification();
         notification.setNotificationId(notiId);
-        notification.setNotificationImg(img.trim());
-        notification.setNotificationTitle(title.trim());
-        notification.setNotificationDescription(description.trim());
+        notification.setNotificationImg(img);
+        notification.setNotificationTitle(title);
+        notification.setNotificationDescription(description);
         notification.setNotificationDate(date);;
 
         //check constraint and store in mess
