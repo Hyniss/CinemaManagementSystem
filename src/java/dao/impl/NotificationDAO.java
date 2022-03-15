@@ -68,7 +68,7 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         }
         return notificationList;
     }
-    
+
     /**
      * getNotificationById method implement from IAccountDAO
      *
@@ -109,7 +109,6 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         }
         return null;
     }
-
 
     /**
      * pagingNotification implement from INotificationDAO
@@ -153,7 +152,7 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         }
         return notificationList;
     }
-    
+
     /**
      * getTotalNotification method implement from INotificationDAO
      *
@@ -185,8 +184,8 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         }
         return 0;
     }
-    
-        /**
+
+    /**
      * insertNotification method implement from INotificationDAO
      *
      * @param Notification. Notification object
@@ -216,8 +215,7 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         return check > 0;
     }
 
-    
-        /**
+    /**
      * editNotifications method implement from INotificationDAO
      *
      * @param Notification. Notification object
@@ -287,7 +285,7 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         }
         return check > 0;
     }
-    
+
     /**
      * getNotificationByTitle method implement from INotificationDAO
      *
@@ -332,7 +330,7 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
         }
         return notificationList;
     }
-    
+
     /**
      * getTotalNotificationByTitle method implement from INotificationDAO
      *
@@ -340,12 +338,15 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
      */
     @Override
     public int getTotalNotificationByTitle(String title) {
+        if (title.equals("")) {
+            return 0;
+        }
         try {
             /*Set up connection and Sql statement for Query*/
             query = "select count(*) from Notification where notificationTitle like ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, "%"+title+"%");
+            ps.setString(1, "%" + title + "%");
 
             /*Excute query and store it to check*/
             rs = ps.executeQuery();
