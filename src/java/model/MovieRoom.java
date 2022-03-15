@@ -6,6 +6,10 @@
 package model;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -45,9 +49,36 @@ public class MovieRoom {
         this.premiere = premiere;
     }
 
+    public int getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
+    }
+
+    public int getMonth() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
+    }
+
+    public int getYear() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        int strDate = Integer.parseInt((formatter.format(premiere)));
+        //System.out.println(strDate);
+        return strDate;
+    }
+
+    public String getDay() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(getYear(), getMonth(), getDate());
+        DateFormat formatter = new SimpleDateFormat("EE", Locale.getDefault());
+        return formatter.format(cal.getTime());
+    }
 
     @Override
     public String toString() {
-        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere  + '}';
+        return "MovieRoom{" + "movieRoomId=" + movieRoomId + ", premiere=" + premiere + '}';
     }
 }

@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.MovieRoom;
@@ -96,8 +97,8 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
         }
         return list;
     }
-    
-       @Override
+
+    @Override
     public ArrayList<MovieTime> getMovieByMovieRoomIdAndAdd(int movieRoomId) {
         ArrayList<MovieTime> list = new ArrayList<>();
         try {
@@ -126,7 +127,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
         }
         return list;
     }
-    
+
     @Override
     public boolean addMovieTime(String slot, Time start, Time end, int movieRoomId, String add) {
         int check = 0;
@@ -239,7 +240,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             closeResultSet(rs);
         }
     }
-    
+
     @Override
     public MovieTime getMovieTime(int movieroomId, String slot) {
         try {
@@ -346,5 +347,82 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             closeResultSet(rs);
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        MovieTimeDAO dao = new MovieTimeDAO();
+        // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
+        ArrayList<MovieTime> list = dao.getId(7, 15, "1");
+//        for (MovieRoom1 o : list) {
+//            System.out.println(o);
+//        }
+        //MovieRoom m = dao.getTimeById(49);
+        System.out.println(list);
+    }
+
+    @Override
+    public ArrayList<MovieTime> getAllMovieTime() {
+        ArrayList<MovieTime> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM dbo.MovieTime";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new MovieTime(
+                        rs.getInt("timeId"),
+                        rs.getString("slot"),
+                        rs.getTime("start"),
+                        rs.getTime("finish"),
+                        rs.getInt("movieRoomId"),
+                        rs.getString("add"))
+                );
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MovieTimeDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+
+        return list;
+    }
+
+    @Override
+    public ArrayList<MovieTime> getId(int movieId, int movieRoomId, String roomId) {
+        ArrayList<MovieTime> list = new ArrayList<>();
+        try {
+            query = "select t.*\n"
+                    + "from MovieRoom m, MovieTime t, TimeRoom r\n"
+                    + "where m.movieRoomId = t.movieRoomId and r.timeId =t.timeId "
+                    + "and movieId = ? and m.movieRoomId = ? and roomId = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movieId);
+            ps.setInt(2, movieRoomId);
+            ps.setString(3, roomId);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new MovieTime(
+                        rs.getInt("timeId"),
+                        rs.getString("slot"),
+                        rs.getTime("start"),
+                        rs.getTime("finish"),
+                        rs.getInt("movieRoomId"),
+                        rs.getString("add"))
+                );
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MovieDateDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
     }
 }
