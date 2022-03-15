@@ -318,5 +318,68 @@ public class OrderDAO extends DBContext implements IOrder {
         }
         return 0;
     }
+      public Cart getCartById(int id)
+    {
+             try {
+            /*Set up connection and Sql statement for Query*/
+            
+            query = "select * from Cart where cartid = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            /*Assign data to an arraylist of Account*/
+            while (rs.next()) {
+               Cart cart = new Cart(
+                        rs.getInt("cartId"),
+                        rs.getString("username"),
+                        rs.getDouble("totalPrice"),
+                        rs.getString("status"),
+                        rs.getDate("orderDate")
+                       
+                );
+               return cart;
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
+    public boolean updateCartById(Cart cart){
+         int check = 0;
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "UPDATE [Cart] SET [status]=?, [orderDate]=? WHERE [cartId] = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+
+            /*Set params for Query*/
+            ps.setString(1, cart.getStatus());
+            ps.setDate(2, cart.getOrderDate());
+            ps.setInt(3,cart.getCartId());
+           
+         
+            /*Excute query and store it to check*/
+            check = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return check > 0;
+    }
 
 }
