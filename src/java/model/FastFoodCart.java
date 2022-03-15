@@ -10,19 +10,21 @@ package model;
  * @author TIEN HUY
  */
 public class FastFoodCart {
-       private int fastfoodCartId;
+    private int fastfoodCartId;
     private int foodId;
     private int quantity;
     private int cartId ;
+    private double price;
 
     public FastFoodCart() {
     }
 
-    public FastFoodCart(int fastfoodCartId, int foodId, int quantity, int cartId) {
+    public FastFoodCart(int fastfoodCartId, int foodId, int quantity, int cartId, double price) {
         this.fastfoodCartId = fastfoodCartId;
         this.foodId = foodId;
         this.quantity = quantity;
         this.cartId = cartId;
+        this.price = price;
     }
 
     public int getFastfoodCartId() {
@@ -55,6 +57,14 @@ public class FastFoodCart {
 
     public void setCartId(int cartId) {
         this.cartId = cartId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
 }
