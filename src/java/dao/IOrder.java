@@ -26,5 +26,6 @@ public interface IOrder {
     int getTotalOrder(String user);
      int getTotalOrderByDate(String user,String date);
      ArrayList<Cart> getMyOrderByDate(String user,String date,int pageIndex);
-    
+    public Cart getCartById(int id);
+     public boolean updateCartById(Cart cart);
 }
