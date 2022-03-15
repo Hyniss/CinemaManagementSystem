@@ -56,4 +56,7 @@ public interface IMovieTimeDAO {
     //get movie time by id
     public MovieTime getMovieTime(int timeId);
 
+    public ArrayList<MovieTime> getAllMovieTime();
+
+    public ArrayList<MovieTime> getId(int movieId, int movieRoomId, String roomId);
 }

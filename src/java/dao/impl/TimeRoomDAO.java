@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.TimeRoom;
@@ -152,12 +153,11 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
         }
     }
 
-    public static void main(String[] args) {
-        TimeRoomDAO d = new TimeRoomDAO();
-        TimeRoom timeRoom = new TimeRoom(12, "1", 33);
-        d.addTimeRoom(timeRoom);
-    }
-
+//    public static void main(String[] args) {
+//        TimeRoomDAO d = new TimeRoomDAO();
+//        TimeRoom timeRoom = new TimeRoom(12, "1", 33);
+//        d.addTimeRoom(timeRoom);
+//    }
     @Override
     public boolean editTimeRoom(TimeRoom timeRoom) {
         int check = 0;
@@ -265,6 +265,44 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
             closeResultSet(rs);
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        TimeRoomDAO dao = new TimeRoomDAO();
+        // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
+        // List<TimeRoom> list = dao.getById(7, 15);
+//        for (MovieRoom1 o : list) {
+//            System.out.println(o);
+//        }
+        //MovieRoom m = dao.getTimeById(49);
+        // System.out.println(list);
+    }
+
+    @Override
+    public ArrayList<TimeRoom> getByMovieId(int movieId) {
+        ArrayList<TimeRoom> list = new ArrayList<>();
+        try {
+            query = "SELECT top(10) * FROM dbo.TimeRoom WHERE movieId = ? ";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movieId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new TimeRoom(
+                        rs.getInt("timeRoomId"),
+                        rs.getInt("movieId"),
+                        rs.getString("roomId"),
+                        rs.getInt("timeId")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MovieDateDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
     }
 
 }

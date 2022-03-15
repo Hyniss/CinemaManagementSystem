@@ -45,10 +45,11 @@
         <div class="container-fluid">
 
             <div class="row">
-                   <div class="col-lg-12" style="margin: 30px">
-                    <button class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="${pageContext.request.contextPath}/AdminAddFoodController">
-                            <span class="btn-inner--icon text-md" style="color: red"><i class="fas fa-plus-square"></i></span>
-                            <span class="btn-inner--text text-sm" style="color: red;">Create</span></button>
+                <div class="col-lg-12" style="margin: 30px">
+                    <button class="btn btn-icon btn-3 bg-gradient-primary mx-3">
+                        <a href="${pageContext.request.contextPath}/AdminAddFoodController"></a>
+                        <span class="btn-inner--icon text-md" style="color: red"><i class="fas fa-plus-square"></i></span>
+                        <span class="btn-inner--text text-sm" style="color: red;">Create</span></button>
                 </div>
                 <div class="col-lg-12">
                     <div class="card"  style="border-radius: 12px" >
@@ -76,7 +77,7 @@
                                                 <td style="text-align: center">${food.price}</td>
                                                 <td style="text-align: center">
                                                     <button class="btn btn-danger"><a href="${pageContext.request.contextPath}/AdminEditFood?id=${food.foodId}"><p  style="color: #ffffff; margin: 1px">Update</p></a></button>
-                                                 
+
                                                     <a href="#" onclick="showMess(${food.foodId})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p>
 
                                                     </a>

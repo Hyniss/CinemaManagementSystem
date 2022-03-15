@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="text-center my-4 hover"> 
                                     <a href="movie?mid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
+                                    <a href="showtimes?movieId=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
                                 </div>
                                 <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                             </div>
