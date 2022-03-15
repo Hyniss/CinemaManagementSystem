@@ -188,6 +188,14 @@
         <servlet-name>ShowtimesController</servlet-name>
         <servlet-class>controller.ShowtimesController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Payment</servlet-name>
+        <servlet-class>controller.Payment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentVerification</servlet-name>
+        <servlet-class>controller.PaymentVerification</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -379,6 +387,14 @@
     <servlet-mapping>
         <servlet-name>ShowtimesController</servlet-name>
         <url-pattern>/showtimes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Payment</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentVerification</servlet-name>
+        <url-pattern>/verification</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

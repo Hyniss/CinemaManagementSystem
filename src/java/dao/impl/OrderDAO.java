@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,36 +29,35 @@ import model.SeatRoomCart;
  */
 public class OrderDAO extends DBContext implements IOrder {
 
-     private Connection con;
+    private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
 
     @Override
-    public ArrayList<Cart> getMyOrderByName(String user,int pageIndex) {
+    public ArrayList<Cart> getMyOrderByName(String user, int pageIndex) {
         ArrayList<Cart> cartList = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
-            
-            query = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY cartId desc) AS Seq\n" +
-                    "FROM Cart where username = ?)t WHERE Seq BETWEEN ? AND ?";
+
+            query = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY cartId desc) AS Seq\n"
+                    + "FROM Cart where username = ?)t WHERE Seq BETWEEN ? AND ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1,user);
-            ps.setInt(2,(pageIndex - 1) * 3 + 1);
-            ps.setInt(3,(pageIndex - 1) * 3 + 3);
+            ps.setString(1, user);
+            ps.setInt(2, (pageIndex - 1) * 3 + 1);
+            ps.setInt(3, (pageIndex - 1) * 3 + 3);
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-               cartList.add(new Cart(
+                cartList.add(new Cart(
                         rs.getInt("cartId"),
                         rs.getString("username"),
                         rs.getDouble("totalPrice"),
                         rs.getString("status"),
                         rs.getDate("orderDate")
-                       
                 ));
             }
         } catch (SQLException e) {
@@ -73,26 +73,24 @@ public class OrderDAO extends DBContext implements IOrder {
     }
 
     @Override
-    public ArrayList<SeatRoomCart>getOrderSeatById(int cartId) {
-         ArrayList<SeatRoomCart> cartSeatList = new ArrayList<>();
+    public ArrayList<SeatRoomCart> getOrderSeatById(int cartId) {
+        ArrayList<SeatRoomCart> cartSeatList = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM SeatRoomCart where cartId = ? ";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1,cartId);
+            ps.setInt(1, cartId);
 
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-               cartSeatList.add(new SeatRoomCart(
+                cartSeatList.add(new SeatRoomCart(
                         rs.getInt("seatRoomCartId"),
-                       rs.getInt("seatRoomId"),
-                       rs.getInt("cartId")
-                        
-                       
+                        rs.getInt("seatRoomId"),
+                        rs.getInt("cartId")
                 ));
             }
         } catch (SQLException e) {
@@ -115,7 +113,7 @@ public class OrderDAO extends DBContext implements IOrder {
             query = "SELECT * FROM FastFoodCart where cartId = ? ";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1,cartId);
+            ps.setInt(1, cartId);
 
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
@@ -124,12 +122,10 @@ public class OrderDAO extends DBContext implements IOrder {
             while (rs.next()) {
                 cartFoodList.add(new FastFoodCart(
                         rs.getInt("fastfoodCartId"),
-                       rs.getInt("foodId"),
-                       rs.getInt("quantity"),
-                       rs.getInt("cartId"),
+                        rs.getInt("foodId"),
+                        rs.getInt("quantity"),
+                        rs.getInt("cartId"),
                         rs.getDouble("price")
-                        
-                       
                 ));
             }
         } catch (SQLException e) {
@@ -141,7 +137,7 @@ public class OrderDAO extends DBContext implements IOrder {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
-        return  cartFoodList;
+        return cartFoodList;
     }
 
     @Override
@@ -151,22 +147,20 @@ public class OrderDAO extends DBContext implements IOrder {
             query = "SELECT * FROM SeatRoom where seatRoomId = ? ";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
 
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-               SeatRoom seatRoom = new  SeatRoom(
+                SeatRoom seatRoom = new SeatRoom(
                         rs.getInt("seatRoomId"),
-                       rs.getString("status"),
-                       rs.getString("seatId"),
-                       rs.getInt("timeId")
-                        
-                       
+                        rs.getString("status"),
+                        rs.getString("seatId"),
+                        rs.getInt("timeId")
                 );
-                return  seatRoom;
+                return seatRoom;
             }
         } catch (SQLException e) {
             /*Exeption Handle*/
@@ -177,33 +171,31 @@ public class OrderDAO extends DBContext implements IOrder {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
-        return  null;
+        return null;
     }
 
     @Override
     public FoodAndDrink getFoodById(int id) {
-         try {
+        try {
             /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM Fastfood where foodId = ? ";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
 
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-               FoodAndDrink foodanddrink = new  FoodAndDrink(
+                FoodAndDrink foodanddrink = new FoodAndDrink(
                         rs.getString("foodId"),
-                       rs.getString("category"),
-                       rs.getString("name"),
-                       rs.getString("price"),
-                       rs.getString("img")
-                        
-                       
+                        rs.getString("category"),
+                        rs.getString("name"),
+                        rs.getString("price"),
+                        rs.getString("img")
                 );
-                return  foodanddrink;
+                return foodanddrink;
             }
         } catch (SQLException e) {
             /*Exeption Handle*/
@@ -214,17 +206,16 @@ public class OrderDAO extends DBContext implements IOrder {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
-        return  null;
+        return null;
     }
-   
 
     public int getTotalOrder(String user) {
-         try {
+        try {
             /*Set up connection and Sql statement for Query*/
             query = "select count(*) from Cart where username = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1,user);
+            ps.setString(1, user);
             /*Excute query and store it to check*/
             rs = ps.executeQuery();
 
@@ -244,39 +235,37 @@ public class OrderDAO extends DBContext implements IOrder {
         return 0;
     }
 
-  
- public static void main(String[] args) {
+    public static void main(String[] args) {
         OrderDAO or = new OrderDAO();
         FoodAndDrink s = or.getFoodById(1);
         System.out.println(s.getPrice());
     }
 
     @Override
-    public ArrayList<Cart> getMyOrderByDate(String user,String date, int pageIndex) {
-         ArrayList<Cart> cartList = new ArrayList<>();
+    public ArrayList<Cart> getMyOrderByDate(String user, String date, int pageIndex) {
+        ArrayList<Cart> cartList = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
-            
-            query = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY cartId desc) AS Seq\n" +
-                    "FROM Cart where orderDate like ? and username = ?)t WHERE Seq BETWEEN ? AND ?";
+
+            query = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY cartId desc) AS Seq\n"
+                    + "FROM Cart where orderDate like ? and username = ?)t WHERE Seq BETWEEN ? AND ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1,"%"+date.trim()+"%");
-            ps.setString(2,user);
-            ps.setInt(3,(pageIndex - 1) * 3 + 1);
-            ps.setInt(4,(pageIndex - 1) * 3 + 3);
+            ps.setString(1, "%" + date.trim() + "%");
+            ps.setString(2, user);
+            ps.setInt(3, (pageIndex - 1) * 3 + 1);
+            ps.setInt(4, (pageIndex - 1) * 3 + 3);
             /*Query and save in ResultSet*/
             rs = ps.executeQuery();
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-               cartList.add(new Cart(
+                cartList.add(new Cart(
                         rs.getInt("cartId"),
                         rs.getString("username"),
                         rs.getDouble("totalPrice"),
                         rs.getString("status"),
                         rs.getDate("orderDate")
-                       
                 ));
             }
         } catch (SQLException e) {
@@ -292,14 +281,14 @@ public class OrderDAO extends DBContext implements IOrder {
     }
 
     @Override
-    public int getTotalOrderByDate(String user,String date) {
+    public int getTotalOrderByDate(String user, String date) {
         try {
             /*Set up connection and Sql statement for Query*/
             query = "select count(*) from Cart where orderDate like ? and username =?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1,"%"+date.trim()+"%");
-             ps.setString(2,user);
+            ps.setString(1, "%" + date.trim() + "%");
+            ps.setString(2, user);
             /*Excute query and store it to check*/
             rs = ps.executeQuery();
 
@@ -318,11 +307,12 @@ public class OrderDAO extends DBContext implements IOrder {
         }
         return 0;
     }
-      public Cart getCartById(int id)
-    {
-             try {
+
+    @Override
+    public Cart getCartById(int id) {
+        try {
             /*Set up connection and Sql statement for Query*/
-            
+
             query = "select * from Cart where cartid = ?";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
@@ -332,15 +322,14 @@ public class OrderDAO extends DBContext implements IOrder {
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-               Cart cart = new Cart(
+                Cart cart = new Cart(
                         rs.getInt("cartId"),
                         rs.getString("username"),
                         rs.getDouble("totalPrice"),
                         rs.getString("status"),
                         rs.getDate("orderDate")
-                       
                 );
-               return cart;
+                return cart;
             }
         } catch (SQLException e) {
             /*Exeption Handle*/
@@ -353,8 +342,11 @@ public class OrderDAO extends DBContext implements IOrder {
         }
         return null;
     }
-    public boolean updateCartById(Cart cart){
-         int check = 0;
+
+    public boolean updateCartById(int id) {
+        int check = 0;
+        LocalDate curDate = java.time.LocalDate.now();
+        String date = curDate.toString();
         try {
             /*Set up connection and Sql statement for Query*/
             query = "UPDATE [Cart] SET [status]=?, [orderDate]=? WHERE [cartId] = ?";
@@ -362,11 +354,10 @@ public class OrderDAO extends DBContext implements IOrder {
             ps = con.prepareStatement(query);
 
             /*Set params for Query*/
-            ps.setString(1, cart.getStatus());
-            ps.setDate(2, cart.getOrderDate());
-            ps.setInt(3,cart.getCartId());
-           
-         
+            ps.setString(1, "true");
+            ps.setString(2, date);
+            ps.setInt(3, id);
+
             /*Excute query and store it to check*/
             check = ps.executeUpdate();
 
