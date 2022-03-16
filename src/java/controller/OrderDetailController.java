@@ -21,10 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Cart;
-import model.FastFoodCart;
 import model.SeatRoom;
 import model.SeatRoomCart;
 import model.FoodAndDrink;
+import model.FoodAndDrinkCart;
 
 /**
  *
@@ -45,12 +45,12 @@ public class OrderDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
+    HttpSession session = request.getSession();
         String id = request.getParameter("cartId");
         int cId = Integer.parseInt(id);
         IOrder order = new OrderDAO();
         ArrayList<SeatRoom> seatDetails = new ArrayList<>();
-        ArrayList<FastFoodCart> foodList = new ArrayList<>();
+        ArrayList<FoodAndDrinkCart> foodList = new ArrayList<>();
         ArrayList<FoodAndDrink> foodDetails = new ArrayList<>();
         CheckOrder check = new CheckOrder();
         ArrayList<Cart> details;
@@ -82,7 +82,7 @@ public class OrderDetailController extends HttpServlet {
         }
         try {
             foodList = order.getOrderFoodById(cId);
-            for (FastFoodCart fastFoodCart : foodList) {
+            for (FoodAndDrinkCart fastFoodCart : foodList) {
                 FoodAndDrink foodDetail = order.getFoodById(fastFoodCart.getFoodId());
                 giadoan += fastFoodCart.getPrice();
                 quan += fastFoodCart.getQuantity();

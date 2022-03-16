@@ -17,8 +17,6 @@ public interface IMovieRoomDAO {
     public ArrayList<MovieRoom> getAllMovieRoom();
 
     public ArrayList<MovieRoom> getListById(int movieRoomId);
-
-//    public ArrayList<MovieRoom> getByMovieId(int movieId);
-//
-//    public ArrayList<MovieRoom> getTimeByDateAndId(int movieId, String premiere, int movieRoomId);
+    
+     public MovieRoom getMovieRoomById(int movieRoomId);
 }

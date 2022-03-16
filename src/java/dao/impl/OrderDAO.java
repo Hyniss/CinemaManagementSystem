@@ -11,13 +11,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Account;
 import model.Cart;
-import model.FastFoodCart;
 import model.FoodAndDrink;
 import model.FoodAndDrinkCart;
 import model.SeatRoom;
@@ -106,8 +105,8 @@ public class OrderDAO extends DBContext implements IOrder {
     }
 
     @Override
-    public ArrayList<FastFoodCart> getOrderFoodById(int cartId) {
-        ArrayList<FastFoodCart> cartFoodList = new ArrayList<>();
+    public ArrayList<FoodAndDrinkCart> getOrderFoodById(int cartId) {
+        ArrayList<FoodAndDrinkCart> cartFoodList = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM FastFoodCart where cartId = ? ";
@@ -120,7 +119,7 @@ public class OrderDAO extends DBContext implements IOrder {
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-                cartFoodList.add(new FastFoodCart(
+                cartFoodList.add(new FoodAndDrinkCart(
                         rs.getInt("fastfoodCartId"),
                         rs.getInt("foodId"),
                         rs.getInt("quantity"),
@@ -156,7 +155,7 @@ public class OrderDAO extends DBContext implements IOrder {
             while (rs.next()) {
                 SeatRoom seatRoom = new SeatRoom(
                         rs.getInt("seatRoomId"),
-                        rs.getString("status"),
+                        rs.getBoolean("status"),
                         rs.getString("seatId"),
                         rs.getInt("timeId")
                 );
@@ -189,7 +188,7 @@ public class OrderDAO extends DBContext implements IOrder {
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
                 FoodAndDrink foodanddrink = new FoodAndDrink(
-                        rs.getString("foodId"),
+                        rs.getInt("foodId"),
                         rs.getString("category"),
                         rs.getString("name"),
                         rs.getString("price"),
@@ -371,6 +370,33 @@ public class OrderDAO extends DBContext implements IOrder {
             closeResultSet(rs);
         }
         return check > 0;
+    }
+
+    @Override
+    public int addToCart(Cart cart) {
+        int id = 0;
+        try {
+            query = " insert into Cart(username,totalPrice,status)\n"
+                    + " values(?,?,?)";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, cart.getUsername());
+            ps.setDouble(2, cart.getTotalPrice());
+            ps.setString(3, cart.getStatus());
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(SeatRoomDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return id;
     }
 
 }

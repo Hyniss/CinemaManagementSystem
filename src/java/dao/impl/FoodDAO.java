@@ -43,7 +43,7 @@ public class FoodDAO extends DBContext implements IFoodDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new FoodAndDrink(rs.getString("foodId"), rs.getString("category"), rs.getString("name"), rs.getString("price"), rs.getString("img")));
+                list.add(new FoodAndDrink(rs.getInt("foodId"), rs.getString("category"), rs.getString("name"), rs.getString("price"), rs.getString("img")));
             }
         } catch (SQLException e) {
             Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -104,7 +104,7 @@ public class FoodDAO extends DBContext implements IFoodDAO {
 
             while (rs.next()) {
                 /*Assign data to an arraylist of FoodAndDrink model*/
-                list.add(new FoodAndDrink(rs.getString("foodId"),
+                list.add(new FoodAndDrink(rs.getInt("foodId"),
                         rs.getString("category"),
                         rs.getString("name"),
                         rs.getString("price"),
@@ -121,19 +121,19 @@ public class FoodDAO extends DBContext implements IFoodDAO {
     }
 
     @Override
-    public FoodAndDrink getFoodAndDrink(String id) {
+    public FoodAndDrink getFoodAndDrink(int id) {
         try {
             /*Set up connection and Sql statement for Querry*/
             query = "SELECT * FROM Fastfood WHERE foodId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, id);
+            ps.setInt(1, id);
             /*Querry and save in ResultSet*/
             rs = ps.executeQuery();
             while (rs.next()) {
                 /*Assign data to an FoodAndDrink Model*/
                 FoodAndDrink fd = new FoodAndDrink();
-                fd.setFoodId(rs.getString("foodId"));
+                fd.setFoodId(rs.getInt("foodId"));
                 fd.setCategory(rs.getString("category"));
                 fd.setImg(rs.getString("img"));
                 fd.setPrice(rs.getString("price"));
@@ -186,7 +186,7 @@ public class FoodDAO extends DBContext implements IFoodDAO {
             ps.setString(2, food.getName());
             ps.setString(3, food.getPrice());
             ps.setString(4, food.getImg());
-            ps.setString(5, food.getFoodId());
+            ps.setInt(5, food.getFoodId());
             /*Excute query and store it to check*/
             ps.executeQuery();
         } catch (SQLException e) {

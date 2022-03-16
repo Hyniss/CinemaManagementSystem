@@ -89,24 +89,12 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
 
         return list;
     }
-//    public static void main(String[] args) {
-//        ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
-//        ArrayList<TimeRoom> list = timeRoomDAO.getAllTimeRoom();
-//        for (TimeRoom timeRoom : list) {
-//            System.out.println(timeRoom);
-//        }
-//        TimeRoom t = timeRoomDAO.getTimeRoom(1);
-//        System.out.println(t);
-//    }
 
     @Override
     public TimeRoom getTimeRoom(int timeRoomId) {
         try {
             /*Set up connection and Sql statement for Query*/
-            query = "select t.*\n"
-                    + "from TimeRoom t join MovieTime m\n"
-                    + "on t.timeId = m.timeId\n"
-                    + "where m.movieRoomId =?";
+            query = "select * from TimeRoom where timeRoomId = ? ";
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, timeRoomId);
@@ -267,17 +255,6 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        TimeRoomDAO dao = new TimeRoomDAO();
-        // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
-        // List<TimeRoom> list = dao.getById(7, 15);
-//        for (MovieRoom1 o : list) {
-//            System.out.println(o);
-//        }
-        //MovieRoom m = dao.getTimeById(49);
-        // System.out.println(list);
-    }
-
     @Override
     public ArrayList<TimeRoom> getByMovieId(int movieId) {
         ArrayList<TimeRoom> list = new ArrayList<>();
@@ -303,6 +280,39 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
             closeResultSet(rs);
         }
         return list;
+    }
+
+    @Override
+    public TimeRoom getTimeRoomByTimeAndRoom(int timeId, String roomId ,int movieId) {
+        try {
+            /*Set up connection and Sql statement for Query*/
+            query = "SELECT * FROM dbo.TimeRoom WHERE timeId = ? and roomId = ? and movieId = ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, timeId);
+            ps.setString(2, roomId);
+            ps.setInt(3, movieId);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+            /*Assign data to an Account*/
+            while (rs.next()) {
+                TimeRoom m = new TimeRoom(
+                        rs.getInt("timeRoomId"),
+                        rs.getInt("movieId"),
+                        rs.getString("roomId"),
+                        rs.getInt("timeId"));
+                return m;
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
     }
 
 }

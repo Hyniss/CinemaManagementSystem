@@ -4,6 +4,7 @@
     Author     : tenhik
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="model.TimeRoom"%>
 <%@page import="model.Movie"%>
 <%@page import="model.MovieTime"%>
@@ -63,7 +64,8 @@
         <%ArrayList<MovieTime> listTimeChoose = (ArrayList<MovieTime>) request.getAttribute("listTimeChoose");%> 
         <%ArrayList<Movie> listMovie = (ArrayList<Movie>) request.getAttribute("listMovie");%>  
         <%ArrayList<TimeRoom> listTimeRoom = (ArrayList<TimeRoom>) request.getAttribute("listTimeRoom");%>
-
+        <% MovieRoom movieRoom = (MovieRoom) request.getAttribute("movieRoom");%>
+        <% Date currentDate = (Date) request.getAttribute("currentDate");%>
     </head>
 
     <body>
@@ -183,6 +185,7 @@
                                             <%}%>
                                         </div>
                                         <div style="display: flex;flex-direction:column;">
+                                            <% if (currentDate.before(movieRoom.getPremiere())) {%>
                                             <% if (!checkExist) {%>
                                             <button onclick="openAddModal('<%=listRoom.get(i).getRoomId()%>',<%=listTime.get(j).getTimeId()%>,${movieRoom.movieRoomId},<%=roomTimeId%>)"  class="btn-movie">Add</button>
                                             <%}%>
@@ -190,8 +193,10 @@
                                             <button onclick="openUpdateModal('<%=listRoom.get(i).getRoomId()%>',<%=listTime.get(j).getTimeId()%>,${movieRoom.movieRoomId},<%=roomTimeId%>,<%=movieId%>)"  class="btn-movie">Edit</button>
                                             <button onclick=" showDelMess(<%=roomTimeId%>,${movieRoom.movieRoomId})"  class="btn-movie">Delete</button>
                                             <%} else {%>
-                                            <button class="btn-movie">Edit</button>
-                                            <button  class="btn-movie">Delete</button>
+                                            <button style="background:#fff" class="btn-movie">Disable</button>
+                                            <button style="background:#fff" class="btn-movie">Disable</button>
+                                            <%}%>
+                                            <%} else {%>
                                             <%}%>
                                         </div>
                                     </div>

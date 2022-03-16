@@ -17,6 +17,11 @@ public class SeatRoomCart {
     public SeatRoomCart() {
     }
 
+     public SeatRoomCart(int seatRoomId, int cartId) {
+        this.seatRoomId = seatRoomId;
+        this.cartId = cartId;
+    }
+    
     public SeatRoomCart(int seatRoomCartId, int seatRoomId, int cartId) {
         this.seatRoomCartId = seatRoomCartId;
         this.seatRoomId = seatRoomId;

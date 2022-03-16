@@ -63,17 +63,16 @@
                                 <li class="item">
                                     <div class="product-shop">
                                         <div class="f-fix">
-                                            <div class="product-primary">
+                                           <div class="product-primary">
                                                 <p>
-                                                    Room 1 | Ghế
+                                                    ${room.roomName} | Ghế
                                                     <% if (listCheckedSeatId != null) {%>          
                                                     <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
                                                     <%=listCheckedSeatId.get(k).getSeatId()%>;
                                                     <%}%>
                                                     <%}%>
                                                 </p>
-
-                                                <p>14/02/2022 | từ 18:30 đến 20h42</p>
+                                                <p><fmt:formatDate pattern="dd/MM/yyyy" value = "${movieRoom.premiere}"/>  | từ  <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.start}"/> đến  <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.end}"/></p>
                                             </div>
                                         </div>
                                     </div>
@@ -133,7 +132,6 @@
                                     </nav>
                                     <ol class="products-list">
                                         <!--list food and drink-->
-                                        <% String pos = "";%>
                                         <%for (int i = 0; i < listFoodAndDrink.size(); i++) {%>                                         
                                         <li class="item first">
                                             <img src="assets/img/food/<%=listFoodAndDrink.get(i).getImg()%>" class="combo-image" >
@@ -162,15 +160,13 @@
                                                             <%}%> 
                                                             <%if (listFoodCarts != null) {%>
                                                             <% for (int j = 0; j < listFoodCarts.size(); j++) {%>
-                                                            <% pos = listFoodCarts.get(j).getFoodId();%>
-                                                            <%if (listFoodCarts.get(j).getFoodId().equals(listFoodAndDrink.get(i).getFoodId())) {%>
+                                                            <%if (listFoodCarts.get(j).getFoodId() == listFoodAndDrink.get(i).getFoodId()) {%>
                                                             <input type="number"  name="" class="form-control input-number" value="<%=listFoodCarts.get(j).getQuantity()%>" min="0" max="10" readonly>
                                                             <% count = 1;%>
                                                             <%}%>
                                                             <%}%>
                                                             <%if (count == 0) {%>
                                                             <input type="number"  name="" class="form-control input-number" value="0" min="0" max="10" readonly>
-                                                            <% count = 0;%>
                                                             <%}%>
                                                             <%}%>                                                         
                                                             <span class="input-group-btn ml-1">
@@ -189,10 +185,10 @@
                             </ul>
                         </div>
                         <!--bottom content-->
-                        <div class="bottom-content">
+                 <div class="bottom-content">
                             <!--button go back-->
                             <div class="format-bg-top"></div> 
-                            <a class="btn-pre-left" href="book?bookSeat=true" title="Previous"></a>
+                            <a class="btn-pre-left" href="seat?movieRoomId=${movieRoom.movieRoomId}&roomId=${room.roomId}&movieId=${movie.movieId}&time=${timeRoom.timeId}" title="Previous"></a>
                             <div class="minicart">
                                 <ul>
                                     <!--movie info-->
@@ -202,17 +198,16 @@
                                                 <colgroup>
                                                     <col width="40%">
                                                     <col>
-                                                </colgroup>
+                                                </colgroup>                                             
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <img src="https://www.cgv.vn/media/catalog/product/cache/1/thumbnail/dc33889b0f8b5da88052ef70de32f1cb/b/n/bnn-new-year-poster-2022_1__2.jpg">
                                                         </td>
                                                         <td>
                                                             <table>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td class="label"> BẪY NGỌT NGÀO </td>
+                                                                        <td class="label">${movie.movieName}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>2D</td>
@@ -222,6 +217,7 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
+
                                             </table>
                                         </div>
                                     </li>
@@ -236,12 +232,14 @@
                                                 <tbody>
                                                     <tr style="height: 43px">
                                                         <td class="label">Suất chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">10h05, 11/02/2022<td>
+                                                        <td style="font-weight: bold;font-size:16px;">      
+                                                            <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.start}"/>,<br><fmt:formatDate pattern="dd/MM/yyyy" value = "${movieRoom.premiere}"/> 
+                                                        <td>
                                                     </tr>
                                                     <tr style="height: 43px">
                                                         <td class="label">Phòng chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">Room 2<td>
-                                                    </tr>                                                
+                                                        <td style="font-weight: bold;font-size:16px;">${room.roomName}<td>
+                                                    </tr>
                                                 </tbody>
                                             </table> 
                                         </div>
@@ -270,13 +268,22 @@
 
                                                 </tbody>
                                                 <tfoot>
+                                                    <tr class="block-box">
+                                                        <c:if test="${sessionScope.totalFoodPrice > 0}">
+                                                            <td class="label" style="font-weight: bold">TỔNG</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${sessionScope.totalPrice}" type = "currency"/></td>
+                                                        </c:if>
+                                                        <c:if test="${sessionScope.totalFoodPrice == 0}">
+                                                            <td class="label">Giá vé</td>
+                                                            <td class="price"><fmt:setLocale value="vi_VN"/><fmt:formatNumber value = "${totalSeatPrice}" type = "currency"/></td>
+                                                        </c:if>
+                                                    </tr>   
                                                 </tfoot>
                                             </table>
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                            <!--button go next-->  
+                            </div>                            <!--button go next-->  
                             <a class="btn-next-right" href="${pageContext.request.contextPath}/Cart"  title="Next"></a>
                             <div class="format-bg-bottom"></div>           
                         </div>

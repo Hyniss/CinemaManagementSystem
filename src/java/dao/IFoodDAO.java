@@ -29,7 +29,7 @@ public interface IFoodDAO {
 
     public void editFood(FoodAndDrink food);// update data into database
 
-    public FoodAndDrink getFoodAndDrink(String id);//search id into database
+   public FoodAndDrink getFoodAndDrink(int id);//search id into database
 
     public void deleteFood(String id);//remove object into database
 

@@ -55,6 +55,7 @@
         <%ArrayList<MovieTime> listTime = (ArrayList<MovieTime>) request.getAttribute("listTime");%> 
         <%ArrayList<MovieTime> listTimeMovieRoom = (ArrayList<MovieTime>) request.getAttribute("listTimeMovieRoom");%>  
         <% MovieRoom movieRoom = (MovieRoom) request.getAttribute("movieRoom");%>
+        <% Date currentDate = (Date) request.getAttribute("currentDate");%>
     </head>
 
     <body>
@@ -134,12 +135,18 @@
                                 <%}%>
                                 <%}%>
                                 <td> 
-
+                                    <%if (currentDate.before(listDate.get(i).getPremiere())) {%>
                                     <button onclick="openUpdate(<%=listDate.get(i).getMovieRoomId()%>)" type="button"  class="custom-btn btn-crud"><span>Update now !</span><span>Update</span></button>
-
+                                    <%} else {%>
+                                    Can't edit
+                                    <%}%>
                                 </td>
                                 <td>  
+                                    <%if (currentDate.before(listDate.get(i).getPremiere())) {%>
                                     <button onclick="showDelMess(<%=listDate.get(i).getMovieRoomId()%>)" type="button"  class="custom-btn btn-crud"><span>Delete now !</span><span>Delete</span></button>
+                                    <%} else {%>
+                                    Can't delete
+                                    <%}%>
                                 </td>
                             </tr>
                             <% }%>
@@ -409,36 +416,38 @@
                                     var dateCur = today.split("-");
                                     var current = new Date(dateCur[0], parseInt(dateCur[1]) - 1, dateCur[2]);
                                     if (option === 'Add') {
-                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) >= 0) {
+                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) > 0) {
+                                            var check = false;
+                                            for (var i = 0; i < jsArray.length; i++) {
+                                                if (mess.value === jsArray[i]) {
+                                                    check = true;
+                                                }
+                                            }
                                             if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
-                                                mess.setCustomValidity("");
-                                                if (jsArray !== null) {
-                                                    for (var i = 0; i < jsArray.length; i++) {
-                                                        if (mess.value === jsArray[i]) {
-                                                            mess.setCustomValidity("Ngày đã có trong dữ liệu");
-                                                        } else {
-                                                            mess.setCustomValidity("");
-                                                        }
-                                                    }
+                                                if (!check) {
+                                                    mess.setCustomValidity("");
+                                                } else {
+                                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
                                                 }
                                             } else {
                                                 mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
                                             }
-                                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) < 0) {
-                                            mess.setCustomValidity('Ngày nhập không nhỏ hơn ngày hiện tại');
+                                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 0) {
+                                            mess.setCustomValidity('Ngày nhập không nhỏ hơn hoặc bằng ngày hiện tại');
                                         }
                                     } else if (option === 'Edit') {
                                         if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) >= 0) {
+                                            var check = false;
+                                            for (var i = 0; i < jsArray.length; i++) {
+                                                if (mess.value === jsArray[i]) {
+                                                    check = true;
+                                                }
+                                            }
                                             if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
-                                                mess.setCustomValidity("");
-                                                if (jsArray !== null) {
-                                                    for (var i = 0; i < jsArray.length; i++) {
-                                                        if (mess.value === jsArray[i]) {
-                                                            mess.setCustomValidity("Ngày đã có trong dữ liệu");
-                                                        } else {
-                                                            mess.setCustomValidity("");
-                                                        }
-                                                    }
+                                                if (!check) {
+                                                    mess.setCustomValidity("");
+                                                } else {
+                                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
                                                 }
                                             } else {
                                                 mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');

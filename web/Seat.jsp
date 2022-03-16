@@ -1,4 +1,5 @@
 
+<%@page import="model.SeatRoom"%>
 <%-- 
     Document   : Seat
     Created on : 08/02/2022, 9:49:22 PM
@@ -44,6 +45,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />  
         <!--get session--> 
         <%ArrayList<Seat> listCheckedSeatId = (ArrayList<Seat>) request.getSession().getAttribute("listcheckedSeatId"); %>   
+        <%ArrayList<SeatRoom> listSeatBooked = (ArrayList<SeatRoom>) request.getAttribute("listSeatBooked");%>
         <title>Amazing Cinema</title>
     </head>
     <body>
@@ -63,14 +65,14 @@
                                         <div class="f-fix">
                                             <div class="product-primary">
                                                 <p>
-                                                    Room 1 | Ghế
+                                                    ${room.roomName} | Ghế
                                                     <% if (listCheckedSeatId != null) {%>          
                                                     <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
                                                     <%=listCheckedSeatId.get(k).getSeatId()%>;
                                                     <%}%>
                                                     <%}%>
                                                 </p>
-                                                <p>14/02/2022 | từ 18:30 đến 20h42</p>
+                                                <p><fmt:formatDate pattern="dd/MM/yyyy" value = "${movieRoom.premiere}"/>  | từ  <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.start}"/> đến  <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.end}"/></p>
                                             </div>
                                         </div>
                                     </div>
@@ -112,19 +114,31 @@
                                                     <!--seat map-->
                                                     <% for (int i = 0; i < a.length; i++) {%>
                                                     <% String pos = a[i] + j;%>
-                                                    <td style="text-align: center;width:50px;padding-top: 1px">        
+                                                    <td style="text-align: center;width:50px;padding-top: 1px"> 
+
                                                         <!--seats are not checked-->
                                                         <% if (listCheckedSeatId == null) {%>  
-                                                        <input type="checkbox" id="<%=pos%>" name="seatId" value="<%=pos%>"onchange="this.form.submit()">
+                                                        <input type="checkbox" id="<%=pos%>" name="seatId" value="<%=pos%>"onchange="this.form.submit()"
+                                                               <% for (int g = 0; g < listSeatBooked.size(); g++) {%>
+                                                               <%if (listSeatBooked.get(g).getSeatId().equals(pos)) {%>
+                                                               disabled
+                                                               <%}%>
+                                                               <%}%>
+                                                               >                                                    
                                                         <label class="seat__label" for="<%=pos%>">
                                                             <i class="fas fa-box rating__icon--star"></i>
                                                         </label>
                                                         <%}%>
                                                         <!--seats are checked-->
                                                         <% if (listCheckedSeatId != null) {%>                              
-                                                        <input type="checkbox" id="<%=pos%>" name="seatId" value="<%=pos%>"onchange="this.form.submit()"
+                                                        <input type="checkbox" id="<%=pos%>" name="seatId" value="<%=pos%>"onchange="this.form.submit()"                                                              
+                                                               <% for (int g = 0; g < listSeatBooked.size(); g++) {%>
+                                                               <%if (listSeatBooked.get(g).getSeatId().equals(pos)) {%>                                                              
+                                                               disabled
+                                                               <%}%>                                                               
+                                                               <%}%>
                                                                <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
-                                                               <%if (listCheckedSeatId.get(k).getSeatId().equals(pos)) {%>
+                                                               <%if (listCheckedSeatId.get(k).getSeatId().equals(pos)) {%>                                                               
                                                                checked
                                                                <%}%>
                                                                <%}%>
@@ -133,7 +147,6 @@
                                                             <i class="fas fa-box rating__icon--star"></i>
                                                         </label>
                                                         <%}%>
-                                                        <!--seats are unavailable-->
                                                     </td>
                                                     <%}%> 
                                                 </tr>              
@@ -166,7 +179,7 @@
                         <div class="bottom-content">
                             <!--button go back-->
                             <div class="format-bg-top"></div> 
-                            <a class="btn-pre-left" href="" title="Previous"></a>
+                            <a class="btn-pre-left" href="showtimes?movieRoomId=${movieRoom.movieRoomId}&movieId=${movie.movieId}" title="Previous"></a>
                             <div class="minicart">
                                 <ul>
                                     <!--movie info-->
@@ -180,13 +193,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <img src="https://www.cgv.vn/media/catalog/product/cache/1/thumbnail/dc33889b0f8b5da88052ef70de32f1cb/b/n/bnn-new-year-poster-2022_1__2.jpg">
+
                                                         </td>
                                                         <td>
                                                             <table>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td class="label"> BẪY NGỌT NGÀO </td>
+                                                                        <td class="label">${movie.movieName}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>2D</td>
@@ -211,11 +224,13 @@
                                                 <tbody>
                                                     <tr style="height: 43px">
                                                         <td class="label">Suất chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">10h05, 11/02/2022<td>
+                                                        <td style="font-weight: bold;font-size:16px;">      
+                                                            <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.start}"/>,<br><fmt:formatDate pattern="dd/MM/yyyy" value = "${movieRoom.premiere}"/> 
+                                                        <td>
                                                     </tr>
                                                     <tr style="height: 43px">
                                                         <td class="label">Phòng chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">Room 2<td>
+                                                        <td style="font-weight: bold;font-size:16px;">${room.roomName}<td>
                                                     </tr>
                                                 </tbody>
                                             </table> 

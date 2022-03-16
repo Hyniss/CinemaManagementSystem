@@ -10,7 +10,7 @@ package model;
  * @author Bảo Châu Bống
  */
 public class FoodAndDrink {
-    private String foodId;
+    private int foodId;
     private String category;
     private String name;
     private String price;
@@ -20,7 +20,7 @@ public class FoodAndDrink {
     public FoodAndDrink() {
     }
 
-    public FoodAndDrink(String foodId, String category, String name, String price, String img) {
+    public FoodAndDrink(int foodId, String category, String name, String price, String img) {
         this.foodId = foodId;
         this.category = category;
         this.name = name;
@@ -28,11 +28,11 @@ public class FoodAndDrink {
         this.img = img;
     }
 
-    public String getFoodId() {
+    public int getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(String foodId) {
+    public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
 

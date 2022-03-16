@@ -45,7 +45,7 @@ public class BookFoodController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Use IFoodDAO interface to call
+       //Use IFoodDAO interface to call
         IFoodDAO foodDAO = new FoodDAO();
         HttpSession session = request.getSession();
         ArrayList<FoodAndDrinkCart> listFoodAndDrinkCarts = (ArrayList<FoodAndDrinkCart>) session.getAttribute("listFoodCarts");
@@ -63,24 +63,29 @@ public class BookFoodController extends HttpServlet {
         int page = 0;
 
         boolean bookFood = false;
-        String foodId = request.getParameter("foodId");
+        int foodId = 0;
         String calcType = request.getParameter("type");
         String changePage = request.getParameter("changePage");
         /* parse String to boolean and int*/
         try {
             bookFood = Boolean.valueOf(request.getParameter("bookFood"));
         } catch (Exception e) {
-            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BookFoodController.class.getName()).log(Level.SEVERE, null, e);
         }
         try {
             pageIndex = Integer.parseInt(request.getParameter("pageIndex"));
         } catch (NumberFormatException e) {
-            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BookFoodController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            foodId = Integer.parseInt(request.getParameter("foodId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(BookFoodController.class.getName()).log(Level.SEVERE, null, e);
         }
         try {
             totalSeatPrice = (double) session.getAttribute("totalSeatPrice");
         } catch (Exception e) {
-            response.sendRedirect("seat");
+            response.sendRedirect("home");
             return;
         }
         /*order product*/
@@ -98,7 +103,7 @@ public class BookFoodController extends HttpServlet {
             } else {
                 /*update quantity*/
                 for (FoodAndDrinkCart l : listFoodAndDrinkCarts) {
-                    if (l.getFoodId().equals(foodId)) {
+                    if (l.getFoodId() ==foodId) {
                         if (calcType.equalsIgnoreCase("plus")) {/* check user wants to plus or minus*/
                             foodQuantity = l.getQuantity() + 1;
                         } else {

@@ -22,16 +22,16 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(String username, double totalPrice, String status) {
+        this.username = username;
+        this.totalPrice = totalPrice;
+        this.status = status;
+    }
+    
     public Cart(int cartId, String username, double totalPrice, String status, Date orderDate) {
         this.cartId = cartId;
         this.username = username;
         this.totalPrice = totalPrice;
-        this.status = status;
-        this.orderDate = orderDate;
-    }
-    
-    public Cart(int cartId, String status, Date orderDate) {
-        this.cartId = cartId;
         this.status = status;
         this.orderDate = orderDate;
     }

@@ -449,6 +449,10 @@ input::-webkit-inner-spin-button {
 .seat-map:not(:checked) td .seat__label:hover ~ .seat__label{
     color: #000;
 }
+.seat-map td input:disabled ~ label{
+    color: #a5b1c2;
+  
+}
 #seat-alert{
     width: 100%;
     text-align: center; 

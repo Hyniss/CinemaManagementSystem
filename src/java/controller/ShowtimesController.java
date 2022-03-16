@@ -16,12 +16,12 @@ import dao.impl.MovieTimeDAO;
 import dao.impl.RoomDAO;
 import dao.impl.TimeRoomDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Movie;
 import model.MovieRoom;
 import model.MovieTime;
@@ -45,6 +45,8 @@ public class ShowtimesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+       request.setCharacterEncoding("UTF-8");
+
         String movieRoomId1 = request.getParameter("movieRoomId");
         if (movieRoomId1 == null) {
             movieRoomId1 = "1";
@@ -60,26 +62,19 @@ public class ShowtimesController extends HttpServlet {
 
         int movieRoomId = Integer.parseInt(movieRoomId1);
         int movieId = Integer.parseInt(movieId1);
-        int timeId = Integer.parseInt(timeId1);
-        String roomId = request.getParameter("roomId");
         String roomName = request.getParameter("roomName");
         ArrayList<MovieRoom> movieRoom = movieRoomDao.getAllMovieRoom();
         ArrayList<MovieTime> movieTime = movieTimeDao.getAllMovieTime();
-        ArrayList<TimeRoom> timeRoom = timeRoomDao.getAllTimeRoom();
         ArrayList<TimeRoom> timeRoom1 = timeRoomDao.getByMovieId(movieId);
-        ArrayList<MovieTime> movieTime1 = movieTimeDao.getId(movieId, movieRoomId, roomId);
-        ArrayList<MovieRoom> movieRoom1 = movieRoomDao.getListById(movieRoomId);
         ArrayList<Room> room = roomDao.getAllRoom();
         Movie movie = movieDao.getMovieById(movieId);
+        
 
         request.setAttribute("movie", movie);
         request.setAttribute("movieId", movieId);
         request.setAttribute("movieRoom", movieRoom);
         request.setAttribute("movieTime", movieTime);
-        request.setAttribute("timeRoom", timeRoom);
         request.setAttribute("timeRoom1", timeRoom1);
-        request.setAttribute("movieTime1", movieTime1);
-        request.setAttribute("movieRoom1", movieRoom1);
         request.setAttribute("room", room);
         request.setAttribute("movieRoomId", movieRoomId);
         request.setAttribute("roomName", roomName);
@@ -91,6 +86,19 @@ public class ShowtimesController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         HttpSession session = request.getSession();
+           //remove all session
+        session.removeAttribute("listcheckedSeatId");
+        session.removeAttribute("listFoodCarts");
+        session.removeAttribute("timeRoom");
+        session.removeAttribute("movieTime");
+        session.removeAttribute("movieRoom");
+        session.removeAttribute("movie");
+        session.removeAttribute("room");
+        session.removeAttribute("quantitySeat");
+        session.removeAttribute("totalSeatPrice");
+        session.removeAttribute("totalFoodPrice");
+        session.removeAttribute("totalPrice");
     }
 
     /**

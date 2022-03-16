@@ -20,6 +20,9 @@ import dao.impl.RoomDAO;
 import dao.impl.ShowtimesDAO;
 import dao.impl.TimeRoomDAO;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +72,9 @@ public class AdminListMovieRoom extends HttpServlet {
         } catch (NumberFormatException e) {
             Logger.getLogger(AdminListMovieRoom.class.getName()).log(Level.SEVERE, null, e);
         }
+        ZoneId zid = ZoneId.of("Asia/Ho_Chi_Minh");
+        LocalDate ld = LocalDate.now(zid);
+        Date currentDate = Date.valueOf(ld);
 
         MovieRoom movieRoom = showtimesDAO.getShowtimes(movieRoomId);
         ArrayList<Room> listRoom = roomDAO.getAllRoom();
@@ -84,6 +90,7 @@ public class AdminListMovieRoom extends HttpServlet {
         request.setAttribute("listDate", listDate);
         request.setAttribute("movieRoom", movieRoom);
         request.setAttribute("listMovie", listMovie);
+        request.setAttribute("currentDate",currentDate);
         request.setAttribute("listTimeRoom", listTimeRoom);
 
         request.getRequestDispatcher("AdminListMovieRoom.jsp").forward(request, response);

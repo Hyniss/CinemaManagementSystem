@@ -46,5 +46,7 @@ public interface ITimeRoomDAO {
     public void deleteTimeRoom(int timeRoomId);
 
     public ArrayList<TimeRoom> getByMovieId(int movieId);
+    
+    public TimeRoom getTimeRoomByTimeAndRoom(int timeId, String roomId, int movieId); 
 
 }

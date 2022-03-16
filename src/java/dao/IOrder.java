@@ -7,7 +7,6 @@ package dao;
 
 import java.util.ArrayList;
 import model.Cart;
-import model.FastFoodCart;
 import model.FoodAndDrink;
 import model.FoodAndDrinkCart;
 import model.SeatRoom;
@@ -21,7 +20,7 @@ public interface IOrder {
 
     ArrayList<Cart> getMyOrderByName(String user, int pageIndex);
 
-    ArrayList<FastFoodCart> getOrderFoodById(int cartId);
+    ArrayList<FoodAndDrinkCart> getOrderFoodById(int cartId);
 
     ArrayList<SeatRoomCart> getOrderSeatById(int cartId);
 
@@ -38,4 +37,6 @@ public interface IOrder {
     public Cart getCartById(int id);
 
     public boolean updateCartById(int id);
+    
+    public int addToCart(Cart cart);
 }

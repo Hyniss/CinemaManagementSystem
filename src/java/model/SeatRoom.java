@@ -12,19 +12,25 @@ package model;
 public class SeatRoom {
 
     private int seatRoomId;
-    private String statusSeat;
+    private boolean statusSeat;
      private String seatId;
-    private int timeId;
+    private int timeRoomId;
    
 
     public SeatRoom() {
     }
 
-    public SeatRoom(int seatRoomId, String statusSeat, String seatId, int timeId) {
+     public SeatRoom(boolean statusSeat, String seatId, int timeRoomId) {
+        this.statusSeat = statusSeat;
+        this.seatId = seatId;
+        this.timeRoomId = timeRoomId;
+    }
+    
+    public SeatRoom(int seatRoomId, boolean statusSeat, String seatId, int timeRoomId) {
         this.seatRoomId = seatRoomId;
         this.statusSeat = statusSeat;
         this.seatId = seatId;
-        this.timeId = timeId;
+        this.timeRoomId = timeRoomId;
     }
 
     public int getSeatRoomId() {
@@ -35,11 +41,11 @@ public class SeatRoom {
         this.seatRoomId = seatRoomId;
     }
 
-    public String getStatusSeat() {
+    public boolean getStatusSeat() {
         return statusSeat;
     }
 
-    public void setStatusSeat(String statusSeat) {
+    public void setStatusSeat(boolean statusSeat) {
         this.statusSeat = statusSeat;
     }
 
@@ -51,12 +57,12 @@ public class SeatRoom {
         this.seatId = seatId;
     }
 
-    public int getTimeId() {
-        return timeId;
+    public int getTimeRoomId() {
+        return timeRoomId;
     }
 
-    public void setTimeId(int timeId) {
-        this.timeId = timeId;
+    public void setTimeRoomId(int timeRoomId) {
+        this.timeRoomId = timeRoomId;
     }
 
     

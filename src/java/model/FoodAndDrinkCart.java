@@ -10,24 +10,49 @@ package model;
  * @author tenhik
  */
 public class FoodAndDrinkCart {
- private String foodId;
+
+    private int FoodAndDrinkId;
+    private int foodId;
     private int quantity;
+    private int cartId;
     private double price;
 
     public FoodAndDrinkCart() {
     }
-
-    public FoodAndDrinkCart(String foodId, int quantity, double price) {
+    
+    public FoodAndDrinkCart(int foodId, int quantity, int cartId, double price) {
+        this.foodId = foodId;
+        this.quantity = quantity;
+        this.cartId = cartId;
+        this.price = price;
+    }
+    public FoodAndDrinkCart(int foodId, int quantity, double price) {
         this.foodId = foodId;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public String getFoodId() {
+    public FoodAndDrinkCart(int FoodAndDrinkId, int foodId, int quantity, int cartId, double price) {
+        this.FoodAndDrinkId = FoodAndDrinkId;
+        this.foodId = foodId;
+        this.quantity = quantity;
+        this.cartId = cartId;
+        this.price = price;
+    }
+
+    public int getFoodAndDrinkId() {
+        return FoodAndDrinkId;
+    }
+
+    public void setFoodAndDrinkId(int FoodAndDrinkId) {
+        this.FoodAndDrinkId = FoodAndDrinkId;
+    }
+
+    public int getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(String foodId) {
+    public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
 
@@ -39,6 +64,14 @@ public class FoodAndDrinkCart {
         this.quantity = quantity;
     }
 
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -46,7 +79,6 @@ public class FoodAndDrinkCart {
     public void setPrice(double price) {
         this.price = price;
     }
-   
     
-}
 
+}

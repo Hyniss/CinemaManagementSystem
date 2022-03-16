@@ -53,17 +53,6 @@ public class MovieRoomDAO extends DBContext implements IMovieRoomDAO {
         return list;
     }
 
-    public static void main(String[] args) {
-        MovieRoomDAO dao = new MovieRoomDAO();
-        // List<MovieRoom> list = dao.getTimeById("2022-02-18", 48);
-        List<MovieRoom> list = dao.getAllMovieRoom();
-//        for (MovieRoom1 o : list) {
-//            System.out.println(o);
-//        }
-        //MovieRoom m = dao.getTimeById(49);
-        System.out.println(list);
-    }
-
     @Override
     public ArrayList<MovieRoom> getListById(int movieRoomId) {
         ArrayList<MovieRoom> list = new ArrayList<>();
@@ -87,6 +76,31 @@ public class MovieRoomDAO extends DBContext implements IMovieRoomDAO {
             closeResultSet(rs);
         }
         return list;
+    }
+
+    @Override
+    public MovieRoom getMovieRoomById(int movieRoomId) {
+        try {
+            query = "SELECT * FROM dbo.MovieRoom WHERE movieRoomId = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, movieRoomId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                MovieRoom m = new MovieRoom(
+                        rs.getInt("movieRoomId"),
+                        rs.getDate("premiere"));
+                return m;
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(MovieRoomDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
     }
 
 }

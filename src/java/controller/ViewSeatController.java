@@ -9,16 +9,37 @@
  */
 package controller;
 
+import dao.IMovieDAO;
+import dao.IMovieRoomDAO;
+import dao.IMovieTimeDAO;
+import dao.IRoomDAO;
+import dao.ISeatRoomDAO;
+import dao.ITimeRoomDAO;
+import dao.impl.MovieDAO;
+import dao.impl.MovieRoomDAO;
+import dao.impl.MovieTimeDAO;
+import dao.impl.RoomDAO;
+import dao.impl.SeatRoomDAO;
+import dao.impl.TimeRoomDAO;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Movie;
+import model.MovieRoom;
+import model.MovieTime;
+import model.Room;
+import model.SeatRoom;
+import model.TimeRoom;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
- * see the seat map /seat is the URL of the web site 
- * Extend HttpServlet class
+ * see the seat map /seat is the URL of the web site Extend HttpServlet class
  *
  * @author Nguyen Nam
  */
@@ -36,8 +57,50 @@ public class ViewSeatController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+        IMovieDAO movieDAO = new MovieDAO();
+        IMovieRoomDAO movieRoomDAO = new MovieRoomDAO();
+        IMovieTimeDAO movieTimeDAO = new MovieTimeDAO();
+        ISeatRoomDAO seatRoomDAO = new SeatRoomDAO();
+        ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
+        IRoomDAO roomDAO = new RoomDAO();
+
+        HttpSession session = request.getSession();// create session
+
+        int movieRoomId = 0;
+        int movieId = 0;
+        int timeId = 0;
+
+        String roomId = request.getParameter("roomId");
+        try {
+            movieId = Integer.parseInt(request.getParameter("movieId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            movieRoomId = Integer.parseInt(request.getParameter("movieRoomId"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            timeId = Integer.parseInt(request.getParameter("time"));
+        } catch (NumberFormatException e) {
+            Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        if (movieRoomId == 0 || timeId == 0) {
+            response.sendRedirect("showtimes?movieId=" + movieId);
+        }
+        Room room = roomDAO.room(roomId);
+        Movie movie = movieDAO.getMovieById(movieId);
+        MovieRoom movieRoom = movieRoomDAO.getMovieRoomById(movieRoomId);
+        MovieTime movieTime = movieTimeDAO.getMovieTime(timeId);
+        TimeRoom timeroom = timeRoomDAO.getTimeRoomByTimeAndRoom(timeId, roomId, movieId);
+        ArrayList<SeatRoom> listSeatBooked = seatRoomDAO.getSeatRoomByTimeIdAndMovieId(timeId,roomId,movieId, movieRoomId);
+        request.setAttribute("listSeatBooked", listSeatBooked);
+        session.setAttribute("movieTime", movieTime);
+        session.setAttribute("movieRoom", movieRoom);
+        session.setAttribute("movie", movie);
+        session.setAttribute("room", room);
+        session.setAttribute("timeRoom", timeroom);
         /*Attach attribute subjects for request and redirect it to Seat.jsp*/
         request.getRequestDispatcher("Seat.jsp").forward(request, response);
     }

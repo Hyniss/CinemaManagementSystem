@@ -10,7 +10,9 @@
 package controller;
 
 import dao.ISeatDAO;
+import dao.ISeatRoomDAO;
 import dao.impl.SeatDAO;
+import dao.impl.SeatRoomDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -21,12 +23,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Movie;
+import model.MovieRoom;
+import model.Room;
 import model.Seat;
+import model.SeatRoom;
+import model.TimeRoom;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
- * book the seat
- * /book is the URL of the web site Extend HttpServlet class
+ * book the seat /book is the URL of the web site Extend HttpServlet class
  *
  * @author Nguyen Nam
  */
@@ -46,7 +52,7 @@ public class BookSeatController extends HttpServlet {
             throws ServletException, IOException {
         //Use ISeatDAO interface to call
         ISeatDAO seatDao = new SeatDAO();
-
+        ISeatRoomDAO seatRoomDAO = new SeatRoomDAO();
         double totalSeatPrice = 0;
         double seatPrice = 0;
         String[] checkedSeatId = null;
@@ -59,8 +65,14 @@ public class BookSeatController extends HttpServlet {
         }
         checkedSeatId = request.getParameterValues("seatId");
         ArrayList<Seat> listSeatChecked = new ArrayList<>();
-        HttpSession session = request.getSession();// create session
-
+        // create session
+        HttpSession session = request.getSession();
+        //get session
+        MovieRoom movieRoom = (MovieRoom) session.getAttribute("movieRoom");
+        Room room = (Room) session.getAttribute("room");
+        Movie movie = (Movie) session.getAttribute("movie");
+        TimeRoom timeRoom = (TimeRoom) session.getAttribute("timeRoom");
+        ArrayList<SeatRoom> listSeatBooked = seatRoomDAO.getSeatRoomByTimeIdAndMovieId(timeRoom.getTimeId(), room.getRoomId(), movie.getMovieId(), movieRoom.getMovieRoomId());
         if (checkedSeatId != null) { // seats are checked
 
             for (String checked : checkedSeatId) {
@@ -80,15 +92,19 @@ public class BookSeatController extends HttpServlet {
             session.setAttribute("listcheckedSeatId", listSeatChecked);
             session.setAttribute("quantitySeat", listSeatChecked.size());
             session.setAttribute("totalSeatPrice", totalSeatPrice);
+            request.setAttribute("listSeatBooked", listSeatBooked);
+
             request.getRequestDispatcher("Seat.jsp").forward(request, response);
-        } else if (bookSeat && checkedSeatId == null) { 
+        } else if (bookSeat && checkedSeatId == null) {
             //when user go back to view seat bookes from view food
             request.getRequestDispatcher("Seat.jsp").forward(request, response);
-        } else if ((!bookSeat && checkedSeatId == null)) { // remove seat checked
+        } else if (!bookSeat && checkedSeatId == null && movieRoom != null) { // remove seat checked
             /*Remove and redirect it to view seat*/
             session.removeAttribute("listcheckedSeatId");
             session.removeAttribute("totalSeatPrice");
-            response.sendRedirect("seat");
+            response.sendRedirect("seat?movieRoomId=" + movieRoom.getMovieRoomId() + "&roomId=" + room.getRoomId() + "&movieId=" + movie.getMovieId() + "&time=" + timeRoom.getTimeId());
+        } else {
+            response.sendRedirect("home");
         }
 
     }

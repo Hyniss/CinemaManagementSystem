@@ -22,11 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.FoodAndDrink;
+import model.Movie;
+import model.MovieRoom;
+import model.Room;
+import model.Seat;
+import model.TimeRoom;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
- * see the list of foods 
- * /food is the URL of the web site Extend HttpServlet class
+ * see the list of foods /food is the URL of the web site Extend HttpServlet
+ * class
  *
  * @author Nguyen Nam
  */
@@ -46,7 +51,7 @@ public class ViewFoodController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-       //Use IFoodDAO interface to call
+        //Use IFoodDAO interface to call
         IFoodDAO foodDAO = new FoodDAO();
         HttpSession session = request.getSession();
 
@@ -56,11 +61,7 @@ public class ViewFoodController extends HttpServlet {
         } catch (Exception e) {
             Logger.getLogger(BookSeatController.class.getName()).log(Level.SEVERE, null, e);
         }
-        if (!viewFood) {
-            /*redirect back to view seat*/
-            response.sendRedirect("seat");
-            return;
-        }
+
         int pageIndex = 1;
         int pageSize = 8;
         int totalProduct = foodDAO.countTotalFood();
@@ -87,9 +88,18 @@ public class ViewFoodController extends HttpServlet {
         int back = pageIndex - 1;
 
         ArrayList<FoodAndDrink> listFoodAndDrink = foodDAO.getAllFoodPagging(pageIndex, pageSize);
-
+        ArrayList<Seat> listSeatChecked = (ArrayList<Seat>) session.getAttribute("listcheckedSeatId");
+        Movie movie = (Movie) session.getAttribute("movie");
+        MovieRoom movieRoom = (MovieRoom) session.getAttribute("movieRoom");
+        Room room = (Room) session.getAttribute("room");
+        TimeRoom timeRoom = (TimeRoom) session.getAttribute("timeRoom");
         /*if session is null redirect back to view seat*/
-        try {
+        if (!viewFood) {
+            /*redirect back to view seat*/
+            response.sendRedirect("seat?movieRoomId=" + movieRoom.getMovieRoomId() + "&roomId=" + room.getRoomId() + "&movieId=" + movie.getMovieId() + "&time=" + timeRoom.getTimeId());
+            return;
+        }
+        if (listSeatChecked != null) {
             /*Attach attribute subjects for request and redirect it to Food.jsp*/
             request.setAttribute("next", next);
             request.setAttribute("back", back);
@@ -97,11 +107,10 @@ public class ViewFoodController extends HttpServlet {
             request.setAttribute("pageIndex", pageIndex);
             request.setAttribute("listFoodAndDrink", listFoodAndDrink);
             request.getRequestDispatcher("Food.jsp").forward(request, response);
-        } catch (Exception e) {
-            response.sendRedirect("seat");
+        } else {
+            response.sendRedirect("home");
         }
     }
-   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

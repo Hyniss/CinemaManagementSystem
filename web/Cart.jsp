@@ -50,204 +50,211 @@
         <%@include file="template/header.jsp" %>
         <c:if test="${sessionScope.acc ==null}">
             <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
-              <h1> Bạn phải đăng nhập để thực hiện tác vụ</h1>
-              </div>
-          </c:if>
+                <h1> Bạn phải đăng nhập để thực hiện tác vụ</h1>
+            </div>
+        </c:if>
         <c:if test="${sessionScope.acc != null}">
-        <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
-            <% if (listCheckedSeatId == null && listFoodCarts == null) { %>
-            <h1> Bạn chưa có giao dịch(đơn hàng) nào</h1>
-            <%} else {%>
-            <div class="row no-gutters">
-                <div class="col-md-8">
-                    <div class="product-details mr-2">
-                        <div class="booking-progress">
-                            <div class="page-title">
-                                <h1>Booking online</h1>
+            <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
+                <% if (listCheckedSeatId == null && listFoodCarts == null) { %>
+                <h1> Bạn chưa có giao dịch(đơn hàng) nào</h1>
+                <%} else {%>
+                <div class="row no-gutters">
+                    <div class="col-md-8">
+                        <div class="product-details mr-2">
+                            <div class="booking-progress">
+                                <div class="page-title">
+                                    <h1>Booking online</h1>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <h6 class="mb-0">Shopping cart</h6>
-                        <div class="d-flex justify-content-between"><span>You have ${iteams} items in your cart</span>
-                            <!--                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
-                                                            <form action="" method="">
-                                                                <select name="" onchange="this.form.submit()" style="background-color: #e9ecef; border: none ">
-                                                                    <option value="">Sort by price</option>
-                                                                    <option value="">Sort by name</option>
-                                                                </select>
-                                                            </form>
-                                                        </div>-->
-                        </div>
-                        <br>
-
-                        <div class="cart-content mt-3">
-                            <div class="format-bg-top"></div> 
-                            <div class="minicart">
-                                <ul>
-                                    <li class="item first">
-                                        <div class="product-details">
-                                            <table class ="info-wrapper">
-                                                <colgroup>
-                                                    <col width="40%">
-                                                    <col>
-                                                </colgroup>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <img src="https://www.cgv.vn/media/catalog/product/cache/1/thumbnail/dc33889b0f8b5da88052ef70de32f1cb/b/n/bnn-new-year-poster-2022_1__2.jpg" class="rounded">
-                                                        </td>
-                                                        <td>
-                                                            <table>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td class="label"> BẪY NGỌT NGÀO </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>  
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <div class="product-details">
-                                            <table class ="info-wrapper">
-                                                <colgroup>
-                                                    <col width="30%">
-                                                    <col>
-                                                </colgroup>
-                                                <tbody>
-                                                    <!--check xem là phim hay đồ ăn, nếu là phim thì hiện cái này, còn đồ ăn thì phần này không hiện-->
-                                                    <tr style="height: 43px">
-                                                        <td class="label">Rạp chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">CGV Aeon mall Hà Đông<td>
-                                                    </tr>
-                                                    <tr style="height: 43px">
-                                                        <td class="label">Suất chiếu</td>
-                                                        <td style="font-weight: bold;font-size:16px;">10h05, 11/02/2022<td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="label">Phòng</td>
-                                                        <td style="font-weight: bold;font-size:16px;">Room 2<td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td class="label">Ghế</td>
-                                                        <td style="font-weight: bold;font-size:16px;">
-                                                            <% if (listCheckedSeatId != null) {%>          
-                                                            <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
-                                                            <%=listCheckedSeatId.get(k).getSeatId() + " "%>
-                                                            <%}%>
-                                                            <%}%>
-                                                        <td> 
-                                                    </tr>
-                                                </tbody>
-                                            </table> 
-                                        </div>
-                                    </li>
-                                    <li class="item">
-                                        <div class="product-details">
-                                            <table class ="info-wrapper">
-                                                <thead>
-                                                    <tr class="block-box" style="height: 24px">
-                                                        <td class="label">Giá</td>
-                                                        <td class="price">: ${totalSeatPrice} vnđ</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="block-box" style="height: 23px">
-                                                        <td class="label">Số lượng</td>
-                                                        <td class="price">: ${quantitySeat}</td>
-                                                    </tr>
-                                                </tbody>
-                                                <thead>
-                                                    <tr class="block-box" style="height: 24px">
-                                                        <td class="label">Combo</td>
-                                                        <c:if test="${totalFoodPrice == null}">
-                                                            <td class="price">: 0 vnđ</td>
-                                                        </c:if>
-                                                        <c:if test="${totalFoodPrice != null}">
-                                                            <td class="price">: ${totalFoodPrice} vnđ</td>
-                                                        </c:if>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="block-box" style="height: 23px">
-                                                        <td class="label">Số lượng</td>
-                                                        <td class="price">: ${pos} </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    </li>
-                                </ul>
-
+                            <hr>
+                            <h6 class="mb-0">Shopping cart</h6>
+                            <div class="d-flex justify-content-between"><span>You have ${iteams} items in your cart</span>
+                                <!--                            <div class="d-flex flex-row align-items-center" style="border: 1px solid #000;padding:5px; margin-top:-18px;border-radius:5px ">
+                                                                <form action="" method="">
+                                                                    <select name="" onchange="this.form.submit()" style="background-color: #e9ecef; border: none ">
+                                                                        <option value="">Sort by price</option>
+                                                                        <option value="">Sort by name</option>
+                                                                    </select>
+                                                                </form>
+                                                            </div>-->
                             </div>
-                            <div class="format-bg-bottom"></div>           
-                        </div>
-
-                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                            <a style="text-decoration: none" href="Seat.jsp">Back<i class="fa fa-long-arrow-right ml-1"></i></a>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="col-md-4" style="background:#fff1ce">
-                    <div class="payment-info">
-                        <br>
-                        <div class="d-flex justify-content-between align-items-center"><span>My promotions</span></div><span class="type d-block mt-3 mb-1">Enter code</span>
-                        <c:if test="${c == null}">
-                        <form action="Cart" method="GET">
-                            <input type="text" name ="magiam">
                             <br>
-                            <br>
-                            <input type="submit" class="btn btn-dark" value="get">
-                        </form>
-                            <h3 style="color: red;font-weight: 200;margin: 10px">${error}</h3>
-                        <h3 style="color: greenyellow;font-weight: 200;margin: 10px">${success}</h3>
-                         <h3 style="color: greenyellow;font-weight: 200;margin: 10px">${so}</h3>
-                        </c:if>
-                        <c:if test="${c == 1}">
-                        <h3 style="color: red;font-weight: 200;margin: 10px">Bạn đã hết lượt khuyến mãi cho ngày hôm nay</h3>
-                        </c:if>
-                        <!--                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                                                    <a style="text-decoration: none" href="Cart">Get<i class="fa fa-long-arrow-right ml-1"></i></a>
-                                                </button>-->
-                       
-                    
-                        <hr class="line">
-                        <div class="d-flex justify-content-between information">
-                            <span>Total${c}</span><span>${total}</span>
-                        </div>
-                        <div class="d-flex justify-content-between information">
-                            <span>Discount</span><span>${discount}%</span>
-                        </div>
-                        <hr class="line">
-                        <c:if test="${discount ==null}">
-                        <div class="d-flex justify-content-between information">
-                            <span>Subtotal</span><span>${total}</span>
-                        </div>
-                        </c:if>
-                        <c:if test="${discount !=null}">
-                        <div class="d-flex justify-content-between information">
-                            <span>Subtotal</span><span>${dis}</span>
-                        </div>
-                        </c:if>
-                        <div>
 
+                            <div class="cart-content mt-3">
+                                <div class="format-bg-top"></div> 
+                                <div class="minicart">
+                                    <ul>
+                                        <li class="item first">
+                                            <div class="product-details">
+                                                <table class ="info-wrapper">
+                                                    <colgroup>
+                                                        <col width="40%">
+                                                        <col>
+                                                    </colgroup>                                             
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <img src="${pageContext.request.contextPath}/assets/img/movie/${movie.getImage()}">
+                                                            </td>
+                                                            <td>
+                                                                <table>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="label">${movie.movieName}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>2D</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>  
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </li>
+                                        <li class="item">
+                                            <div class="product-details">
+                                                <table class ="info-wrapper">
+                                                    <colgroup>
+                                                        <col width="30%">
+                                                        <col>
+                                                    </colgroup>
+                                                    <tbody>
+                                                        <!--check xem là phim hay đồ ăn, nếu là phim thì hiện cái này, còn đồ ăn thì phần này không hiện-->
+                                                        <tr style="height: 43px">
+                                                            <td class="label">Suất chiếu</td>
+                                                            <td style="font-weight: bold;font-size:16px;">      
+                                                                <fmt:formatDate type="time" pattern="HH:mm aa" value="${movieTime.start}"/>,<br><fmt:formatDate pattern="dd/MM/yyyy" value = "${movieRoom.premiere}"/> 
+                                                            <td>
+                                                        </tr>
+                                                        <tr style="height: 43px">
+                                                            <td class="label">Phòng chiếu</td>
+                                                            <td style="font-weight: bold;font-size:16px;">${room.roomName}<td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="label">Ghế</td>
+                                                            <td style="font-weight: bold;font-size:16px;">
+                                                                <% if (listCheckedSeatId != null) {%>          
+                                                                <% for (int k = 0; k < listCheckedSeatId.size(); k++) {%>
+                                                                <%=listCheckedSeatId.get(k).getSeatId() + " "%>
+                                                                <%}%>
+                                                                <%}%>
+                                                            <td> 
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                        </li>
+                                        <li class="item">
+                                            <div class="product-details">
+                                                <table class ="info-wrapper">
+                                                    <thead>
+                                                        <tr class="block-box" style="height: 24px">
+                                                            <td class="label">Giá</td>
+                                                            <td class="price">: ${totalSeatPrice} vnđ</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="block-box" style="height: 23px">
+                                                            <td class="label">Số lượng</td>
+                                                            <td class="price">: ${quantitySeat}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <thead>
+                                                        <tr class="block-box" style="height: 24px">
+                                                            <td class="label">Combo</td>
+                                                            <c:if test="${totalFoodPrice == null}">
+                                                                <td class="price">: 0 vnđ</td>
+                                                            </c:if>
+                                                            <c:if test="${totalFoodPrice != null}">
+                                                                <td class="price">: ${totalFoodPrice} vnđ</td>
+                                                            </c:if>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="block-box" style="height: 23px">
+                                                            <td class="label">Số lượng</td>
+                                                            <td class="price">: ${pos} </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="format-bg-bottom"></div>           
+                            </div>
 
                             <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                                <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                                <a style="text-decoration: none" href="Seat.jsp">Back<i class="fa fa-long-arrow-right ml-1"></i></a>
                             </button>
                         </div>
                     </div>
-                    <% }%>
-                </div>
 
-            </div> 
-                </c:if>
+                    <div class="col-md-4" style="background:#fff1ce">
+                        <div class="payment-info">
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center"><span>My promotions</span></div><span class="type d-block mt-3 mb-1">Enter code</span>
+                            <c:if test="${c == null}">
+                                <form action="Cart" method="GET">
+                                    <input type="text" name ="magiam">
+                                    <br>
+                                    <br>
+                                    <input type="submit" class="btn btn-dark" value="get">
+                                </form>
+                                <h3 style="color: red;font-weight: 200;margin: 10px">${error}</h3>
+                                <h3 style="color: greenyellow;font-weight: 200;margin: 10px">${success}</h3>
+                                <h3 style="color: greenyellow;font-weight: 200;margin: 10px">${so}</h3>
+                            </c:if>
+                            <c:if test="${c == 1}">
+                                <h3 style="color: red;font-weight: 200;margin: 10px">Bạn đã hết lượt khuyến mãi cho ngày hôm nay</h3>
+                            </c:if>
+                            <!--                        <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
+                                                        <a style="text-decoration: none" href="Cart">Get<i class="fa fa-long-arrow-right ml-1"></i></a>
+                                                    </button>-->
+
+
+                            <hr class="line">
+                            <div class="d-flex justify-content-between information">
+                                <span>Total${c}</span><span>${total}</span>
+                            </div>
+                            <div class="d-flex justify-content-between information">
+                                <span>Discount</span><span>${discount}%</span>
+                            </div>
+                            <hr class="line">
+                            <c:if test="${discount ==null}">
+                                <div class="d-flex justify-content-between information">
+                                    <span>Subtotal</span><span>${total}</span>
+                                </div>
+                            </c:if>
+                            <c:if test="${discount !=null}">
+                                <div class="d-flex justify-content-between information">
+                                    <span>Subtotal</span><span>${dis}</span>
+                                </div>
+                            </c:if>
+                            <div>
+
+                                <c:if test="${discount ==null}">
+                                    <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" onclick="checkout(${total})" style="background-color: #000">
+                                        <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                                    </button>
+                                </c:if>
+                                 <c:if test="${discount !=null}">
+                                    <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" onclick="checkoutDiscount(${dis})" style="background-color: #000">
+                                        <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
+                                    </button>
+                                </c:if>
+                            </div>
+                        </div>
+                        <% }%>
+                    </div>
+
+                </div> 
+            </c:if>
             <style>
                 a{
                     color: white;
@@ -266,5 +273,13 @@
         <!-- SAKURA -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
+        <script>
+                                        function checkout(total) {
+                                            window.location.href = "checkout?total="+total;
+                                        }
+                                        function checkoutDiscount(total) {
+                                            window.location.href = "checkout?total"+total;
+                                        }
+        </script>
     </body>
 </html>

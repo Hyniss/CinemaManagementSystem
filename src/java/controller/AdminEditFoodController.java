@@ -36,8 +36,9 @@ public class AdminEditFoodController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         // Parameter Initializing
         String id = request.getParameter("id");
+        int fid = Integer.parseInt(id);
         //search object with id insert data into variable have datatype FoodAndDrink
-        FoodAndDrink food = foodDao.getFoodAndDrink(id);
+        FoodAndDrink food = foodDao.getFoodAndDrink(fid);
         //set attribute
         request.setAttribute("food", food);
 
@@ -53,7 +54,7 @@ public class AdminEditFoodController extends HttpServlet {
         //create object
         FoodAndDrink fd = new FoodAndDrink();
         // Set parameter
-        fd.setFoodId((request.getParameter("new_id")).trim());
+        fd.setFoodId(Integer.parseInt(request.getParameter("new_id").trim()));
         fd.setCategory(request.getParameter("new_Category").trim());
         fd.setImg(request.getParameter("new_Img").trim());
         fd.setName(request.getParameter("new_Name").trim());
