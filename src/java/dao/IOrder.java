@@ -7,6 +7,7 @@ package dao;
 
 import java.util.ArrayList;
 import model.Cart;
+import model.FastFoodCart;
 import model.FoodAndDrink;
 import model.FoodAndDrinkCart;
 import model.SeatRoom;
@@ -18,25 +19,17 @@ import model.SeatRoomCart;
  */
 public interface IOrder {
 
-    ArrayList<Cart> getMyOrderByName(String user, int pageIndex);
-
-    ArrayList<FoodAndDrinkCart> getOrderFoodById(int cartId);
-
+    ArrayList<Cart> getMyOrderByName(String user,int pageIndex);
+    ArrayList<FastFoodCart> getOrderFoodById(int cartId);
     ArrayList<SeatRoomCart> getOrderSeatById(int cartId);
-
     SeatRoom getSeatById(int id);
-
-    FoodAndDrink getFoodById(int id);
-
+     FoodAndDrink getFoodById(int id);
     int getTotalOrder(String user);
-
-    int getTotalOrderByDate(String user, String date);
-
-    ArrayList<Cart> getMyOrderByDate(String user, String date, int pageIndex);
-
-    public Cart getCartById(int id);
-
-    public boolean updateCartById(int id);
-    
-    public int addToCart(Cart cart);
+     int getTotalOrderByDate(String user,String date);
+     ArrayList<Cart> getMyOrderByDate(String user,String date,int pageIndex);
+      Cart getCartById(int id);
+     boolean updateCartById(int id);
+     ArrayList<Cart> getCartByStatus(int status,String username,int pageIndex);
+     int getTotalOrderByStatus(String user,int status);
+     public int addToCart(Cart cart);
 }

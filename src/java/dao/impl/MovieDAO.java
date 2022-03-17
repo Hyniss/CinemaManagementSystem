@@ -226,7 +226,7 @@ public class MovieDAO extends DBContext implements IMovieDAO {
      * @return Movie object
      */
     @Override
-    public Movie getMovieById(int movieId) {
+    public Movie getMovieById(int movieId) {///////////////////////////////////////////////////////////////////////////////////////
         try {
             /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM dbo.Movie where movieId=?";

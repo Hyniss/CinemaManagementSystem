@@ -8,6 +8,7 @@ package dao.impl;
 import dao.DBContext;
 import dao.IOrder;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Cart;
+import model.FastFoodCart;
 import model.FoodAndDrink;
 import model.FoodAndDrinkCart;
 import model.SeatRoom;
@@ -105,8 +108,8 @@ public class OrderDAO extends DBContext implements IOrder {
     }
 
     @Override
-    public ArrayList<FoodAndDrinkCart> getOrderFoodById(int cartId) {
-        ArrayList<FoodAndDrinkCart> cartFoodList = new ArrayList<>();
+    public ArrayList<FastFoodCart> getOrderFoodById(int cartId) {
+        ArrayList<FastFoodCart> cartFoodList = new ArrayList<>();
         try {
             /*Set up connection and Sql statement for Query*/
             query = "SELECT * FROM FastFoodCart where cartId = ? ";
@@ -119,7 +122,7 @@ public class OrderDAO extends DBContext implements IOrder {
 
             /*Assign data to an arraylist of Account*/
             while (rs.next()) {
-                cartFoodList.add(new FoodAndDrinkCart(
+                cartFoodList.add(new FastFoodCart(
                         rs.getInt("fastfoodCartId"),
                         rs.getInt("foodId"),
                         rs.getInt("quantity"),
@@ -157,7 +160,7 @@ public class OrderDAO extends DBContext implements IOrder {
                         rs.getInt("seatRoomId"),
                         rs.getBoolean("status"),
                         rs.getString("seatId"),
-                        rs.getInt("timeId")
+                        rs.getInt("timeRoomId")
                 );
                 return seatRoom;
             }
@@ -234,11 +237,7 @@ public class OrderDAO extends DBContext implements IOrder {
         return 0;
     }
 
-    public static void main(String[] args) {
-        OrderDAO or = new OrderDAO();
-        FoodAndDrink s = or.getFoodById(1);
-        System.out.println(s.getPrice());
-    }
+
 
     @Override
     public ArrayList<Cart> getMyOrderByDate(String user, String date, int pageIndex) {
@@ -307,7 +306,6 @@ public class OrderDAO extends DBContext implements IOrder {
         return 0;
     }
 
-    @Override
     public Cart getCartById(int id) {
         try {
             /*Set up connection and Sql statement for Query*/
@@ -342,6 +340,7 @@ public class OrderDAO extends DBContext implements IOrder {
         return null;
     }
 
+
     public boolean updateCartById(int id) {
         int check = 0;
         LocalDate curDate = java.time.LocalDate.now();
@@ -373,6 +372,98 @@ public class OrderDAO extends DBContext implements IOrder {
     }
 
     @Override
+    public ArrayList<Cart> getCartByStatus(int status, String username,int pageIndex) {
+        ArrayList<Cart> cartList = new ArrayList<>();
+        try {
+            /*Set up connection and Sql statement for Query*/
+
+            String query1 = "SELECT * FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY cartId desc) AS Seq\n"
+                    + "FROM Cart where";
+            if(status ==1){
+                query1 += " ";
+            }
+            else if(status == 2)
+            {
+                query1  += " status = 1 and";
+            }else if(status == 3)
+            {
+                query1  += " status = 0 and"; 
+            }
+            String query2  = " username = ?)t WHERE Seq BETWEEN ? AND ?";
+            query = query1 + query2;
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setInt(2, (pageIndex - 1) * 3 + 1);
+            ps.setInt(3, (pageIndex - 1) * 3 + 3);
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            /*Assign data to an arraylist of Account*/
+            while (rs.next()) {
+                cartList.add(new Cart(
+                        rs.getInt("cartId"),
+                        rs.getString("username"),
+                        rs.getDouble("totalPrice"),
+                        rs.getString("status"),
+                        rs.getDate("orderDate")
+                ));
+            }
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return cartList;
+    }
+    public int getTotalOrderByStatus(String user,int status){
+        try {
+           
+            /*Set up connection and Sql statement for Query*/
+            if(status == 1){
+             query = "select count(*) from Cart where username =?";
+            }else if(status == 2){
+              query = "select count(*) from Cart where status = 1   and username =?";
+            }else if(status ==3){
+              query = "select count(*) from Cart where  status =0  and username =?";
+            }
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, user);
+            /*Excute query and store it to check*/
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+    
+    public static void main(String[] args) {
+        OrderDAO or = new OrderDAO();
+       ArrayList<FastFoodCart>  s = or.getOrderFoodById(3);
+        for (FastFoodCart cart : s) {
+            System.out.println(cart.getFoodId());
+        }
+//     System.out.println(s.getSeatId());
+        
+    }
+
+     @Override
     public int addToCart(Cart cart) {
         int id = 0;
         try {
@@ -398,5 +489,4 @@ public class OrderDAO extends DBContext implements IOrder {
         }
         return id;
     }
-
 }

@@ -67,7 +67,6 @@ public class CheckoutController extends HttpServlet {
         ArrayList<FoodAndDrinkCart> listFoodChecked = new ArrayList<>();
         ArrayList<Seat> listSeatChecked = (ArrayList<Seat>) session.getAttribute("listcheckedSeatId");
         TimeRoom timeRoom = (TimeRoom) session.getAttribute("timeRoom");
-        MovieRoom movieRoom = (MovieRoom) session.getAttribute("statusCart");
         Account account = (Account) session.getAttribute("acc");
         try {
             listFoodChecked = (ArrayList<FoodAndDrinkCart>) session.getAttribute("listFoodCarts");
@@ -75,12 +74,7 @@ public class CheckoutController extends HttpServlet {
             Logger.getLogger(CheckoutController.class.getName()).log(Level.SEVERE, null, e);
 
         }
-        try {
-            totalFoodPrice = (Double) session.getAttribute("totalFoodPrice");
-        } catch (NumberFormatException e) {
-            Logger.getLogger(CheckoutController.class.getName()).log(Level.SEVERE, null, e);
 
-        }
         try {
             total = Double.parseDouble(request.getParameter("total"));
         } catch (NumberFormatException e) {
@@ -101,14 +95,16 @@ public class CheckoutController extends HttpServlet {
             SeatRoomCart seatRoomCart = new SeatRoomCart(seatRoomId, orderId);
             seatRoomCartDAO.addSeatRoomCart(seatRoomCart);
         }
-           
+
         if (orderId != 0 && listFoodChecked != null) {
+            totalFoodPrice = (Double) session.getAttribute("totalFoodPrice");
             for (FoodAndDrinkCart foodAndDrinkCart : listFoodChecked) {
                 FoodAndDrinkCart foodAndDrinkCartAdded = new FoodAndDrinkCart(foodAndDrinkCart.getFoodId(), foodAndDrinkCart.getQuantity(), orderId, totalFoodPrice);
                 foodAndDrinkCartDAO.addFoodCart(foodAndDrinkCartAdded);
             }
+
         }
-           
+
         //remove all session
         session.removeAttribute("listcheckedSeatId");
         session.removeAttribute("listFoodCarts");
@@ -121,6 +117,7 @@ public class CheckoutController extends HttpServlet {
         session.removeAttribute("totalSeatPrice");
         session.removeAttribute("totalFoodPrice");
         session.removeAttribute("totalPrice");
+        session.removeAttribute("list");
 
         response.sendRedirect("MyOrder");
     }

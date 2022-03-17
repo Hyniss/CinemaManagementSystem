@@ -4,6 +4,7 @@
     Author     : TIEN HUY
 --%>
 
+<%@page import="java.text.DecimalFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +84,20 @@
                                             <input value="${searchdate}" name="searchdate" value="" type="search" class="form-control" placeholder="Search By Date" aria-label="Search" aria-describedby="search-addon" required/>
                                         </div>
                                     </form>
-                                   
+
+
+                                    <div class="filter-group">
+                                        <form action ="FilterOrder" method="get">
+                                            <input type="hidden" name="pageIndex" value="${pageIndex1}"/>
+                                            <select class="form-control"  name="status" onchange="this.form.submit()">
+                                                <option>Choose</option>
+                                                <option value="1">All</option>
+                                                <option value="2">Setle</option>
+                                                <option value="3">Outstand</option>
+
+                                            </select>
+                                        </form>
+                                    </div>
 
                                     <span class="filter-icon"><i class="fa fa-filter"></i></span>
                                 </div>
@@ -114,13 +128,13 @@
                                         <td><a href="#"> ${o.username}</a></td>   
                                         <td><fmt:formatDate pattern="EEEE, dd-MM-yyyy"  value = "${o.orderDate}"/></td>    
                                         <c:if test="${o.status == 1}">
-                                            <td><span class="status text-success">&bull;</span> Delivered</td>
-                                            <td>${o.totalPrice}</td>
+                                            <td><span class="status text-success">&bull;</span>Đã thanh toán</td>
+                                            <td> <fmt:formatNumber type = "number" maxIntegerDigits = "10" value = "${o.totalPrice}"/> VNĐ</td>
                                             <td><a href="${pageContext.request.contextPath}/OrderDetail?cartId=${o.cartId}&username=${acc.username}" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
                                         </c:if>
                                         <c:if test="${o.status == 0}">
-                                            <td><span class="status text-danger">&bull;</span> Cancelled</td>
-                                            <td>${o.totalPrice}</td>
+                                            <td><span class="status text-danger">&bull;</span>Chưa thanh toán</td>
+                                            <td> <fmt:formatNumber type = "number" maxIntegerDigits = "10" value = "${o.totalPrice}"/></td>
                                             <td><a href="${pageContext.request.contextPath}/payment?id=${o.cartId}&price=${o.totalPrice}" class="view" title="Payment" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td>
                                         </c:if>
 
@@ -138,7 +152,7 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-                        <c:if test="${searchdate==null}">
+                        <c:if test="${searchdate==null && status == null}">
                             <div class="clearfix">
                                 <div class="hint-text">Showing <b>${order.size()}</b> out of <b>${total1}</b> entries</div>
                                 <ul class="pagination">
@@ -161,19 +175,38 @@
                                 <div class="hint-text">Showing <b>${order.size()}</b> out of <b>${total1}</b> entries</div>
                                 <ul class="pagination">
                                     <c:if test="${pageIndex1>1}">
-                                        <li class="page-item disabled"><a href="SearchOrder?pageIndex=${pageIndex1-1}">Previous</a></li>
-                                        <li class="page-item"><a class="page-link" href="SearchOrder?pageIndex=${pageIndex1-1}">${pageIndex1-1}</a></li>
+                                        <li class="page-item disabled"><a href="SearchOrder?pageIndex=${pageIndex1-1}&searchdate=${searchdate}">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="SearchOrder?pageIndex=${pageIndex1-1}&searchdate=${searchdate}">${pageIndex1-1}</a></li>
                                         </c:if>
                                         <c:if test="${pageIndex1!=null}">
-                                        <li class="page-item active"><a class="page-link" href="SearchOrder?pageIndex=${pageIndex1}">${pageIndex1}</a></li>
+                                        <li class="page-item active"><a class="page-link" href="SearchOrder?pageIndex=${pageIndex1}&searchdate=${searchdate}">${pageIndex1}</a></li>
                                         </c:if>
                                         <c:if test="${pageIndex1<endPage1}">
-                                        <li class="page-item"><a class="page-link" href="SearchOrder?pageIndex=${pageIndex1+1}">${pageIndex1+1}</a></li>
-                                        <li class="page-item"><a href="SearchOrder?pageIndex=${pageIndex1+1}" class="page-link">Next</a></li>
+                                        <li class="page-item"><a class="page-link" href="SearchOrder?pageIndex=${pageIndex1+1}&searchdate=${searchdate}">${pageIndex1+1}</a></li>
+                                        <li class="page-item"><a href="SearchOrder?pageIndex=${pageIndex1+1}&searchdate=${searchdate}" class="page-link">Next</a></li>
                                         </c:if>
                                 </ul>
                             </div>
                         </c:if>
+                        <c:if test="${status!=null}">
+                            <div class="clearfix">
+                                <div class="hint-text">Showing <b>${order.size()}</b> out of <b>${total1}</b> entries</div>
+                                <ul class="pagination">
+                                    <c:if test="${pageIndex1>1}">
+                                        <li class="page-item disabled"><a href="FilterOrder?pageIndex=${pageIndex1-1}&status=${status}">Previous</a></li>
+                                        <li class="page-item"><a class="page-link" href="FilterOrder?pageIndex=${pageIndex1-1}&status=${status}">${pageIndex1-1}</a></li>
+                                        </c:if>
+                                        <c:if test="${pageIndex1!=null}">
+                                        <li class="page-item active"><a class="page-link" href="FilterOrder?pageIndex=${pageIndex1}&status=${status}">${pageIndex1}</a></li>
+                                        </c:if>
+                                        <c:if test="${pageIndex1<endPage1}">
+                                        <li class="page-item"><a class="page-link" href="FilterOrder?pageIndex=${pageIndex1+1}&status=${status}">${pageIndex1+1}</a></li>
+                                        <li class="page-item"><a href="FilterOrder?pageIndex=${pageIndex1+1}&status=${status}" class="page-link">Next</a></li>
+                                        </c:if>
+                                </ul>
+                            </div>
+                        </c:if>
+
                     </div>
                 </div>        
             </div> 

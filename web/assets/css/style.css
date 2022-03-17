@@ -451,7 +451,6 @@ input::-webkit-inner-spin-button {
 }
 .seat-map td input:disabled ~ label{
     color: #a5b1c2;
-  
 }
 #seat-alert{
     width: 100%;
