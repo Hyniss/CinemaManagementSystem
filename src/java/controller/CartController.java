@@ -76,7 +76,7 @@ public class CartController extends HttpServlet {
         //setAttribute in store session
         session.setAttribute("pos", pos);
         session.setAttribute("iteams", iteams);
-        if (session.getAttribute("totalSeatPrice") == null) {
+        if (session.getAttribute("totalFoodPrice") == null) {
             totalFood = 0;
         }
         //Total price

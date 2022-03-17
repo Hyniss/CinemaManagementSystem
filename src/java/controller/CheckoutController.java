@@ -64,12 +64,17 @@ public class CheckoutController extends HttpServlet {
         double totalFoodPrice = 0;
         int orderId = 0;
         double total = 0;
-
+        ArrayList<FoodAndDrinkCart> listFoodChecked = new ArrayList<>();
         ArrayList<Seat> listSeatChecked = (ArrayList<Seat>) session.getAttribute("listcheckedSeatId");
-        ArrayList<FoodAndDrinkCart> listFoodChecked = (ArrayList<FoodAndDrinkCart>) session.getAttribute("listFoodCarts");
         TimeRoom timeRoom = (TimeRoom) session.getAttribute("timeRoom");
-        MovieRoom movieRoom = (MovieRoom) session.getAttribute(statusCart);
+        MovieRoom movieRoom = (MovieRoom) session.getAttribute("statusCart");
         Account account = (Account) session.getAttribute("acc");
+        try {
+            listFoodChecked = (ArrayList<FoodAndDrinkCart>) session.getAttribute("listFoodCarts");
+        } catch (Exception e) {
+            Logger.getLogger(CheckoutController.class.getName()).log(Level.SEVERE, null, e);
+
+        }
         try {
             totalFoodPrice = (Double) session.getAttribute("totalFoodPrice");
         } catch (NumberFormatException e) {
@@ -96,13 +101,14 @@ public class CheckoutController extends HttpServlet {
             SeatRoomCart seatRoomCart = new SeatRoomCart(seatRoomId, orderId);
             seatRoomCartDAO.addSeatRoomCart(seatRoomCart);
         }
-
+           
         if (orderId != 0 && listFoodChecked != null) {
             for (FoodAndDrinkCart foodAndDrinkCart : listFoodChecked) {
-                FoodAndDrinkCart foodAndDrinkCartAdded = new FoodAndDrinkCart(foodAndDrinkCart.getFoodId(), foodAndDrinkCart.getQuantity(), orderId,totalFoodPrice);
+                FoodAndDrinkCart foodAndDrinkCartAdded = new FoodAndDrinkCart(foodAndDrinkCart.getFoodId(), foodAndDrinkCart.getQuantity(), orderId, totalFoodPrice);
                 foodAndDrinkCartDAO.addFoodCart(foodAndDrinkCartAdded);
             }
         }
+           
         //remove all session
         session.removeAttribute("listcheckedSeatId");
         session.removeAttribute("listFoodCarts");

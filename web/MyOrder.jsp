@@ -83,17 +83,7 @@
                                             <input value="${searchdate}" name="searchdate" value="" type="search" class="form-control" placeholder="Search By Date" aria-label="Search" aria-describedby="search-addon" required/>
                                         </div>
                                     </form>
-                                    <div class="filter-group">
-                                        <label>Location</label>
-                                        <select class="form-control">
-                                            <option>All</option>
-                                            <option>Berlin</option>
-                                            <option>London</option>
-                                            <option>Madrid</option>
-                                            <option>New York</option>
-                                            <option>Paris</option>								
-                                        </select>
-                                    </div>
+                                   
 
                                     <span class="filter-icon"><i class="fa fa-filter"></i></span>
                                 </div>

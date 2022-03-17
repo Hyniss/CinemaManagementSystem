@@ -190,7 +190,7 @@
                             </div>
 
                             <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" style="background-color: #000">
-                                <a style="text-decoration: none" href="Seat.jsp">Back<i class="fa fa-long-arrow-right ml-1"></i></a>
+                                <a style="text-decoration: none" href="food">Back<i class="fa fa-long-arrow-right ml-1"></i></a>
                             </button>
                         </div>
                     </div>
@@ -242,11 +242,13 @@
                                     <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" onclick="checkout(${total})" style="background-color: #000">
                                         <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
                                     </button>
+                                        <h6>Khi check out bạn sẽ không được hoàn trả sản phẩm hãy suy nghĩ kỹ trước khi sự dụng</h6>
                                 </c:if>
                                  <c:if test="${discount !=null}">
                                     <button class="btn btn-secondary btn-block d-flex justify-content-between mt-3" type="button" onclick="checkoutDiscount(${dis})" style="background-color: #000">
                                         <span>Checkout<i class="fa fa-long-arrow-right ml-1"></i></span>
                                     </button>
+                                         <h6>Khi check out bạn sẽ không được hoàn trả sản phẩm hãy suy nghĩ kỹ trước khi sự dụng</h6>
                                 </c:if>
                             </div>
                         </div>
