@@ -220,7 +220,7 @@
                                                         margin-top: 3px;
                                                         width: 120px" >
 
-                                                        <a class="dropdown-item2" href="seat?movieRoomId=${movieRoomId}&roomId=${p.roomId}&movieId=${movieId}&time=${i.timeId}" style="color: #e71a0f;
+                                                        <a class="dropdown-item2" href="${pageContext.request.contextPath}/seat" style="color: #e71a0f;
                                                            text-decoration: none;     touch-action: manipulation">
                                                             <span style="color: #222;
                                                                   clear: both;

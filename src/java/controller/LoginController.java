@@ -22,13 +22,13 @@ import model.Account;
  * @author Tạ Văn Tân
  */
 public class LoginController extends HttpServlet {
-
+    
     IAccountDAO accountDAO = new AccountDAO();
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,15 +49,15 @@ public class LoginController extends HttpServlet {
             for (Cookie o : arr) {
                 if (o.getName().equals("userC")) {
                     request.setAttribute("username", o.getValue());
-
+                    
                 }
                 if (o.getName().equals("passC")) {
                     request.setAttribute("password", o.getValue());
-
+                    
                 }
             }
         }
-
+        
         request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
@@ -74,7 +74,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         // lấy giá trị username từ request mà người dùng nhập và xóa đi khoảng trắng đầu và cuối
         String username = request.getParameter("user").trim();
-
+        
         String password = request.getParameter("pass"); // lấy giá trị password từ request mà người dùng nhập
         String remember = request.getParameter("remember");
         Account a = accountDAO.getAccountByUsernameAndPassword(username, password);
@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
             //nêu a bằng null thì gửi 1 câu thông báo về trang login là ko thành công
             request.setAttribute("mess", "Wrong user or pass");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-
+            
         } else {
             //còn nếu a khac null nghĩa là tài khoản tồn tại đăng nhập thành công và trả về trang home
             HttpSession session = request.getSession();
@@ -99,11 +99,13 @@ public class LoginController extends HttpServlet {
             } else {
                 p.setMaxAge(0);
             }
-
+            
             response.addCookie(u);// luu account vao cookie
             response.addCookie(p);
             if (a.getRoleId() == 1) {
                 response.sendRedirect("adminhome");
+            } else if (a.getRoleId() == 4) {
+                response.sendRedirect("mkthome");
             } else {
                 response.sendRedirect("home");
             }

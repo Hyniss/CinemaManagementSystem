@@ -43,7 +43,7 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
                 recruiment = new Recruitment(
                         rs.getInt("ID"),
                         rs.getString("img"),
-                        rs.getString("Title"),
+                        rs.getString("title"),
                         rs.getString("content"),
                         rs.getString("date"));
             }
@@ -93,7 +93,7 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
             ps.setString(1, recruitment.getImg());
             ps.setString(2, recruitment.getTitle());
             ps.setString(3, recruitment.getContent());
-            ps.setString(4, recruitment.getDate());
+            ps.setString(4, recruitment.getFormatedDate());
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -113,7 +113,7 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
             ps.setString(1, recruitment.getImg());
             ps.setString(2, recruitment.getTitle());
             ps.setString(3, recruitment.getContent());
-            ps.setString(4, recruitment.getDate());
+            ps.setString(4, recruitment.getFormatedDate());
             ps.setInt(5, recruitment.getID());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -189,7 +189,13 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
 
             // next từng phần tử khi tìm thấy cho đến khi đến row cuối cùng thì sẽ dừng vòng lặp while
             while (rs.next()) {
-                list.add(new Recruitment(rs.getString("Title")));
+                list.add(new Recruitment(
+                        rs.getInt("ID"),
+                        rs.getString("img"),
+                        rs.getString("Title"),
+                        rs.getString("content"),
+                        rs.getString("date")
+                ));
             }
         } catch (SQLException e) {
             Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);

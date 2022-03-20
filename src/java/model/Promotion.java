@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
@@ -19,13 +20,13 @@ public class Promotion {
     private String content;
     private String imageLink;
     private String date;
-    private int discount;
+    private String discount;
     private String magiam;
 
     public Promotion() {
     }
 
-    public Promotion(int id, String title, String content, String imageLink, String date, int discount, String magiam) {
+    public Promotion(int id, String title, String content, String imageLink, String date, String discount, String magiam) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -75,11 +76,11 @@ public class Promotion {
         this.date = date;
     }
 
-    public int getDiscount() {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 

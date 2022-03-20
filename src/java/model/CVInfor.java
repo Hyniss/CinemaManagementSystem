@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Bảo Châu Bống
@@ -15,17 +17,30 @@ public class CVInfor {
     private String fullname;
     private String CV;
     private String date;
-    private String chucvu;
-    private String status;
+    private int chucvu;
+    private int status;
 
     public CVInfor() {
     }
 
-    public CVInfor(String status) {
+    public CVInfor(int status) {
         this.status = status;
     }
 
-    public CVInfor(int id, String fullname, String CV, String date, String chucvu, String status) {
+    public CVInfor(int id, int status) {
+        this.id = id;
+        this.status = status;
+    }
+
+    public CVInfor(int id, String fullname, String CV, String date, int chucvu) {
+        this.id = id;
+        this.fullname = fullname;
+        this.CV = CV;
+        this.date = date;
+        this.chucvu = chucvu;
+    }
+
+    public CVInfor(int id, String fullname, String CV, String date, int chucvu, int status) {
         this.id = id;
         this.fullname = fullname;
         this.CV = CV;
@@ -66,19 +81,19 @@ public class CVInfor {
         this.date = date;
     }
 
-    public String getChucvu() {
+    public int getChucvu() {
         return chucvu;
     }
 
-    public void setChucvu(String chucvu) {
+    public void setChucvu(int chucvu) {
         this.chucvu = chucvu;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

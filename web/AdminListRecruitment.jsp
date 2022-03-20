@@ -1,11 +1,14 @@
 <%-- 
-    Document   : AdminAddNewBanner
-    Created on : 13-Feb-2022, 00:06:14
+    Document   : AdminRecruitmentList
+    Created on : 27-Feb-2022, 01:05:10
     Author     : Bảo Châu Bống
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.sql.Date" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.text.DateFormat" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,7 +47,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <title>Amazing Cinema</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mkt.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin.css" />
     </head>
 
     <body>
@@ -59,25 +62,25 @@
                     alt="">
                 <div class="ms-2">
                     <h5 class="fs-6 mb-0">
-                        <a class="text-decoration-none" href="#">Marketing                        
+                        <a class="text-decoration-none" href="#">Admin                       
                             <i class="fas fa-cogs"></i> 
                         </a>
                     </h5>
                 </div>
             </div>
-            <%@include file="template/mktMenu.jsp" %>
+            <%@include file="template/adminMenu.jsp" %>
         </aside>
 
         <section id="wrapper">
-            <%@include file="template/mktNewHeader.jsp" %>
+            <%@include file="template/adminNewHeader.jsp" %>
             <div class="p-4">
                 <div class="welcome">
                     <div class="content rounded-3 p-3">
-                        <h1 class="fs-3"><i class="fa fa-users" aria-hidden="true"></i> Banner Management</h1>
+                        <h1 class="fs-3"><i class="fa fa-users" aria-hidden="true"></i> Recruitment Management</h1>
                     </div>
-                </div>
+                </div>   
                 <div style="display: flex; justify-content: end; margin: 10px">
-                    <a href="add_banner" class="custom-btn btn-crud"><span>Add !</span><span>Add more</span></a>
+                    <a href="add_recruitment" class="custom-btn btn-crud"><span>Add !</span><span>Add more</span></a>
                 </div>
 
                 <div class="admin-table table-responsive">
@@ -85,19 +88,20 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th style="width: 15%; text-align: center" >Title</th>
-                                <th style="width: 30%; text-align: center" >Image</th>
-                                <th style="width: 15%; text-align: center" >Description</th>
-                                <th style="width: 15%; text-align: center" >Actions</th>
-                                <th style="width: 15%; text-align: center" >Actions</th>
+                                <th scope="col" style="width: 10%; text-align: center">Title</th>
+                                <th scope="col" style="width: 25%; text-align: center">Image</th>
+                                <th scope="col" style="width: 20%; text-align: center">Content</th>
+                                <th scope="col" style="width: 15%; text-align: center">Created Date</th>
+                                <th scope="col" style="width: 15%; text-align: center">Action</th>
+                                <th scope="col" style="width: 15%; text-align: center">Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${bannerList}" var="banner">
+                            <c:forEach items="${recruitmentList}" var="recruitment">                               
                                 <tr>
-                                    <td scope="row">${banner.id}</td>
-                                    <td style="text-align: center; font-size: 15px">${banner.title}</td>
+                                    <td scope="row">${recruitment.getID()}</td>
+                                    <td style="text-align: center; font-size: 15px">${recruitment.getTitle()}</td>
 
                                     <td style="text-align: center ; font-size: 15px">
 
@@ -113,17 +117,18 @@
                                                 box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
                                             }
                                         </style>
-                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/banner/${banner.getImg()}">
-                                            <img src="${pageContext.request.contextPath}/assets/img/banner/${banner.getImg()}" alt="Forest" style="width:80%">
+                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/recruitment/${recruitment.getImg()}">
+                                            <img src="${pageContext.request.contextPath}/assets/img/recruitment/${recruitment.getImg()}" alt="Forest" style="width:80%">
                                         </a>
 
                                     </td>
-                                    <td style="text-align: center; font-size: 15px">${banner.desc}</td>
+                                    <td style="text-align: center; font-size: 15px">${recruitment.getContent()}</td>
+                                    <td style="text-align: center; font-size: 15px">${recruitment.getFormatedDate()}</td>
                                     <td style="text-align: center; font-size: 15px">                    
-                                        <a href="edit_banner?id=${banner.id}"  class="custom-btn btn-crud"><span>Update now!</span><span>Update</span></button></a>
+                                        <a href="${pageContext.request.contextPath}/edit_recruitment?id=${recruitment.getID()}" class="custom-btn btn-crud"><span>Update now!</span><span>Update</span></button></a>
                                     </td>
                                     <td style="text-align: center">                                    
-                                        <button onclick="showMess(${banner.getId()})"  class="custom-btn btn-crud"><span>Delete now !</span><span>Delete</span></button>
+                                        <button onclick="showMess(${recruitment.getID()})"  class="custom-btn btn-crud"><span>Delete now !</span><span>Delete</span></button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -185,7 +190,8 @@
     function showMess(id) {
         var option = confirm('Are you sure to delete?');
         if (option === true) {
-            window.location.href = 'delete_banner?id=' + id;
+            window.location.href = 'delete_recruitment?id=' + id;
         }
     }
 </script>
+

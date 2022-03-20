@@ -25,7 +25,7 @@ public class AdminAddBannerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         // Lead to AdminAddBanner.jsp
         request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
@@ -43,27 +43,44 @@ public class AdminAddBannerController extends HttpServlet {
         String new_Img = request.getParameter("new_Img");
 
         // Set the value
-        Banner banner = new Banner();
-        banner.setTitle(new_title);
-        banner.setImg(new_Img);
-        banner.setDesc(new_desc);
+        Banner banner = new Banner(0, new_Img, new_title, new_desc);
 
         String mess = "";
-        if (Validate.checkImg(banner.getImg()) == false) {
-            mess = "Sai định dạng ảnh !";
-        } else if (Validate.checkTitle(banner.getTitle()) == false) {
-            mess = "Thông tin Title không hợp lệ !";
-        } else if (Validate.checkDesc(banner.getDesc()) == false) {
-            mess = "Thông tin Content không hợp lệ !";
+//        if (Validate.checkImg(banner.getImg()) == false) {
+//            mess = "Sai định dạng ảnh !";
+//        } else if (Validate.checkTitle(banner.getTitle()) == false) {
+//            mess = "Thông tin Title không hợp lệ !";
+//        } else if (Validate.checkDesc(banner.getDesc()) == false) {
+//            mess = "Thông tin Content không hợp lệ !";
+//        } else {
+//            bannerDao.addBanner(banner);
+//            //request.getRequestDispatcher("/adminrecruitmentlist").forward(request, response);
+//            response.sendRedirect(request.getContextPath() + "/adminbannerlist");
+//        }
+//        if (!mess.equals("")) {
+//            request.setAttribute("mess", mess);
+//            request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
+//        }
+
+        if (Validate.checkTitle(new_title) == false) {
+            request.setAttribute("banner", banner);
+            request.setAttribute("error", "Length of Title must be from 4 to 30 characters!");
+            request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
+        } else if (Validate.checkDesc(new_desc) == false) {
+            request.setAttribute("banner", banner);
+            request.setAttribute("error", "Length of Description must be from 4 to 30 characters!");
+            request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
+        } else if (Validate.checkImg(new_Img) == false) {
+            request.setAttribute("banner", banner);
+            request.setAttribute("error", "Image can not be blank");
+            request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
         } else {
             bannerDao.addBanner(banner);
-            //request.getRequestDispatcher("/adminrecruitmentlist").forward(request, response);
             response.sendRedirect(request.getContextPath() + "/adminbannerlist");
         }
         if (!mess.equals("")) {
-            request.setAttribute("mess", mess);
+            request.setAttribute("mess", "Add Banner successful!");
             request.getRequestDispatcher("AdminAddBanner.jsp").forward(request, response);
         }
-
     }
 }

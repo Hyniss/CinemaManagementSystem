@@ -25,7 +25,7 @@ import util.CustomException;
  *
  * @author Bảo Châu Bống
  */
-public class AdminListCVController extends HttpServlet {
+public class AdminEditStatusCVController extends HttpServlet {
 
     ICVInforDAO cvInforDao = new CVInforDAO();
     IStatusDAO statusDao = new StatusDAO();
@@ -36,11 +36,11 @@ public class AdminListCVController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
 
         List<CVInfor> cvInforList = cvInforDao.getAllCV();
-        List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
-       // List<Status> statusList = statusDao.getAllStatus();
+        //List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
+        List<Status> statusList = statusDao.getAllStatus();
 
-       // request.setAttribute("statusList", statusList);
-        request.setAttribute("cvStatusList", cvStatusList);
+        request.setAttribute("statusList", statusList);
+        // request.setAttribute("cvStatusList", cvStatusList);
         request.setAttribute("cvInforList", cvInforList);
 
         request.getRequestDispatcher("AdminCVInforList.jsp").forward(request, response);

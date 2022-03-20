@@ -67,18 +67,19 @@ public class Validate {
 
     // hàm check đầu vào cho title
     public static boolean checkTitle(String title) {
-        String regex = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪ"
-                + "ẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồ"
-                + "ổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{4,200}(?:[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨ"
-                + "ŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềề"
-                + "ểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵ"
-                + "ỷỹ]+){0,2}$"; //ít nhất 6 ký tự và không có ký tự đặc biệt
+        String regex = "^[-!@#$%^&*_,.;(){}\"':“”0-9a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪ\n"
+                + "ẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồ\n"
+                + "ổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{4,30}(?:[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨ\n"
+                + "ŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềề\n"
+                + "ểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵ\n"
+                + "ỷỹ]+){0,2}$";   // regex cho tên tiếng việt
+
         Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
         Matcher matcher = pattern.matcher(title); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
-    }
+    } //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
 
-    // hàm check đầu vào cho title
+// hàm check đầu vào cho title
     public static boolean checkImg(String img) {
         //email phải có định dạng example@gmail.com 
         String regex = "^[a-zA-Z][a-zA-Z0-9]+.png";
@@ -100,10 +101,10 @@ public class Validate {
         Matcher matcher = pattern.matcher(desc); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
     }
-    
-        //check String
-        public static boolean checkString(String desc, int a, int b) {
-        String regex = "^.{"+a+","+b+"}$"; //ít nhất 6 ký tự và không có ký tự đặc biệt
+
+    //check String
+    public static boolean checkString(String desc, int a, int b) {
+        String regex = "^.{" + a + "," + b + "}$"; //ít nhất 6 ký tự và không có ký tự đặc biệt
         Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
         Matcher matcher = pattern.matcher(desc); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
@@ -114,5 +115,25 @@ public class Validate {
         Calendar cal = Calendar.getInstance();
         cal.setTime(dob);
         return dob.before(Calendar.getInstance().getTime()) && cal.get(Calendar.YEAR) > 1900;
+    }
+
+    // check mã giảm giá
+    public static boolean checkDiscount(String magiam) {
+        String regex = "^^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪ"
+                + "ẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồ"
+                + "ổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{4,2500}(?:[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨ"
+                + "ŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềề"
+                + "ểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵ"
+                + "ỷỹ]+){0,2}$"; //ít nhất 6 ký tự và không có ký tự đặc biệt
+        Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
+        Matcher matcher = pattern.matcher(magiam); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
+        return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
+    }
+    
+    //hàm check đầu vào cho dob
+    public static boolean checkDate(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return date.before(Calendar.getInstance().getTime()) && cal.get(Calendar.YEAR) > 1900;
     }
 }

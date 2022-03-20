@@ -16,21 +16,17 @@ public class Recruitment {
 
     private int ID;
     private String img;
-    private String Title;
+    private String title;
     private String content;
     private String date;
 
     public Recruitment() {
     }
 
-    public Recruitment(String Title) {
-        this.Title = Title;
-    }
-
-    public Recruitment(int ID, String img, String Title, String content, String date) {
+    public Recruitment(int ID, String img, String title, String content, String date) {
         this.ID = ID;
         this.img = img;
-        this.Title = Title;
+        this.title = title;
         this.content = content;
         this.date = date;
     }
@@ -52,11 +48,11 @@ public class Recruitment {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -80,9 +76,31 @@ public class Recruitment {
         return formattedDate;
     }
 
+//    public static void main(String[] args) {
+//
+//        long millis = System.currentTimeMillis();
+//        Timestamp timestamp = new Timestamp(millis);
+//        //System.out.println(timestamp);
+//
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//
+//        /*
+//         * Parameters:
+//         *
+//         * date - the time value to be formatted into a time string.
+//         *
+//         * Returns:
+//         *
+//         * the formatted time string.
+//         */
+//        String formatedStrDate = sdf.format(timestamp);
+//        System.out.println(formatedStrDate);
+//
+//    }
+
     @Override
     public String toString() {
-        return "Recruitment{" + "ID=" + ID + ", img=" + img + ", Title=" + Title + ", content=" + content + ", date=" + date + '}';
+        return "Recruitment{" + "ID=" + ID + ", img=" + img + ", title=" + title + ", content=" + content + ", date=" + date + '}';
     }
 
 }

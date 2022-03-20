@@ -115,7 +115,7 @@ public class BannerDAO extends DBContext implements IBannerDAO {
     @Override
     public void deleteBanner(int id) {
         try {
-            query = "DELETE FROM dbo.Banner WHERE ID = ??,";
+            query = "DELETE FROM dbo.Banner WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -158,9 +158,74 @@ public class BannerDAO extends DBContext implements IBannerDAO {
 
     public static void main(String[] args) {
         BannerDAO dao = new BannerDAO();
-        List<Banner> list = dao.getAllBanner();
-        for (Banner o : list) {
-            System.out.println(o);
-        }
+        Banner list = dao.get(4);
+        System.out.println(list);
     }
+
+    @Override
+    public ArrayList<Banner> pagingBanner(int pageIndex) {
+        ArrayList<Banner> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM "
+                    + "( SELECT *, ROW_NUMBER() OVER "
+                    + "(ORDER BY ID desc) AS Seq\n"
+                    + "FROM dbo.Banner)t WHERE Seq BETWEEN ? AND ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, (pageIndex - 1) * 5 + 1);
+            ps.setInt(2, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Banner(
+                        rs.getInt("id"),
+                        rs.getString("img"),
+                        rs.getString("title"),
+                        rs.getString("desc")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    @Override
+    public int getTotalBanner() {
+        try {
+            query = "SELECT count(*) FROM dbo.Banner";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+//    @Override
+//    public ArrayList<Banner> getBannerByTitle(String bannerTitle, int pageIndex) {
+//        ArrayList<Banner> list = new ArrayList<>();
+//        try {
+//            query = ""
+//        }
+//    }
+//
+//    @Override
+//    public int getTotalBannerByTitle(String title) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

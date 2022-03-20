@@ -1,5 +1,5 @@
 <%-- 
-    Document   : adminNewHeader
+    Document   : mktNewHeader
     Created on : Mar 10, 2022, 10:48:47 PM
     Author     : tenhik
 --%>
@@ -13,7 +13,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle-navbar" aria-controls="toggle-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="uil-bars text-white"></i>
             </button>
-            <a class="navbar-brand" href="admin">Cinema<span class="main-color"> management <i class="fas fa-cogs"></i></span></a>
+            <a class="navbar-brand" href="mkt">Cinema<span class="main-color"> management <i class="fas fa-cogs"></i></span></a>
         </div>       
         <!--Account info-->
         <div class="collapse navbar-collapse" id="toggle-navbar">

@@ -65,137 +65,20 @@
                                     <table class="table table-striped ">
                                         <thead>
                                             <tr style="text-align: center">
-                                                <th scope="col" style="width: 2%; text-align: center">#</th>
-                                                <th scope="col" style="width: 15%">Fullname</th>
-                                                <th scope="col" style="width: 15%">CV</th>
-                                                <!--                                                <th scope="col" style="width: 15%">Chức vụ</th>-->
-<!--                                                <th scope="col" style="width: 15%">Date</th>-->
-                                                <th scope="col" style="width: 15%">Status</th>
-                                                <th scope="col" style="width: 15%">Action</th>
-
+                                                <th scope="col" style="width: 5%; text-align: center">#</th>
+                                                <th scope="col" style="width: 19%">Fullname</th>
+                                                <th scope="col" style="width: 19%">CV</th>
+                                                <!--                                                <th scope="col" style="width: 19%">Role</th>-->
+                                                <th scope="col" style="width: 19%">Status</th>
+                                                <th scope="col" style="width: 19%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${cvInforList}" var="cvInforList">
+                                            <c:forEach items="${cvInforList}" var="o">
                                                 <tr>
-                                                    <td scope="row" style="text-align: center">${cvInforList.id}</td>
-                                                    <td style="text-align: center">${cvInforList.fullname}</td>
-                                                    <td>
-<!--                                                        <img id="myImg" src="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.CV}" alt="CV Image" style="width:100%;max-width:300px">
-                                                         The Modal 
-                                                        <div id="myModal" class="modal">
-
-                                                             The Close Button 
-                                                            <span class="close">&times;</span>
-
-                                                             Modal Content (The Image) 
-                                                            <img class="modal-content" id="img01">
-
-                                                             Modal Caption (Image Text) 
-                                                            <div id="caption"></div>
-                                                        </div>
-                                                        <style>
-                                                            #myImg {
-                                                                border-radius: 5px;
-                                                                cursor: pointer;
-                                                                transition: 0.3s;
-                                                            }
-
-                                                            #myImg:hover {opacity: 0.7;}
-
-                                                            /* The Modal (background) */
-                                                            .modal {
-                                                                display: none; /* Hidden by default */
-                                                                position: fixed; /* Stay in place */
-                                                                z-index: 1; /* Sit on top */
-                                                                padding-top: 100px; /* Location of the box */
-                                                                left: 0;
-                                                                top: 0;
-                                                                width: 100%; /* Full width */
-                                                                height: 100%; /* Full height */
-                                                                overflow: auto; /* Enable scroll if needed */
-                                                                background-color: rgb(0,0,0); /* Fallback color */
-                                                                background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-                                                            }
-
-                                                            /* Modal Content (Image) */
-                                                            .modal-content {
-                                                                margin: auto;
-                                                                display: block;
-                                                                width: 80%;
-                                                                max-width: 700px;
-                                                            }
-
-                                                            /* Caption of Modal Image (Image Text) - Same Width as the Image */
-                                                            #caption {
-                                                                margin: auto;
-                                                                display: block;
-                                                                width: 80%;
-                                                                max-width: 700px;
-                                                                text-align: center;
-                                                                color: #ccc;
-                                                                padding: 10px 0;
-                                                                height: 150px;
-                                                            }
-
-                                                            /* Add Animation - Zoom in the Modal */
-                                                            .modal-content, #caption {
-                                                                animation-name: zoom;
-                                                                animation-duration: 0.6s;
-                                                            }
-
-                                                            @keyframes zoom {
-                                                                from {transform:scale(0)}
-                                                                to {transform:scale(1)}
-                                                            }
-
-                                                            /* The Close Button */
-                                                            .close {
-                                                                position: absolute;
-                                                                top: 15px;
-                                                                right: 35px;
-                                                                color: #f1f1f1;
-                                                                font-size: 40px;
-                                                                font-weight: bold;
-                                                                transition: 0.3s;
-                                                            }
-
-                                                            .close:hover,
-                                                            .close:focus {
-                                                                color: #bbb;
-                                                                text-decoration: none;
-                                                                cursor: pointer;
-                                                            }
-
-                                                            /* 100% Image Width on Smaller Screens */
-                                                            @media only screen and (max-width: 700px){
-                                                                .modal-content {
-                                                                    width: 100%;
-                                                                }
-                                                            }
-                                                        </style>
-                                                        <script>
-                                                            // Get the modal
-                                                            var modal = document.getElementById("myModal");
-
-                                                            // Get the image and insert it inside the modal - use its "alt" text as a caption
-                                                            var img = document.getElementById("myImg");
-                                                            var modalImg = document.getElementById("img01");
-                                                            var captionText = document.getElementById("caption");
-                                                            img.onclick = function () {
-                                                                modal.style.display = "block";
-                                                                modalImg.src = this.src;
-                                                                captionText.innerHTML = this.alt;
-                                                            }
-
-                                                            // Get the <span> element that closes the modal
-                                                            var span = document.getElementsByClassName("close")[0];
-
-                                                            // When the user clicks on <span> (x), close the modal
-                                                            span.onclick = function () {
-                                                                modal.style.display = "none";
-                                                            }
-                                                        </script>-->
+                                                    <td name="new_id" style="text-align: center" >${o.id}</td>
+                                                    <td style="text-align: center" >${o.fullname}</td>                                                   
+                                                    <td >
                                                         <style>
                                                             .row img {
                                                                 border: 1px solid #ddd;
@@ -208,21 +91,20 @@
                                                                 box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
                                                             }
                                                         </style>
-                                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.CV}">
-                                                            <img src="${pageContext.request.contextPath}/assets/img/CV/${cvInforList.CV}" alt="Forest" style="width:150px">
+                                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/CV/${o.CV}">
+                                                            <img src="${pageContext.request.contextPath}/assets/img/CV/${o.CV}" alt="Forest" style="width:150px">
                                                         </a>
                                                     </td>
-<!--                                                    <td style="text-align: center">${cvInforList.chucvu}</td>-->
-<!--                                                    <td style="text-align: center">${cvInforList.date}</td>-->
-                                                    <td>
-                                                        <select name="cvStatusList" class="form-select" aria-label="Default select example">
-                                                            <c:forEach items="${cvStatusList}" var="o">
-                                                                <option value="${o.id}" ${ o.id==cvInforList.id ? "selected" : ""}>${o.getStatus()}</option>
-                                                            </c:forEach>
-                                                        </select>
+                                                    <td>  
+                                                        <form action="admincvlist" method="GET">
+                                                            <select name="new_status" class="form-control" onchange="this.form.submit()" aria-label="Default select example">
+                                                                <c:forEach items="${statusList}" var="a">
+                                                                    <option value="${a.id}" ${ a.id==o.status ? "selected" : ""}>${a.status}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </form>
                                                     </td>
                                                     <td  style="text-align: center"> <button type="submit" class="btn btn-success">Save</button></td>
-                                                    </div>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -353,3 +235,4 @@
         var src = img.src;
         window.open(src);
     }
+</script>

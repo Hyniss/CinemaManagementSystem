@@ -1,5 +1,5 @@
 <%-- 
-    Document   : adminMenu
+    Document   : mktMenu
     Created on : Mar 10, 2022, 10:56:30 PM
     Author     : tenhik
 --%>
@@ -10,37 +10,41 @@
         <p>DASHBOARD</p>
     </li>
     <!--account-->
-    <li class="">
+<!--    <li class="">
         <a href="${pageContext.request.contextPath}/adminaccountlist"><i class="fa fa-users" aria-hidden="true"></i> Account</a>
     </li>
-    <!--staff-->
+    staff
     <li class="has-dropdown">
         <a href="#" onclick="dropdown()" ><i class="fas fa-cogs"></i> Staff</a>
         <ul id="sidebar-dropdown" class="list-unstyled">
-            
-<!--            <li><a href="#"><i class="fas fa-address-card"></i> Staff </a></li>-->
-            <!--cv-->
-            <li><a href="${pageContext.request.contextPath}/adminrecruitmentlist" ><i class="fas fa-certificate"></i> Recruitment</a></li>
+            staff
+            <li><a href="#"><i class="fas fa-address-card"></i> Staff </a></li>
+            cv
+            <li><a href="${pageContext.request.contextPath}/adminrecruitmentlist" ><i class="fas fa-address-card"></i> Recruitment</a></li>
             <li><a href="${pageContext.request.contextPath}/admincvlist" ><i class="fas fa-address-card"></i> CV List</a></li>
         </ul>
-    </li>
-    <!--movie-->
+    </li>-->
+<!--    Banner
     <li class="">
-        <a href="${pageContext.request.contextPath}/adminListMovie"><i class="fas fa-film"></i> Movie</a>
+        <a href="${pageContext.request.contextPath}/adminbannerlist"><i class="fas fa-film"></i> Banner</a>
     </li>
-    <!--schedule-->
+    Promotione
     <li class="">
-        <a href="${pageContext.request.contextPath}/adminListTime"><i class="far fa-calendar-alt"></i> Schedule</a>
-    </li>
-    <li class="">
+        <a href="${pageContext.request.contextPath}/adminpromotionlist"><i class="far fa-calendar-alt"></i> Promotion</a>
+    </li>-->
+<!--    <li class="">
         <a href="${pageContext.request.contextPath}/adminListMovieRoom"><i class="far fa-calendar-alt"></i> Movie room</a>
-    </li>
-    <!--Food And Drink-->
+    </li>-->
+    <!--promtion-->
     <li class="">
-        <a href="${pageContext.request.contextPath}/AdminListFood"><i class="far fa-life-bouy"></i> Food And Drink</a>
+        <a href="${pageContext.request.contextPath}/adminpromotionlist"><i class='fas fa-bullhorn'></i> Promotion</a>
     </li>
-    <!--notification-->
+    <!--banner-->
+    <li class="">
+        <a href="${pageContext.request.contextPath}/adminbannerlist"><i class="fas fa-ad"></i> Banner</a>
+    </li>
+<!--    notification
     <li class="">
         <a href="${pageContext.request.contextPath}/adminnotificationlist"><i class='fas fa-bell'></i> Notification</a>
-    </li>
+    </li>-->
 </ul>

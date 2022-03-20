@@ -126,7 +126,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminRecruitmentListController</servlet-name>
-        <servlet-class>controller.AdminRecruitmentListController</servlet-class>
+        <servlet-class>controller.AdminListRecruitmentController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminDeleteRecruitmentController</servlet-name>
@@ -138,7 +138,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminListCVController</servlet-name>
-        <servlet-class>controller.AdminListCVController</servlet-class>
+        <servlet-class>controller.AdminEditStatusCVController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserAddCVInforController</servlet-name>
@@ -195,6 +195,10 @@
     <servlet>
         <servlet-name>PaymentVerification</servlet-name>
         <servlet-class>controller.PaymentVerification</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MktHomeController</servlet-name>
+        <servlet-class>controller.MktHomeController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -395,6 +399,10 @@
     <servlet-mapping>
         <servlet-name>PaymentVerification</servlet-name>
         <url-pattern>/verification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MktHomeController</servlet-name>
+        <url-pattern>/mkthome</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

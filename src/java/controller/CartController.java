@@ -111,7 +111,7 @@ public class CartController extends HttpServlet {
                 request.setAttribute("error", "thất bại");
             }
             //caculator about discount
-            double disc = (total * pro.getDiscount()) / 100;
+            double disc = (total * Integer.parseInt(pro.getDiscount())) / 100;
             //last price
             double dis = total - disc;
             //set atribute value last price,display value discount

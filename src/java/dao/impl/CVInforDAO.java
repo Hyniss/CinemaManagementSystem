@@ -30,7 +30,7 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
 
     @Override
     public CVInfor getCV(int id) {
-        CVInfor cvinfor = null;
+        //CVInfor cvinfor = null;
         try {
             query = "select * from dbo.CVInfor where ID = ?";
             con = DBContext.getConnection();
@@ -39,13 +39,20 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                cvinfor = new CVInfor(
-                        rs.getInt("ID"),
-                        rs.getString("Fullname"),
+                CVInfor cvinfor = new CVInfor(
+                        rs.getInt("id"),
+                        rs.getString("fullname"),
                         rs.getString("CV"),
                         rs.getString("date"),
-                        rs.getString("chucvu"),
-                        rs.getString("status"));
+                        rs.getInt("chucvu"),
+                        rs.getInt("status"));
+//                cvinfor.setId();
+//                cvinfor.setFullname(rs.getString("fullname"));
+//                cvinfor.setCV(rs.getString("CV"));
+//                cvinfor.setDate(rs.getDate("date"));
+//                cvinfor.setChucvu(rs.getInt("chucvu"));
+//                cvinfor.setStatus(rs.getInt("status"));
+                return cvinfor;
             }
         } catch (SQLException e) {
             Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -54,14 +61,14 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
-        return cvinfor;
+        return null;
     }
 
     @Override
     public ArrayList<CVInfor> getAllCV() {
         ArrayList<CVInfor> list = new ArrayList<>();
         try {
-            query = "SELECT * FROM dbo.CVInfor ORDER BY [date] asc";
+            query = "SELECT * FROM dbo.CVInfor ORDER BY [id] asc";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -72,8 +79,8 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
                         rs.getString("Fullname"),
                         rs.getString("CV"),
                         rs.getString("date"),
-                        rs.getString("chucvu"),
-                        rs.getString("status")));
+                        rs.getInt("chucvu"),
+                        rs.getInt("status")));
             }
         } catch (SQLException e) {
             Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -87,23 +94,22 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
 
     public static void main(String[] args) {
         CVInforDAO dao = new CVInforDAO();
-        List<CVInfor> list = dao.getAllStatus();
-        for (CVInfor o : list) {
-            System.out.println(o);
-        }
+        //CVInfor cv = new CVInfor (0, "abc", "cv1.png", "04/03/2022", 1, "Waiting");
+        CVInfor list = dao.getCV(1);
+        System.out.println(list);
     }
 
     @Override
     public void addCV(CVInfor cvinfor) {
         try {
-            query = "INSERT INTO dbo.CVInfor VALUES (?, ?, ?, ?, ?)";
+            query = "INSERT INTO dbo.CVInfor (fullname, CV, [date], chucvu) VALUES  (?, ?, ?, ?)";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setString(1, cvinfor.getFullname());
             ps.setString(2, cvinfor.getCV());
             ps.setString(3, cvinfor.getDate());
-            ps.setString(4, cvinfor.getChucvu());
-            ps.setString(5, cvinfor.getStatus());
+            ps.setInt(4, cvinfor.getChucvu());
+            //ps.setInt(5, cvinfor.getStatus());
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -117,10 +123,16 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
     @Override
     public void editCV(CVInfor cvinfor) {
         try {
-            query = "UPDATE dbo.CVInfor SET [status] = ? WHERE ID = ?";
+            query = "UPDATE dbo.CVInfor SET [status] = ? "
+//                    + "fullname = ?, CV = ?,  chucvu = ? "
+                    + "WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, cvinfor.getStatus());
+            ps.setInt(1, cvinfor.getStatus());
+//            ps.setString(2, cvinfor.getFullname());
+//            ps.setString(3, cvinfor.getCV());
+//            ps.setDate(4, cvinfor.getDate());
+//            ps.setInt(4, cvinfor.getChucvu());
             ps.setInt(2, cvinfor.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -160,7 +172,8 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
 
             // next từng phần tử khi tìm thấy cho đến khi đến row cuối cùng thì sẽ dừng vòng lặp while
             while (rs.next()) {
-                list.add(new CVInfor(rs.getString("status")));
+                list.add(new CVInfor(
+                        rs.getInt("status")));
             }
         } catch (SQLException e) {
             Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);

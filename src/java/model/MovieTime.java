@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -89,6 +90,7 @@ public class MovieTime {
         this.slot = slot;
     }
 
+    
     @Override
     public String toString() {
         return "MovieTime{" + "timeId=" + timeId + ", slot=" + slot + ", start=" + start + ", end=" + end + ", movieRoomId=" + movieRoomId + ", add=" + add + '}';

@@ -45,7 +45,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
                         rs.getString("Content"),
                         rs.getString("imageLink"),
                         rs.getString("date"),
-                        rs.getInt("discount"),
+                        rs.getString("discount"),
                         rs.getString("MAGIAM"));
             }
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
     public ArrayList<Promotion> getAllPromotion() {
         ArrayList<Promotion> list = new ArrayList<>();
         try {
-            query = "SELECT * FROM dbo.Promotion ORDER BY [date] desc";
+            query = "SELECT * FROM dbo.Promotion ORDER BY [id] asc";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -73,8 +73,8 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
                         rs.getString("Title"),
                         rs.getString("Content"),
                         rs.getString("imageLink"),
-                        rs.getString("date"), 
-                        rs.getInt("discount"),
+                        rs.getString("date"),
+                        rs.getString("discount"),
                         rs.getString("MAGIAM")));
             }
         } catch (SQLException e) {
@@ -97,7 +97,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
             ps.setString(2, promotion.getContent());
             ps.setString(3, promotion.getImageLink());
             ps.setString(4, promotion.getDate());
-            ps.setInt(5, promotion.getDiscount());
+            ps.setString(5, promotion.getDiscount());
             ps.setString(6, promotion.getMagiam());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
             ps.setString(2, promotion.getContent());
             ps.setString(3, promotion.getImageLink());
             ps.setString(4, promotion.getDate());
-            ps.setInt(5, promotion.getDiscount());
+            ps.setString(5, promotion.getDiscount());
             ps.setString(6, promotion.getMagiam());
             ps.setInt(7, promotion.getId());
             ps.executeQuery();
@@ -135,7 +135,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
     @Override
     public void deletePromotion(int id) {
         try {
-            query = "DELETE FROM dbo.Promotion WHERE ID = ? ORDER BY [date] desc";
+            query = "DELETE FROM dbo.Promotion WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -152,7 +152,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
     @Override
     public Promotion get(int id) {
         try {
-            query = "SELECT * FROM dbo.Promotion WHERE ID = ? ORDER BY [date] desc";
+            query = "SELECT * FROM dbo.Promotion WHERE ID = ? ORDER BY [id] asc";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
@@ -165,7 +165,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
                 promotion.setContent(rs.getString("Content"));
                 promotion.setImageLink(rs.getString("imageLink"));
                 promotion.setDate(rs.getString("date"));
-                promotion.setDiscount(rs.getInt("discount"));
+                promotion.setDiscount(rs.getString("discount"));
                 promotion.setMagiam(rs.getString("MAGIAM"));
                 return promotion;
             }
@@ -179,10 +179,8 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
         return null;
     }
 
-   
-
     @Override
-         public Promotion discount(String magiam) {
+    public Promotion discount(String magiam) {
         try {
             query = "SELECT * FROM dbo.Promotion WHERE MAGIAM = ? ";
             con = DBContext.getConnection();
@@ -197,7 +195,7 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
                 promotion.setContent(rs.getString("Content"));
                 promotion.setImageLink(rs.getString("imageLink"));
                 promotion.setDate(rs.getString("date"));
-                promotion.setDiscount(rs.getInt("discount"));
+                promotion.setDiscount(rs.getString("discount"));
                 promotion.setMagiam(rs.getString("MAGIAM"));
                 return promotion;
             }
@@ -210,7 +208,8 @@ public class PromotionDAO extends DBContext implements IPromotionDAO {
         }
         return null;
     }
-          public static void main(String[] args) {
+
+    public static void main(String[] args) {
         PromotionDAO dao = new PromotionDAO();
         List<Promotion> list = dao.getAllPromotion();
         for (Promotion o : list) {

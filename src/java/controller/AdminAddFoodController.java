@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Validation.Validate;
 import dao.impl.FoodDAO;
 import dao.IFoodDAO;
 import java.io.IOException;
@@ -16,25 +17,26 @@ import javax.servlet.http.HttpServletResponse;
 import model.FoodAndDrink;
 
 /**
- * Documentation : AdminPromotionListController 
- * Created on : 13-Feb-2022, 08:41:21
+ * Documentation : AdminPromotionListController Created on : 13-Feb-2022,
+ * 08:41:21
+ *
  * @author Nguyễn Tiến Huy
  */
-
 //  Admin can add new Banner
 //url
 @WebServlet(name = "AdminAddFoodController", urlPatterns = {"/AdminAddFoodController"})
 public class AdminAddFoodController extends HttpServlet {
-        //create object
-       IFoodDAO foodDAO = new FoodDAO();
-    
+    //create object
+
+    IFoodDAO foodDAO = new FoodDAO();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Lead to AdminAddFood.jsp
         request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,19 +47,36 @@ public class AdminAddFoodController extends HttpServlet {
         String new_Img = request.getParameter("new_Img").trim();
         String new_Name = request.getParameter("new_Name").trim();
         String new_Price = request.getParameter("new_Price").trim();
-        
-          //create object
+
+        //create object
         FoodAndDrink fd = new FoodAndDrink();
         // Set the value
-       fd.setCategory(new_category);
-       fd.setImg(new_Img);
-       fd.setName(new_Name);
-       fd.setPrice(new_Price);
-       
+        fd.setCategory(new_category);
+        fd.setImg(new_Img);
+        fd.setName(new_Name);
+        fd.setPrice(new_Price);
+
         //call metho and add value to database
-       foodDAO.addFood(fd);
-       // Lead to Page that show the list Food
-        response.sendRedirect(request.getContextPath() + "/AdminListFood");
+//       foodDAO.addFood(fd);
+//       // Lead to Page that show the list Food
+//        response.sendRedirect(request.getContextPath() + "/AdminListFood");
+        String mess = "";
+        if (Validate.checkTitle(new_category) == false) {
+            request.setAttribute("fd", fd);
+            request.setAttribute("error", "Length of Category must be from 4 to 30 characters!");
+            request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
+        } else if (Validate.checkTitle(new_Name) == false) {
+            request.setAttribute("fd", fd);
+            request.setAttribute("error", "Length of Name must be from 4 to 30 characters!");
+            request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
+        } else {
+            foodDAO.addFood(fd);
+            response.sendRedirect(request.getContextPath() + "/AdminListFood");
+        }
+        if (!mess.equals("")) {
+            request.setAttribute("mess", "Add Food and Drink successful!");
+            request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
+        }
     }
 
     /**

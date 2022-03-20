@@ -23,6 +23,15 @@ public interface IBannerDAO {
     public void editBanner(Banner banner);
 
     public void deleteBanner(int id);
-    
+
     public Banner get(int id);
+
+    public ArrayList<Banner> pagingBanner(int pageIndex);
+
+    public int getTotalBanner();
+
+//    public ArrayList<Banner> getBannerByTitle(String bannerTitle, int pageIndex);
+//
+//    public int getTotalBannerByTitle(String title);
+
 }

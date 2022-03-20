@@ -5,100 +5,155 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1" />
-    <!-- icon -->
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
-    <!-- link Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-        rel="stylesheet"
-        />
-    <!--BOOTSTRAP5-->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous"
-        />
-    <!--FONTAWESOME-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-        />
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-    <!-- Sakura -->
-    <link href="${pageContext.request.contextPath}/assets/css/jquery-sakura.css" rel="stylesheet" type="text/css">
-    <title>Amazing Cinema</title>
-</head>
 
-<body>
-    <%@include file="template/header.jsp" %>
-    <div class="content-wrapper"  style="margin-bottom: 50px">
-        <div class="container-fluid">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1" />
+        <!-- icon -->
+        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+        <!-- link Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet"
+            />
+        <!--BOOTSTRAP5-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+            />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <!--FONTAWESOME-->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+            />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <title>Amazing Cinema</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mkt.css" />
+    </head>
 
-            <div class="row">
-                <div class="col-lg-12" style="margin: 30px">
-                    <button class="btn btn-icon btn-3 bg-gradient-primary mx-3"><a href="${pageContext.request.contextPath}/add_promotion">
-                            <span class="btn-inner--icon text-md" style="color: red"><i class="fas fa-plus-square"></i></span>
-                            <span class="btn-inner--text text-sm" style="color: red;">Create</span></button>
-                </div>
-                <div class="col-lg-12">
-                    <div class="card"  style="border-radius: 12px" >
-                        <div class="card-body">
-                            <h4 class="card-title" style="margin: 30px">List Promotion</h4>
-                            <div class="table-responsive"  style="margin-left: 0px; margin-right: 5%">
-                                <table class="table table-striped ">
-                                    <thead>
-                                        <tr style="text-align: center">
-                                            <th scope="col" style="width: 2%; text-align: center">#</th>
-                                            <th scope="col" style="width: 15%">Title</th>
-                                            <th scope="col" style="width: 30%">Image</th>
-                                            <th scope="col" style="width: 15%">Created Date</th>
-                                            <th scope="col" style="width: 10%">Discount</th>
-                                            <th scope="col" style="width: 10%">Mã</th>
-                                            <th scope="col" style="width: 30%">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${promotionList}" var="promotion">
-                                            <tr>
-                                                <td scope="row" style="text-align: center">${promotion.id}</td>
-                                                <td style="text-align: center">${promotion.title}</td>
-                                                <td style="text-align: center"><img style="object-fit: cover; height: 50%; width: 100%; text-align: center" src="${pageContext.request.contextPath}/assets/img/promotion/${promotion.imageLink}"></td>
-                                                <td style="text-align: center">${promotion.getDate()}</td>
-                                                <td style="text-align: center">${promotion.discount}</td>
-                                                <td style="text-align: center">${promotion.magiam}</td>
+    <body>
 
-                                                <td style="text-align: center">
-                                                    <button class="btn btn-danger"><a href="${pageContext.request.contextPath}/edit_promotion?id=${promotion.id}"><p  style="color: #ffffff; margin: 1px">Save</p></a></button>
-                                                   <!-- <button class="btn btn-success"><a href="${pageContext.request.contextPath}/delete_banner?id=${promotion.id}"><p  style="color: #ffffff; margin: 1px">Delete</p></a></button> -->
-                                                    <a href="#" onclick="showMess(${promotion.id})" class="btn btn-success"><p  style="color: #ffffff; margin: 1px">Delete</p>
-
-                                                    </a>
-                                                </td>
-
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+        <aside class="sidebar position-fixed top-0 left-0 overflow-auto h-100 float-left" id="show-side-navigation1">
+            <i class="fas fa-bars close-aside d-md-none d-lg-none" data-close="show-side-navigation1"></i>
+            <div class="sidebar-header d-flex justify-content-center align-items-center px-3 py-4">
+                <img
+                    class="rounded-pill img-fluid"
+                    width="65"
+                    src="${pageContext.request.contextPath}/assets/images/128-1280822_check-mark-box-clip-art-blue-admin-icon.png"
+                    alt="">
+                <div class="ms-2">
+                    <h5 class="fs-6 mb-0">
+                        <a class="text-decoration-none" href="#">Marketing                        
+                            <i class="fas fa-cogs"></i> 
+                        </a>
+                    </h5>
                 </div>
             </div>
-        </div>
+            <%@include file="template/mktMenu.jsp" %>
+        </aside>
+
+        <section id="wrapper">
+            <%@include file="template/mktNewHeader.jsp" %>
+            <div class="p-4">
+                <div class="welcome">
+                    <div class="content rounded-3 p-3">
+                        <h1 class="fs-3"><i class="fa fa-users" aria-hidden="true"></i> Promotion Management</h1>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: end; margin: 10px">
+                    <a href="add_promotion" class="custom-btn btn-crud"><span>Add !</span><span>Add more</span></a>
+                </div>
+
+                <div class="admin-table table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th style="width: 10%; text-align: center" >Title</th>
+                                <th style="width: 30%; text-align: center" >Image</th>
+                                <th style="width: 10%; text-align: center" >Created Date</th>
+                                <th style="width: 10%; text-align: center" >Discount</th>
+                                <th style="width: 10%; text-align: center" >Coupon</th>
+                                <th style="width: 10%; text-align: center" >Actions</th>
+                                <th style="width: 10%; text-align: center" >Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <c:forEach items="${promotionList}" var="promotion">
+                                <tr>
+                                    <td scope="row">${promotion.id}</td>
+                                    <td style="text-align: center; font-size: 15px">${promotion.title}</td>
+                                    <td style="text-align: center; font-size: 15px">
+
+                                        <style>
+                                            .row img {
+                                                border: 1px solid #ddd;
+                                                border-radius: 4px;
+                                                padding: 5px;
+                                                width: 150px;
+                                            }
+
+                                            img:hover {
+                                                box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+                                            }
+                                        </style>
+                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/promotion/${promotion.getImageLink()}">
+                                            <img src="${pageContext.request.contextPath}/assets/img/promotion/${promotion.getImageLink()}" alt="Forest" style="width:80%">
+                                        </a>
+
+                                    </td>                                                
+
+
+                                    <td style="text-align: center; font-size: 15px">
+                                        ${promotion.date} 
+
+                                    </td>
+                                    <td style="text-align: center; font-size: 15px">${promotion.discount}%</td>
+                                    <td style="text-align: center; font-size: 15px">${promotion.magiam}</td>
+
+                                    <td style="text-align: center; font-size: 15px">                    
+                                        <a href="edit_promotion?id=${promotion.id}"  class="custom-btn btn-crud"><span>Update now!</span><span>Update</span></button></a>
+                                    </td>
+                                    <td style="text-align: center">                                    
+                                        <button onclick="showMess(${promotion.getId()})"  class="custom-btn btn-crud"><span>Delete now !</span><span>Delete</span></button>
+                                    </td>
+
+                                </tr>
+                            </c:forEach>
+
+                        </tbody>
+                    </table>
+                </div>
+                <%@include file="template/adminStatics.jsp" %>
+            </div>
+            <!--footer-->
+            <%@include file="template/adminFooter.jsp" %>
+        </section>
+
+
+
         <style>
             .content-wrapper {
                 margin-left: 10%;
@@ -123,7 +178,6 @@
             }
         </style>
     </div>
-    <%@include file="template/footer.jsp" %>
 </body>
 
 <!-- BOOTSTRAP5-->
@@ -138,9 +192,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
 <script>
-                                                        $(window).load(function () {
-                                                            $('body').sakura();
-                                                        });
+                                            $(window).load(function () {
+                                                $('body').sakura();
+                                            });
 </script>
 
 <script>
@@ -151,4 +205,3 @@
         }
     }
 </script>
-
