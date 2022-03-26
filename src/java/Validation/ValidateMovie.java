@@ -5,6 +5,8 @@
  */
 package Validation;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,14 +30,6 @@ public class ValidateMovie {
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
     }
 
-    //hàm check đầu vào cho image
-    public static boolean checkImage(String image) {
-        String regex = "";   // regex cho tên tiếng việt
-
-        Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
-        Matcher matcher = pattern.matcher(image); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
-        return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
-    }
 
     //hàm check đầu vào cho duration phai la so và không bắt đầu bằng số 0
     public static boolean checkDuration(String duration) {
@@ -53,6 +47,14 @@ public class ValidateMovie {
         Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
         Matcher matcher = pattern.matcher(trailer); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
+    }
+    
+     public static boolean checkPremiere(Date premiere){
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(premiere);
+        return premiere.after(Calendar.getInstance().getTime()) 
+                && cal.get(Calendar.YEAR)< (Calendar.getInstance().getWeekYear()+2);
+                //ngày công chiếu phải sau ngày hiện tại và năm phải nhỏ hơn năm hiện tại +2
     }
 
 }

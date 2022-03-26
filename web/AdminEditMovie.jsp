@@ -1,5 +1,5 @@
 <%-- 
-    Document   : AdminAddMovie
+    Document   : AdminEditMovie
     Created on : Feb 26, 2022, 9:11:42 PM
     Author     : Tạ Văn Tân
 --%>
@@ -48,13 +48,13 @@
         <div class="container-fluid">
 
             <div class="row mt-3">
-                <div class="col-lg-12">
+                <div class="col-lg-5" style="margin-left: auto;margin-right: auto">
                     <div class="card">
-                       
+
                         <div class="card-body">
-                             <h2><a href="adminListMovie">List movie </a></h2>
+                            <h2><a href="adminListMovie">List movie </a></h2>
                             <div class="card-title" style="margin: 10px; color: #ffffff">Add Movie</div>
-                            
+
                             <form action="editmovie" method="post">
                                 <h3 style="color: red ">${error}</h3>
                                 <h3 style="color: #18a665 ">${mess}</h3>
@@ -62,53 +62,64 @@
                                     <label>ID movie</label>
                                     <input value="${movie.movieId}" type="number" class="form-control" readonly name="movieID">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label>Movie name</label>
                                     <input value="${movie.movieName}" type="text" class="form-control" required name="movieName">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="input-1">Image</label>
-                                    <input value="${movie.image}" type="text" class="form-control" id="input-1" placeholder="Add Image" name="movieImage">
+                                <div>
+                                    <p class="text-muted">Image</p>
+                                    <img class="rounded" height="20%" width="30%" id="image" src="${pageContext.request.contextPath}/assets/img/movie/${movie.image}" />
+                                    <div id="myfileupload">
+                                        <input value="${pageContext.request.contextPath}/assets/img/movie/${movie.image}" type="file" name="movieImage" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                                    </div>
+                                    <div id="thumbbox">
+                                        <img class="rounded" height="20%" width="30%" alt="Thumb image" id="thumbimage" style="display: none" />
+                                        <a class="removeimg" href="javascript:"></a>
+                                    </div>
+                                    <div id="boxchoice">
+                                        <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
+                                        <p style="clear:both"></p>
+                                    </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="input-1">Category Movie</label>
                                     <input value="${movie.categoryMovie}" type="text" class="form-control" id="input-1"  name="movieCategory">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="input-2" class="col-form-label">description</label>
                                     <div>
                                         <textarea  class="form-control" rows="2" id="input-17" name="movieDescription">${movie.description}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="input-1">Trailer</label>
                                     <input value="${movie.trailer}" type="text" class="form-control" id="input-1"  name="movieTrailer">
                                 </div>
-                                
-                                  <div class="form-group">
+
+                                <div class="form-group">
                                     <label for="input-1">Author</label>
                                     <input value="${movie.author}" type="text" class="form-control" id="input-1"  name="movieAuthor">
                                 </div>
-                                
-                                  <div class="form-group">
+
+                                <div class="form-group">
                                     <label for="input-1">Actor</label>
                                     <input value="${movie.actor}" type="text" class="form-control" id="input-1"  name="movieActor">
                                 </div>
-                                
-                                  <div class="form-group">
+
+                                <div class="form-group">
                                     <label for="input-1">Duration</label>
                                     <input value="${movie.duration}" type="text" class="form-control" id="input-1"  name="movieDuration">
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="input-1">Premiere</label> 
                                     <div>
-                                        <input value="${movie.premiere}" type="date" class="form-control" id="the-date" placeholder="Ngày công chiếu" name="moviePremiere">
+                                        <input value="${movie.premiere}" type="date" class="form-control" id="the-date" placeholder="Ngày công chiếu" name="moviePremiere" required="">
                                     </div>
                                 </div>
                                 <div class="form-footer" style="margin-top: 10px">
@@ -124,11 +135,154 @@
         </div>
     </div>
 </body>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<style>
+    body a{
+        text-decoration: none;
+    }
+
+    .form-create{
+        margin: 50px 30px 10px 30px;
+        border: 1px solid #000;
+        width: 6%;
+        text-align: center;
+        padding: 5px 0;
+        background-color: #000;
+        color:#fff;
+    }
+
+    .form-create a{
+        color: #fff;
+    }
+
+
+    .content-wrapper {
+        margin-left: 5%;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-right: 5%;
+    }
+
+    .card-body-icon {
+        position: absolute;
+        z-index: 0;
+        top: -25px;
+        right: -25px;
+        font-size: 5rem;
+        -webkit-transform: rotate(15deg);
+        -ms-transform: rotate(15deg);
+        transform: rotate(15deg);
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .Choicefile{
+        display: block;
+        background: #396CF0;
+        border: 1px solid #fff;
+        color: #fff;
+        width: 150px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 5px 0px;
+        border-radius: 5px;
+        font-weight: 500;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .Choicefile:hover {
+        text-decoration: none;
+        color: white;
+    }
+
+    #uploadfile,
+    .removeimg {
+        display: none;
+    }
+
+    #thumbbox {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .removeimg {
+        height: 25px;
+        position: absolute;
+        background-repeat: no-repeat;
+        top: 5px;
+        left: 5px;
+        background-size: 25px;
+        width: 25px;
+        border-radius: 50%;
+
+    }
+
+    .removeimg::before {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        content: '';
+        border: 1px solid red;
+        background: red;
+        text-align: center;
+        display: block;
+        margin-top: 11px;
+        transform: rotate(45deg);
+    }
+
+    .removeimg::after {
+        content: '';
+        background: red;
+        border: 1px solid red;
+        text-align: center;
+        display: block;
+        transform: rotate(-45deg);
+        margin-top: -2px;
+    }
+</style>
+</div>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+<script src="assets/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
 <script>
-    $(window).load(function () {
-        $('body').sakura();
-    });
+                                            $(window).load(function () {
+                                                $('body').sakura();
+                                            });
+</script>
+<script>
+    function readURL(input, thumbimage) {
+        if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#thumbimage").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else { // Sử dụng cho IE
+            $("#thumbimage").attr('src', input.value);
+
+        }
+        $("#thumbimage").show();
+        $("#image").hide();
+        $('.filename').text($("#uploadfile").val());
+        $(".Choicefile").hide();
+        $(".removeimg").show();
+    }
+    $(document).ready(function () {
+        $(".Choicefile").bind('click', function () {
+            $("#uploadfile").click();
+
+        });
+        $(".removeimg").click(function () {
+            $("#thumbimage").attr('src', '').hide();
+            $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+            $(".removeimg").hide();
+            $("#image").show();
+            $(".Choicefile").show();
+            $(".filename").text("");
+        });
+    })
 </script>
 

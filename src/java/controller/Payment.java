@@ -25,7 +25,7 @@ import vnpay.common.Config;
 
 /**
  *
- * @author Khuong Hung
+ * @author Tạ Văn Tân
  */
 public class Payment extends HttpServlet {
 
@@ -43,36 +43,26 @@ public class Payment extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
         double fee = Double.parseDouble(request.getParameter("price"));
-        String vnp_Version = "2.0.0";
-        String vnp_Command = "pay";
+        String vnp_Version = "2.0.0";  //phiên bản api sử dụng để thanh toán
+        String vnp_Command = "pay";     //mã cho giao dịch thanh toán là pay
         String vnp_OrderInfo = null;
-        int booking_id = id;
-        vnp_OrderInfo = "Thanh toan : " + booking_id;
-        int amount = (int) Math.round(fee) * 100;
-        String orderType = "billpayment";
-        String vnp_TxnRef = booking_id + "";
-        String vnp_IpAddr = Config.getIpAddress(request);
-        String vnp_TmnCode = Config.vnp_TmnCode;
+        vnp_OrderInfo = "Thanh toan : " + id;      // nội dung thanh toán
+        int amount = (int) Math.round(fee) * 100;  
+        String orderType = "billpayment";  //mã danh mục hàng hóa
+        String vnp_TxnRef = id + "";  //mã tham chiếu của giao dịch hệ thống vn pay
+        String vnp_IpAddr = Config.getIpAddress(request);        //lấy ra địa chỉ Ip của tài khoản trên website
+        String vnp_TmnCode = Config.vnp_TmnCode;           //lấy ra mã code của website trên vnpay
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
         vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
-        vnp_Params.put("vnp_CurrCode", "VND");
-        String bank_code = "";
-        if (bank_code != null && bank_code.isEmpty()) {
-            vnp_Params.put("vnp_BankCode", bank_code);
-        }
+        vnp_Params.put("vnp_CurrCode", "VND"); // đơn vị tiền tệ sử dụng để thanh toán
+        vnp_Params.put("vnp_BankCode", "");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", vnp_OrderInfo);
         vnp_Params.put("vnp_OrderType", orderType);
-
-        String locate = "vi";
-        if (locate != null && !locate.isEmpty()) {
-            vnp_Params.put("vnp_Locale", locate);
-        } else {
-            vnp_Params.put("vnp_Locale", "vn");
-        }
+        vnp_Params.put("vnp_Locale", "vn"); // ngôn ngữ giao diện hiển thị
         vnp_Params.put("vnp_ReturnUrl", Config.vnp_Returnurl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
@@ -155,3 +145,4 @@ public class Payment extends HttpServlet {
     }// </editor-fold>
 
 }
+

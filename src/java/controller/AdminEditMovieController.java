@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Validation.Validate;
 import Validation.ValidateMovie;
 import dao.IMovieDAO;
 import dao.impl.MovieDAO;
@@ -90,7 +91,7 @@ public class AdminEditMovieController extends HttpServlet {
         IMovieDAO movieDAO = new MovieDAO();
         int movieId = Integer.parseInt(request.getParameter("movieID").trim());
         String movieName = request.getParameter("movieName").trim();
-        String movieImage = request.getParameter("movieImage").trim();
+        String movieImage = request.getParameter("movieImage");
         String movieCategory = request.getParameter("movieCategory").trim();
         String description = request.getParameter("movieDescription").trim();
         String movieTrailer = request.getParameter("movieTrailer").trim();
@@ -123,6 +124,10 @@ public class AdminEditMovieController extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Description không được để trống và giới hạn 4-2000 ký tự!!!");
             request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
+        } else if (ValidateMovie.checkTrailer(movieTrailer) == false) {
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Trailer phải là 1 đường link bắt đầu bằng http(s) ");
+            request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
         } else if (ValidateMovie.checkDataMovie(movieAuthor) == false) {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Author không được để trống và giới hạn 4-2000 ký tự!!!");
@@ -131,15 +136,16 @@ public class AdminEditMovieController extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Actor không được để trống và giới hạn 4-2000 ký tự!!! ");
             request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
-        } else if (ValidateMovie.checkDuration(movieDuration) == false) {
+        } else if ((ValidateMovie.checkDuration(movieDuration) == false) || (Integer.parseInt(movieDuration) > 300) || (Integer.parseInt(movieDuration) < 60)) {
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 và chỉ được có 3 chữ số ");
+            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 và nằm trong khoảng từ 60-300!!");
             request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
-        } else if (ValidateMovie.checkTrailer(movieTrailer) == false) {
+        }  else if(ValidateMovie.checkPremiere(premiere)==false){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Trailer phải là 1 đường link bắt đầu bằng http(s) ");
+            request.setAttribute("error", "Ngày công chiếu phải sau ngày hiện tại và năm phải nhỏ hơn năm hiện tại +2!");
             request.getRequestDispatcher("AdminEditMovie.jsp").forward(request, response);
-        } else {
+        }
+            else {
 
             movieDAO.editMovie(movie);
             request.setAttribute("mess", "Update successful");

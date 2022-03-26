@@ -5,13 +5,17 @@
  */
 package controller;
 
+import Validation.Validate;
 import Validation.ValidateMovie;
 import dao.IMovieDAO;
 import dao.impl.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.sql.Date;
+import javax.mail.Part;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +24,9 @@ import model.Movie;
 
 /**
  *
- * @author NITRO
+ * @author Tạ Văn Tân
  */
+
 @WebServlet(name = "AdminAddMovieController", urlPatterns = {"/AdminAddMovie"})
 public class AdminAddMovieController extends HttpServlet {
 
@@ -84,17 +89,18 @@ public class AdminAddMovieController extends HttpServlet {
         //lấy ra các dữ liệu từ request 
        
         String movieName = request.getParameter("movieName").trim();
-        String movieImage = request.getParameter("movieImage").trim();
+        String movieImage = request.getParameter("movieImage");
         String movieCategory = request.getParameter("movieCategory").trim();
         String description = request.getParameter("movieDescription").trim();
         String movieTrailer = request.getParameter("movieTrailer").trim();
         String movieAuthor = request.getParameter("movieAuthor").trim();
         String movieActor = request.getParameter("movieActor").trim();
         String movieDuration = request.getParameter("movieDuration").trim();
-        String moviePremiere = request.getParameter("moviePremiere");
+        String moviePremiere = request.getParameter("moviePremiere").trim();
         Date premiere = Date.valueOf(moviePremiere);//ep kieu du lieu cho date
         Movie movie = new Movie(0, movieName, movieImage, movieCategory, description, movieTrailer, movieAuthor, movieActor, movieDuration, premiere);
-
+        
+        
         if (ValidateMovie.checkDataMovie(movieName) == false) {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Movie name không được để trống và giới hạn 4-2000 ký tự!!!");
@@ -107,6 +113,10 @@ public class AdminAddMovieController extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Description không được để trống và giới hạn 4-2000 ký tự!!!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
+        }else if(ValidateMovie.checkTrailer(movieTrailer)==false){
+            request.setAttribute("movie", movie);
+            request.setAttribute("error", "Trailer phải là 1 đường link bắt đầu bằng http(s) ");
+            request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         }else if(ValidateMovie.checkDataMovie(movieAuthor) == false){
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Author không được để trống và giới hạn 4-2000 ký tự!!!");
@@ -115,13 +125,13 @@ public class AdminAddMovieController extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Actor không được để trống và giới hạn 4-2000 ký tự!!! ");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
-        }else if(ValidateMovie.checkDuration(movieDuration) == false ){
+        }else if((ValidateMovie.checkDuration(movieDuration) == false) || (Integer.parseInt(movieDuration) > 300) || (Integer.parseInt(movieDuration) < 60)){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 và chỉ được có 3 chữ số ");
+            request.setAttribute("error", "Duration phải là số và không bắt đầu bắng số 0 và nằm trong khoảng từ 60-300!!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
-        }else if(ValidateMovie.checkTrailer(movieTrailer)==false){
+        }else if(ValidateMovie.checkPremiere(premiere)==false){
             request.setAttribute("movie", movie);
-            request.setAttribute("error", "Trailer phải là 1 đường link bắt đầu bằng http(s) ");
+            request.setAttribute("error", "Ngày công chiếu phải sau ngày hiện tại và năm phải nhỏ hơn năm hiện tại +2!");
             request.getRequestDispatcher("AdminAddMovie.jsp").forward(request, response);
         }
                 
