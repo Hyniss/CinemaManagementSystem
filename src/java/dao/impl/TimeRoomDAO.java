@@ -122,7 +122,8 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
     }
 
     @Override
-    public void addTimeRoom(TimeRoom timeRoom) {
+    public boolean addTimeRoom(TimeRoom timeRoom) {
+        int check = 0;
         try {
             query = "INSERT INTO dbo.TimeRoom ([roomId],[timeId],[movieId]) values (?,?,?)";
             con = DBContext.getConnection();
@@ -130,7 +131,7 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
             ps.setString(1, timeRoom.getRoomId());
             ps.setInt(2, timeRoom.getTimeId());
             ps.setInt(3, timeRoom.getMovieId());
-            ps.executeUpdate();
+            check = ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -139,6 +140,7 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
+        return check > 0;
     }
 
 //    public static void main(String[] args) {
@@ -174,13 +176,14 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
     }
 
     @Override
-    public void deleteTimeRoom(int timeRoomId) {
+    public boolean deleteTimeRoom(int timeRoomId) {
+        int check = 0;
         try {
             query = "DELETE FROM dbo.TimeRoom WHERE timeRoomId = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, timeRoomId);
-            ps.executeUpdate();
+            check = ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -189,6 +192,7 @@ public class TimeRoomDAO extends DBContext implements ITimeRoomDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
+        return check > 0;
     }
 
     @Override

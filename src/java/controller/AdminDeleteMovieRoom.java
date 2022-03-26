@@ -45,7 +45,7 @@ public class AdminDeleteMovieRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
-
+        boolean delete = false;
         int timeRoomId = 0;
         int movieRoomId = 0;
 
@@ -60,8 +60,10 @@ public class AdminDeleteMovieRoom extends HttpServlet {
             Logger.getLogger(AdminViewModalMovieRoom.class.getName()).log(Level.SEVERE, null, e);
         }
 
-        timeRoomDAO.deleteTimeRoom(timeRoomId);
-        response.sendRedirect("adminListMovieRoom?movieRoomId=" + movieRoomId);
+        delete = timeRoomDAO.deleteTimeRoom(timeRoomId);
+        request.setAttribute("movieRoomId", movieRoomId);
+        request.setAttribute("delete",delete);
+        request.getRequestDispatcher("adminListMovieRoom").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

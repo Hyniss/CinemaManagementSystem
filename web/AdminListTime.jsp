@@ -328,135 +328,169 @@
                 </div>
             </div>
         </c:if>
+        <!--modal success-->
+        <c:if test="${add == true}">
+            <div onclick="closeModal()" class="modal-nofi" id="modal-edit">
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-nofi-body">
+                    <div class="modal-nofi-inner">
+                        <i class="far fa-check-circle"></i>
+                        <p>Thêm dữ liệu thành công</p>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${edit== true}">
+            <div onclick="closeModal()" class="modal-nofi" id="modal-edit">
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-nofi-body">
+                    <div class="modal-nofi-inner">
+                        <i class="far fa-check-circle"></i>
+                        <p>Chỉnh sửa dữ liệu thành công</p>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${delete== true}">
+            <div onclick="closeModal()" class="modal-nofi" id="modal-edit">
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-nofi-body">
+                    <div class="modal-nofi-inner">
+                        <i class="far fa-check-circle"></i>
+                        <p>Xóa thành công</p>
+                    </div>
+                </div>
+            </div>
+        </c:if>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"
         ></script>
         <script>
-                                function dropdown() {
-                                    if (document.getElementById("sidebar-dropdown").style.display === "none") {
-                                        document.getElementById("sidebar-dropdown").style.display = "block";
-                                    } else {
-                                        document.getElementById("sidebar-dropdown").style.display = "none";
-                                    }
-                                }
-                                function openAddModal() {
-                                    document.getElementById("admin-add-modal").style.display = "flex";
-                                }
+                function dropdown() {
+                    if (document.getElementById("sidebar-dropdown").style.display === "none") {
+                        document.getElementById("sidebar-dropdown").style.display = "block";
+                    } else {
+                        document.getElementById("sidebar-dropdown").style.display = "none";
+                    }
+                }
+                function openAddModal() {
+                    document.getElementById("admin-add-modal").style.display = "flex";
+                }
 
-                                function openUpdate(movieRoomId) {
-                                    window.location.href = 'viewUpdateListTime?movieRoomId=' + movieRoomId + '&view=true';
-                                }
+                function openUpdate(movieRoomId) {
+                    window.location.href = 'viewUpdateListTime?movieRoomId=' + movieRoomId + '&view=true';
+                }
 
-                                function closeModal() {
-                                    var x = document.querySelectorAll(".modal-nofi");
-                                    for (var i = 0; i < x.length; i++) {
-                                        if (x[i].style.display !== "none") {
-                                            x[i].style.display = "none";
-                                        }
-                                        window.location.href = 'adminListTime'
-                                    }
-                                }
+                function closeModal() {
+                    var x = document.querySelectorAll(".modal-nofi");
+                    for (var i = 0; i < x.length; i++) {
+                        if (x[i].style.display !== "none") {
+                            x[i].style.display = "none";
+                        }
+                        window.location.href = 'adminListTime'
+                    }
+                }
 
-                                function showDelMess(movieRoomId) {
-                                    var result = confirm("Bạn có muốn tiếp tục xóa không?");
-                                    if (result === true) {
-                                        window.location.href = 'deleteListTime?movieRoomId=' + movieRoomId;
-                                    }
-                                }
+                function showDelMess(movieRoomId) {
+                    var result = confirm("Bạn có muốn tiếp tục xóa không?");
+                    if (result === true) {
+                        window.location.href = 'deleteListTime?movieRoomId=' + movieRoomId;
+                    }
+                }
 
-                                function checkDate() {
-                                    var today = new Date();
-                                    //date input
-                                    var mess = document.querySelector('input[name=searchtxt]');
-                                    var dateInput = mess.value.split("-");
-                                    var inputDate = new Date(dateInput[0], parseInt(dateInput[1]) - 1, dateInput[2]);
-                                    //current date
-                                    var dd = String(today.getDate()).padStart(2, '0');
-                                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                                    var yyyy = today.getFullYear();
-                                    today = yyyy + '-' + mm + '-' + dd;
-                                    var dateCur = today.split("-");
-                                    var current = new Date(dateCur[0], parseInt(dateCur[1]) - 1, dateCur[2]);
-                                    if (current > inputDate) {
-                                        if ((current - inputDate) / (365 * 24 * 60 * 60 * 1000) <= 10) {
-                                            mess.setCustomValidity("");
-                                        } else {
-                                            mess.setCustomValidity("Năm nhập không quá 10 năm tính từ ngày hiện tại");
-                                        }
-                                    } else {
-                                        if ((inputDate - current) / (365 * 24 * 60 * 60 * 1000) <= 10) {
-                                            mess.setCustomValidity("");
-                                        } else {
-                                            mess.setCustomValidity('Năm nhập không quá 10 năm tính từ ngày hiện tại');
-                                        }
-                                    }
-                                }
-                                function checkDateValid(option) {
-                                    var today = new Date();
-                                    //date input
-                                    var mess;
-                                    if (option === 'Add') {
-                                        mess = document.querySelector('input[name=datetxta]');
-                                    } else if (option === 'Edit') {
-                                        mess = document.querySelector('input[name=datetxte]');
-                                    }
-                                    var dateInput = mess.value.split("-");
-                                    var inputDate = new Date(dateInput[0], parseInt(dateInput[1]) - 1, dateInput[2]);
-                                    var jsArray = [];
+                function checkDate() {
+                    var today = new Date();
+                    //date input
+                    var mess = document.querySelector('input[name=searchtxt]');
+                    var dateInput = mess.value.split("-");
+                    var inputDate = new Date(dateInput[0], parseInt(dateInput[1]) - 1, dateInput[2]);
+                    //current date
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+                    today = yyyy + '-' + mm + '-' + dd;
+                    var dateCur = today.split("-");
+                    var current = new Date(dateCur[0], parseInt(dateCur[1]) - 1, dateCur[2]);
+                    if (current > inputDate) {
+                        if ((current - inputDate) / (365 * 24 * 60 * 60 * 1000) <= 10) {
+                            mess.setCustomValidity("");
+                        } else {
+                            mess.setCustomValidity("Năm nhập không quá 10 năm tính từ ngày hiện tại");
+                        }
+                    } else {
+                        if ((inputDate - current) / (365 * 24 * 60 * 60 * 1000) <= 10) {
+                            mess.setCustomValidity("");
+                        } else {
+                            mess.setCustomValidity('Năm nhập không quá 10 năm tính từ ngày hiện tại');
+                        }
+                    }
+                }
+                function checkDateValid(option) {
+                    var today = new Date();
+                    //date input
+                    var mess;
+                    if (option === 'Add') {
+                        mess = document.querySelector('input[name=datetxta]');
+                    } else if (option === 'Edit') {
+                        mess = document.querySelector('input[name=datetxte]');
+                    }
+                    var dateInput = mess.value.split("-");
+                    var inputDate = new Date(dateInput[0], parseInt(dateInput[1]) - 1, dateInput[2]);
+                    var jsArray = [];
             <% for (int i = 0; i < listDate.size(); i++) {%>
-                                    jsArray.push('<%=listDate.get(i).getPremiere()%>');
+                    jsArray.push('<%=listDate.get(i).getPremiere()%>');
             <%}%>
-                                    //current date
-                                    var dd = String(today.getDate()).padStart(2, '0');
-                                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                                    var yyyy = today.getFullYear();
-                                    today = yyyy + '-' + mm + '-' + dd;
-                                    var dateCur = today.split("-");
-                                    var current = new Date(dateCur[0], parseInt(dateCur[1]) - 1, dateCur[2]);
-                                    if (option === 'Add') {
-                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) > 0) {
-                                            var check = false;
-                                            for (var i = 0; i < jsArray.length; i++) {
-                                                if (mess.value === jsArray[i]) {
-                                                    check = true;
-                                                }
-                                            }
-                                            if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
-                                                if (!check) {
-                                                    mess.setCustomValidity("");
-                                                } else {
-                                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
-                                                }
-                                            } else {
-                                                mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
-                                            }
-                                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 0) {
-                                            mess.setCustomValidity('Ngày nhập không nhỏ hơn hoặc bằng ngày hiện tại');
-                                        }
-                                    } else if (option === 'Edit') {
-                                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) >= 0) {
-                                            var check = false;
-                                            for (var i = 0; i < jsArray.length; i++) {
-                                                if (mess.value === jsArray[i]) {
-                                                    check = true;
-                                                }
-                                            }
-                                            if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
-                                                if (!check) {
-                                                    mess.setCustomValidity("");
-                                                } else {
-                                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
-                                                }
-                                            } else {
-                                                mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
-                                            }
-                                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) < 0) {
-                                            mess.setCustomValidity('Ngày nhập không nhỏ hơn ngày hiện tại');
-                                        }
-                                    }
+                    //current date
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+                    today = yyyy + '-' + mm + '-' + dd;
+                    var dateCur = today.split("-");
+                    var current = new Date(dateCur[0], parseInt(dateCur[1]) - 1, dateCur[2]);
+                    if (option === 'Add') {
+                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) > 0) {
+                            var check = false;
+                            for (var i = 0; i < jsArray.length; i++) {
+                                if (mess.value === jsArray[i]) {
+                                    check = true;
                                 }
+                            }
+                            if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
+                                if (!check) {
+                                    mess.setCustomValidity("");
+                                } else {
+                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
+                                }
+                            } else {
+                                mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
+                            }
+                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 0) {
+                            mess.setCustomValidity('Ngày nhập không nhỏ hơn hoặc bằng ngày hiện tại');
+                        }
+                    } else if (option === 'Edit') {
+                        if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) >= 0) {
+                            var check = false;
+                            for (var i = 0; i < jsArray.length; i++) {
+                                if (mess.value === jsArray[i]) {
+                                    check = true;
+                                }
+                            }
+                            if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) <= 365) {
+                                if (!check) {
+                                    mess.setCustomValidity("");
+                                } else {
+                                    mess.setCustomValidity("Ngày đã có trong dữ liệu");
+                                }
+                            } else {
+                                mess.setCustomValidity('Năm nhập cách năm hiện tại quá 1 năm');
+                            }
+                        } else if ((inputDate.getTime() - current.getTime()) / (1000 * 60 * 60 * 24) < 0) {
+                            mess.setCustomValidity('Ngày nhập không nhỏ hơn ngày hiện tại');
+                        }
+                    }
+                }
 
 
         </script>

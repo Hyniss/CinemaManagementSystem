@@ -56,7 +56,7 @@
             </div>
             </c:if>
              <c:if test="${ searchMess ==null}">
-            <div class="cart-content mt-3">
+                 <div class="cart-content mt-3">
                 <div class="format-bg-top"></div> 
                 <div class="minicart">
                     <ul>

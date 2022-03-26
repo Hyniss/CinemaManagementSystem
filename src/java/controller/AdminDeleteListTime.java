@@ -45,6 +45,7 @@ public class AdminDeleteListTime extends HttpServlet {
         IMovieTimeDAO movieTimeDAO = new MovieTimeDAO();
         String movieRoomId = request.getParameter("movieRoomId");
         boolean checkDeleteTime = false;
+        
         int movieRoom = 0;
         try {
             movieRoom = Integer.parseInt(movieRoomId);
@@ -61,7 +62,8 @@ public class AdminDeleteListTime extends HttpServlet {
         if (checkDeleteTime) {
             showtimesDAO.deleteShowtimes(movieRoom);
         }
-        response.sendRedirect("adminListTime");
+        request.setAttribute("delete",checkDeleteTime);
+        request.getRequestDispatcher("adminListTime").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

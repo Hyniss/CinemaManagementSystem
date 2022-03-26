@@ -64,11 +64,10 @@ public class AdminListMovieRoom extends HttpServlet {
         ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
         IShowtimesDAO showtimesDAO = new ShowtimesDAO();
         IMovieTimeDAO movieTimeDAO = new MovieTimeDAO();
-        IMovieDAO movieDAO = new MovieDAO();
-
-        int movieRoomId = 0;
+        IMovieDAO movieDAO = new MovieDAO();   
+        int getMovieRoomId = 0;
         try {
-            movieRoomId = Integer.parseInt(request.getParameter("movieRoomId"));
+            getMovieRoomId = Integer.parseInt(request.getParameter("movieRoomId"));
         } catch (NumberFormatException e) {
             Logger.getLogger(AdminListMovieRoom.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -76,13 +75,13 @@ public class AdminListMovieRoom extends HttpServlet {
         LocalDate ld = LocalDate.now(zid);
         Date currentDate = Date.valueOf(ld);
 
-        MovieRoom movieRoom = showtimesDAO.getShowtimes(movieRoomId);
+        MovieRoom movieRoom = showtimesDAO.getShowtimes(getMovieRoomId);
         ArrayList<Room> listRoom = roomDAO.getAllRoom();
         ArrayList<MovieRoom> listDate = showtimesDAO.getAllDate();
-        ArrayList<MovieTime> listTime = movieTimeDAO.getMovieByMovieRoomId(movieRoomId);
-        ArrayList<MovieTime> listTimeChoose = movieTimeDAO.getMovieByMovieRoomIdAndAdd(movieRoomId);
+        ArrayList<MovieTime> listTime = movieTimeDAO.getMovieByMovieRoomId(getMovieRoomId);
+        ArrayList<MovieTime> listTimeChoose = movieTimeDAO.getMovieByMovieRoomIdAndAdd(getMovieRoomId);
         ArrayList<Movie> listMovie = movieDAO.getAllMovie();
-        ArrayList<TimeRoom> listTimeRoom = timeRoomDAO.getAllTimeRoomByMovieRoom(movieRoomId);
+        ArrayList<TimeRoom> listTimeRoom = timeRoomDAO.getAllTimeRoomByMovieRoom(getMovieRoomId);
 
         request.setAttribute("listTime", listTime);
         request.setAttribute("listTimeChoose", listTimeChoose);

@@ -9,9 +9,7 @@
  */
 package controller;
 
-import dao.IMovieTimeDAO;
 import dao.ITimeRoomDAO;
-import dao.impl.MovieTimeDAO;
 import dao.impl.TimeRoomDAO;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -25,9 +23,8 @@ import model.TimeRoom;
 
 /**
  * This is a Servlet responsible for handling the task when the user wants to
- * see the list movie room
- * /adminUpdateMovieRoom is the URL of the web site Extend HttpServlet
- * class
+ * see the list movie room /adminUpdateMovieRoom is the URL of the web site
+ * Extend HttpServlet class
  *
  * @author Nguyen Nam
  */
@@ -47,8 +44,9 @@ public class AdminUpdateMovieRoom extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ITimeRoomDAO timeRoomDAO = new TimeRoomDAO();
-        IMovieTimeDAO movieTimeDAO = new MovieTimeDAO();
 
+        boolean add = false;
+        boolean edit = false;
         int movieRoomId = 0;
         int timeId = 0;
         int movieId = 0;
@@ -79,25 +77,27 @@ public class AdminUpdateMovieRoom extends HttpServlet {
         TimeRoom timeRoom1 = timeRoomDAO.getTimeRoomByMovieRoom(movieRoomId, roomId, timeId);
         if (function.equals("add")) {
             timeRoom = new TimeRoom(movieId, roomId, timeId);
-            timeRoomDAO.addTimeRoom(timeRoom);
+            add = timeRoomDAO.addTimeRoom(timeRoom);
         } else if (function.equals("update")) {
             timeRoom = new TimeRoom(timeRoomId, movieId, roomId, timeId);
             if (timeRoom1 == null) {
-                timeRoomDAO.editTimeRoom(timeRoom);
+                edit = timeRoomDAO.editTimeRoom(timeRoom);
             } else {
                 if (timeRoom1.getRoomId().equals(roomId) && timeRoom1.getTimeId() == timeId) {
                     if (timeRoom1.getTimeRoomId() != timeRoomId) {
                         response.sendRedirect("adminUpdateMovieInRoom?movieRoomId=" + movieRoomId + "&timeId=" + timeId + "&roomId=" + roomId + "&addMovieId=" + movieId + "&timeRoomId=" + timeRoomId + "&viewUpdate=true&updateValid=wrong");
                         return;
                     } else {
-                        timeRoomDAO.editTimeRoom(timeRoom);
+                        edit = timeRoomDAO.editTimeRoom(timeRoom);
                     }
                 } else {
-                    timeRoomDAO.editTimeRoom(timeRoom);
+                    edit = timeRoomDAO.editTimeRoom(timeRoom);
                 }
             }
         }
-        response.sendRedirect("adminListMovieRoom?movieRoomId=" + movieRoomId);
+        request.setAttribute("add", add);
+        request.setAttribute("edit", edit);
+        request.getRequestDispatcher("adminListMovieRoom?movieRoomId="+movieRoomId).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

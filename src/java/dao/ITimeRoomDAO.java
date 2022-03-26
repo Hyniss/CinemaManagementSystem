@@ -37,13 +37,13 @@ public interface ITimeRoomDAO {
     public TimeRoom getTimeRoomByTimeAndRoom(int timeId, String RoomId);
 
     //add
-    public void addTimeRoom(TimeRoom timeRoom);
+    public boolean addTimeRoom(TimeRoom timeRoom);
 
     //edit
     public boolean editTimeRoom(TimeRoom timeRoom);
 
     //delete
-    public void deleteTimeRoom(int timeRoomId);
+    public boolean deleteTimeRoom(int timeRoomId);
 
     public ArrayList<TimeRoom> getByMovieId(int movieId);
     

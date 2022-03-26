@@ -58,7 +58,8 @@ public class AdminUpdateListTime extends HttpServlet {
         Date date = null;
         Time start;
         Time end;
-
+        boolean edit = false;
+        
         try {
             movieRoomId = Integer.parseInt(movieRoomTxt);
         } catch (NumberFormatException e) {
@@ -81,74 +82,74 @@ public class AdminUpdateListTime extends HttpServlet {
                 if (slot[i].equals("1")) {
                     start = Time.valueOf("08:00:00");
                     end = Time.valueOf("10:00:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot1", "yes");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot1", "yes");
                     if (i < slot.length - 1) {
                         i++;
                     }
                 } else {
                     start = Time.valueOf("08:00:00");
                     end = Time.valueOf("10:00:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot1", "no");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot1", "no");
                 }
                 if (slot[i].equals("2")) {
                     start = Time.valueOf("10:10:00");
                     end = Time.valueOf("12:10:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot2", "yes");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot2", "yes");
                     if (i < slot.length - 1) {
                         i++;
                     }
                 } else {
                     start = Time.valueOf("10:10:00");
                     end = Time.valueOf("12:10:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot2", "no");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot2", "no");
                 }
                 if (slot[i].equals("3")) {
                     start = Time.valueOf("12:20:00");
                     end = Time.valueOf("14:20:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot3", "yes");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot3", "yes");
                     if (i < slot.length - 1) {
                         i++;
                     }
                 } else {
                     start = Time.valueOf("12:20:00");
                     end = Time.valueOf("14:20:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot3", "no");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot3", "no");
                 }
                 if (slot[i].equals("4")) {
                     start = Time.valueOf("14:30:00");
                     end = Time.valueOf("16:30:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot4", "yes");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot4", "yes");
                     if (i < slot.length - 1) {
                         i++;
                     }
                 } else {
                     start = Time.valueOf("12:20:00");
                     end = Time.valueOf("14:20:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot4", "no");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot4", "no");
                 }
                 if (slot[i].equals("5")) {
                     start = Time.valueOf("16:40:00");
                     end = Time.valueOf("18:40:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot5", "yes");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot5", "yes");
                     if (i < slot.length - 1) {
                         i++;
                     }
                 } else {
                     start = Time.valueOf("12:20:00");
                     end = Time.valueOf("14:20:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId, "slot5", "no");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId, "slot5", "no");
                 }
                 if (slot[i].equals("6")) {
                     start = Time.valueOf("18:50:00");
                     end = Time.valueOf("20:50:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot6", "yes");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot6", "yes");
                     if (i < slot.length - 1) {
                         i++;
                     }
                 } else {
                     start = Time.valueOf("12:20:00");
                     end = Time.valueOf("14:20:00");
-                    movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot6", "no");
+                    edit=movieTimeDAO.editMovieTime(start, end, movieRoomId,"slot6", "no");
                 }
                 break;
             }
@@ -156,10 +157,11 @@ public class AdminUpdateListTime extends HttpServlet {
             int index = 0;
             for (int i = 0; i < 6; i++) {
                 index++;
-                movieTimeDAO.editMovieTimeSlot(movieRoomId,"no");
+                edit=movieTimeDAO.editMovieTimeSlot(movieRoomId,"no");
             }
         }
-        response.sendRedirect("adminListTime");
+        request.setAttribute("edit", edit);
+        request.getRequestDispatcher("adminListTime").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

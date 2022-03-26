@@ -195,7 +195,8 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
     }
 
     @Override
-    public void editMovieTime(Time start, Time end, int movieRoomId, String slot, String add) {
+    public boolean editMovieTime(Time start, Time end, int movieRoomId, String slot, String add) {
+        int check = 0;
         try {
             query = "update dbo.MovieTime\n"
                     + "set start=?,\n"
@@ -209,7 +210,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             ps.setString(3, add);
             ps.setInt(4, movieRoomId);
             ps.setString(5, slot);
-            ps.executeUpdate();
+            check = ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -218,10 +219,12 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
+        return check > 0;
     }
 
     @Override
-    public void editMovieTimeSlot(int movieRoomId, String add) {
+    public boolean editMovieTimeSlot(int movieRoomId, String add) {
+        int check = 0;
         try {
             query = "update dbo.MovieTime\n"
                     + "set [add]=?\n"
@@ -230,7 +233,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             ps = con.prepareStatement(query);
             ps.setString(1, add);
             ps.setInt(2, movieRoomId);
-            ps.executeUpdate();
+            check=ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -239,6 +242,7 @@ public class MovieTimeDAO extends DBContext implements IMovieTimeDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
+        return check > 0;
     }
 
     @Override

@@ -456,99 +456,132 @@
                 </form>
             </div>
         </div>
+        <c:if test="${add==true}">
+            <div onclick="closeModal(${movieRoom.movieRoomId})" class="modal-nofi" id="modal-edit">
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-nofi-body">
+                    <div class="modal-nofi-inner">
+                        <i class="far fa-check-circle"></i>
+                        <p>Thêm dữ liệu thành công</p>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${edit==true}">
+            <div onclick="closeModal(${movieRoom.movieRoomId})" class="modal-nofi" id="modal-edit">
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-nofi-body">
+                    <div class="modal-nofi-inner">
+                        <i class="far fa-check-circle"></i>
+                        <p>Chỉnh sửa dữ liệu thành công</p>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${delete==true}">
+            <div onclick="closeModal(${movieRoom.movieRoomId})" class="modal-nofi" id="modal-edit">
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-nofi-body">
+                    <div class="modal-nofi-inner">
+                        <i class="far fa-check-circle"></i>
+                        <p>Xóa thành công</p>
+                    </div>
+                </div>
+            </div>
+        </c:if>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"
         ></script>
         <script>
-                            function dropdown() {
-                                if (document.getElementById("sidebar-dropdown").style.display === "none") {
-                                    document.getElementById("sidebar-dropdown").style.display = "block";
-                                } else {
-                                    document.getElementById("sidebar-dropdown").style.display = "none";
-                                }
-                            }
+                function dropdown() {
+                    if (document.getElementById("sidebar-dropdown").style.display === "none") {
+                        document.getElementById("sidebar-dropdown").style.display = "block";
+                    } else {
+                        document.getElementById("sidebar-dropdown").style.display = "none";
+                    }
+                }
 
 
-                            function showTimeLine(movieRoomId) {
-                                window.location.href = 'adminListMovieRoom?movieRoomId=' + movieRoomId;
-                            }
+                function showTimeLine(movieRoomId) {
+                    window.location.href = 'adminListMovieRoom?movieRoomId=' + movieRoomId;
+                }
 
 
-                            function openAddModal(roomId, timeId, movieRoomId, timeRoomId) {
-                                window.location.href = 'adminViewModalMovieRoom?movieRoomId=' + movieRoomId + "&timeId=" + timeId + "&roomId=" + roomId + "&timeRoomId=" + timeRoomId + "&viewAdd=true";
-                            }
-                            function openUpdateModal(roomId, timeId, movieRoomId, timeRoomId, movieId) {
-                                window.location.href = 'adminViewModalMovieRoom?movieRoomId=' + movieRoomId + "&timeId=" + timeId + "&roomId=" + roomId + "&movieId=" + movieId + "&timeRoomId=" + timeRoomId + "&viewUpdate=true";
-                            }
+                function openAddModal(roomId, timeId, movieRoomId, timeRoomId) {
+                    window.location.href = 'adminViewModalMovieRoom?movieRoomId=' + movieRoomId + "&timeId=" + timeId + "&roomId=" + roomId + "&timeRoomId=" + timeRoomId + "&viewAdd=true";
+                }
+                function openUpdateModal(roomId, timeId, movieRoomId, timeRoomId, movieId) {
+                    window.location.href = 'adminViewModalMovieRoom?movieRoomId=' + movieRoomId + "&timeId=" + timeId + "&roomId=" + roomId + "&movieId=" + movieId + "&timeRoomId=" + timeRoomId + "&viewUpdate=true";
+                }
 
-                            function openChooseMovie() {
-                                document.getElementById("modal-choose-movie").style.display = "flex";
-                                if (document.getElementById("modal-add-movie") !== null) {
-                                    document.getElementById("modal-add-movie").style.display = "none";
-                                }
-                                if (document.getElementById("modal-update-movie") !== null) {
-                                    document.getElementById("modal-update-movie").style.display = "none";
-                                }
-                            }
-                            function openChooseTime() {
-                                document.getElementById("modal-choose-slot").style.display = "flex";
-                                if (document.getElementById("modal-add-movie") !== null) {
-                                    document.getElementById("modal-add-movie").style.display = "none";
-                                }
-                                if (document.getElementById("modal-update-movie") !== null) {
-                                    document.getElementById("modal-update-movie").style.display = "none";
-                                }
-                            }
-                            function openchooseRoom() {
-                                document.getElementById("modal-choose-room").style.display = "flex";
-                                if (document.getElementById("modal-add-movie") !== null) {
-                                    document.getElementById("modal-add-movie").style.display = "none";
-                                }
-                                if (document.getElementById("modal-update-movie") !== null) {
-                                    document.getElementById("modal-update-movie").style.display = "none";
-                                }
-                            }
-                            function openchooseDate() {
-                                document.getElementById("modal-choose-date").style.display = "flex";
-                                if (document.getElementById("modal-add-movie") !== null) {
-                                    document.getElementById("modal-add-movie").style.display = "none";
-                                }
-                                if (document.getElementById("modal-update-movie") !== null) {
-                                    document.getElementById("modal-update-movie").style.display = "none";
-                                }
-                            }
-                            function closeModalChoose() {
-                                var x = document.querySelectorAll(".modal-choose");
-                                for (var i = 0; i < x.length; i++) {
-                                    if (x[i].style.display !== "none") {
-                                        x[i].style.display = "none";
-                                    }
-                                }
-                                if (document.getElementById("modal-add-movie") !== null) {
-                                    document.getElementById("modal-add-movie").style.display = "flex";
-                                } else if (document.getElementById("modal-update-movie") !== null) {
-                                    document.getElementById("modal-update-movie").style.display = "flex";
-                                }
-                            }
+                function openChooseMovie() {
+                    document.getElementById("modal-choose-movie").style.display = "flex";
+                    if (document.getElementById("modal-add-movie") !== null) {
+                        document.getElementById("modal-add-movie").style.display = "none";
+                    }
+                    if (document.getElementById("modal-update-movie") !== null) {
+                        document.getElementById("modal-update-movie").style.display = "none";
+                    }
+                }
+                function openChooseTime() {
+                    document.getElementById("modal-choose-slot").style.display = "flex";
+                    if (document.getElementById("modal-add-movie") !== null) {
+                        document.getElementById("modal-add-movie").style.display = "none";
+                    }
+                    if (document.getElementById("modal-update-movie") !== null) {
+                        document.getElementById("modal-update-movie").style.display = "none";
+                    }
+                }
+                function openchooseRoom() {
+                    document.getElementById("modal-choose-room").style.display = "flex";
+                    if (document.getElementById("modal-add-movie") !== null) {
+                        document.getElementById("modal-add-movie").style.display = "none";
+                    }
+                    if (document.getElementById("modal-update-movie") !== null) {
+                        document.getElementById("modal-update-movie").style.display = "none";
+                    }
+                }
+                function openchooseDate() {
+                    document.getElementById("modal-choose-date").style.display = "flex";
+                    if (document.getElementById("modal-add-movie") !== null) {
+                        document.getElementById("modal-add-movie").style.display = "none";
+                    }
+                    if (document.getElementById("modal-update-movie") !== null) {
+                        document.getElementById("modal-update-movie").style.display = "none";
+                    }
+                }
+                function closeModalChoose() {
+                    var x = document.querySelectorAll(".modal-choose");
+                    for (var i = 0; i < x.length; i++) {
+                        if (x[i].style.display !== "none") {
+                            x[i].style.display = "none";
+                        }
+                    }
+                    if (document.getElementById("modal-add-movie") !== null) {
+                        document.getElementById("modal-add-movie").style.display = "flex";
+                    } else if (document.getElementById("modal-update-movie") !== null) {
+                        document.getElementById("modal-update-movie").style.display = "flex";
+                    }
+                }
 
-                            function closeModal(movieRoomId) {
-                                var x = document.querySelectorAll(".modal-nofi");
-                                for (var i = 0; i < x.length; i++) {
-                                    if (x[i].style.display !== "none") {
-                                        x[i].style.display = "none";
-                                    }
-                                    window.location.href = 'adminListMovieRoom?movieRoomId=' + movieRoomId;
-                                }
-                            }
+                function closeModal(movieRoomId) {
+                    var x = document.querySelectorAll(".modal-nofi");
+                    for (var i = 0; i < x.length; i++) {
+                        if (x[i].style.display !== "none") {
+                            x[i].style.display = "none";
+                        }
+                        window.location.href = 'adminListMovieRoom?movieRoomId=' + movieRoomId;
+                    }
+                }
 
-                            function showDelMess(timeRoomId, movieRoomId) {
-                                var result = confirm("Bạn có muốn tiếp tục xóa không?");
-                                if (result === true) {
-                                    window.location.href = 'adminDeleteMovieRoom?timeRoomId=' + timeRoomId + "&movieRoomId=" + movieRoomId;
-                                }
-                            }
+                function showDelMess(timeRoomId, movieRoomId) {
+                    var result = confirm("Bạn có muốn tiếp tục xóa không?");
+                    if (result === true) {
+                        window.location.href = 'adminDeleteMovieRoom?timeRoomId=' + timeRoomId + "&movieRoomId=" + movieRoomId;
+                    }
+                }
 
         </script>
     </body>

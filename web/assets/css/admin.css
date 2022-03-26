@@ -826,3 +826,24 @@ modal add checkbox input
 .pagination .active-true {
     background: #03A9F4;
 }
+/*modal add success*/
+.modal-nofi-body{
+    width: 20rem;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    border-radius:10px; 
+}
+.modal-nofi-inner{
+    text-align: center; 
+    padding: 1rem 0;   
+}
+.modal-nofi-inner i{
+    font-size: 4.1rem;
+    margin-bottom: 1rem;
+    color: chartreuse;
+}
+.modal-nofi-inner p{
+    font-size: 1.4rem;
+    font-weight: bold;
+}

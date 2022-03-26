@@ -42,10 +42,10 @@ public interface IMovieTimeDAO {
     public boolean deleteMovieTime(int movieRoomId);
 
     //edit movie time with time
-    public void editMovieTime(Time start, Time end, int movieRoomId, String slot, String add);
+    public boolean editMovieTime(Time start, Time end, int movieRoomId, String slot, String add);
 
     //edit add propertites in movie time
-    public void editMovieTimeSlot(int movieRoomId, String add);
+    public boolean editMovieTimeSlot(int movieRoomId, String add);
 
     //get movie time by movie room and slot
     public MovieTime getMovieTime(int movieroomId, String slot);
