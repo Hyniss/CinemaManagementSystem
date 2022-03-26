@@ -373,8 +373,8 @@ public class NotificationDAO extends DBContext implements INotificationDAO {
 //        for (Notification a : notificationList) {
 //            System.out.println(a);
 //        }
-
-        System.out.println(dao.getTotalNotificationByTitle("a"));
+        List<Notification> list = dao.getNotificationByTitle("BẮT HỔ CHO BÉ", 1);
+        System.out.println(list);
 
     }
 

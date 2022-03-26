@@ -62,9 +62,24 @@
                     </h5>
                 </div>
             </div>
+
+            <!-- search input -->
+            <div class="search position-relative text-center py-3 mt-2">
+                <form action="adminsearchfastfood" method="post" class="input-group rounded">
+                    <input oninput="checkSearch()" name="searchtxt" value="${searchtxt}" 
+                           type="search" class="form-control" placeholder="Search by Name" aria-label="Search" aria-describedby="search-addon"/>
+                    <button type="submit"  style="height:38px;background-color: #252636;" class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search" style="color: #FFF"></i></a>
+                    </button>
+                </form>
+                <p style="color:red; text-align: center">${searchMess}</p>  
+            </div>
+
+            <!-- main sidebar -->
             <%@include file="template/adminMenu.jsp" %>
         </aside>
 
+        <!-- main content -->
         <section id="wrapper">
             <%@include file="template/adminNewHeader.jsp" %>
             <div class="p-4">
@@ -91,10 +106,12 @@
 
                             </tr>
                         </thead>
+                        <% Integer count = (Integer) request.getAttribute("pageIndex");%>
+                        <% count = (count - 1) * 5 + 1;%>
                         <tbody>
                             <c:forEach items="${foodList}" var="food">
                                 <tr>
-                                    <td scope="row">${food.foodId}</td>
+                                    <td scope="row"><%=count%></td>
                                     <td style="text-align: center; font-size: 15px">${food.category}</td>
 
                                     <td style="text-align: center ; font-size: 15px">
@@ -125,10 +142,50 @@
                                         <button onclick="showMess(${food.foodId})"  class="custom-btn btn-crud"><span>Delete now !</span><span>Delete</span></button>
                                     </td>
                                 </tr>
+                                <% count = count + 1;%> 
                             </c:forEach>
                         </tbody>
                     </table>
                 </div>
+
+                <!-- paging -->
+                <c:if test="${searchtxt==null}">
+                    <div class="clearfix">
+                        <div class="hint-text">Showing <b>${foodList.size()}</b> out of <b>${total}</b> entries</div>
+                        <ul class="pagination">
+                            <c:if test="${pageIndex>1}">
+                                <li class="page-item disabled"><a href="AdminListFood?pageIndex=${pageIndex-1}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="AdminListFood?pageIndex=${pageIndex-1}">${pageIndex-1}</a></li>
+                                </c:if>
+                                <c:if test="${pageIndex!=null}">
+                                <li class="page-item active"><a class="page-link" href="AdminListFood?pageIndex=${pageIndex}">${pageIndex}</a></li>
+                                </c:if>
+                                <c:if test="${pageIndex<endPage}">
+                                <li class="page-item"><a class="page-link" href="AdminListFood?pageIndex=${pageIndex+1}">${pageIndex+1}</a></li>
+                                <li class="page-item"><a href="AdminListFood?pageIndex=${pageIndex+1}" class="page-link">Next</a></li>
+                                </c:if>
+                        </ul>
+                    </div>
+                </c:if>
+                <c:if test="${searchtxt!=null}">
+                    <div class="clearfix">
+                        <div class="hint-text">Showing <b>${foodList.size()}</b> out of <b>${total}</b> entries</div>
+                        <ul class="pagination">
+                            <c:if test="${pageIndex>1}">
+                                <li class="page-item disabled"><a href="adminsearchfastfood?pageIndex=${pageIndex-1}$searchtxt=${searchtxt}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="adminsearchfastfood?pageIndex=${pageIndex-1}&searchtxt=${searchtxt}">${pageIndex-1}</a></li>
+                                </c:if>
+                                <c:if test="${pageIndex!=null}">
+                                <li class="page-item active"><a class="page-link" href="adminsearchfastfood?pageIndex=${pageIndex}&searchtxt=${searchtxt}">${pageIndex}</a></li>
+                                </c:if>
+                                <c:if test="${pageIndex<endPage}">
+                                <li class="page-item"><a class="page-link" href="adminsearchfastfood?pageIndex=${pageIndex+1}&searchtxt=${searchtxt}">${pageIndex+1}</a></li>
+                                <li class="page-item"><a href="adminsearchfastfood?pageIndex=${pageIndex+1}&searchtxt=${searchtxt}" class="page-link">Next</a></li>
+                                </c:if>
+                        </ul>
+                    </div>
+                </c:if>
+
                 <%@include file="template/adminStatics.jsp" %>
             </div>
             <!--footer-->

@@ -5,60 +5,49 @@
  */
 package controller;
 
-import dao.ICVInforDAO;
-import dao.IRecruitmentDAO;
-import dao.impl.CVInforDAO;
-import dao.impl.RecruitmentDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.CVInfor;
-import model.Recruitment;
+import javax.servlet.http.Part;
 
 /**
- * Documentation : AdminListRecruitmentController Created on : 27-Feb-2022,
- * 01:12:48
  *
  * @author Bảo Châu Bống
  */
-// Admin can see the list of Recruitment and CRUD
-public class AdminListRecruitmentController extends HttpServlet {
+@MultipartConfig
+public class UploadPhotoServlet extends HttpServlet {
 
-    // Calling method of database
-    IRecruitmentDAO recruitmentDao = new RecruitmentDAO();
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
-        // get pageIndex params
-        String index = request.getParameter("pageIndex");
-        if (index == null) {
-            index = "1";
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UploadPhotoServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UploadPhotoServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        int pageIndex = Integer.parseInt(index);
-
-        // count number of pages
-        int total = recruitmentDao.getTotalRecruitment();
-        int endPage = (int) Math.ceil((double) total / 3);
-
-        // get list recruitment by pageindex
-        List<Recruitment> recruitmentList = new ArrayList<>();
-        recruitmentList = recruitmentDao.pagingRecruitment(pageIndex);
-
-        // set properties and send to jsp
-        request.setAttribute("recruitmentList", recruitmentList);
-        request.setAttribute("total", total);
-        request.setAttribute("endPage", endPage);
-        request.setAttribute("pageIndex", pageIndex);
-
-        request.getRequestDispatcher("AdminListRecruitment.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,7 +62,7 @@ public class AdminListRecruitmentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("UserAddCVInfor.jsp").forward(request, response);
     }
 
     /**
@@ -87,7 +76,20 @@ public class AdminListRecruitmentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        try {
+            Part part = request.getPart("new_CV");
+            String realPath = request.getServletContext().getRealPath("/img");
+            String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
+            
+            if (!Files.exists(Path.of(realPath))){
+                Files.createDirectory(Path.of(realPath));
+            }
+            part.write(realPath + "/" + filename);
+        }
+        catch (Exception e){
+            
+        }
     }
 
     /**
@@ -99,4 +101,5 @@ public class AdminListRecruitmentController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

@@ -588,12 +588,12 @@ public class MovieDAO extends DBContext implements IMovieDAO {
 
     public static void main(String[] args) {
         MovieDAO dao = new MovieDAO();
-        List<Movie> list = dao.getTop8Movie();
+        List<Movie> list = dao.getMovieWithPagging(3, 4);
         for (Movie o : list) {
             System.out.println(o);
         }
 
-        Movie m = dao.getMovieById(7);
-        System.out.println(m);
+//        Movie m = dao.getMovieById(7);
+//        System.out.println(m);
     }
 }

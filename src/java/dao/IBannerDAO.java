@@ -6,6 +6,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.Banner;
 
 /**
@@ -26,12 +27,12 @@ public interface IBannerDAO {
 
     public Banner get(int id);
 
-    public ArrayList<Banner> pagingBanner(int pageIndex);
-
+    // new
     public int getTotalBanner();
 
-//    public ArrayList<Banner> getBannerByTitle(String bannerTitle, int pageIndex);
-//
-//    public int getTotalBannerByTitle(String title);
+    public List<Banner> pagingBanner(int pageIndex);
 
+    public ArrayList<Banner> getBannerByTitle(String title, int pageIndex);
+
+    public int getTotalBannerByTitle(String title);
 }

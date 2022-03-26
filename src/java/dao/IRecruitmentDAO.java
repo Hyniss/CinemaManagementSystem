@@ -7,6 +7,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.Recruitment;
 
 /**
@@ -28,4 +29,13 @@ public interface IRecruitmentDAO {
     public Recruitment get(int id);
     
     public ArrayList<Recruitment> getAllChucVu();
+    
+    // new
+    public int getTotalRecruitment();
+    
+    public List<Recruitment> pagingRecruitment(int pageIndex);
+    
+    public ArrayList<Recruitment> getRecruitmentByTitle(String title, int pageIndex);
+    
+    public int getTotalRecruitmentByTitle(String title);
 }

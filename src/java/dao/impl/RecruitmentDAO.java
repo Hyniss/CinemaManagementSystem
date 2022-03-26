@@ -170,14 +170,6 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        RecruitmentDAO dao = new RecruitmentDAO();
-        List<Recruitment> list = dao.getAllChucVu();
-        for (Recruitment o : list) {
-            System.out.println(o);
-        }
-    }
-
     @Override
     public ArrayList<Recruitment> getAllChucVu() {
         ArrayList<Recruitment> list = new ArrayList<>();
@@ -205,5 +197,136 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
             closeResultSet(rs);
         }
         return list;
+    }
+
+    @Override
+    public int getTotalRecruitment() {
+        try {
+            query = "SELECT COUNT(*) FROM dbo.Recruitment";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Recruitment> pagingRecruitment(int pageIndex) {
+        List<Recruitment> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM \n"
+                    + "	(SELECT *, ROW_NUMBER() OVER (ORDER BY id) AS Seq\n"
+                    + "	FROM dbo.Recruitment)\n"
+                    + "t WHERE Seq BETWEEN ? AND ?";
+
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, (pageIndex - 1) * 5 + 1);
+            ps.setInt(2, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recruitment(
+                        rs.getInt("ID"),
+                        rs.getString("img"),
+                        rs.getString("Title"),
+                        rs.getString("content"),
+                        rs.getString("date")
+                ));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<Recruitment> getRecruitmentByTitle(String title, int pageIndex) {
+        ArrayList<Recruitment> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM \n"
+                    + "	(SELECT *, ROW_NUMBER() OVER (ORDER BY id) AS Seq\n"
+                    + "	FROM dbo.Recruitment WHERE title LIKE ?)\n"
+                    + "t WHERE Seq BETWEEN ? AND ?";
+
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + title.trim() + "%");
+            ps.setInt(2, (pageIndex - 1) * 5 + 1);
+            ps.setInt(3, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Recruitment(
+                        rs.getInt("ID"),
+                        rs.getString("img"),
+                        rs.getString("Title"),
+                        rs.getString("content"),
+                        rs.getString("date")
+                ));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    @Override
+    public int getTotalRecruitmentByTitle(String title) {
+        if (title.equals("")) {
+            return 0;
+        }
+        try {
+            query = "SELECT COUNT(*) FROM dbo.Recruitment WHERE title LIKE ?";
+
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + title + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        RecruitmentDAO dao = new RecruitmentDAO();
+//        List<Recruitment> list = dao.getRecruitmentByTitle("Marketing", 1);
+//        for (Recruitment o : list) {
+//            System.out.println(o);
+//        }
+        int list = dao.getTotalRecruitmentByTitle("Marketing");
+        System.out.println(list);
     }
 }

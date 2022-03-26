@@ -1,69 +1,66 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
-import dao.impl.BannerDAO;
-import dao.IBannerDAO;
+import dao.IRecruitmentDAO;
+import dao.impl.RecruitmentDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Banner;
+import model.Recruitment;
 
 /**
- * Documentation: AdminBannerListConntroller Created on: 13-Feb-2022, 0:41:21
  *
  * @author Bảo Châu Bống
  */
-// Admin can see the list of Banner and do CRUD
-public class AdminBannerListConntroller extends HttpServlet {
+public class AdminSearchRecruitmentController extends HttpServlet {
 
-    // Calling method of database
-    IBannerDAO bannerDao = new BannerDAO();
+    IRecruitmentDAO recruitmentDao = new RecruitmentDAO();
 
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//
-//        // Transfer data from database
-//        List<Banner> bannerList = bannerDao.getAllBanner();
-//
-//        // Set Attribute
-//        request.setAttribute("bannerList", bannerList);
-//
-//        // Lead to AdminBannerList.jsp
-//        request.getRequestDispatcher("AdminBannerList.jsp").forward(request, response);
-//    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        // get search txt
+        String recruitmentTitle = request.getParameter("searchtxt").replaceAll("\\s+", " ").trim();
+        request.setAttribute("searchtxt", recruitmentTitle);
+
+        // get pageindex params
         String index = request.getParameter("pageIndex");
         if (index == null) {
             index = "1";
         }
         int pageIndex = Integer.parseInt(index);
 
+        // get list banner by search txt
+        List<Recruitment> recruitmentList = new ArrayList<>();
+        recruitmentList = recruitmentDao.getRecruitmentByTitle(recruitmentTitle, pageIndex);
+
         // count number of pages
-        int total = bannerDao.getTotalBanner();
-        int endPage = (int) Math.ceil((double) total / 3);
+        int total = recruitmentDao.getTotalRecruitmentByTitle(recruitmentTitle);
+        int endPage = (int) Math.ceil((double) total / 5);
 
-        List<Banner> banner = new ArrayList<>();
-        banner = bannerDao.pagingBanner(pageIndex);
-
-        request.setAttribute("banner", banner);
         request.setAttribute("total", total);
         request.setAttribute("endPage", endPage);
         request.setAttribute("pageIndex", pageIndex);
 
-        List<Banner> bannerList = bannerDao.getAllBanner();
-//
-//        // Set Attribute
-       request.setAttribute("bannerList", bannerList);
-        request.getRequestDispatcher("AdminBannerList.jsp").forward(request, response);
+        if (recruitmentList.size() == 0) {
+            String searchMess = "No data to show!";
+            request.setAttribute("searchMess", searchMess);
+            request.getRequestDispatcher("AdminListRecruitment.jsp").forward(request, response);
+        } else {
+            request.setAttribute("recruitmentList", recruitmentList);
+            request.getRequestDispatcher("AdminListRecruitment.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,41 +5,42 @@
  */
 package controller;
 
-import dao.impl.FoodDAO;
-import dao.IFoodDAO;
+import dao.IPromotionDAO;
+import dao.impl.PromotionDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.FoodAndDrink;
+import model.Promotion;
 
 /**
- * Documentation: AdminListFoodConntroller Created on: 13-Feb-2022, 08:41:21
+ * Document : AdminListPromotionController Created on : 13-Feb-2022, 04:38:41
  *
- * @author Nguyễn Tiến Huy
+ * @author Bảo Châu Bống
  */
-// Admin can see the list of Banner and do CRUD
-//url
-@WebServlet(name = "AdminListFoodController", urlPatterns = {"/AdminListFood"})
-public class AdminListFoodController extends HttpServlet {
+// Admin can see the list of Promotion and CRUD
+public class AdminListPromotionController extends HttpServlet {
 
-    IFoodDAO foodDAO = new FoodDAO();
-// protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    // Calling method of database
+    IPromotionDAO promotionDao = new PromotionDAO();
+
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 //            throws ServletException, IOException {
-//       //create object
-//        IFoodDAO foodDAO = new FoodDAO();
-//        //create list with datatype is FoodAndDrink and call method from foodDAO for variable list
-//        List<FoodAndDrink> foodList = foodDAO.getAllFood();
+//        request.setCharacterEncoding("utf-8");
+//        
+//        // Get data from database and transfer in parameter
+//        List<Promotion> promotionList = promotionDao.getAllPromotion();
+//        
 //        // Set Attribute
-//        request.setAttribute("foodList", foodList);
-//        // Lead to AdminBannerList.jsp
-//        request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+//        request.setAttribute("promotionList", promotionList);
+//        
+//        // Lead to AdminPromotionList.jsp
+//        request.getRequestDispatcher("AdminPromotionList.jsp").forward(request, response);
 //    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -53,27 +54,23 @@ public class AdminListFoodController extends HttpServlet {
         int pageIndex = Integer.parseInt(index);
 
         // count number of pages
-        int total = foodDAO.getTotalFood();
-        int endPage = (int) Math.ceil((double) total / 3);
+        int total = promotionDao.getTotalPromotion();
+        int endPage = (int) Math.ceil((double) total / 5);
 
-        // get list banner by pageindex
-        List<FoodAndDrink> foodList = new ArrayList<>();
-        foodList = foodDAO.pagingFood(pageIndex);
+        // get list promotion by pageindex
+        List<Promotion> promotionList = new ArrayList<>();
+        promotionList = promotionDao.pagingPromotion(pageIndex);
 
         // set properties and send to jsp
-        request.setAttribute("foodList", foodList);
+        request.setAttribute("promotionList", promotionList);
         request.setAttribute("total", total);
         request.setAttribute("endPage", endPage);
         request.setAttribute("pageIndex", pageIndex);
-
-        //List<Banner> bannerList = bannerDao.getAllBanner();
-//
-//        // Set Attribute
-        // request.setAttribute("bannerList", bannerList);
-        request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+        
+        request.getRequestDispatcher("AdminListPromotion.jsp").forward(request, response);
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

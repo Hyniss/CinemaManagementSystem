@@ -49,8 +49,8 @@
         <servlet-class>controller.PromotionDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AdminBannerListConntroller</servlet-name>
-        <servlet-class>controller.AdminBannerListConntroller</servlet-class>
+        <servlet-name>AdminListBannerConntroller</servlet-name>
+        <servlet-class>controller.AdminListBannerConntroller</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminAddBannerController</servlet-name>
@@ -66,7 +66,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminPromotionListController</servlet-name>
-        <servlet-class>controller.AdminPromotionListController</servlet-class>
+        <servlet-class>controller.AdminListPromotionController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminEditPromotionController</servlet-name>
@@ -200,6 +200,26 @@
         <servlet-name>MktHomeController</servlet-name>
         <servlet-class>controller.MktHomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadPhotoServlet</servlet-name>
+        <servlet-class>controller.UploadPhotoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchBannerController</servlet-name>
+        <servlet-class>controller.AdminSearchBannerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchPromotionController</servlet-name>
+        <servlet-class>controller.AdminSearchPromotionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchRecruitmentController</servlet-name>
+        <servlet-class>controller.AdminSearchRecruitmentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSearchFastfoodController</servlet-name>
+        <servlet-class>controller.AdminSearchFastfoodController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -249,7 +269,7 @@
         <url-pattern>/promotion_detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AdminBannerListConntroller</servlet-name>
+        <servlet-name>AdminListBannerConntroller</servlet-name>
         <url-pattern>/adminbannerlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -403,6 +423,26 @@
     <servlet-mapping>
         <servlet-name>MktHomeController</servlet-name>
         <url-pattern>/mkthome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadPhotoServlet</servlet-name>
+        <url-pattern>/uploadphoto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchBannerController</servlet-name>
+        <url-pattern>/adminsearchbanner</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchPromotionController</servlet-name>
+        <url-pattern>/adminsearchpromotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchRecruitmentController</servlet-name>
+        <url-pattern>/adminsearchrecruitment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSearchFastfoodController</servlet-name>
+        <url-pattern>/adminsearchfastfood</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

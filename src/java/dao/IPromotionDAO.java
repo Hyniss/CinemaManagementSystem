@@ -6,6 +6,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.Promotion;
 
 /**
@@ -25,5 +26,15 @@ public interface IPromotionDAO {
     public void deletePromotion(int id);
 
     public Promotion get(int id);
+
     public Promotion discount(String magiam);
+
+    // new
+    public int getTotalPromotion();
+
+    public List<Promotion> pagingPromotion(int pageIndex);
+
+    public ArrayList<Promotion> getPromotionByTitle(String title, int pageIndex);
+
+    public int getTotalPromotionByTitle(String title);
 }

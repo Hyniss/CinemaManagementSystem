@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FoodAndDrink;
@@ -218,5 +219,134 @@ public class FoodDAO extends DBContext implements IFoodDAO {
             closePreparedStatement(ps);
             closeResultSet(rs);
         }
+    }
+
+    @Override
+    public int getTotalFood() {
+        try {
+            query = "SELECT COUNT(*) FROM dbo.Fastfood";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<FoodAndDrink> pagingFood(int pageIndex) {
+        List<FoodAndDrink> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM\n"
+                    + "	(SELECT *, ROW_NUMBER() OVER (ORDER BY foodId ASC) AS Seq\n"
+                    + "	FROM dbo.Fastfood)\n"
+                    + "t WHERE Seq BETWEEN ? AND ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, (pageIndex - 1) * 5 + 1);
+            ps.setInt(2, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                /*Assign data to an arraylist of FoodAndDrink model*/
+                list.add(new FoodAndDrink(
+                        rs.getInt("foodId"),
+                        rs.getString("category"),
+                        rs.getString("name"),
+                        rs.getString("price"),
+                        rs.getString("img")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<FoodAndDrink> getFoodByName(String name, int pageIndex) {
+        ArrayList<FoodAndDrink> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM\n"
+                    + "	(SELECT *, ROW_NUMBER() OVER (ORDER BY foodId ASC) AS Seq\n"
+                    + "	FROM dbo.Fastfood WHERE name like ?)\n"
+                    + "t WHERE Seq BETWEEN ? AND ?";
+
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + name.trim() + "%");
+            ps.setInt(2, (pageIndex - 1) * 5 + 1);
+            ps.setInt(3, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                /*Assign data to an arraylist of FoodAndDrink model*/
+                list.add(new FoodAndDrink(
+                        rs.getInt("foodId"),
+                        rs.getString("category"),
+                        rs.getString("name"),
+                        rs.getString("price"),
+                        rs.getString("img")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    @Override
+    public int getTotalFoodByName(String name) {
+        if (name.equals("")) {
+            return 0;
+        }
+
+        try {
+            query = "SELECT COUNT(*) FROM dbo.Fastfood WHERE name like ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + name + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(FoodDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        FoodDAO dao = new FoodDAO();
+        List<FoodAndDrink> list = dao.getFoodByName("Pepsi", 1);
+        System.out.println(list);
+//        int list = dao.;
+//        System.out.println(list);
     }
 }

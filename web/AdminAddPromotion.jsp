@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="input-1">Image</label>
-                                    <input value="${promotion.imageLink}" type="text" class="form-control" id="input-1" placeholder="Add Image" name="new_imageLink">
+                                    <input value="${promotion.imageLink}" type="file" class="form-control" id="input-1" placeholder="Add Image" name="new_imageLink">
                                 </div>
                                 <div class="form-group">
                                     <label for="input-2" class="col-form-label">Description</label>

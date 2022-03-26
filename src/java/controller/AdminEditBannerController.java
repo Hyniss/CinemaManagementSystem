@@ -73,7 +73,7 @@ public class AdminEditBannerController extends HttpServlet {
             request.getRequestDispatcher("AdminEditBanner.jsp").forward(request, response);
         } else if (Validate.checkImg(new_Img) == false) {
             request.setAttribute("banner", banner);
-            request.setAttribute("error", "Image can not be blank and length from 4 to 30 characters!");
+            request.setAttribute("error", "Image can not be blank!");
             request.getRequestDispatcher("AdminEditBanner.jsp").forward(request, response);
         } else if (Validate.checkDesc(new_desc) == false) {
             request.setAttribute("banner", banner);

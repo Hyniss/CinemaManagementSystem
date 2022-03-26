@@ -156,15 +156,9 @@ public class BannerDAO extends DBContext implements IBannerDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        BannerDAO dao = new BannerDAO();
-        Banner list = dao.get(4);
-        System.out.println(list);
-    }
-
     @Override
-    public ArrayList<Banner> pagingBanner(int pageIndex) {
-        ArrayList<Banner> list = new ArrayList<>();
+    public List<Banner> pagingBanner(int pageIndex) {
+        List<Banner> list = new ArrayList<>();
         try {
             query = "SELECT * FROM "
                     + "( SELECT *, ROW_NUMBER() OVER "
@@ -216,16 +210,74 @@ public class BannerDAO extends DBContext implements IBannerDAO {
         return 0;
     }
 
-//    @Override
-//    public ArrayList<Banner> getBannerByTitle(String bannerTitle, int pageIndex) {
-//        ArrayList<Banner> list = new ArrayList<>();
-//        try {
-//            query = ""
-//        }
-//    }
-//
-//    @Override
-//    public int getTotalBannerByTitle(String title) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    @Override
+    public ArrayList<Banner> getBannerByTitle(String title, int pageIndex) {
+        ArrayList<Banner> list = new ArrayList<>();
+        try {
+            query = "SELECT *\n"
+                    + "FROM \n"
+                    + "	(SELECT *, ROW_NUMBER() OVER (ORDER BY ID DESC) AS Seq\n"
+                    + "	FROM dbo.Banner where Title like ?) \n"
+                    + "t WHERE Seq BETWEEN ? AND ?";
+
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + title.trim() + "%");
+            ps.setInt(2, (pageIndex - 1) * 5 + 1);
+            ps.setInt(3, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Banner(
+                        rs.getInt("id"),
+                        rs.getString("img"),
+                        rs.getString("title"),
+                        rs.getString("desc")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    @Override
+    public int getTotalBannerByTitle(String title) {
+        if (title.equals("")) {
+            return 0;
+        }
+
+        try {
+            query = "SELECT COUNT(*) FROM dbo.Banner WHERE Title like ?";
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + title + "%");
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(BannerDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        BannerDAO dao = new BannerDAO();
+        List<Banner> list = dao.pagingBanner(1);
+        System.out.println(list);
+    }
 }

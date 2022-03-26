@@ -5,75 +5,65 @@
  */
 package controller;
 
-import dao.impl.FoodDAO;
 import dao.IFoodDAO;
+import dao.impl.FoodDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FoodAndDrink;
 
 /**
- * Documentation: AdminListFoodConntroller Created on: 13-Feb-2022, 08:41:21
  *
- * @author Nguyễn Tiến Huy
+ * @author Bảo Châu Bống
  */
-// Admin can see the list of Banner and do CRUD
-//url
-@WebServlet(name = "AdminListFoodController", urlPatterns = {"/AdminListFood"})
-public class AdminListFoodController extends HttpServlet {
+public class AdminSearchFastfoodController extends HttpServlet {
 
-    IFoodDAO foodDAO = new FoodDAO();
-// protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//       //create object
-//        IFoodDAO foodDAO = new FoodDAO();
-//        //create list with datatype is FoodAndDrink and call method from foodDAO for variable list
-//        List<FoodAndDrink> foodList = foodDAO.getAllFood();
-//        // Set Attribute
-//        request.setAttribute("foodList", foodList);
-//        // Lead to AdminBannerList.jsp
-//        request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
-//    }
+    IFoodDAO foodDao = new FoodDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        // get pageIndex params
+        // get search txt
+        String foodName = request.getParameter("searchtxt").replaceAll("\\s+", " ").trim();
+        request.setAttribute("searchtxt", foodName);
+
+        // get pageindex params
         String index = request.getParameter("pageIndex");
         if (index == null) {
             index = "1";
         }
         int pageIndex = Integer.parseInt(index);
 
-        // count number of pages
-        int total = foodDAO.getTotalFood();
-        int endPage = (int) Math.ceil((double) total / 3);
-
-        // get list banner by pageindex
+        // get lisr banner by search txt
         List<FoodAndDrink> foodList = new ArrayList<>();
-        foodList = foodDAO.pagingFood(pageIndex);
+        foodList = foodDao.getFoodByName(foodName, pageIndex);
 
-        // set properties and send to jsp
-        request.setAttribute("foodList", foodList);
+        // count number of pages
+        int total = foodDao.getTotalFoodByName(foodName);
+        int endPage = (int) Math.ceil((double) total / 5);
+
         request.setAttribute("total", total);
         request.setAttribute("endPage", endPage);
         request.setAttribute("pageIndex", pageIndex);
 
-        //List<Banner> bannerList = bannerDao.getAllBanner();
-//
-//        // Set Attribute
-        // request.setAttribute("bannerList", bannerList);
-        request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+        if (foodList.size() == 0) {
+            String searchMess = "No data to show!";
+            request.setAttribute("searchMess", searchMess);
+            request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+        } else {
+            request.setAttribute("foodList", foodList);
+            request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+        }
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -111,4 +101,5 @@ public class AdminListFoodController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

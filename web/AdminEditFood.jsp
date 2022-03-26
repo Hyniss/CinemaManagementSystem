@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Image</label>
-                                    <input value="${food.img}" type="text" class="form-control" id="input-10" placeholder="The direct of Image" name="new_Img">
+                                    <input value="${food.img}" type="file" class="form-control" id="input-10" placeholder="The direct of Image" name="new_Img">
                                 </div>
                                 <div class="form-group">
                                     <label>Price (VNĐ)</label>

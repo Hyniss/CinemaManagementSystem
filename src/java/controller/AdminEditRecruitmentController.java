@@ -90,7 +90,7 @@ public class AdminEditRecruitmentController extends HttpServlet {
             request.getRequestDispatcher("AdminEditRecruitment.jsp").forward(request, response);
         } else if (Validate.checkImg(new_img) == false) {
             request.setAttribute("recruitment", recruitment);
-            request.setAttribute("error", "Image can not be blank and length from 4 to 30 characters!");
+            request.setAttribute("error", "Image can not be blank!");
             request.getRequestDispatcher("AdminEditRecruitment.jsp").forward(request, response);
         } else if (Validate.checkDesc(new_Content) == false) {
             request.setAttribute("recruitment", recruitment);

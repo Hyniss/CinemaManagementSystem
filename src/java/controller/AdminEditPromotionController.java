@@ -91,7 +91,7 @@ public class AdminEditPromotionController extends HttpServlet {
             request.getRequestDispatcher("AdminEditPromotion.jsp").forward(request, response);
         } else if (Validate.checkImg(new_img) == false) {
             request.setAttribute("promotion", promotion);
-            request.setAttribute("error", "Image can not be blank and length from 4 to 30 characters!");
+            request.setAttribute("error", "Image can not be blank!");
             request.getRequestDispatcher("AdminEditPromotion.jsp").forward(request, response);
         } else if (Validate.checkDesc(new_content) == false) {
             request.setAttribute("promotion", promotion);

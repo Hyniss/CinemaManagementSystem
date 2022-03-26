@@ -69,8 +69,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Upload CV</label>
-                                    <input value="${cvinfor.CV}" type="text" class="form-control" id="input-1" placeholder="Add Image" required name="new_CV">
+                                    <input value="${cvinfor.CV}" type="file" class="form-control" id="input-1" placeholder="Add Image" required name="new_CV">
                                 </div>
+
+
                                 <div class="form-group">
                                     <label>Description</label>
                                     <div>

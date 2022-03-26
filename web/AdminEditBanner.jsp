@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Image</label>
-                                    <input value="${banner.img}" type="text" class="form-control" id="input-10" placeholder="The direct of Image" value="${banner.img}"name="new_Img">
+                                    <input value="${banner.img}" type="file" class="form-control" id="input-10" placeholder="The direct of Image" value="${banner.img}"name="new_Img">
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>

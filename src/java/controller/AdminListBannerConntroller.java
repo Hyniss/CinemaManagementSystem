@@ -1,45 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import dao.impl.FoodDAO;
-import dao.IFoodDAO;
+import dao.impl.BannerDAO;
+import dao.IBannerDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.FoodAndDrink;
+import model.Banner;
 
 /**
- * Documentation: AdminListFoodConntroller Created on: 13-Feb-2022, 08:41:21
+ * Documentation: AdminListBannerConntroller Created on: 13-Feb-2022, 0:41:21
  *
- * @author Nguyễn Tiến Huy
+ * @author Bảo Châu Bống
  */
 // Admin can see the list of Banner and do CRUD
-//url
-@WebServlet(name = "AdminListFoodController", urlPatterns = {"/AdminListFood"})
-public class AdminListFoodController extends HttpServlet {
+public class AdminListBannerConntroller extends HttpServlet {
 
-    IFoodDAO foodDAO = new FoodDAO();
-// protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    // Calling method of database
+    IBannerDAO bannerDao = new BannerDAO();
+
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 //            throws ServletException, IOException {
-//       //create object
-//        IFoodDAO foodDAO = new FoodDAO();
-//        //create list with datatype is FoodAndDrink and call method from foodDAO for variable list
-//        List<FoodAndDrink> foodList = foodDAO.getAllFood();
+//        response.setContentType("text/html;charset=UTF-8");
+//
+//        // Transfer data from database
+//        List<Banner> bannerList = bannerDao.getAllBanner();
+//
 //        // Set Attribute
-//        request.setAttribute("foodList", foodList);
+//        request.setAttribute("bannerList", bannerList);
+//
 //        // Lead to AdminBannerList.jsp
-//        request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+//        request.getRequestDispatcher("AdminBannerList.jsp").forward(request, response);
 //    }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -53,15 +49,15 @@ public class AdminListFoodController extends HttpServlet {
         int pageIndex = Integer.parseInt(index);
 
         // count number of pages
-        int total = foodDAO.getTotalFood();
+        int total = bannerDao.getTotalBanner();
         int endPage = (int) Math.ceil((double) total / 3);
 
         // get list banner by pageindex
-        List<FoodAndDrink> foodList = new ArrayList<>();
-        foodList = foodDAO.pagingFood(pageIndex);
+        List<Banner> bannerList = new ArrayList<>();
+        bannerList = bannerDao.pagingBanner(pageIndex);
 
         // set properties and send to jsp
-        request.setAttribute("foodList", foodList);
+        request.setAttribute("bannerList", bannerList);
         request.setAttribute("total", total);
         request.setAttribute("endPage", endPage);
         request.setAttribute("pageIndex", pageIndex);
@@ -70,10 +66,10 @@ public class AdminListFoodController extends HttpServlet {
 //
 //        // Set Attribute
         // request.setAttribute("bannerList", bannerList);
-        request.getRequestDispatcher("AdminListFood.jsp").forward(request, response);
+        request.getRequestDispatcher("AdminListBanner.jsp").forward(request, response);
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -111,4 +107,5 @@ public class AdminListFoodController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

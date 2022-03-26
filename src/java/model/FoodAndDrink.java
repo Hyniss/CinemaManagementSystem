@@ -68,6 +68,11 @@ public class FoodAndDrink {
         this.img = img;
     }
 
+    @Override
+    public String toString() {
+        return "FoodAndDrink{" + "foodId=" + foodId + ", category=" + category + ", name=" + name + ", price=" + price + ", img=" + img + '}';
+    }
+
    
 
    
