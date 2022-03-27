@@ -114,19 +114,19 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
     }
 
     @Override
-    public void editCV(CVInfor cvinfor) {
+    public void editCV(int status, int id) {
         try {
             query = "UPDATE dbo.CVInfor SET [status] = ? "
                     //                    + "fullname = ?, CV = ?,  chucvu = ? "
                     + "WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, cvinfor.getStatus());
+            ps.setInt(1, status);
 //            ps.setString(2, cvinfor.getFullname());
 //            ps.setString(3, cvinfor.getCV());
 //            ps.setDate(4, cvinfor.getDate());
 //            ps.setInt(4, cvinfor.getChucvu());
-            ps.setInt(2, cvinfor.getId());
+            ps.setInt(2, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);

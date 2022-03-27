@@ -109,41 +109,43 @@
                         <% Integer count = (Integer) request.getAttribute("pageIndex");%>
                         <% count = (count - 1) * 5 + 1;%>
                         <tbody>
+                        <form action="admineditcv" method="POST">
 
                             <c:forEach items="${cvInforList}" var="o">
                                 <tr>
-                                    <td name="new_id" style="text-align: center" ><%=count%></td>
-                                    <td style="text-align: center" >${o.fullname}</td>                                                   
-                                    <td >
-                                        <style>
-                                            .row img {
-                                                border: 1px solid #ddd;
-                                                border-radius: 4px;
-                                                padding: 5px;
-                                                width: 150px;
-                                            }
+                                <input name="new_id" value="${o.id}" hidden>
+                                <td style="text-align: center" ><%=count%></td>
+                                <td  >${o.fullname}</td>                                                   
+                                <td >
+                                    <style>
+                                        .row img {
+                                            border: 1px solid #ddd;
+                                            border-radius: 4px;
+                                            padding: 5px;
+                                            width: 150px;
+                                        }
 
-                                            img:hover {
-                                                box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-                                            }
-                                        </style>
-                                        <a target="_blank" href="${pageContext.request.contextPath}/assets/img/CV/${o.CV}">
-                                            <img src="${pageContext.request.contextPath}/assets/img/CV/${o.CV}" alt="Forest" style="width:150px">
-                                        </a>
-                                    </td>
-                                    <td>  
-                                        <form action="admincvlist" method="GET">
-                                            <select name="new_status" class="form-control" onchange="this.form.submit()" aria-label="Default select example">
-                                                <c:forEach items="${statusList}" var="a">
-                                                    <option value="${a.id}" ${ a.id==o.status ? "selected" : ""}>${a.status}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </form>
-                                    </td>
-                                    <td  style="text-align: center"> <button type="submit" class="btn btn-success">Save</button></td>
+                                        img:hover {
+                                            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+                                        }
+                                    </style>
+                                    <a target="_blank" href="${pageContext.request.contextPath}/assets/img/CV/${o.CV}">
+                                        <img src="${pageContext.request.contextPath}/assets/img/CV/${o.CV}" alt="Forest" style="width:150px">
+                                    </a>
+                                </td>
+                                <td>  
+                                    <select name="new_status" class="form-control" aria-label="Default select example">
+                                        <c:forEach items="${statusList}" var="a">
+                                            <option value="${a.id}" ${ a.id==o.status ? "selected" : ""}>${a.status}</option>
+                                        </c:forEach>
+                                    </select>
+                                <td  style="text-align: center"> <button type="submit" class="btn btn-success">Save</button></td>
+
+                                </td>
                                 </tr>
                                 <% count = count + 1;%> 
                             </c:forEach>
+                        </form>
                         </tbody>
                     </table>
                 </div>

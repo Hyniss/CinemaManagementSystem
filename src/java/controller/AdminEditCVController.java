@@ -19,13 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CVInfor;
 import model.Status;
-import util.CustomException;
 
 /**
  *
  * @author Bảo Châu Bống
  */
-public class AdminEditStatusCVController extends HttpServlet {
+public class AdminEditCVController extends HttpServlet {
 
     ICVInforDAO cvInforDao = new CVInforDAO();
     IStatusDAO statusDao = new StatusDAO();
@@ -34,6 +33,13 @@ public class AdminEditStatusCVController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+
+        int id = Integer.parseInt(request.getParameter("new_id"));
+//        CVInfor cv = cvInforDao.getCV(id);
+        int new_status = Integer.parseInt(request.getParameter("new_status"));
+//        cv.setStatus(new_status);
+
+        cvInforDao.editCV(new_status, id);
 
         // get pageIndex params
         String index = request.getParameter("pageIndex");
@@ -59,38 +65,13 @@ public class AdminEditStatusCVController extends HttpServlet {
         //List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
         List<Status> statusList = statusDao.getAllStatus();
 
-//        if (request.getParameter("new_id") != null) {
-//            int id = Integer.parseInt(request.getParameter("new_id"));
-//            CVInfor cv = cvInforDao.getCV(id);
-//            int new_status = Integer.parseInt(request.getParameter("new_status"));
-//            cv.setStatus(new_status);
-//
-//            cvInforDao.editCV(cv);
-//        }
-
         request.setAttribute("statusList", statusList);
         // request.setAttribute("cvStatusList", cvStatusList);
         request.setAttribute("cvInforList", cvInforList);
         request.getRequestDispatcher("AdminCVInforList.jsp").forward(request, response);
     }
-//
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        request.setCharacterEncoding("utf-8");
-//
-//        List<CVInfor> cvInforList = cvInforDao.getAllCV();
-//        //List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
-//        List<Status> statusList = statusDao.getAllStatus();
-//
-//        request.setAttribute("statusList", statusList);
-//        // request.setAttribute("cvStatusList", cvStatusList);
-//        request.setAttribute("cvInforList", cvInforList);
-//
-//        request.getRequestDispatcher("AdminCVInforList.jsp").forward(request, response);
-//    }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -128,4 +109,5 @@ public class AdminEditStatusCVController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

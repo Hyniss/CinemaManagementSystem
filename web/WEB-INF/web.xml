@@ -216,6 +216,10 @@
         <servlet-name>AdminSearchFastfoodController</servlet-name>
         <servlet-class>controller.AdminSearchFastfoodController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminEditCVController</servlet-name>
+        <servlet-class>controller.AdminEditCVController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -435,6 +439,10 @@
     <servlet-mapping>
         <servlet-name>AdminSearchFastfoodController</servlet-name>
         <url-pattern>/adminsearchfastfood</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditCVController</servlet-name>
+        <url-pattern>/admineditcv</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

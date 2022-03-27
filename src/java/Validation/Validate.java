@@ -130,7 +130,7 @@ public class Validate {
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false
     }
     
-    //hàm check đầu vào cho dob
+    //hàm check đầu vào cho date
     public static boolean checkDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

@@ -21,7 +21,7 @@ public interface ICVInforDAO {
 
     public void addCV(CVInfor cvinfor);
 
-    public void editCV(CVInfor cvinfor);
+    public void editCV(int status, int id);
 
     public void deleteCV(int id);
 
