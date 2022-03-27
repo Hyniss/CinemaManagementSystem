@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import model.MovieRoom;
 
@@ -19,4 +20,7 @@ public interface IMovieRoomDAO {
     public ArrayList<MovieRoom> getListById(int movieRoomId);
 
     public MovieRoom getMovieRoomById(int movieRoomId);
+
+    public MovieRoom getMovieRoomByDate(Date date);
+
 }

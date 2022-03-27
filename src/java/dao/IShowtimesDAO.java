@@ -15,22 +15,21 @@ import model.MovieRoom;
 
 /**
  * This is the interface class that declares the methods to access the data of
- * the TimeRoom object Abstract 
- * method getAllTimeRoom used to retrieve all
+ * the TimeRoom object Abstract method getAllTimeRoom used to retrieve all
  * feedback
  *
  * @author Nguyen Nam
  */
 public interface IShowtimesDAO {
-    
+
     //get movie room by movieroomId
     public MovieRoom getShowtimes(int movieRoomId);
-    
+
     //count total movie room
     public int countTotal();
-    
+
     //get all movie room with pagging and searching
-    public ArrayList<MovieRoom> getAllDatePaggingAndSearching(int pageIndex, int pageSize,Date searchDate);
+    public ArrayList<MovieRoom> getAllDatePaggingAndSearching(int pageIndex, int pageSize, Date searchDate);
 
     //add movie room
     public int addShowtimes(Date date);
@@ -42,5 +41,6 @@ public interface IShowtimesDAO {
     public void deleteShowtimes(int movieRoomId);
 
     //get all date in movieroom
-     public ArrayList<MovieRoom> getAllDate();
+    public ArrayList<MovieRoom> getAllDate();
+
 }

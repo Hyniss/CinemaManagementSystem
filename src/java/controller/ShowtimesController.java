@@ -17,7 +17,12 @@ import dao.impl.RoomDAO;
 import dao.impl.TimeRoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import javax.mail.search.DateTerm;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -65,13 +70,20 @@ public class ShowtimesController extends HttpServlet {
         String roomName = request.getParameter("roomName");
         ArrayList<MovieRoom> movieRoom = movieRoomDao.getAllMovieRoom();
         ArrayList<MovieTime> movieTime = movieTimeDao.getAllMovieTime();
-//        ArrayList<TimeRoom> timeRoom = timeRoomDao.getAllTimeRoom();
-//        ArrayList<TimeRoom> timeRoom1 = timeRoomDao.getByMovieId(movieId);
-        ArrayList<MovieTime> movieTime1 = movieTimeDao.getId(movieId, movieRoomId, roomId);
-        //ArrayList<MovieRoom> movieRoom1 = movieRoomDao.getListById(movieRoomId);
+        ArrayList<MovieTime> movieTime1 = new ArrayList<>();
         ArrayList<Room> room = roomDao.getAllRoom();
         Movie movie = movieDao.getMovieById(movieId);
-        
+
+        /*Get local date and time*/
+        ZoneId zid = ZoneId.of("Asia/Ho_Chi_Minh");
+        LocalDate ld = LocalDate.now(zid);
+        Date date = Date.valueOf(ld);
+        MovieRoom movieRoom1 = movieRoomDao.getMovieRoomByDate(date);
+        if (movieRoom1 != null) {
+            movieRoomId = movieRoom1.getMovieRoomId();
+            movieTime1 = movieTimeDao.getId(movieId, movieRoomId, roomId);
+        }
+
         request.setAttribute("movie", movie);
         request.setAttribute("movieId", movieId);
         request.setAttribute("movieRoom", movieRoom);

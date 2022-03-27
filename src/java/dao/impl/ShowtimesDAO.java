@@ -102,12 +102,12 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
         }
         return list;
     }
-    
+
     @Override
     public ArrayList<MovieRoom> getAllDate() {
         ArrayList<MovieRoom> list = new ArrayList<>();
         try {
-            query = "select * from dbo.MovieRoom order by premiere desc "; 
+            query = "select * from dbo.MovieRoom order by premiere desc ";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -126,7 +126,6 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
         }
         return list;
     }
-    
 
     @Override
     public int addShowtimes(Date date) {
@@ -218,9 +217,12 @@ public class ShowtimesDAO extends DBContext implements IShowtimesDAO {
         }
         return null;
     }
+
     public static void main(String[] args) {
-     ShowtimesDAO dao = new ShowtimesDAO();
-     MovieRoom movieRoom = dao.getShowtimes(1);
+        ShowtimesDAO dao = new ShowtimesDAO();
+        MovieRoom movieRoom = dao.getShowtimes(1);
         System.out.println(movieRoom);
     }
+
+    
 }

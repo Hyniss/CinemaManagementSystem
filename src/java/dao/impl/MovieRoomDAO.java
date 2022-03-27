@@ -8,6 +8,7 @@ package dao.impl;
 import dao.DBContext;
 import dao.IMovieRoomDAO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,4 +104,29 @@ public class MovieRoomDAO extends DBContext implements IMovieRoomDAO {
         return null;
     }
 
+    @Override
+    public MovieRoom getMovieRoomByDate(Date date) {
+        try {
+            query = "SELECT * FROM dbo.MovieRoom WHERE premiere = ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setDate(1, date);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                MovieRoom m = new MovieRoom(
+                        rs.getInt("movieRoomId"),
+                        rs.getDate("premiere"));
+                return m;
+            }
+
+        } catch (SQLException e) {
+            Logger.getLogger(ShowtimesDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
 }
