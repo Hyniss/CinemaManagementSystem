@@ -73,21 +73,17 @@
                                     <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
                                 </div>
                                 <div class="text-center my-4 hover"> 
-<<<<<<< HEAD
                                     <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
                                     <c:if test="${count >= 1}">
                                         <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
                                     </c:if>
                                     <c:if test="${count < 1 || count == null}">
-                                        <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}" ><span>Mua vé !</span><span>Mua vé</span></a></button>
-=======
                                        <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
                                      <c:if test="${count >= 1}">
                                     <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
                                     </c:if>
                                     <c:if test="${count < 1 || count == null}">
                                          <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}" ><span>Mua vé !</span><span>Mua vé</span></a></button>
->>>>>>> f01fd6682c8a1a75a6f258f3aa39cfe7b848a97c
                                     </c:if>
                                 </div>
                                 <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
@@ -163,28 +159,26 @@
                                         }
 
         </script>
-<<<<<<< HEAD
         <script>
             function checkCart() {
                 var option = confirm('Bạn có một order chưa thanh toán? Bạn muốn đến đấy để thanh toán không?');
-=======
             <script>
-            function checkCart() {
-               var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
->>>>>>> f01fd6682c8a1a75a6f258f3aa39cfe7b848a97c
+                  
+                function checkCart() {
+                        var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
                 if (option === true) {
-                    window.location.href = 'MyOrder';
+                        windo
+            w.location.href = 'MyOrder';
+            }
+                              
                 }
-            }
-        </script>
-        <script>
-            function viewDetail(movieId) {
-<<<<<<< HEAD
-                window.location.href = "movie?mid=" + movieId;
-=======
-                window.location.href = "movie?mid="+movieId;
->>>>>>> f01fd6682c8a1a75a6f258f3aa39cfe7b848a97c
-            }
-        </script>
+    </script>
+    <script>
+                                    functi
+            on viewDetail(movieId) {
+                        window.location.href = "movie?mid=" + movieId;
+                        window.location.href = "movie?mid=" + movieId;
+                                    }
+                                    </script>
     </body>
 </html>

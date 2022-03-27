@@ -85,15 +85,11 @@
                                 <a type="button" class="btn btn-outline-danger"  href="#" onclick="checkCart()" >Đặt vé ngay</a>
                             </c:if>
                             <c:if test="${count < 1 || count == null}">
-<<<<<<< HEAD
                                 <a type="button" class="btn btn-outline-danger"  href="${pageContext.request.contextPath}/showtimes?movieId=${movie.movieId}" >Đặt vé ngay</a>
                             </c:if>
 
-=======
-                            <a type="button" class="btn btn-outline-danger"  href="${pageContext.request.contextPath}/showtimes?movieId=${movie.movieId}" >Đặt vé ngay</a>
-                            </c:if>
-                            
->>>>>>> f01fd6682c8a1a75a6f258f3aa39cfe7b848a97c
+
+
                             <div class="member_desc">
                                 <h4 style="font-weight: bold">Mô tả</h4>
                                 <p>
@@ -673,19 +669,20 @@
                 document.getElementById("add-review").style.display = "block";
             }
         </script>
-<<<<<<< HEAD
         <script>
             function checkCart() {
                 var option = confirm('Bạn có một order chưa thanh toán? Bạn muốn đến đấy để thanh toán không?');
-=======
-          <script>
-            function checkCart() {
-               var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
->>>>>>> f01fd6682c8a1a75a6f258f3aa39cfe7b848a97c
+            <script>
+                       
+                
+                                    function checkCart() {
+                        var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
                 if (option === true) {
-                    window.location.href = 'MyOrder';
-                }
-            }
+
+                    w
+            indow.location.href = 'MyOrder';
+                                    }
+                                    }
         </script>
         <%@include file="template/footer.jsp" %>
     </body>

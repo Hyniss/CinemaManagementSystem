@@ -72,19 +72,16 @@
                                 </div>
                                 <div class="text-center my-4 hover"> 
                                     <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
-<<<<<<< HEAD
                                     <c:if test="${count >= 1}">
                                         <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
                                     </c:if>
                                     <c:if test="${count < 1 || count==null}">
-                                        <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}" ><span>Mua vé !</span><span>Mua vé</span></a></button>
-=======
-                                     <c:if test="${count >= 1}">
-                                    <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
-                                    </c:if>
-                                    <c:if test="${count < 1 || count==null}">
-                                         <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}" ><span>Mua vé !</span><span>Mua vé</span></a></button>
->>>>>>> f01fd6682c8a1a75a6f258f3aa39cfe7b848a97c
+                                        <c:if test="${count >= 1}">
+                                            <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
+                                        </c:if>
+                                        <c:if test="${count < 1 || count==null}">
+                                            <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}" ><span>Mua vé !</span><span>Mua vé</span></a></button>
+                                        </c:if>
                                     </c:if>
                                 </div>
                                 <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
@@ -109,9 +106,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
         <script>
-                                        $(window).load(function () {
-                                            $('body').sakura();
-                                        });
+                                                $(window).load(function () {
+                                                    $('body').sakura();
+                                                });
         </script>
         <script>
             function checkCart() {
@@ -126,9 +123,9 @@
                 window.location.href = "movie?mid=" + movieId;
             }
         </script>
-            <script>
+        <script>
             function checkCart() {
-               var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
+                var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
                 if (option === true) {
                     window.location.href = 'MyOrder';
                 }
@@ -136,7 +133,7 @@
         </script>
         <script>
             function viewDetail(movieId) {
-                window.location.href = "movie?mid="+movieId;
+                window.location.href = "movie?mid=" + movieId;
             }
         </script>
     </body>
