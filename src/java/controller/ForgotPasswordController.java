@@ -67,8 +67,8 @@ public class ForgotPasswordController extends HttpServlet {
                 Session session = Session.getInstance(properties, new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        String username = "huychichi0612@gmail.com";
-                        String password = "huytruong0612";
+                        String username = "";
+                        String password = "";
                         return new PasswordAuthentication(username, password);
                     }
                 });
