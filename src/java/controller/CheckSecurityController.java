@@ -3,30 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
 
-import dao.IOrder;
-import dao.impl.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import model.Cart;
 
 /**
  *
  * @author TIEN HUY
  */
-@WebServlet(name = "MyOrderController", urlPatterns = {"/MyOrder"})
-public class MyOrderController extends HttpServlet {
+@WebServlet(urlPatterns = {"/CheckSecurity"})
+public class CheckSecurityController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,37 +32,18 @@ public class MyOrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
           HttpSession session = request.getSession();
-          int count = 0;
-          
-          try{
-          IOrder order = new OrderDAO();
-          Account acc = (Account)session.getAttribute("acc");
-          String index = request.getParameter("pageIndex");
-           if(index == null) index = "1";
-           String user = acc.getUsername();
-        int pageIndex = Integer.parseInt(index);
-         int total =  order.getTotalOrder(user);
-         int endPage = (int) Math.ceil((double)total/3);
-          
-        ArrayList<Cart> orderList = order.getMyOrderByName(user, pageIndex);
-        for(Cart cart : orderList){
-            if(cart.getStatus().equals("0")){
-                count++;
+            String code = request.getParameter("code");
+            String check = (String)session.getAttribute("check");
+            if(code.equals(check))
+            {
+                request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
             }
-         
-          
-        }
-        
-        session.setAttribute("order", orderList);
-        session.setAttribute("count", count);
-        request.setAttribute("total1", total);
-        request.setAttribute("endPage1", endPage);
-        request.setAttribute("pageIndex1", pageIndex);
-          }catch(Exception e){
-              Logger.getLogger(MyOrderController.class.getName()).log(Level.SEVERE, null, e);
-          }
-        request.getRequestDispatcher("MyOrder.jsp").forward(request, response);
+            else{
+                 request.setAttribute("mess", "code does not exist");
+                request.getRequestDispatcher("CheckSecurity.jsp").forward(request, response);
+            }
         
     }
 

@@ -40,135 +40,126 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/queries.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/homepage.css" />
+
+
     </head>
     <body>
         <%@include file="template/header.jsp" %>
-        <c:if test="${sessionScope.acc ==null}">
-            <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
-                <h1> Bạn phải đăng nhập để thực hiện tác vụ</h1>
-            </div>
-        </c:if>
-        <c:if test="${sessionScope.acc !=null}">
-           
-            <c:if test="${ searchMess !=null}">
-                <div class="container mt-5 mb-3 p-3 cart-container" style="background:#e9ecef">
-                <h1> Không có dữ liệu</h1>
-            </div>
-            </c:if>
-             <c:if test="${ searchMess ==null}">
-                 <div class="cart-content mt-3">
-                <div class="format-bg-top"></div> 
-                <div class="minicart">
-                    <ul>
-                        <li class="item first">
-                            <div class="product-details">
-                                <table class ="info-wrapper">
-                                    <colgroup>
-                                        <col width="40%">
-                                        <col>
-                                    </colgroup>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <img src="${pageContext.request.contextPath}/assets/img/movie/${movie.image}" class="rounded">
-                                            </td>
-                                            <td>
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="label"> ${movie.movieName} </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>  
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="product-details">
-                                <table class ="info-wrapper">
-                                    <colgroup>
-                                        <col width="30%">
-                                        <col>
-                                    </colgroup>
-                                    <tbody>
-                                        <!--check xem là phim hay đồ ăn, nếu là phim thì hiện cái này, còn đồ ăn thì phần này không hiện-->
-                                        <tr style="height: 43px">
-                                            <td class="label">Rạp chiếu</td>
-                                            <td style="font-weight: bold;font-size:16px;">Amazing Cinema<td>
-                                        </tr>
-                                        <tr style="height: 43px">
-                                            <td class="label">Suất chiếu</td>
-                                            <td style="font-weight: bold;font-size:16px;"><fmt:formatDate pattern="HH:mm " type="time" value="${movieTime.start}"/> , <fmt:formatDate pattern="EEEE, dd-MM-yyyy" value = "${date.premiere}"/><td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label">Phòng</td>
-                                            <td style="font-weight: bold;font-size:16px;">${room.roomName}<td>
-                                        </tr>
+        <div class="container-fluid my-5 d-flex justify-content-center">
+            <div class="card card-1" style="width: 880px;">
+                <div class="card-header bg-white">
+                    <div class="media flex-sm-row flex-column-reverse justify-content-between ">
+                        <div class="col my-auto">
+                            <h4 class="mb-0">Order Detail<span class="change-color"></span> </h4>
+                        </div>
 
-                                        <tr>
-                                            <td class="label">Ghế</td>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-between mb-3">
 
-                                            <td style="font-weight: bold;font-size:16px;">
-                                                <c:forEach items="${seatDetails}" var="s">
-                                                    ${s.seatId};
-                                                </c:forEach>
-                                            <td>
-                                        </tr>
-                                    </tbody>
-                                </table> 
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-2">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="sq align-self-center "> <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="${pageContext.request.contextPath}/assets/img/movie/${movie.image}" width="50" height="50" /> </div>
+                                        <div class="media-body my-auto text-right">
+                                            <div class="row my-auto flex-column flex-md-row">
+                                                <div class="col my-auto">
+                                                    <h6 class="mb-0">${movie.movieName}</h6>
+                                                </div>
+
+
+                                                <div class="col my-auto"> <small>Quantity:${quanseat}</small></div>
+                                                <div class="col my-auto">
+                                                    <h6 class="mb-0"><fmt:formatNumber type = "number" maxIntegerDigits = "10" value = "${priceseat}"/> VNĐ</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-3 ">
+
+                                </div>
                             </div>
-                        </li>
-                        <li class="item">
-                            <div class="product-details">
-                                <table class ="info-wrapper">
-                                    <thead>
-                                        <tr class="block-box" style="height: 24px">
-                                            <td class="label">Giá</td>
-                                            <td class="price">: ${priceseat} VNĐ</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="block-box" style="height: 23px">
-                                            <td class="label">Số lượng</td>
-                                            <td class="price">: ${quanseat} ghế</td>
-                                        </tr>
-                                    </tbody>
-                                    <thead>
-                                        <tr class="block-box" style="height: 24px">
-                                            <td class="label">Combo</td>
-                                            <td class="price">:  
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="card card-2">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="sq align-self-center "> 
+                                            <c:forEach items="${foodDetails}" var="f">
+                                                <img class="img-fluid my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0" src="${pageContext.request.contextPath}/assets/img/food/${f.img}" width="50" height="50" /> 
+                                            </c:forEach>
+                                        </div>
+                                        <div class="media-body my-auto text-right">
+                                            <div class="row my-auto flex-column flex-md-row">
                                                 <c:forEach items="${foodDetails}" var="f">
-                                                    ${f.name};
+                                                    <div class="col-auto my-auto ">
+                                                        <h6 class="mb-0">${f.name};</h6>
+                                                    </div>
                                                 </c:forEach>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="block-box" style="height: 23px">
-                                            <td class="label">Số lượng</td>
-                                            <td class="price">: ${quan}</td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr class="block-box" style="height: 23px">
-                                            <td class="label">Giá</td>
-                                            <td class="price">: ${giadoan}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
 
+                                                <div class="col my-auto "> <small>Quantity: ${quan}</small></div>
+                                                <div class="col my-auto ">
+                                                    <h6 class="mb-0"><fmt:formatNumber type = "number" maxIntegerDigits = "10" value = "${giadoan}"/> VNĐ</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-3 ">
+
+                                </div>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="row justify-content-between">
+
+                                <div class="flex-sm-col text-right col">
+                                    <p class="mb-1"><b>Date:</b></p>
+                                </div>
+                                <div class="flex-sm-col col-auto">
+                                    <p class="mb-1"><fmt:formatDate pattern="HH:mm" type="time" value="${movieTime.start}"/> , <fmt:formatDate pattern="EEEE, dd-MM-yyyy" value = "${date.premiere}"/></p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+
+                                <div class="flex-sm-col text-right col">
+                                    <p class="mb-1"><b>Room:</b></p>
+                                </div>
+                                <div class="flex-sm-col col-auto">
+                                    <p class="mb-1">${room.roomName}</p>
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+
+                                <div class="flex-sm-col text-right col">
+                                    <p class="mb-1"><b>Seet:</b></p>
+                                </div>
+                                <div class="flex-sm-col col-auto">
+                                    <c:forEach items="${seatDetails}" var="s">
+                                        <p class="mb-1"> ${s.seatId};</p>
+                                    </c:forEach>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
 
                 </div>
-                <div class="format-bg-bottom"></div>           
+
             </div>
-        </c:if>
-            </c:if>
+
+        </div>
         <%@include file="template/footer.jsp" %>
         <!-- BOOTSTRAP5-->
         <script

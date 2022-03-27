@@ -9,6 +9,10 @@ import dao.IOrder;
 import dao.impl.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +48,11 @@ public class SearchOrderController extends HttpServlet {
              Account acc = (Account)session.getAttribute("acc");
           try{
           IOrder order = new OrderDAO();
-          String date = request.getParameter("searchdate");
+          Date check = Date.valueOf(request.getParameter("searchdate"));
+          
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        String date = dateFormat.format(check);  
+      
           String index = request.getParameter("pageIndex");
            if(index == null) index = "1";
           

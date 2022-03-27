@@ -81,7 +81,13 @@
                                 </ul>
                             </div>
                             <!--tag để biết đường dẫn thôi nhé -->
+                            <c:if test="${count >= 1}">
+                                <a type="button" class="btn btn-outline-danger"  href="#" onclick="checkCart()" >Đặt vé ngay</a>
+                            </c:if>
+                            <c:if test="${count < 1 || count == null}">
                             <a type="button" class="btn btn-outline-danger"  href="${pageContext.request.contextPath}/showtimes?movieId=${movie.movieId}" >Đặt vé ngay</a>
+                            </c:if>
+                            
                             <div class="member_desc">
                                 <h4 style="font-weight: bold">Mô tả</h4>
                                 <p>
@@ -659,6 +665,14 @@
                 document.getElementById(rateFormIndex).style.display = "block";
                 document.getElementById(rateTextFormIndex).style.display = "block";
                 document.getElementById("add-review").style.display = "block";
+            }
+        </script>
+          <script>
+            function checkCart() {
+               var option = confirm('Bạn có một order chưa thanh toán?Bạn muốn đến đấy để thanh toán không?');
+                if (option === true) {
+                    window.location.href = 'MyOrder';
+                }
             }
         </script>
         <%@include file="template/footer.jsp" %>
