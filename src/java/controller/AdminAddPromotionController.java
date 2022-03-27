@@ -79,9 +79,13 @@ public class AdminAddPromotionController extends HttpServlet {
             request.setAttribute("promotion", promotion);
             request.setAttribute("error", "Length of Title must be from 4 to 30 characters!");
             request.getRequestDispatcher("AdminAddPromotion.jsp").forward(request, response);
+        } else if (Validate.checkImg(new_imageLink) == false) {
+            request.setAttribute("promotion", promotion);
+            request.setAttribute("error", "Image can not be blank !");
+            request.getRequestDispatcher("AdminAddPromotion.jsp").forward(request, response);
         } else if (Validate.checkDesc(new_content) == false) {
             request.setAttribute("promotion", promotion);
-            request.setAttribute("error", "Length of Content must be from 4 to 2500 characters!");
+            request.setAttribute("error", "Length of Description must be from 4 to 2500 characters!");
             request.getRequestDispatcher("AdminAddPromotion.jsp").forward(request, response);
             //        } else if (Validate.checkDiscount(new_magiam) == false) {
             //            request.setAttribute("promotion", promotion);

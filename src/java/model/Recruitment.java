@@ -71,10 +71,10 @@ public class Recruitment {
         this.date = date;
     }
 
-    public String getFormatedDate() {
-        String formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
-        return formattedDate;
-    }
+//    public String getFormatedDate() {
+//        String formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+//        return formattedDate;
+//    }
 
 //    public static void main(String[] args) {
 //

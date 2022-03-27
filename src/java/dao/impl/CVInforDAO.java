@@ -92,13 +92,6 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
         return list;
     }
 
-    public static void main(String[] args) {
-        CVInforDAO dao = new CVInforDAO();
-        //CVInfor cv = new CVInfor (0, "abc", "cv1.png", "04/03/2022", 1, "Waiting");
-        CVInfor list = dao.getCV(1);
-        System.out.println(list);
-    }
-
     @Override
     public void addCV(CVInfor cvinfor) {
         try {
@@ -124,7 +117,7 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
     public void editCV(CVInfor cvinfor) {
         try {
             query = "UPDATE dbo.CVInfor SET [status] = ? "
-//                    + "fullname = ?, CV = ?,  chucvu = ? "
+                    //                    + "fullname = ?, CV = ?,  chucvu = ? "
                     + "WHERE ID = ?";
             con = DBContext.getConnection();
             ps = con.prepareStatement(query);
@@ -176,7 +169,7 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
                         rs.getInt("status")));
             }
         } catch (SQLException e) {
-            Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             closeConnection(con);
             closePreparedStatement(ps);
@@ -184,4 +177,70 @@ public class CVInforDAO extends DBContext implements ICVInforDAO {
         }
         return list;
     }
+
+    @Override
+    public int getTotalCV() {
+        try {
+            query = "SELECT COUNT(*) FROM dbo.CVInfor";
+
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    @Override
+    public List<CVInfor> pagingCV(int pageIndex) {
+        List<CVInfor> list = new ArrayList<>();
+        try {
+            query = "SELECT * FROM\n"
+                    + "	(SELECT *, ROW_NUMBER() OVER (ORDER BY id) AS Seq\n"
+                    + "	FROM dbo.CVInfor)\n"
+                    + "t WHERE Seq BETWEEN ? AND ?";
+            con = DBContext.getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, (pageIndex - 1) * 5 + 1);
+            ps.setInt(2, (pageIndex - 1) * 5 + 5);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new CVInfor(
+                        rs.getInt("ID"),
+                        rs.getString("Fullname"),
+                        rs.getString("CV"),
+                        rs.getString("date"),
+                        rs.getInt("chucvu"),
+                        rs.getInt("status")));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CVInforDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        CVInforDAO dao = new CVInforDAO();
+        //CVInfor cv = new CVInfor (0, "abc", "cv1.png", "04/03/2022", 1, "Waiting");
+        List <CVInfor> list = dao.pagingCV(1);
+        System.out.println(list);
+//        int list = dao.getTotalCV();
+//        System.out.println(list);
+    }
+
 }

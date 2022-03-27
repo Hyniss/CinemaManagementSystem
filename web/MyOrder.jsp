@@ -81,7 +81,7 @@
                                         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                         <div class="filter-group">
                                             <label>Date</label>
-                                            <input value="${searchdate}" name="searchdate" value="" type="search" class="form-control" placeholder="Search By Date" aria-label="Search" aria-describedby="search-addon" required/>
+                                            <input value="${searchdate}" name="searchdate" value="" type="date" class="form-control" min="2000-01-02" max="2023-01-01"  placeholder="Search By Date" aria-label="Search" aria-describedby="search-addon" required/>
                                         </div>
                                     </form>
 
@@ -91,9 +91,9 @@
                                             <input type="hidden" name="pageIndex" value="${pageIndex1}"/>
                                             <select class="form-control"  name="status" onchange="this.form.submit()">
                                                 <option>Choose</option>
-                                                <option value="1">All</option>
-                                                <option value="2">Setle</option>
-                                                <option value="3">Outstand</option>
+                                                <option value="1" ${status == 1 ? "selected" : ""}>All</option>
+                                                <option value="2"${status == 2 ? "selected" : ""}>Setle</option>
+                                                <option value="3"${status == 3 ? "selected" : ""}>Outstand</option>
 
                                             </select>
                                         </form>

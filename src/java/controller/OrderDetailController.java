@@ -84,13 +84,13 @@ public class OrderDetailController extends HttpServlet {
         double priceseat = 0;
         int count = 0;
         //moi lam
-         TimeRoom timeRoom = new TimeRoom();
-         Movie movie;
-         FoodAndDrink foodDetail;
-         Room room;
-         MovieTime movieTime;
-         MovieRoom movieRoom;
-         //
+        TimeRoom timeRoom = new TimeRoom();
+        Movie movie;
+        FoodAndDrink foodDetail;
+        Room room;
+        MovieTime movieTime;
+        MovieRoom movieRoom;
+        //
         Account acc1 = (Account) session.getAttribute("acc");
         String acc2 = request.getParameter("username");
         details = (ArrayList<Cart>) session.getAttribute("order");
@@ -135,9 +135,9 @@ public class OrderDetailController extends HttpServlet {
                 } catch (Exception e) {
                     Logger.getLogger(OrderDetailController.class.getName()).log(Level.SEVERE, null, e);
                 }
-                
+
                 //truy xuất tới bảng timeroomid
-                for(SeatRoom seatroom : seatDetails){
+                for (SeatRoom seatroom : seatDetails) {
                     timeRoom = tmd.getTimeRoom(seatroom.getTimeRoomId());
                     timeRoomList.add(timeRoom);
                 }
@@ -148,11 +148,11 @@ public class OrderDetailController extends HttpServlet {
                 room = rd.room(timeRoom.getRoomId());
                 request.setAttribute("room", room);
                 //lay thoi gian bat dau
-                movieTime =mtd.getMovieTime(timeRoom.getTimeId());
+                movieTime = mtd.getMovieTime(timeRoom.getTimeId());
                 request.setAttribute("movieTime", movieTime);
                 //lay ngay
                 movieRoom = std.getShowtimes(movieTime.getMovieRoomId());
-                request.setAttribute("date",  movieRoom);
+                request.setAttribute("date", movieRoom);
             } else {
                 String searchMess = "No data to show!";
                 request.setAttribute("searchMess", searchMess);

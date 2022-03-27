@@ -84,7 +84,7 @@ public class AdminEditBannerController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/adminbannerlist");
         }
         if (!mess.equals("")) {
-            request.setAttribute("mess", "Add Banner successful !");
+            request.setAttribute("mess", "Edit Banner successful !");
             request.getRequestDispatcher("AdminEditBanner.jsp").forward(request, response);
         }
     }

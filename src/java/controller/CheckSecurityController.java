@@ -1,28 +1,26 @@
+package controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Bảo Châu Bống
+ * @author TIEN HUY
  */
-@MultipartConfig
-public class UploadPhotoServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/CheckSecurity"})
+public class CheckSecurityController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +34,17 @@ public class UploadPhotoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UploadPhotoServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UploadPhotoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        HttpSession session = request.getSession();
+        String code = request.getParameter("code");
+        String check = (String) session.getAttribute("check");
+        if (code.equals(check)) {
+            request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mess", "code does not exist");
+            request.getRequestDispatcher("CheckSecurity.jsp").forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,7 +59,7 @@ public class UploadPhotoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("UserAddCVInfor.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -76,20 +73,7 @@ public class UploadPhotoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        try {
-            Part part = request.getPart("new_CV");
-            String realPath = request.getServletContext().getRealPath("/img");
-            String filename = Path.of(part.getSubmittedFileName()).getFileName().toString();
-            
-            if (!Files.exists(Path.of(realPath))){
-                Files.createDirectory(Path.of(realPath));
-            }
-            part.write(realPath + "/" + filename);
-        }
-        catch (Exception e){
-            
-        }
+        processRequest(request, response);
     }
 
     /**

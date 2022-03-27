@@ -73,8 +73,13 @@
                                     <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.getFormatedDate()}</h4> 
                                 </div>
                                 <div class="text-center my-4 hover"> 
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-primary">Xem ngay</a>
-                                    <a href="movie?mid=${o.getMovieId()}" class="btn btn-booking fas fa-shopping-cart"> Mua vé</a>
+                                    <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
+                                    <c:if test="${count >= 1}">
+                                        <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
+                                    </c:if>
+                                    <c:if test="${count < 1 || count == null}">
+                                        <button  class="custom-btn btn-book"><a href="showtimes?movieId=${o.getMovieId()}" ><span>Mua vé !</span><span>Mua vé</span></a></button>
+                                    </c:if>
                                 </div>
                                 <!-- <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                             </div>
@@ -100,9 +105,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/js/jquery-sakura.js"></script>
         <script>
-                    $(window).load(function () {
-                        $('body').sakura();
-                    });
+                                        $(window).load(function () {
+                                            $('body').sakura();
+                                        });
         </script>
 
         <!--        JQuery-->
@@ -111,43 +116,56 @@
         <!--        Java script function: Load more movie when click load more button-->
         <script>
 
-                    function loadMoreMovie() {
-                        var amount = document.getElementsByClassName("movie").length;
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/loadmoremovie",
-                            type: "get",
-                            data: {
-                                exists: amount
-                            },
-                            success: function (data) {
-                                var row = document.getElementById("movie-content");
-                                row.innerHTML += data;
-                            },
-                            error: function (xhr) {
-                                //Do something handle 
-                            }
-                        });
-                    }
+                                        function loadMoreMovie() {
+                                            var amount = document.getElementsByClassName("movie").length;
+                                            $.ajax({
+                                                url: "${pageContext.request.contextPath}/loadmoremovie",
+                                                type: "get",
+                                                data: {
+                                                    exists: amount
+                                                },
+                                                success: function (data) {
+                                                    var row = document.getElementById("movie-content");
+                                                    row.innerHTML += data;
+                                                },
+                                                error: function (xhr) {
+                                                    //Do something handle 
+                                                }
+                                            });
+                                        }
 
 
-                    function searchByName(param) {
-                        var searchName = param.value;
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/searchmovieajax",
-                            type: "get",
-                            data: {
-                                moviename: searchName
-                            },
-                            success: function (data) {
-                                var row = document.getElementById("movie-content");
-                                row.innerHTML = data;
-                            },
-                            error: function (xhr) {
-                                //Do something handle 
-                            }
-                        });
-                        }
+                                        function searchByName(param) {
+                                            var searchName = param.value;
+                                            $.ajax({
+                                                url: "${pageContext.request.contextPath}/searchmovieajax",
+                                                type: "get",
+                                                data: {
+                                                    moviename: searchName
+                                                },
+                                                success: function (data) {
+                                                    var row = document.getElementById("movie-content");
+                                                    row.innerHTML = data;
+                                                },
+                                                error: function (xhr) {
+                                                    //Do something handle 
+                                                }
+                                            });
+                                        }
 
+        </script>
+        <script>
+            function checkCart() {
+                var option = confirm('Bạn có một order chưa thanh toán? Bạn muốn đến đấy để thanh toán không?');
+                if (option === true) {
+                    window.location.href = 'MyOrder';
+                }
+            }
+        </script>
+        <script>
+            function viewDetail(movieId) {
+                window.location.href = "movie?mid=" + movieId;
+            }
         </script>
     </body>
 </html>

@@ -93,7 +93,7 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
             ps.setString(1, recruitment.getImg());
             ps.setString(2, recruitment.getTitle());
             ps.setString(3, recruitment.getContent());
-            ps.setString(4, recruitment.getFormatedDate());
+            ps.setString(4, recruitment.getDate());
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(RecruitmentDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -113,7 +113,7 @@ public class RecruitmentDAO extends DBContext implements IRecruitmentDAO {
             ps.setString(1, recruitment.getImg());
             ps.setString(2, recruitment.getTitle());
             ps.setString(3, recruitment.getContent());
-            ps.setString(4, recruitment.getFormatedDate());
+            ps.setString(4, recruitment.getDate());
             ps.setInt(5, recruitment.getID());
             ps.executeUpdate();
         } catch (SQLException e) {

@@ -40,7 +40,7 @@ public class AdminEditFoodController extends HttpServlet {
         //search object with id insert data into variable have datatype FoodAndDrink
         FoodAndDrink food = foodDao.getFoodAndDrink(fid);
         //set attribute
-        request.setAttribute("food", food);
+        request.setAttribute("fd", food);
 
         // Lead to AdminEditFood.jsp
         request.getRequestDispatcher("AdminEditFood.jsp").forward(request, response);
@@ -80,18 +80,22 @@ public class AdminEditFoodController extends HttpServlet {
         if (Validate.checkTitle(new_Category) == false) {
             request.setAttribute("fd", fd);
             request.setAttribute("error", "Length of Category must be from 4 to 30 characters!");
-            request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
+            request.getRequestDispatcher("AdminEditFood.jsp").forward(request, response);
+        } else if (Validate.checkImg(new_Img) == false) {
+            request.setAttribute("fd", fd);
+            request.setAttribute("error", "Image can not be blank!");
+            request.getRequestDispatcher("AdminEditFood.jsp").forward(request, response);
         } else if (Validate.checkTitle(new_Name) == false) {
             request.setAttribute("fd", fd);
             request.setAttribute("error", "Length of Name must be from 4 to 30 characters!");
-            request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
+            request.getRequestDispatcher("AdminEditFood.jsp").forward(request, response);
         } else {
             foodDao.editFood(fd);
             response.sendRedirect(request.getContextPath() + "/AdminListFood");
         }
         if (!mess.equals("")) {
-            request.setAttribute("mess", "Add Food and Drink successful!");
-            request.getRequestDispatcher("AdminAddFood.jsp").forward(request, response);
+            request.setAttribute("mess", "Edit Food and Drink successful!");
+            request.getRequestDispatcher("AdminEditFood.jsp").forward(request, response);
         }
     }
 }

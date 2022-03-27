@@ -201,10 +201,6 @@
         <servlet-class>controller.MktHomeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UploadPhotoServlet</servlet-name>
-        <servlet-class>controller.UploadPhotoServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminSearchBannerController</servlet-name>
         <servlet-class>controller.AdminSearchBannerController</servlet-class>
     </servlet>
@@ -423,10 +419,6 @@
     <servlet-mapping>
         <servlet-name>MktHomeController</servlet-name>
         <url-pattern>/mkthome</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UploadPhotoServlet</servlet-name>
-        <url-pattern>/uploadphoto</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminSearchBannerController</servlet-name>

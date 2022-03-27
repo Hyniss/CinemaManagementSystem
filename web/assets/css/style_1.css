@@ -1,0 +1,884 @@
+/*---------------------- GOOGLE FONTS ----------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/*---------------------- VARIABLES CSS ----------------------*/
+:root {
+    /*  --header-height: 120px ;*/
+
+    /*-------------------- Colors --------------------*/
+    /*
+      --first-color: ;
+      --first-color-second: ;
+      --first-color-alt: ;
+      --first-color-lighter: ;
+      --title-color: ;
+      --text-color: ;
+      --text-color-light: ;
+      --input-color: ;
+      --body-color: ;
+      --container-color: ;*/
+
+    /*-------------------- Font and typography --------------------*/
+    --body-font: font-family: 'Poppins', sans-serif; ;
+
+    /*   font size  
+      --big-font-size: ;
+      --h1-font-size: ;
+      --h2-font-size: ;
+      --h3-font-size: ;
+      --normal-font-size: ;
+      --small-font-size: ;
+      --smaller-font-size: ;*/
+
+    /*-------------------- Font weight --------------------*/
+    --font-medium: ;
+    --font-semi-bold: ;
+
+
+
+    /*-------------------- z index --------------------*/
+    --z-tooltip: 1 ;
+    --z-fixed: 2;
+    --z-modal: 99 ;
+}
+
+/*Font size for large devices*/ 
+@media screen and (min-width: 968px) {
+    :root {
+        /*    --big-font-size: ;
+            --h1-font-size: ;
+            --h2-font-size: ;
+            --h3-font-size: ;
+            --normal-font-size: ;
+            --small-font-size: ;
+            --smaller-font-size: ;*/
+    }
+}
+
+
+/*-------------------- BASE --------------------*/
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+body{
+    margin: 0;
+    width: 100%;
+    z-index: 0;
+    padding-top: 80px;
+    font-family: 'Poppins',sans-serif;
+    overflow-x: hidden;
+
+}
+
+.title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+canvas{
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.title h4 {
+    color: #000;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: Verdana, Arial, sans-serif;
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+}
+
+.title h4:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #ff7200;
+    content: '';
+}
+/*-------------------- REUSEABLE------------------*/
+.sticky {
+    position: fixed !important;
+    top: 0 !important;
+    width: 100% !important;
+    z-index: 2000;
+}
+.sticky-notification {
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 2001;
+}
+/*-------------------- NAVBAR --------------------*/
+.nav-item
+{
+    margin-left: 10px;
+}
+.logo img
+{
+    height: 75px;
+}
+.navbar
+{
+    font-size: 20px;
+}
+.navbar .fas
+{
+    font-size: 130%;
+}
+.searchbar
+{
+    margin-top: 10px;
+    width: 100%;
+}
+#navbar1{
+    height: 90px;
+}
+#navbar2{
+    height: 55px;
+}
+/*-------------------- TOP BTN --------------------*/
+#myTBTN {
+    width:57px;
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #eb3b5a; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 15px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+}
+
+#myTBTN:hover {
+    background-color: #a5b1c2; /* Add a dark-grey background on hover */
+}
+
+.btn-search{
+    background: linear-gradient(0deg, rgba(255,151,0,1) 0%, rgba(251,75,2,1) 100%);
+    line-height: 42px;
+    padding: 0 13px;
+    border: none;
+}
+.btn-search:hover{
+    opacity:0.5;
+}
+/*online booking layout*/
+.main-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px !important;    
+}
+.main{
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 80%;
+}
+@media only screen and (min-width: 1270px) {
+    .main {
+        width: 67.4%;
+    }
+}
+.col-main {
+    float: left;
+    width: 100%;
+}
+.co11-layout .col-main {
+    float: none;
+    margin: 0 auto;
+    padding:  0;
+}
+.col-main .booking-progress {
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    border: 2px solid #000;  
+}
+/*online booking title*/
+.col-main .page-title {
+    margin-top: 0px;
+    text-align: center;
+    padding: 10px;
+    background: #231d1c;
+    width: 100%;
+}
+.col-main .page-title h1{
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 32px;
+}
+/*top content: room info,date info*/
+.top-content  {
+    width: 100%;
+    padding: 14px 0px;
+    border-bottom:  2px solid #000;
+    background: #fff1ce;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.top-content .products-list{
+    width: 100%;
+    margin: 0px;
+}
+.top-content .products-list >li {
+    margin: 0;
+    width: 100%;
+}
+.products-list li{
+    list-style: none;
+    float: left;
+}
+.products-list > li {
+    padding-bottom: 20px;
+    margin-bottom:  20px;
+    border-bottom:  1px solid #ededed;
+}
+.products-list >li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+.top-content .products-list .product-shop {
+    float: left;
+    padding: 0px;
+    width: 100%;
+}
+.products-list .product-shop{
+    float: right;
+    width: 66.66667%;
+    padding-left: 20px;
+}
+@media only screen and (min-width : 771px) {
+    .product-shop > div {
+        float: left;
+        width: 100%;
+    }
+}
+.product-primary p{
+    margin: 0;
+}
+/*main content: label, seat map */
+.progress {
+    position: relative;
+    height: 675px;
+}
+/*food*/
+/*pagging food*/
+.pagging{
+    width: 89%;
+}
+.pagging form{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.pagging button{
+    height: 25px;
+    padding: 0 15px;
+    background:#E4EBF5;   
+    border: none !important;
+}
+.pagging button:hover{
+    background:#f5ad42;   
+}
+.active-true{
+    background:#f5ad42!important;
+}
+
+.food {
+    position: relative;  
+    height: 900px;
+}
+.main-content .products-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.main-content .products-list li.item{
+    width: 42%;
+}
+.products-list .product-shop .product-primary {
+    font-weight: bold;
+}
+.products-list .item .combo-image{
+    width: 33%;
+    height: 150px;
+    object-fit: cover;
+    float: left;
+} 
+.price-box{
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+.price-box .label{
+    font-size: 17px;
+    font-weight: bold;
+}
+.price-box .price{
+    font-size: 17px;
+    font-weight: bold;
+}
+@media only screen and (max-width : 1000px) {
+    .food {
+        position: relative;
+        min-height: 100vh
+    }
+}
+@media only screen and (max-width : 860px) {
+    .food {
+        position: relative;
+        min-height: 100vh;
+    }
+}
+@media only screen and (max-width : 790px) {
+    .food {
+        position: relative;
+        min-height: 152vh;
+    }
+    .main-content .products-list {
+        flex-direction: column;
+    }
+    .main-content .products-list li.item{
+        width: 100%;
+    }
+    .products-list .item .combo-image{
+        width: 33%;
+        float: left;
+    } 
+}
+@media only screen and (max-width : 690px) {
+    .food {
+        position: relative;
+        min-height: 150vh;
+    }
+    .main-content .products-list {
+        flex-direction: column;
+    }
+    .main-content .products-list li.item{
+        width: 100%;
+    }
+    .products-list .item .combo-image{
+        width: 33%;
+        float: left;
+    } 
+}
+.product-choose{
+    display: flex;
+    flex-direction: row;
+}
+.product-choose a{
+    padding: 0 10px 0 10px;
+}
+.product-choose input{
+    width: 50px !important;
+    height: 24px;
+    text-align: center;
+    font-size: 14px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/*end food*/
+.progress > li{
+    width: 100%;
+}
+
+.main-content .h2{
+    text-align: center;
+    width: 100%;
+    background: #bcbdc0;
+    font-size: 22px;
+    line-height: 32px;
+    border-top: 2px solid #d4d3c9; 
+    border-bottom: 2px solid #d4d3c9; 
+}
+.screen {
+    width: 100%;
+    min-height: 60px;
+    margin: 20px auto 50px;
+    text-align: center;
+    background: url(../img/bg-screen.png) no-repeat top center transparent;
+    background-size: 100% auto;
+}
+.text-screen {
+    display: none;
+}
+/*seat layout*/
+.seat-map {
+    margin: 0 auto;
+}
+.seat-map td input {
+    position: absolute !important;
+    left: -9999px !important;
+}
+/*seats are not checked*/
+.seat-map td .seat__label{
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 26px;
+    color: #eb3b5a;
+}
+
+.seat-map td input:checked ~ label,
+.seat-map:not(:checked) td .seat__label:hover,
+.seat-map:not(:checked) td .seat__label:hover ~ .seat__label{
+    color: #000;
+}
+.seat-map td input:disabled ~ label{
+    color: #a5b1c2;
+}
+#seat-alert{
+    width: 100%;
+    text-align: center; 
+    font-size: 20px;
+    font-weight:bold;
+    color:#eb3b5a;
+    display:none;
+}
+.submit-btn {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+}
+.submit-btn input{
+    margin: 0 auto;
+}
+/*seat info*/
+.ticketbox-notice {
+    margin-top: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+.iconlist{
+    display: inline-block;
+    min-width: 25%;
+    vertical-align: top;
+}
+.icon {
+    text-align: left;
+    margin: 5px 0;
+    font-weight: bold;
+}
+.icon i{
+    font-size: 15px;
+    margin: 0 5px 5px 0;
+}
+.iconlist .available i{
+    color: #eb3b5a;
+}
+.iconlist .unavaiable i{
+    color: #a5b1c2;
+}
+/*bottom content: movie ticket info*/
+.bottom-content{
+    background-color: #000;
+    width: 100%;
+    margin-top: 3px; 
+    text-align: center;
+}
+
+.format-bg-top{
+    width: 100%;
+    background: url(../img/bg-top-seatmap.png)repeat-x top left transparent;
+    height: 8px;
+    overflow: hidden;
+}
+/*button prveious, next*/
+.btn-pre-left, .btn-next-right{
+    float: none;
+    width: 106px;
+    display: inline-block;
+    height: 106px;
+    vertical-align: top;
+    background: url(../img/bg-cgv-button-process.png) no-repeat; 
+}
+
+.btn-pre-left{
+    margin-top: 14px;
+    background-position: -152px 0;
+}
+.btn-next-right{
+    margin-top: 14px;
+    background-position: -152px -441px;
+}
+/*movie ticket info*/
+.minicart{
+    font-size: 0;
+    color: #cccccc;
+    width: 70%;
+    text-align: left;
+    display: inline-block;
+    margin: 0 3px;
+}
+.minicart ul {
+    width: 100%;
+}
+.minicart .item{
+    display: inline-block;
+    width: 32%;
+    margin-left: 1%;
+    font-size: 12px;
+}
+.minicart .product-details{
+    padding-top: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 10px;
+}
+.minicart ul .item.first .product-details{
+    margin: 0px;
+}
+.minicart img{
+    width: 74px;
+    height: 108px;
+    display: inline-block;
+}
+.info-wrapper{
+    color: #cccccc;
+    font-size: 15px;
+    line-height: 18px;
+}
+.info-wrapper td {
+    padding: 0 5px;
+    white-space: normal;
+    vertical-align: top;
+}
+.block-box .price{
+    font-weight: bold;
+}
+@media only screen and (max-width: 970px) {
+    .bottom-content .minicart{
+        height: 237px;
+    }
+    .btn-pre-left, .btn-next-right {
+        position: absolute;
+        bottom: 12px;
+    }
+    .btn-pre-left{
+        left: 12%;
+    }
+    .btn-next-right{
+        right: 12%;
+    }
+    .bottom-content .minicart{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 690px) {
+    .bottom-content .minicart{
+        height: 477px;
+    }
+    .btn-pre-left, .btn-next-right {
+        position: absolute;
+        bottom: 12px;
+    }
+    .btn-pre-left{
+        left: 12%;
+    }
+    .btn-next-right{
+        right: 12%;
+    }
+    .bottom-content .minicart{
+        width: 100%;
+    }
+    .bottom-content .minicart .item:first-child{
+        width: 32%;
+        margin-left: 1%;
+        font-size: 12px;
+    }
+    .bottom-content .minicart .item:nth-child(2){
+        position: absolute;
+        bottom: 239px;
+        left: 16%;
+        width: 60%;
+    }
+    .bottom-content .minicart .item:nth-child(3){
+        position: absolute;
+        bottom: 145px;
+        left: 16%;
+        width: 60%;
+    }
+}
+.format-bg-bottom{
+    width:100%;
+    background: url(../img/bg-bottom-seatmap.png) repeat-x bottom left transparent;
+    height: 8px;
+    overflow: hidden;
+}
+
+.cart-content{
+    background-color: #000;
+    width: 100%;
+    margin-top: 3px; 
+    text-align: center;
+}
+/*movie ticket info*/
+.cart-content .minicart{
+    font-size: 0;
+    color: #cccccc;
+    width: 100%;
+    text-align: left;
+    display: inline-block;
+    margin: 0 3px;
+}
+
+.format-bg-bottom{
+    width:100%;
+    background: url(../img/bg-bottom-seatmap.png) repeat-x bottom left transparent;
+    height: 8px;
+    overflow: hidden;
+}
+/*review movie*/
+.movie_review {
+    display: block;
+    width: 98%;
+    margin-top: 30px;
+}
+.movie_review h4{
+    margin-bottom: 23px;
+}
+.review-action-list {
+
+}
+.review-sort {
+    display:flex;
+    flex-direction: row;
+    margin: 0 0 17px 0;
+}
+.review-sort form{
+    padding: 0.375rem 0.75rem;
+    background-color:  #fff;
+    border: 1px solid #1c57b8;
+    color: #1c57b8;
+    border-radius: 0.25rem;
+}
+.review-sort form select{
+    background-color:  #fff;
+    border: none;
+    color: #000;
+}
+.user-rating{
+    display: inline-block;
+    margin: 4px;
+    width: 100%;
+}
+.review-view{
+    display: inline-block;
+    margin: 5px 0 27px 0;
+    width: 100%;
+}
+.rating-content{
+    display: inline-block;
+    width: 100%;
+}
+.rating-content .rating-header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.rating-content .rating-header p{
+    margin-right: 12px;
+}
+.rating-content .rating-header p:first-child{
+    font-weight: bold;
+    color: #000;
+    font-size: 18px;
+}
+.rating-content .rating-header p:last-child{
+    margin-top: 1px;
+}
+.rating-content-main{
+    width: 100%;
+    display: block;
+    float: left;
+    background-color:rgba(227, 225, 218, 0.2);
+    padding: 4px 6px 17px 8px;
+}
+.rating-view-input{
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+}
+.rating-view-input .rating{
+    border: none;
+    float: left;
+}
+.rating-view-input .rating > label:before { 
+    margin-right:5px;
+    font-size: 20px;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+.rating-view-text {
+    display: block;
+    width: 100%;
+}
+.page{
+    width: 100%;
+}
+.page form{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.page button{
+    height: 25px;
+    padding: 0 15px;
+    background:#E4EBF5;   
+    border: none !important;
+}
+.page button:hover{
+    background:#f5ad42;   
+}
+.active-true{
+    background:#f5ad42!important;
+}
+/*dropdown delete/edit*/
+.rating-content .rating-header a i{
+    font-size: 20px;
+    color: #000;
+}
+.dropdown{
+    display: inline-block;
+    position: relative;
+    flex-grow: 8;
+    text-align: end;
+}
+.dropdown-content{
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    display: none;
+    flex-direction: column;
+    text-align: start;
+}
+.dropdown-content a{
+    padding: 6px 23px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
+}
+.dropdown-content a:hover{
+    opacity: 0.2;
+    cursor: pointer;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    display: flex;
+}
+/*rating edit action*/
+.edit-btn{
+    display: none;
+    flex-grow: 8;
+    text-align: end;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+}
+.edit-btn p{
+    background-color: #1c57b8;
+    color: #fff !important;
+    padding: 2px 12px;
+    border-radius: 5px;
+}
+.edit-btn a i{
+    font-size: 32px !important;
+    color: #eb3b5a !important;
+}
+.rating-edit-form{
+    background-color: #f9f9f9;
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0 12px;
+    height: 219px;
+    z-index: 1;
+}
+.rating-edit-form button{
+    margin: 5px 0 0 0;
+    padding: 0.375rem 0.75rem;
+    background-color: #fff;
+    border: 1px solid #1c57b8;
+    color: #1c57b8;
+    border-radius: 0.25rem;
+}
+/*rating action*/
+.review-form{
+    display: block;
+}
+.reviews-counter .rating { 
+    border: none;
+    float: left;
+}
+.rating > input { 
+    display: none; 
+} 
+.rating > label:before { 
+    margin-right:9px;
+    font-size: 32px;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+.rating > .half:before { 
+    content: "\f089";
+    position: absolute;
+}
+.rating > label { 
+    color: #ddd; 
+    float: right;
+}
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+/*rating textarea action*/
+.rating-text{
+    width: 100%;
+}
+.review-form button{
+    margin: 5px 0 0 0;
+    padding: 0.375rem 0.75rem;
+    background-color: #fff;
+    border: 1px solid #1c57b8;
+    color: #1c57b8;
+    border-radius: 0.25rem;
+}
+.review-form button:hover {
+    background-color: #1c57b8;
+    color: #fff;
+}

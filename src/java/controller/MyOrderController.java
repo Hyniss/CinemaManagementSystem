@@ -40,27 +40,39 @@ public class MyOrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          HttpSession session = request.getSession();
-          try{
-          IOrder order = new OrderDAO();
-          Account acc = (Account)session.getAttribute("acc");
-          String index = request.getParameter("pageIndex");
-           if(index == null) index = "1";
-           String user = acc.getUsername();
-        int pageIndex = Integer.parseInt(index);
-         int total =  order.getTotalOrder(user);
-         int endPage = (int) Math.ceil((double)total/3);
-          
-        ArrayList<Cart> orderList = order.getMyOrderByName(user, pageIndex);
-        session.setAttribute("order", orderList);
-        request.setAttribute("total1", total);
-        request.setAttribute("endPage1", endPage);
-        request.setAttribute("pageIndex1", pageIndex);
-          }catch(Exception e){
-              Logger.getLogger(MyOrderController.class.getName()).log(Level.SEVERE, null, e);
-          }
+        HttpSession session = request.getSession();
+        int count = 0;
+
+        try {
+            IOrder order = new OrderDAO();
+            Account acc = (Account) session.getAttribute("acc");
+            String index = request.getParameter("pageIndex");
+            if (index == null) {
+                index = "1";
+            }
+            String user = acc.getUsername();
+            int pageIndex = Integer.parseInt(index);
+            int total = order.getTotalOrder(user);
+            int endPage = (int) Math.ceil((double) total / 3);
+
+            ArrayList<Cart> orderList = order.getMyOrderByName(user, pageIndex);
+            for (Cart cart : orderList) {
+                if (cart.getStatus().equals("0")) {
+                    count++;
+                }
+
+            }
+
+            session.setAttribute("order", orderList);
+            session.setAttribute("count", count);
+            request.setAttribute("total1", total);
+            request.setAttribute("endPage1", endPage);
+            request.setAttribute("pageIndex1", pageIndex);
+        } catch (Exception e) {
+            Logger.getLogger(MyOrderController.class.getName()).log(Level.SEVERE, null, e);
+        }
         request.getRequestDispatcher("MyOrder.jsp").forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,6 +6,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.CVInfor;
 
 /**
@@ -23,7 +24,11 @@ public interface ICVInforDAO {
     public void editCV(CVInfor cvinfor);
 
     public void deleteCV(int id);
-    
-    public ArrayList <CVInfor> getAllStatus();
-    
+
+    public ArrayList<CVInfor> getAllStatus();
+
+    // new
+    public int getTotalCV();
+
+    public List<CVInfor> pagingCV(int pageIndex);
 }

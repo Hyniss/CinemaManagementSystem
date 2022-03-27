@@ -30,10 +30,30 @@ public class AdminEditStatusCVController extends HttpServlet {
     ICVInforDAO cvInforDao = new CVInforDAO();
     IStatusDAO statusDao = new StatusDAO();
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        // get pageIndex params
+        String index = request.getParameter("pageIndex");
+        if (index == null) {
+            index = "1";
+        }
+        int pageIndex = Integer.parseInt(index);
+
+        // count number of pages
+        int total = cvInforDao.getTotalCV();
+        int endPage = (int) Math.ceil((double) total / 5);
+
+        // get list cv by pageindex
+        List<CVInfor> cvList = new ArrayList<>();
+        cvList = cvInforDao.pagingCV(pageIndex);
+
+        request.setAttribute("cvList", cvList);
+        request.setAttribute("total", total);
+        request.setAttribute("endPage", endPage);
+        request.setAttribute("pageIndex", pageIndex);
 
         List<CVInfor> cvInforList = cvInforDao.getAllCV();
         //List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
@@ -45,47 +65,59 @@ public class AdminEditStatusCVController extends HttpServlet {
 
         request.getRequestDispatcher("AdminCVInforList.jsp").forward(request, response);
     }
-
-//    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<CustomException> validationErrors = new ArrayList<>();
 //
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        String fullname = request.getParameter("fullname");
-//        String CV = request.getParameter("CV");
-//        String date = request.getParameter("date");
-//        String chucvu = request.getParameter("chucvu");
-//        String status = request.getParameter("status");
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        request.setCharacterEncoding("utf-8");
 //
-//        boolean valid = true;
-//        boolean success = false;
+//        List<CVInfor> cvInforList = cvInforDao.getAllCV();
+//        //List<CVInfor> cvStatusList = cvInforDao.getAllStatus();
+//        List<Status> statusList = statusDao.getAllStatus();
 //
-//        if (status.isEmpty()) {
-//            validationErrors.add(new CustomException("You must fill all fields"));
-//            valid = false;
-//        } else {
-//            try {
-//                CVInforDAO cvidao = new CVInforDAO();
+//        request.setAttribute("statusList", statusList);
+//        // request.setAttribute("cvStatusList", cvStatusList);
+//        request.setAttribute("cvInforList", cvInforList);
 //
-//                if (valid) {
-//                    CVInfor updateCVStatus = new CVInfor(id, fullname, CV, date, chucvu, status);
-//
-//                    if (cvidao.editCV(updateCVStatus)) {
-//                        success = true;
-//                    } else {
-//                        success = false;
-//                    }
-//                }
-//            } catch (NumberFormatException e) {
-//                validationErrors.add(new CustomException("Error"));
-//            }
-//        }
-//
-//        if (!valid || !success) {
-//            request.setAttribute("updateStatus", false);
-//            request.setAttribute("updateMessage", validationErrors);
-//        } else {
-//            request.setAttribute("updateStatus", true);
-//            request.setAttribute("updateMessage", "Updated Successfully!");
-//        }
+//        request.getRequestDispatcher("AdminCVInforList.jsp").forward(request, response);
 //    }
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 }
