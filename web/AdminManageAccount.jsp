@@ -246,7 +246,7 @@
                             }
 
                             function showDelMess(username, roleId) {
-                                var result = confirm("Bạn có muốn tiếp tục xóa không?");
+                                var result = confirm("Are you sure to delete?");
                                 if (result === true) {
                                     window.location.href = 'adminaccountdelete?username=' + username + '&roleId=' + roleId;
                                 }

@@ -58,11 +58,11 @@
                         <form action="adminaccountedit" method="post">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label>User name</label>
+                                    <label>User name<span style="color:red;"> *</span></label>
                                     <input value="${account.username}" name="username" type="text" class="form-control" readonly required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label>Password<span style="color:red;"> *</span></label>
                                     <input value="${account.password}" name="password" type="password" class="form-control" required>
                                 </div>
                                 <div class="form-group">
@@ -70,19 +70,19 @@
                                     <input value="${account.avatar}" name="avatar" type="hidden" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Full name</label>
+                                    <label>Full name<span style="color:red;"> *</span></label>
                                     <input value="${account.fullName}" name="fullname" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>DOB</label>
+                                    <label>DOB<span style="color:red;"> *</span></label>
                                     <input value="${account.dob}" name="dob" type="date" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email</label>
+                                    <label>Email<span style="color:red;"> *</span></label>
                                     <input value="${account.email}" name="email" type="email" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Phone</label>
+                                    <label>Phone<span style="color:red;"> *</span></label>
                                     <input value="${account.phone}" name="phone" type="number" class="form-control" required>
                                 </div>
                                 <div class="form-group">

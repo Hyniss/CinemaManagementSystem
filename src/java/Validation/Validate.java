@@ -50,7 +50,7 @@ public class Validate {
 
     //hàm check đầu vào cho phone
     public static boolean checkPhone(String phone) {
-        String regex = "^[0-9]{10}$"; // sđt phải có 10 chữ số
+        String regex = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$"; // sđt phải có 10 chữ số
         Pattern pattern = Pattern.compile(regex);   //biên dịch chuỗi chuỗi regex được tạo ra 
         Matcher matcher = pattern.matcher(phone); //so sánh giá trị truyền vào với mẫu xem có trùng nhau không
         return matcher.matches(); //trả về true nếu giá trị truyền vào khớp nếu không sẽ trả về false

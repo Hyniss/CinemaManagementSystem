@@ -30,7 +30,7 @@ public class SearchMovieController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         //get movieName attribute from search input
-        String movieName = request.getParameter("moviename").trim();
+        String movieName = request.getParameter("moviename").replaceAll("\\s+", " ").trim();
 
         if (movieName.equals("")) {
             String searchMess = "This field can not empty!";

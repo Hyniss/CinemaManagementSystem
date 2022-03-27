@@ -79,19 +79,19 @@
                             <form action="accountedit" method="post">
                                 <!-- Form Group (fullname)-->
                                 <div class="mb-3">
-                                    <label class="small mb-1">Họ tên</label>
-                                    <input name="fullname" class="form-control" type="text" placeholder="Enter your fullname" value="${sessionScope.acc.getFullName()}" required readonly>
+                                    <label class="small mb-1">Họ tên<span style="color:red;"> *</span></label>
+                                    <input name="fullname" class="form-control" type="text" placeholder="Enter your fullname" value="${sessionScope.acc.getFullName()}" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (username)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Tài khoản</label>
-                                        <input name="username" class="form-control" type="email" placeholder="Enter your username" value="${sessionScope.acc.getUsername()}" readonly readonly>
+                                        <label class="small mb-1">Tài khoản<span style="color:red;"> *</span></label>
+                                        <input name="username" class="form-control" type="email" placeholder="Enter your username" value="${sessionScope.acc.getUsername()}" readonly>
                                     </div>
                                     <!-- Form Group (password)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Mật khẩu</label>
+                                        <label class="small mb-1">Mật khẩu<span style="color:red;"> *</span></label>
                                         <input name="password" class="form-control" type="password" placeholder="Enter your password" value="${sessionScope.acc.getPassword()}" readonly>
                                     </div>
                                 </div>
@@ -108,20 +108,20 @@
                                 </div>
                                 <!-- Form Group (email address)-->
                                 <div class="mb-3">
-                                    <label class="small mb-1">Email</label>
-                                    <input name="email" class="form-control" type="email" placeholder="Enter your email address" value="${sessionScope.acc.getEmail()}" required readonly>
+                                    <label class="small mb-1">Email<span style="color:red;"> *</span></label>
+                                    <input name="email" class="form-control" type="email" placeholder="Enter your email address" value="${sessionScope.acc.getEmail()}" required>
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1">Số điện thoại</label>
-                                        <input name="phone" class="form-control" type="number" placeholder="Enter your phone number" value="${sessionScope.acc.getPhone()}" required readonly>
+                                        <label class="small mb-1">Số điện thoại<span style="color:red;"> *</span></label>
+                                        <input name="phone" class="form-control" type="number" placeholder="Enter your phone number" value="${sessionScope.acc.getPhone()}" required>
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1">DOB</label>
-                                        <input name="dob" class="form-control" type="date" placeholder="Enter your birthday" value="${sessionScope.acc.getDob()}" required readonly>
+                                        <label class="small mb-1">DOB<span style="color:red;"> *</span></label>
+                                        <input name="dob" class="form-control" type="date" placeholder="Enter your birthday" value="${sessionScope.acc.getDob()}" required>
                                     </div>
                                 </div>
 <!--                                Edit message    -->
@@ -129,7 +129,8 @@
                                 <p style="color: red;font-size: 14px">${mess}</p>
                                 <p style="color: green;font-size: 14px">${successMessage}</p>
                                 <!-- Save changes button-->
-                                <a class="btn btn-primary" href="accountedit">Thay đổi</a>
+                                <button class="btn btn-primary" type="submit">Thay đổi</button>
+                                <a class="btn btn-primary" href="account">Quay lại</a>
                             </form>
                         </div>
                     </div>

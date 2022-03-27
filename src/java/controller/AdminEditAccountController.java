@@ -115,7 +115,7 @@ public class AdminEditAccountController extends HttpServlet {
         } else if (Validate.checkEmail(email) == false) {
             mess = "Vui lòng nhập email có dạng example@xxx.xxx(.xxx)";
         } else if (Validate.checkPhone(phone) == false) {
-            mess = "Số điện thoại phải có 10 chữ số";
+            mess = "Số điện thoại phải không hợp lệ";
         } else {
 
             //edit account

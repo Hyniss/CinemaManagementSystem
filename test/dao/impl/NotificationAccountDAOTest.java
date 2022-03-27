@@ -39,29 +39,52 @@ public class NotificationAccountDAOTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testGet5Notification() {
-        System.out.println("get5Notification");
-        String username = "";
-        NotificationAccountDAO instance = new NotificationAccountDAO();
-        ArrayList<NotificationAccount> expResult = null;
-        ArrayList<NotificationAccount> result = instance.get5Notification(username);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testGet5Notification() {
+//        System.out.println("get5Notification");
+//        String username = "";
+//        NotificationAccountDAO instance = new NotificationAccountDAO();
+//        ArrayList<NotificationAccount> expResult = null;
+//        ArrayList<NotificationAccount> result = instance.get5Notification(username);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     @Test
-    public void testEditReaded() {
+    public void testEditReadedNormal() {
+        System.out.println("editReaded");
+        int notificationId = 1;
+        String username = "admin";
+        NotificationAccountDAO instance = new NotificationAccountDAO();
+        boolean expResult = true;
+        boolean result = instance.editReaded(notificationId, username);
+        assertEquals(expResult, result);
+
+    }
+    
+    @Test
+    public void testEditReadedAbNormalNotiId() {
         System.out.println("editReaded");
         int notificationId = 0;
-        String username = "";
+        String username = "admin";
         NotificationAccountDAO instance = new NotificationAccountDAO();
         boolean expResult = false;
         boolean result = instance.editReaded(notificationId, username);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+    }
+    
+    @Test
+    public void testEditReadedAbNormalAccount() {
+        System.out.println("editReaded");
+        int notificationId = 1;
+        String username = "admin123";
+        NotificationAccountDAO instance = new NotificationAccountDAO();
+        boolean expResult = false;
+        boolean result = instance.editReaded(notificationId, username);
+        assertEquals(expResult, result);
+
     }
     
 }

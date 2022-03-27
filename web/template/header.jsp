@@ -31,7 +31,7 @@
             <!-- SEARCHBAR -->
             <form class="d-flex searchbar" method="get" action="${pageContext.request.contextPath}/searchmovie">
                 <input type="hidden" name="page" value="1"/>
-                <input name="moviename" value="${movieNameInput}" class="form-control me-2" type="text" placeholder="Search movie you want ..." aria-label="Search">
+                <input oninput="checkSearch()" name="moviename" value="${movieNameInput}" class="form-control me-2" type="text" placeholder="Search movie you want ..." aria-label="Search">
 
                 <button class="btn btn-search" type="submit"><span><i class="fas fa-search" style="font-size: 100%; "></i></span></button>
             </form>
@@ -170,3 +170,16 @@
 <%-- NAV --%>
 <%-- Top Btn --%>
 <button onclick="topFunction()" id="myTBTN" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+<script>
+    function checkSearch() {
+                                var mess = document.querySelector('input[name=moviename]');
+                                var messTrim = mess.value.trim();
+                                var messReplaceSpace = messTrim.replace(/\s\s+/g, ' ');
+                                console.log(messReplaceSpace);
+                                if (messReplaceSpace.length == 0) {
+                                    mess.setCustomValidity('Can not be empty!');
+                                } else {
+                                    mess.setCustomValidity('');
+                                }
+                            }
+</script>

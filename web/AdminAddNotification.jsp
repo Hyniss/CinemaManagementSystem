@@ -58,19 +58,19 @@
                         <form action="adminnotificationadd" method="post">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label>Notification Image</label>
+                                    <label>Notification Image<span style="color:red;"> *</span></label>
                                     <input value="${successMessage==null? notification.notificationImg:""}" name="img" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Notification Title</label>
+                                    <label>Notification Title<span style="color:red;"> *</span></label>
                                     <input value="${successMessage==null? notification.notificationTitle:""}" name="title" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Notification Description</label>
+                                    <label>Notification Description<span style="color:red;"> *</span></label>
                                     <textarea value="${successMessage==null? notification.notificationDescription:""}" name="description" type="text" class="form-control">${successMessage==null? notification.notificationDescription:""}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Notification Date</label>
+                                    <label>Notification Date<span style="color:red;"> *</span></label>
                                     <input value="${currentdate}" name="date" type="date" class="form-control" readonly>
                                 </div>
                                 <p style="color: red;font-size: 14px">${failMessage}</p>

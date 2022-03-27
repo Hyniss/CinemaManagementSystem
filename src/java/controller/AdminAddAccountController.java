@@ -121,7 +121,7 @@ public class AdminAddAccountController extends HttpServlet {
         } else if (Validate.checkEmail(account.getEmail()) == false) {
             mess = "Vui lòng nhập email có dạng example@xxx.xxx(.xxx)";
         } else if (Validate.checkPhone(account.getPhone()) == false) {
-            mess = "Số điện thoại phải có 10 chữ số";
+            mess = "Số điện thoại phải không hợp lệ";
         } else {
 
             //edit account

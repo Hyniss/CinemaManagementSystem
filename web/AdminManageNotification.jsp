@@ -234,7 +234,7 @@
                             }
 
                             function showDelMess(notiid) {
-                                var result = confirm("Bạn có muốn tiếp tục xóa không?");
+                                var result = confirm("Are you sure to delete?");
                                 if (result === true) {
                                     window.location.href = 'adminnotificationdelete?notiId=' + notiid;
                                 }
