@@ -38,7 +38,7 @@ public interface IAccountDAO {
 
     public boolean insertAccount1(Account a);
 
-    public void insertAccount(String user, String pass, String fullname, String dob, String email, String phone, int roleId);
+    public void insertAccount(String user, String pass, String fullname, Date dob, String email, String phone, int roleId);
 
     public void updatePassword(String newpass, String oldpass, String user);
 

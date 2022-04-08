@@ -480,9 +480,9 @@ public class AccountDAO extends DBContext implements IAccountDAO {
         return null;
     }
 
-    //hàm đăng ký
+     //hàm đăng ký
     @Override
-    public void insertAccount(String user, String pass, String fullname, String dob, String email, String phone, int roleId) {
+    public void insertAccount(String user, String pass, String fullname, Date dob, String email, String phone, int roleId) {
         //câu lệnh insert account
         query = "insert into account values(?,?,'profile-pic.jpg',?,?,?,?,3)";
         try {
@@ -491,10 +491,10 @@ public class AccountDAO extends DBContext implements IAccountDAO {
             ps.setString(1, user);
             ps.setString(2, pass);
             ps.setString(3, fullname);
-            ps.setString(4, dob);
+            ps.setDate(4, dob);
             ps.setString(5, email);
             ps.setString(6, phone);
-            ps.setInt(7, roleId);
+   
             ps.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);

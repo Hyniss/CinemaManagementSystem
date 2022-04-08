@@ -6,9 +6,11 @@
 package controller;
 
 import Validation.Validate;
+import Validation.ValidateMovie;
 import dao.impl.AccountDAO;
 import dao.IAccountDAO;
 import java.io.IOException;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +38,7 @@ public class SignUpController extends HttpServlet {
         String date = request.getParameter("date");
         String phone = request.getParameter("phone").trim();
         String fullname = request.getParameter("fullname").trim();
+        Date dateOfBirth = Date.valueOf(date);
         if (!pass.equals(repass)) {
             //đăng ký không thành công lưu lại dữ liệu ở trang để đỡ phải nhập lại
             request.setAttribute("username", user);
@@ -44,7 +47,7 @@ public class SignUpController extends HttpServlet {
             request.setAttribute("repassword", repass);
             request.setAttribute("email", email);
             request.setAttribute("phone", phone);
-            request.setAttribute("date", date);
+            request.setAttribute("date", dateOfBirth);
             //mật khẩu nhập lại ko giống nhau gửi 1 câu thông báo lỗi rồi chuyển đến trang register
             request.setAttribute("mess", "Mật khẩu không trùng khớp với nhau");
             request.getRequestDispatcher("Register.jsp").forward(request, response);
@@ -58,7 +61,7 @@ public class SignUpController extends HttpServlet {
                     request.setAttribute("repassword", repass);
                     request.setAttribute("email", email);
                     request.setAttribute("phone", phone);
-                    request.setAttribute("date", date);
+                    request.setAttribute("date", dateOfBirth);
                     //kiểm tra đầu vào cho fullname
                     request.setAttribute("mess", "Thông tin fullname không hợp lệ! ");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
@@ -69,7 +72,7 @@ public class SignUpController extends HttpServlet {
                     request.setAttribute("repassword", repass);
                     request.setAttribute("email", email);
                     request.setAttribute("phone", phone);
-                    request.setAttribute("date", date);
+                    request.setAttribute("date", dateOfBirth);
                     //kiểm tra đầu vào cho User name
                     request.setAttribute("mess", "Username phải có ít nhất 6 ký tự không bao gồm ký tự đặc biệt !! ");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
@@ -81,7 +84,7 @@ public class SignUpController extends HttpServlet {
                     request.setAttribute("repassword", repass);
                     request.setAttribute("email", email);
                     request.setAttribute("phone", phone);
-                    request.setAttribute("date", date);
+                    request.setAttribute("date", dateOfBirth);
                     //kiểm tra đầu vào cho Email
                     request.setAttribute("mess", "Vui lòng nhập email có dạng example@gmail.com ");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
@@ -93,9 +96,9 @@ public class SignUpController extends HttpServlet {
                     request.setAttribute("repassword", repass);
                     request.setAttribute("email", email);
                     request.setAttribute("phone", phone);
-                    request.setAttribute("date", date);
+                    request.setAttribute("date", dateOfBirth);
                     //kiểm tra đầu vào cho Phone
-                    request.setAttribute("mess", "Số điện thoại phải có 10 chữ số!!! ");
+                    request.setAttribute("mess", "Số điện thoại không hợp lệ!!! ");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
 
                 } else if (Validate.checkPassword(pass) == false) {
@@ -105,16 +108,27 @@ public class SignUpController extends HttpServlet {
                     request.setAttribute("repassword", repass);
                     request.setAttribute("email", email);
                     request.setAttribute("phone", phone);
-                    request.setAttribute("date", date);
+                    request.setAttribute("date", dateOfBirth);
                     //kiểm tra đầu vào cho password
                     request.setAttribute("mess", "Password phải có ít nhất 6 đến 8 ký tự và có ít nhất 1 ky"
                             + " tự chữ thường, chữ hoa, số và ký tự đặc biệt !! ");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
 
-                } else {
+                } else if(Validate.checkDate(dateOfBirth)==false){
+                    request.setAttribute("username", user);
+                    request.setAttribute("fullname", fullname);
+                    request.setAttribute("password", pass);
+                    request.setAttribute("repassword", repass);
+                    request.setAttribute("email", email);
+                    request.setAttribute("phone", phone);
+                    request.setAttribute("date", dateOfBirth);
+                    //kiểm tra đầu vào cho password
+                    request.setAttribute("mess", "Ngày sinh phải trước ngày hiện tại và năm sinh phải lớn hơn 1900 ");
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }else {
 
                     //kiểm tra biến account a ko tồn tại cho phép được đăng ký
-                    accountDAO.insertAccount(user, pass, fullname, date, email, phone, 3);
+                    accountDAO.insertAccount(user, pass, fullname, dateOfBirth, email, phone, 3);
                     request.setAttribute("messSuccess", "Register succesfull!");
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
@@ -172,3 +186,4 @@ public class SignUpController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
+
